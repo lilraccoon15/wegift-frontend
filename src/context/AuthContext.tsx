@@ -17,7 +17,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:3003/api/users/me", {
+        const res = await fetch("http://localhost:3001/api/users/me", {
           method: "GET",
           credentials: "include",
         });
@@ -39,7 +39,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string): Promise<boolean> => {
     try {
-      const res = await fetch("http://localhost:3003/api/users/login", {
+      const res = await fetch("http://localhost:3001/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -59,7 +59,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
   try {
-    await fetch("http://localhost:3003/api/users/logout", {
+    await fetch("http://localhost:3001/api/auth/logout", {
       method: "POST",
       credentials: "include",
     });
