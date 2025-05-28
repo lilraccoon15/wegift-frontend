@@ -6,7 +6,9 @@ const ActivatePage = () => {
   const navigate = useNavigate();
   const token = searchParams.get("token");
 
-  const [message, setMessage] = useState<string | null>("Activation en cours...");
+  const [message, setMessage] = useState<string | null>(
+    "Activation en cours..."
+  );
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
@@ -18,7 +20,9 @@ const ActivatePage = () => {
       }
 
       try {
-        const res = await fetch(`http://localhost:3001/api/auth/activate?token=${token}`);
+        const res = await fetch(
+          `http://localhost:3001/api/auth/activate?token=${token}`
+        );
         const data = await res.json();
 
         if (res.ok) {

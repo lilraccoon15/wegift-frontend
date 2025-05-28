@@ -1,9 +1,8 @@
-import { BrowserRouter } from 'react-router-dom';
-import AppRouter from './routes/AppRouter';
-import { useAuth } from './context/AuthContext';
+import { BrowserRouter } from "react-router-dom";
+import AppRouter from "./routes/AppRouter";
+import { useAuth } from "./context/AuthContext";
 
 function App() {
-
   const { loading } = useAuth();
 
   if (loading) {

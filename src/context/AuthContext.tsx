@@ -1,5 +1,6 @@
-import { createContext, useState, useContext, useEffect } from 'react';
-import type { ReactNode } from 'react';
+import { createContext, useState, useContext, useEffect } from "react";
+import type { ReactNode } from "react";
+import logger from "./utils/logger";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -58,17 +59,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const logout = async () => {
-  try {
-    await fetch("http://localhost:3001/api/auth/logout", {
-      method: "POST",
-      credentials: "include",
-    });
-  } catch (error) {
-    console.error("Erreur lors de la déconnexion", error);
-  } finally {
-    setIsAuthenticated(false);
-  }
-};
+    try {
+      await fetch("http://localhost:3001/api/auth/logout", {
+        method: "POST",
+        credentials: "include",
+      });
+    } catch (error) {
+      logger.error("Erreur lors de la déconnexion", error);
+    } finally {
+      setIsAuthenticated(false);
+    }
+  };
 
   return (
     <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
@@ -80,7 +81,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 export const useAuth = () => {
   const context = useContext(AuthContext);
   if (!context) {
-    throw new Error('useAuth must be used within AuthProvider');
+    throw new Error("useAuth must be used within AuthProvider");
   }
   return context;
 };

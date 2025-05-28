@@ -1,4 +1,5 @@
 import { useState } from "react";
+import logger from './utils/logger';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -23,8 +24,11 @@ const Register = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
 
   const [emailValid, setEmailValid] = useState(false);
-  
-  const [serverMessage, setServerMessage] = useState<{ type: 'error' | 'success'; text: string } | null>(null);
+
+  const [serverMessage, setServerMessage] = useState<{
+    type: "error" | "success";
+    text: string;
+  } | null>(null);
 
   const [loading, setLoading] = useState(false);
 
@@ -68,7 +72,15 @@ const Register = () => {
   };
 
   const isFormComplete = () => {
-    const { firstName, lastName, birthDate, email, password, confirmPassword, acceptedTerms } = formData;
+    const {
+      firstName,
+      lastName,
+      birthDate,
+      email,
+      password,
+      confirmPassword,
+      acceptedTerms,
+    } = formData;
     return (
       firstName.trim() !== "" &&
       lastName.trim() !== "" &&
@@ -86,18 +98,27 @@ const Register = () => {
     setServerMessage(null);
 
     if (!formData.acceptedTerms) {
-      setServerMessage({ type: 'error', text: "Vous devez accepter les CGU pour continuer." });
+      setServerMessage({
+        type: "error",
+        text: "Vous devez accepter les CGU pour continuer.",
+      });
       return;
     }
 
     const allValid = Object.values(passwordValidity).every(Boolean);
     if (!allValid) {
-      setServerMessage({ type: 'error', text: "Votre mot de passe ne remplit pas tous les critères." });
+      setServerMessage({
+        type: "error",
+        text: "Votre mot de passe ne remplit pas tous les critères.",
+      });
       return;
     }
 
     if (!passwordsMatch) {
-      setServerMessage({ type: 'error', text: "Les mots de passe ne correspondent pas." });
+      setServerMessage({
+        type: "error",
+        text: "Les mots de passe ne correspondent pas.",
+      });
       return;
     }
 
@@ -113,7 +134,7 @@ const Register = () => {
 
       const data = await res.json();
       if (res.ok) {
-        setServerMessage({ type: 'success', text: "Inscription réussie !" });
+        setServerMessage({ type: "success", text: "Inscription réussie !" });
 
         setFormData({
           firstName: "",
@@ -138,11 +159,14 @@ const Register = () => {
 
         setEmailValid(false);
       } else {
-        setServerMessage({ type: 'error', text: data.message || "Erreur lors de l'inscription." });
-      console.log("Erreur backend:", data.message);
+        setServerMessage({
+          type: "error",
+          text: data.message || "Erreur lors de l'inscription.",
+        });
+        logger.log("Erreur backend:", data.message);
       }
     } catch (err) {
-      setServerMessage({ type: 'error', text: "Erreur serveur." });
+      setServerMessage({ type: "error", text: "Erreur serveur." });
     } finally {
       setLoading(false);
     }
@@ -155,17 +179,51 @@ const Register = () => {
     <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto space-y-4">
       <h1 className="text-xl font-bold">Inscription</h1>
       {serverMessage && (
-        <div style={{ color: serverMessage.type === 'error' ? 'red' : 'green', marginBottom: '1rem' }}>
+        <div
+          style={{
+            color: serverMessage.type === "error" ? "red" : "green",
+            marginBottom: "1rem",
+          }}
+        >
           {serverMessage.text}
         </div>
       )}
-      <input name="firstName" type="text" placeholder="Prénom" required onChange={handleChange} className="w-full p-2 border" />
-      <input name="lastName" type="text" placeholder="Nom" required onChange={handleChange} className="w-full p-2 border" />
-      <input name="birthDate" type="date" required onChange={handleChange} className="w-full p-2 border" />
-      <input name="email" type="email" placeholder="Email" required onChange={handleChange} className="w-full p-2 border" />
+      <input
+        name="firstName"
+        type="text"
+        placeholder="Prénom"
+        required
+        onChange={handleChange}
+        className="w-full p-2 border"
+      />
+      <input
+        name="lastName"
+        type="text"
+        placeholder="Nom"
+        required
+        onChange={handleChange}
+        className="w-full p-2 border"
+      />
+      <input
+        name="birthDate"
+        type="date"
+        required
+        onChange={handleChange}
+        className="w-full p-2 border"
+      />
+      <input
+        name="email"
+        type="email"
+        placeholder="Email"
+        required
+        onChange={handleChange}
+        className="w-full p-2 border"
+      />
       <div className="text-sm" style={{ color: emailValid ? "green" : "red" }}>
         {formData.email.length > 0 &&
-          (emailValid ? "✅ Format d'email valide" : "❌ Format d'email invalide")}
+          (emailValid
+            ? "✅ Format d'email valide"
+            : "❌ Format d'email invalide")}
       </div>
       <input
         name="password"
@@ -210,21 +268,32 @@ const Register = () => {
         className="w-full p-2 border"
       />
 
-      <div className="text-sm" style={{ color: passwordsMatch ? "green" : "red" }}>
+      <div
+        className="text-sm"
+        style={{ color: passwordsMatch ? "green" : "red" }}
+      >
         {formData.confirmPassword.length > 0 &&
-          (passwordsMatch ? "✅ Les mots de passe correspondent" : "❌ Les mots de passe ne correspondent pas")}
+          (passwordsMatch
+            ? "✅ Les mots de passe correspondent"
+            : "❌ Les mots de passe ne correspondent pas")}
       </div>
-
 
       <div>
         <label>
-          <input type="checkbox" name="acceptedTerms" onChange={handleChange} required /> J'accepte les CGU *
+          <input
+            type="checkbox"
+            name="acceptedTerms"
+            onChange={handleChange}
+            required
+          />{" "}
+          J'accepte les CGU *
         </label>
       </div>
 
       <div>
         <label>
-          <input type="checkbox" name="newsletter" onChange={handleChange} /> S'inscrire à la newsletter
+          <input type="checkbox" name="newsletter" onChange={handleChange} />{" "}
+          S'inscrire à la newsletter
         </label>
       </div>
 
@@ -237,7 +306,9 @@ const Register = () => {
           !emailValid ||
           !isFormComplete()
         }
-        className={`bg-blue-500 text-white px-4 py-2 rounded ${loading ? "opacity-50 cursor-not-allowed" : ""}`}
+        className={`bg-blue-500 text-white px-4 py-2 rounded ${
+          loading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
       >
         {loading ? "Chargement..." : "S'inscrire"}
       </button>
