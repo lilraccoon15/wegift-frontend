@@ -1,6 +1,10 @@
 import { useSearchParams } from "react-router-dom";
 import { useState } from "react";
 
+interface ChangePasswordFormProps {
+  token: string;
+}
+
 const ResetPassword = () => {
   const [searchParams] = useSearchParams();
   const token = searchParams.get("token");
@@ -21,7 +25,7 @@ const RequestResetForm = () => {
   const [email, setEmail] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await fetch("http://localhost:3001/api/auth/forgot-password", {
       method: "POST",
@@ -53,11 +57,11 @@ const RequestResetForm = () => {
   );
 };
 
-const ChangePasswordForm = ({ token }) => {
+const ChangePasswordForm = ({ token }: ChangePasswordFormProps) => {
   const [password, setPassword] = useState("");
   const [message, setMessage] = useState("");
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const res = await fetch("http://localhost:3001/api/auth/reset-password", {
       method: "POST",

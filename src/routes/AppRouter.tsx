@@ -5,7 +5,7 @@ import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import Layout from "../components/layout/Layout";
 import Register from "../pages/Register";
-import Register from "../pages/ResetPassword";
+import ResetPassword from "../pages/ResetPassword";
 import ActivatePage from "../pages/Activation";
 
 const AppRouter = () => {

@@ -1,5 +1,5 @@
 import { useAuth } from "../context/AuthContext";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
 const Login = () => {
@@ -48,6 +48,7 @@ const Login = () => {
       >
         Se connecter
       </button>
+      <Link to="/reset-password">Mot de passe oublié ?</Link>
     </div>
   );
 };

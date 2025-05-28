@@ -1,5 +1,4 @@
 import { useState } from "react";
-import logger from './utils/logger';
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -163,7 +162,7 @@ const Register = () => {
           type: "error",
           text: data.message || "Erreur lors de l'inscription.",
         });
-        logger.log("Erreur backend:", data.message);
+        console.log("Erreur backend:", data.message);
       }
     } catch (err) {
       setServerMessage({ type: "error", text: "Erreur serveur." });

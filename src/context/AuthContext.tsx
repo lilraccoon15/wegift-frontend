@@ -1,6 +1,5 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
-import logger from "./utils/logger";
 
 interface AuthContextType {
   isAuthenticated: boolean;
@@ -65,7 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         credentials: "include",
       });
     } catch (error) {
-      logger.error("Erreur lors de la déconnexion", error);
+      console.error("Erreur lors de la déconnexion", error);
     } finally {
       setIsAuthenticated(false);
     }
