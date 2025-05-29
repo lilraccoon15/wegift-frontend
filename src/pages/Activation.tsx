@@ -21,7 +21,7 @@ const ActivatePage = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:3001/api/auth/activate?token=${token}`
+          `http://localhost:4000/api/auth/activate?token=${token}`
         );
         const data = await res.json();
 

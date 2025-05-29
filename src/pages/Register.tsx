@@ -125,7 +125,7 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...userData } = formData;
-      const res = await fetch("http://localhost:3001/api/auth/register", {
+      const res = await fetch("http://localhost:4000/api/auth/register", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ ...userData }),
@@ -162,7 +162,6 @@ const Register = () => {
           type: "error",
           text: data.message || "Erreur lors de l'inscription.",
         });
-        console.log("Erreur backend:", data.message);
       }
     } catch (err) {
       setServerMessage({ type: "error", text: "Erreur serveur." });
