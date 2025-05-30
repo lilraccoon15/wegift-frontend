@@ -1,11 +1,21 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
 
+interface LoginResponse {
+  success: boolean;
+  requires2FA?: boolean;
+  tempToken?: string;
+  error?: string;
+}
+
 interface AuthContextType {
   isAuthenticated: boolean;
-  login: (email: string, password: string) => Promise<boolean>;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  login: (email: string, password: string) => Promise<LoginResponse>;
   logout: () => void;
   loading: boolean;
+  tempToken: string | null;
+  setTempToken: (token: string | null) => void;
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -13,6 +23,7 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [tempToken, setTempToken] = useState<string | null>(null);
 
   useEffect(() => {
     const checkAuth = async () => {
@@ -37,23 +48,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     checkAuth();
   }, []);
 
-  const login = async (email: string, password: string): Promise<boolean> => {
+  const login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
+      console.log("Before fetch login");
       const res = await fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
         credentials: "include",
       });
+      console.log("After fetch login - status:", res.status);
 
-      if (res.ok) {
-        setIsAuthenticated(true);
-        return true;
-      } else {
-        return false;
+      if (!res.ok) {
+        if (res.status === 401) {
+          return { success: false, error: "Email ou mot de passe invalide" };
+        }
+        return { success: false, error: "Erreur lors de la connexion" };
       }
+
+      const resJson = await res.json();
+      const { data, message, success } = resJson;
+
+      console.log("Login response data:", data);
+
+      if (data?.requires2FA) {
+        setTempToken(data.tempToken);
+        return {
+          success: false,
+          requires2FA: true,
+          tempToken: data.tempToken,
+        };
+      }
+
+      setIsAuthenticated(true);
+      setTempToken(null);
+      return { success: true };
     } catch (err) {
-      return false;
+      console.error("Login fetch error:", err);
+      return { success: false, error: "Erreur réseau" };
     }
   };
 
@@ -67,11 +99,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       console.error("Erreur lors de la déconnexion", error);
     } finally {
       setIsAuthenticated(false);
+      setTempToken(null);
     }
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, login, logout, loading }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, logout, loading, tempToken, setTempToken }}>
       {children}
     </AuthContext.Provider>
   );

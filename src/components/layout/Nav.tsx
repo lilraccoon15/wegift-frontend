@@ -16,6 +16,7 @@ const Nav = () => {
       {isAuthenticated && (
         <>
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/profile">Profile</Link>
           <button onClick={handleLogout}>Déconnexion</button>
         </>
       )}

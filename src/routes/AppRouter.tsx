@@ -7,6 +7,8 @@ import Layout from "../components/layout/Layout";
 import Register from "../pages/Register";
 import ResetPassword from "../pages/ResetPassword";
 import ActivatePage from "../pages/Activation";
+import Profile from "../pages/Profile";
+import Enable2FA from "../pages/Enable2FA";
 
 const AppRouter = () => {
   return (
@@ -17,6 +19,8 @@ const AppRouter = () => {
         <Route path="/register" element={<Register />} />
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/activate" element={<ActivatePage />} />
+        <Route path="/profile" element={<Profile />} />
+        <Route path="/2fa" element={<Enable2FA />} />
         <Route
           path="/dashboard"
           element={
