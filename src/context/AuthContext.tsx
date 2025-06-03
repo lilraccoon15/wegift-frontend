@@ -9,8 +9,8 @@ interface LoginResponse {
 }
 
 interface AuthContextType {
-  isAuthenticated: boolean;
-  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean>>;
+  isAuthenticated: boolean | null;
+  setIsAuthenticated: React.Dispatch<React.SetStateAction<boolean | null>>;
   login: (email: string, password: string) => Promise<LoginResponse>;
   logout: () => void;
   loading: boolean;
@@ -21,7 +21,7 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
   const [tempToken, setTempToken] = useState<string | null>(null);
 
@@ -32,7 +32,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           method: "GET",
           credentials: "include",
         });
-
         if (res.ok) {
           setIsAuthenticated(true);
         } else {
@@ -50,14 +49,12 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
-      console.log("Before fetch login");
       const res = await fetch("http://localhost:4000/api/auth/login", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
         credentials: "include",
       });
-      console.log("After fetch login - status:", res.status);
 
       if (!res.ok) {
         if (res.status === 401) {
@@ -67,9 +64,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       }
 
       const resJson = await res.json();
-      const { data, message, success } = resJson;
-
-      console.log("Login response data:", data);
+      const { data, message: _message, success: _success } = resJson;
 
       if (data?.requires2FA) {
         setTempToken(data.tempToken);
@@ -84,7 +79,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setTempToken(null);
       return { success: true };
     } catch (err) {
-      console.error("Login fetch error:", err);
       return { success: false, error: "Erreur réseau" };
     }
   };
@@ -96,7 +90,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         credentials: "include",
       });
     } catch (error) {
-      console.error("Erreur lors de la déconnexion", error);
     } finally {
       setIsAuthenticated(false);
       setTempToken(null);

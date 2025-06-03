@@ -22,14 +22,23 @@ const Login = () => {
     try {
       const res = await fetch("http://localhost:4000/api/auth/verify-2fa", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ code, tempToken }),
+        headers: { 
+          "Content-Type": "application/json",
+          "Authorization": `Bearer ${tempToken}`,
+        },
+        body: JSON.stringify({ code}),
         credentials: "include",
       });
       if (!res.ok) return false;
 
+      const data = await res.json();
+      const token = data.data.token;
+
       const meRes = await fetch("http://localhost:4000/api/users/me", {
         credentials: "include",
+        headers: {
+          "Authorization": `Bearer ${token}`,
+        },
       });
 
       if (meRes.ok) {
@@ -72,7 +81,7 @@ const Login = () => {
         setTwoFACode("");
         setError(null);
         setTempToken(null);
-        setIsAuthenticated(true);  // <-- C’est cette ligne qui manquait !
+        setIsAuthenticated(true);
         navigate("/dashboard", { replace: true });
       }
     }
