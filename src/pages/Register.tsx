@@ -1,4 +1,6 @@
 import { useState } from "react";
+import RegisterForm from "../features/Register/RegisterForm";
+import { registerUser } from "../features/Register/RegisterHelpers";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -21,16 +23,12 @@ const Register = () => {
   });
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
-
   const [emailValid, setEmailValid] = useState(false);
-
   const [serverMessage, setServerMessage] = useState<{
     type: "error" | "success";
     text: string;
   } | null>(null);
-
   const [loading, setLoading] = useState(false);
-
   const [showPassword, setShowPassword] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -125,192 +123,64 @@ const Register = () => {
 
     try {
       const { confirmPassword, ...userData } = formData;
-      const res = await fetch("http://localhost:4000/api/auth/register", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...userData }),
+      const res = await registerUser(userData);
+
+    if (res.success) {
+      setServerMessage({ type: "success", text: res.message || "Inscription réussie !" });
+
+      setFormData({
+        firstName: "",
+        lastName: "",
+        birthDate: "",
+        email: "",
+        password: "",
+        confirmPassword: "",
+        acceptedTerms: false,
+        newsletter: false,
       });
-
-      const data = await res.json();
-      if (res.ok) {
-        setServerMessage({ type: "success", text: "Inscription réussie !" });
-
-        setFormData({
-          firstName: "",
-          lastName: "",
-          birthDate: "",
-          email: "",
-          password: "",
-          confirmPassword: "",
-          acceptedTerms: false,
-          newsletter: false,
-        });
-
-        setPasswordValidity({
-          length: false,
-          uppercase: false,
-          lowercase: false,
-          digit: false,
-          specialChar: false,
-        });
-
-        setPasswordsMatch(true);
-
-        setEmailValid(false);
-      } else {
-        setServerMessage({
-          type: "error",
-          text: data.message || "Erreur lors de l'inscription.",
-        });
-      }
-    } catch (err) {
-      setServerMessage({ type: "error", text: "Erreur serveur." });
-    } finally {
-      setLoading(false);
+      setPasswordValidity({
+        length: false,
+        uppercase: false,
+        lowercase: false,
+        digit: false,
+        specialChar: false,
+      });
+      setPasswordsMatch(true);
+      setEmailValid(false);
+    } else {
+      setServerMessage({
+        type: "error",
+        text: res.error || "Erreur lors de l'inscription.",
+      });
     }
+  } catch {
+    setServerMessage({
+      type: "error",
+      text: "Une erreur est survenue. Veuillez réessayer.",
+    });
+  } finally {
+    setLoading(false);
+  }
   };
 
-  const validStyle = { color: "green" };
-  const invalidStyle = { color: "red" };
+  const toggleShowPassword = () => {
+    setShowPassword((show) => !show);
+  };
 
   return (
-    <form onSubmit={handleSubmit} className="p-4 max-w-md mx-auto space-y-4">
-      <h1 className="text-xl font-bold">Inscription</h1>
-      {serverMessage && (
-        <div
-          style={{
-            color: serverMessage.type === "error" ? "red" : "green",
-            marginBottom: "1rem",
-          }}
-        >
-          {serverMessage.text}
-        </div>
-      )}
-      <input
-        name="firstName"
-        type="text"
-        placeholder="Prénom"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-      <input
-        name="lastName"
-        type="text"
-        placeholder="Nom"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-      <input
-        name="birthDate"
-        type="date"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-      <input
-        name="email"
-        type="email"
-        placeholder="Email"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-      <div className="text-sm" style={{ color: emailValid ? "green" : "red" }}>
-        {formData.email.length > 0 &&
-          (emailValid
-            ? "✅ Format d'email valide"
-            : "❌ Format d'email invalide")}
-      </div>
-      <input
-        name="password"
-        type={showPassword ? "text" : "password"}
-        placeholder="Mot de passe"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-      <button
-        type="button"
-        onClick={() => setShowPassword((prev) => !prev)}
-        className="ml-2 px-2 py-1 text-sm border rounded"
-      >
-        {showPassword ? "Cacher" : "Voir"}
-      </button>
-
-      <ul style={{ listStyle: "none", paddingLeft: 0 }}>
-        <li style={passwordValidity.length ? validStyle : invalidStyle}>
-          Minimum 8 caractères
-        </li>
-        <li style={passwordValidity.uppercase ? validStyle : invalidStyle}>
-          Au moins 1 majuscule
-        </li>
-        <li style={passwordValidity.lowercase ? validStyle : invalidStyle}>
-          Au moins 1 minuscule
-        </li>
-        <li style={passwordValidity.digit ? validStyle : invalidStyle}>
-          Au moins 1 chiffre
-        </li>
-        <li style={passwordValidity.specialChar ? validStyle : invalidStyle}>
-          Au moins 1 caractère spécial
-        </li>
-      </ul>
-
-      <input
-        name="confirmPassword"
-        type="password"
-        placeholder="Confirmer le mot de passe"
-        required
-        onChange={handleChange}
-        className="w-full p-2 border"
-      />
-
-      <div
-        className="text-sm"
-        style={{ color: passwordsMatch ? "green" : "red" }}
-      >
-        {formData.confirmPassword.length > 0 &&
-          (passwordsMatch
-            ? "✅ Les mots de passe correspondent"
-            : "❌ Les mots de passe ne correspondent pas")}
-      </div>
-
-      <div>
-        <label>
-          <input
-            type="checkbox"
-            name="acceptedTerms"
-            onChange={handleChange}
-            required
-          />{" "}
-          J'accepte les CGU *
-        </label>
-      </div>
-
-      <div>
-        <label>
-          <input type="checkbox" name="newsletter" onChange={handleChange} />{" "}
-          S'inscrire à la newsletter
-        </label>
-      </div>
-
-      <button
-        type="submit"
-        disabled={
-          loading ||
-          !Object.values(passwordValidity).every(Boolean) ||
-          !passwordsMatch ||
-          !emailValid ||
-          !isFormComplete()
-        }
-        className={`bg-blue-500 text-white px-4 py-2 rounded ${
-          loading ? "opacity-50 cursor-not-allowed" : ""
-        }`}
-      >
-        {loading ? "Chargement..." : "S'inscrire"}
-      </button>
-    </form>
+    <RegisterForm
+      formData={formData}
+      passwordValidity={passwordValidity}
+      passwordsMatch={passwordsMatch}
+      emailValid={emailValid}
+      loading={loading}
+      serverMessage={serverMessage}
+      showPassword={showPassword}
+      onChange={handleChange}
+      onToggleShowPassword={toggleShowPassword}
+      onSubmit={handleSubmit}
+      isFormComplete={isFormComplete}
+    />
   );
 };
 

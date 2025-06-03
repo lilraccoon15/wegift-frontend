@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
 
 const ActivatePage = () => {
@@ -10,8 +10,12 @@ const ActivatePage = () => {
     "Activation en cours..."
   );
   const [error, setError] = useState<string | null>(null);
+  const hasRun = useRef(false);
 
   useEffect(() => {
+    if (hasRun.current) return;
+    hasRun.current = true;
+    
     const activate = async () => {
       if (!token) {
         setError("Token d'activation manquant.");
