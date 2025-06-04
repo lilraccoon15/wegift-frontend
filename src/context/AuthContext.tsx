@@ -16,6 +16,7 @@ interface AuthContextType {
   loading: boolean;
   tempToken: string | null;
   setTempToken: (token: string | null) => void;
+  checkAuth: () => Promise<void>
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
@@ -25,27 +26,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [loading, setLoading] = useState(true);
   const [tempToken, setTempToken] = useState<string | null>(null);
 
-  useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        const res = await fetch("http://localhost:4000/api/users/me", {
-          method: "GET",
-          credentials: "include",
-        });
-        if (res.ok) {
-          setIsAuthenticated(true);
-        } else {
-          setIsAuthenticated(false);
-        }
-      } catch (error) {
-        setIsAuthenticated(false);
-      } finally {
-        setLoading(false);
-      }
-    };
+ const checkAuth = async () => {
+    try {
+      const res = await fetch("http://localhost:4000/api/auth/check-auth", {
+        method: "GET",
+        credentials: "include",
+      });
+      setIsAuthenticated(res.ok);
+    } catch {
+      setIsAuthenticated(false);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+   useEffect(() => {
     checkAuth();
-  }, []);
+  }, []); 
 
   const login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
@@ -57,23 +54,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (!res.ok) {
-        if (res.status === 401) {
-          return { success: false, error: "Email ou mot de passe invalide" };
-        }
-        return { success: false, error: "Erreur lors de la connexion" };
+        return {
+          success: false,
+          error: res.status === 401 ? "Email ou mot de passe invalide" : "Erreur lors de la connexion",
+        };
       }
 
       const resJson = await res.json();
-      const { data, message: _message, success: _success } = resJson;
+      const { data } = resJson;
 
       if (data?.requires2FA) {
         setTempToken(data.tempToken);
-        return {
-          success: false,
-          requires2FA: true,
-          tempToken: data.tempToken,
-        };
+        return { success: false, requires2FA: true, tempToken: data.tempToken };
       }
+      await checkAuth();
 
       setIsAuthenticated(true);
       setTempToken(null);
@@ -89,7 +83,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         method: "POST",
         credentials: "include",
       });
-    } catch (error) {
     } finally {
       setIsAuthenticated(false);
       setTempToken(null);
@@ -97,7 +90,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   };
 
   return (
-    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, logout, loading, tempToken, setTempToken }}>
+    <AuthContext.Provider value={{ isAuthenticated, setIsAuthenticated, login, logout, loading, tempToken, setTempToken, checkAuth }}>
       {children}
     </AuthContext.Provider>
   );

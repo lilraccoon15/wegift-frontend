@@ -1,8 +1,8 @@
 // Enable2FAForm.tsx
 import React from "react";
-import Button from "../../components/ui/Button";
-import Message from "../../components/ui/Message";
-import InputField from "../../components/forms/InputField";
+import Button from "../../../components/ui/Button";
+import Message from "../../../components/ui/Message";
+import InputField from "../../../components/forms/InputField";
 
 type Props = {
   qrCodeUrl: string | null;

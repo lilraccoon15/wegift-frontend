@@ -60,14 +60,14 @@ export async function verify2FACode(
         const data = await res.json();
         const token = data.data.token;
 
-        const meRes = await fetch("http://localhost:4000/api/users/me", {
+        const authCheck = await fetch("http://localhost:4000/api/auth/check-auth", {
             credentials: "include",
             headers: {
                 Authorization: `Bearer ${token}`,
             },
         });
 
-        if (meRes.ok) {
+        if (authCheck.ok) {
             return { success: true };
         }
 

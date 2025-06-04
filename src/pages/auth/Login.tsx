@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../context/AuthContext";
-import LoginForm from "../features/Login/LoginForm";
-import TwoFAForm from "../features/Login/2FAForm";
-import Message from "../components/ui/Message";
-import { login, verify2FACode } from "../features/Login/LoginHelpers";
+import { useAuth } from "../../context/AuthContext";
+import LoginForm from "../../features/auth/Login/LoginForm";
+import TwoFAForm from "../../features/auth/Login/2FAForm";
+import Message from "../../components/ui/Message";
+import { login, verify2FACode } from "../../features/auth/Login/LoginHelpers";
 
 const Login = () => {
     const {

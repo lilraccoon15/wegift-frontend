@@ -1,5 +1,5 @@
 import React from "react";
-import InputField from "../../components/forms/InputField";
+import InputField from "../../../components/forms/InputField";
 // import Message from "../../components/ui/Message";
 
 interface RegisterFormProps {

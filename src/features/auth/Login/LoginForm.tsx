@@ -1,13 +1,13 @@
-import Button from "../../components/ui/Button";
-import InputField from "../../components/forms/InputField";
-import Message from "../../components/ui/Message";
+import Button from "../../../components/ui/Button";
+import InputField from "../../../components/forms/InputField";
+import Message from "../../../components/ui/Message";
 
 interface LoginFormProps {
     email: string;
     password: string;
     error: string | null;
-    onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onEmailChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
+    onPasswordChange: (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => void;
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     disabled?: boolean;
     buttonClassName?: string;

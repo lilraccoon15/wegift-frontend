@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Button from "../../components/ui/Button";
-import InputField from "../../components/forms/InputField";
-import Message from "../../components/ui/Message";
+import Button from "../../../components/ui/Button";
+import InputField from "../../../components/forms/InputField";
+import Message from "../../../components/ui/Message";
 import { resetPassword } from "./ResetPasswordHelpers";
 
 type ChangePasswordFormProps = {
