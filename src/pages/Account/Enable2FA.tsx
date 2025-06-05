@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Enable2FAForm from "../features/Enable2FA/Enable2FAForm";
-import { fetch2FAStatus, generate2FA, enable2FA, disable2FA } from "../features/Enable2FA/Enable2FAHelpers";
+import Enable2FAForm from "../../features/account/Enable2FA/Enable2FAForm";
+import { fetch2FAStatus, generate2FA, enable2FA, disable2FA } from "../../features/account/Enable2FA/Enable2FAHelpers";
 
 const Enable2FA = () => {
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);

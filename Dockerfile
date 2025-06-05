@@ -10,6 +10,11 @@ RUN npm config set cache /tmp/npm-cache --global
 RUN npm install
 
 COPY . .
+
+ARG VITE_BACKEND_URL_USER
+
+ENV VITE_BACKEND_URL_USER=$VITE_BACKEND_URL_USER
+
 RUN npm run build
 
 FROM nginx:stable-alpine

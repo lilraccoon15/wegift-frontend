@@ -1,14 +1,15 @@
 import { Routes, Route, Outlet } from "react-router-dom";
-import Login from "../pages/Login";
+import Login from "../pages/Auth/Login";
 import Home from "../pages/Home";
 import PrivateRoute from "./PrivateRoute";
 import Dashboard from "../pages/Dashboard";
 import Layout from "../components/layout/Layout";
-import Register from "../pages/Register";
-import ResetPassword from "../pages/ResetPassword";
-import ActivatePage from "../pages/Activation";
-import Profile from "../pages/Profile";
-import Enable2FA from "../pages/Enable2FA";
+import Register from "../pages/Auth/Register";
+import ResetPassword from "../pages/Auth/ResetPassword";
+import ActivatePage from "../pages/Auth/Activation";
+import MyProfile from "../pages/Profile/MyProfile";
+import EditProfile from "../pages/Profile/EditProfile";
+import MyAccount from "../pages/Account/MyAccount";
 
 const PrivateOutlet = () => {
   return (
@@ -29,9 +30,10 @@ const AppRouter = () => {
         <Route path="/activate" element={<ActivatePage />} />
 
         <Route element={<PrivateOutlet />}>
-          <Route path="/profile" element={<Profile />} />
-          <Route path="/2fa" element={<Enable2FA />} />
+          <Route path="/profile/me" element={<MyProfile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/account" element={<MyAccount />} />
         </Route>
       </Routes>
     </Layout>

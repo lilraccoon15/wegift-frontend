@@ -1,6 +1,6 @@
-import Button from "../../components/ui/Button";
-import InputField from "../../components/forms/InputField";
-import Message from "../../components/ui/Message";
+import Button from "../../../components/ui/Button";
+import InputField from "../../../components/forms/InputField";
+import Message from "../../../components/ui/Message";
 
 interface LoginFormProps {
     email: string;

@@ -1,6 +1,6 @@
 import { useState } from "react";
-import RegisterForm from "../features/Register/RegisterForm";
-import { registerUser } from "../features/Register/RegisterHelpers";
+import RegisterForm from "../../features/auth/Register/RegisterForm";
+import { registerUser } from "../../features/auth/Register/RegisterHelpers";
 
 const Register = () => {
   const [formData, setFormData] = useState({
