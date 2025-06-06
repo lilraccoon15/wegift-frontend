@@ -60,6 +60,7 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
     const handlePictureClick = () => {
         fileInputRef.current?.click();
     };
+    console.log("picturePreview:", picturePreview);
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
 
