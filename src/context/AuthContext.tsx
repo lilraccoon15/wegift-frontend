@@ -1,5 +1,6 @@
 import { createContext, useState, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
+import API_URL from '../config';
 
 interface LoginResponse {
   success: boolean;
@@ -28,7 +29,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        const res = await fetch("http://localhost:4000/api/users/me", {
+        const res = await fetch(`${API_URL}/api/users/me`, {
           method: "GET",
           credentials: "include",
         });
@@ -49,7 +50,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string): Promise<LoginResponse> => {
     try {
-      const res = await fetch("http://localhost:4000/api/auth/login", {
+      const res = await fetch(`${API_URL}/api/auth/login`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ email, password }),
@@ -85,7 +86,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const logout = async () => {
     try {
-      await fetch("http://localhost:4000/api/auth/logout", {
+      await fetch(`${API_URL}/api/auth/logout`, {
         method: "POST",
         credentials: "include",
       });

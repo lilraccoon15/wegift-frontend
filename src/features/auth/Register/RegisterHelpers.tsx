@@ -1,3 +1,5 @@
+import API_URL from '../../../config';
+
 export interface RegisterResponse {
   success?: boolean;
   message?: string;
@@ -14,7 +16,7 @@ export async function registerUser(data: {
   newsletter: boolean;
 }): Promise<RegisterResponse> {
   try {
-    const res = await fetch("http://localhost:4000/api/auth/register", {
+    const res = await await fetch(`${API_URL}/api/auth/register`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(data),

@@ -1,19 +1,21 @@
+import API_URL from '../../../config';
+
 export async function fetch2FAStatus() {
-  const res = await fetch("http://localhost:4000/api/auth/2fa-status", {
+  const res = await await fetch(`${API_URL}/api/auth/2fa-status`, {
     credentials: "include",
   });
   return res.json();
 }
 
 export async function generate2FA() {
-  const res = await fetch("http://localhost:4000/api/auth/generate-2fa", {
+  const res = await await fetch(`${API_URL}/api/auth/generate-2fa`, {
     credentials: "include",
   });
   return res.json();
 }
 
 export async function enable2FA(code: string) {
-  const res = await fetch("http://localhost:4000/api/auth/enable-2fa", {
+  const res = await await fetch(`${API_URL}/api/auth/enable-2fa`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ code }),
@@ -23,7 +25,7 @@ export async function enable2FA(code: string) {
 }
 
 export async function disable2FA() {
-  const res = await fetch("http://localhost:4000/api/auth/disable-2fa", {
+  const res = await await fetch(`${API_URL}/api/auth/disable-2fa`, {
     method: "POST",
     credentials: "include",
   });

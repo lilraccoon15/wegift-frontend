@@ -1,3 +1,5 @@
+import API_URL from '../../../config';
+
 export interface LoginResponse {
     error?: string;
     requires2FA?: boolean;
@@ -12,7 +14,7 @@ export async function login(
     password: string
 ): Promise<LoginResponse> {
     try {
-        const res = await fetch("http://localhost:4000/api/auth/login", {
+        const res = await await fetch(`${API_URL}/api/auth/login`, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify({ email, password }),
@@ -45,7 +47,7 @@ export async function verify2FACode(
     tempToken: string
 ): Promise<{ success: boolean; error?: string }> {
     try {
-        const res = await fetch("http://localhost:4000/api/auth/verify-2fa", {
+        const res = await await fetch(`${API_URL}/api/auth/verify-2fa`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",
@@ -60,7 +62,7 @@ export async function verify2FACode(
         const data = await res.json();
         const token = data.data.token;
 
-        const meRes = await fetch("http://localhost:4000/api/users/me", {
+        const meRes = await await fetch(`${API_URL}/api/users/me`, {
             credentials: "include",
             headers: {
                 Authorization: `Bearer ${token}`,

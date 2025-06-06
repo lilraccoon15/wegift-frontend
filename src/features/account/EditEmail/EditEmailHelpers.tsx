@@ -1,4 +1,5 @@
 import type { Account } from "../MyAccountHelpers";
+import API_URL from '../../../config';
 
 interface UpdateEmailPayload {
     email: string;
@@ -6,7 +7,7 @@ interface UpdateEmailPayload {
 }
 
 export async function updateEmail(data: UpdateEmailPayload): Promise<Account> {
-    const response = await fetch("http://localhost:4000/api/auth/update-email", {
+    const response = await fetch(`${API_URL}/api/auth/update-email`, {
         method: "PUT",
         headers: {
     "Content-Type": "application/json",
