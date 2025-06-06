@@ -4,7 +4,7 @@ import EditPasswordForm from "../../features/account/EditPassword/EditPasswordFo
 import { updatePassword } from "../../features/account/EditPassword/EditPasswordHelpers";
 
 const EditPassword = () => {
-    const { data: account, error, isLoading: loading } = useMyAccount();
+    const { data: _account, error, isLoading: loading } = useMyAccount();
 
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");

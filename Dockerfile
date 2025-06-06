@@ -1,28 +1,20 @@
-FROM node:20-alpine AS build
+FROM node:18-alpine AS builder
 
 WORKDIR /app
 
-RUN npm install -g npm@8.19.3
-
 COPY package*.json ./
-
-RUN npm config set progress=false
-RUN npm config set cache /tmp/npm-cache --global
 
 RUN npm install
 
 COPY . .
 
-ARG VITE_BACKEND_URL_USER
-
-ENV VITE_BACKEND_URL_USER=$VITE_BACKEND_URL_USER
-
 RUN npm run build
 
 FROM nginx:stable-alpine
 
-COPY --from=build /app/dist /usr/share/nginx/html
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=builder /app/dist /usr/share/nginx/html
+
+COPY default.conf /etc/nginx/conf.d/default.conf
 
 EXPOSE 80
 
