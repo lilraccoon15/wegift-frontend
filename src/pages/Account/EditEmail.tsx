@@ -26,11 +26,13 @@ const EditEmail = () => {
 
         if (email !== confirmEmail) {
             setSubmitError("Les adresses email ne correspondent pas.");
+            setIsSubmitting(false);
             return;
         }
 
         if (!password) {
             setSubmitError("Veuillez saisir votre mot de passe.");
+            setIsSubmitting(false);
             return;
         }
 

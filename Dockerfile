@@ -2,6 +2,8 @@ FROM node:20-alpine AS build
 
 WORKDIR /app
 
+RUN npm install -g npm@8.19.3
+
 COPY package*.json ./
 
 RUN npm config set progress=false

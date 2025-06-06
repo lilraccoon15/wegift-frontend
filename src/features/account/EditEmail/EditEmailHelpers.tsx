@@ -8,6 +8,9 @@ interface UpdateEmailPayload {
 export async function updateEmail(data: UpdateEmailPayload): Promise<Account> {
     const response = await fetch("http://localhost:4000/api/auth/update-email", {
         method: "PUT",
+        headers: {
+    "Content-Type": "application/json",
+  },
         credentials: "include",
         body: JSON.stringify(data)
     });

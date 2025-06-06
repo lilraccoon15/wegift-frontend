@@ -3,6 +3,7 @@ import { useMyAccount } from "../../features/account/MyAccountHelpers";
 import { useState } from "react";
 import Enable2FA from "./Enable2FA";
 import EditEmail from "./EditEmail";
+import EditPassword from "./EditPassword";
 
 const MyAccount = () => {
     const { data: _account, error, isLoading: loading } = useMyAccount();
@@ -45,7 +46,7 @@ const MyAccount = () => {
 
             {currentView === "editPassword" && (
                 <>
-                    <p>Formulaire pour modifier le mot de passe ici</p>
+                    <EditPassword />
                     <Button onClick={() => setCurrentView("default")}>
                         Retour
                     </Button>
