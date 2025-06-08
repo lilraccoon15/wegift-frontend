@@ -4,6 +4,7 @@ import { useState } from "react";
 import Enable2FA from "./Enable2FA";
 import EditEmail from "./EditEmail";
 import EditPassword from "./EditPassword";
+import Preferences from "./Preferences";
 
 const MyAccount = () => {
     const { data: _account, error, isLoading: loading } = useMyAccount();
@@ -66,6 +67,7 @@ const MyAccount = () => {
             {currentView === "preferences" && (
                 <>
                     <p>Affichage des préférences ici</p>
+                    <Preferences />
                     <Button onClick={() => setCurrentView("default")}>
                         Retour
                     </Button>
