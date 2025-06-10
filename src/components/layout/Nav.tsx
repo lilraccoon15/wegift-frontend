@@ -24,6 +24,7 @@ const Nav = () => {
       {isAuthenticated && (
         <>
           <Link to="/dashboard">Dashboard</Link>
+          <Link to="/my-wishlists">Mes listes</Link>
           <Link to="/profile/me">Profil</Link>
           <Link to="/account">Compte</Link>
           <button onClick={handleLogout}>Déconnexion</button>

@@ -1,24 +1,26 @@
 import type { Wishlist } from "../MyWishlists/MyWishlistsHelpers";
 
-interface CreateWishlistPayload {
-    wishlistTitle: string;
-    wishlistDescription?: string;
-    wishlistPicture?: File;
-    wishlistAccess: string;
+interface Createpayload {
+    title: string;
+    description?: string;
+    picture?: File;
+    access: string;
 }
 
-export async function createWishlist(data:CreateWishlistPayload): Promise<Wishlist> {
+export async function createWishlist(data:Createpayload): Promise<Wishlist> {
     const formData = new FormData();
-    formData.append("wishlistTitle", data.wishlistTitle);
-    formData.append("wishlistAccess", data.wishlistAccess);
+    formData.append("title", data.title);
+    formData.append("access", data.access);
 
-    if (data.wishlistDescription !== undefined) {
-        formData.append("description", data.wishlistDescription);
+    if (data.description !== undefined) {
+        formData.append("description", data.description);
     }
 
-    if (data.wishlistPicture) {
-        formData.append("picture", data.wishlistPicture);
+    if (data.picture) {
+        formData.append("picture", data.picture);
     }
+
+    formData.append("published", "1");
 
     const response = await fetch("http://localhost:4000/api/wishlist/create-wishlist",
         {

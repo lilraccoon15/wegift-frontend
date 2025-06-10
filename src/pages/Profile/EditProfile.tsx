@@ -11,8 +11,6 @@ const EditProfile = () => {
 
     const { data: user, isLoading: loading, error } = useMyProfile();
 
-    console.log(user);
-
     const [firstName, setFirstName] = useState("");
     const [lastName, setLastName] = useState("");
     const [birthDate, setBirthDate] = useState<Date>(new Date("2000-01-01"));

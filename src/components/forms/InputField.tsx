@@ -36,7 +36,7 @@ const InputField: FC<InputFieldProps> = ({
             disabled={disabled}
             minLength={minLength}
             maxLength={maxLength}
-            className={`border p-2 rounded w-full ${className}`}
+            className={`${className}`}
         />
     );
 };
