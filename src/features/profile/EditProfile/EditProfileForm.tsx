@@ -36,8 +36,6 @@ interface EditProfilFormProps {
     buttondisabled: boolean;
 }
 
-const DEFAULT_PICTURE_URL = "/default-profile.png";
-
 const EditProfileForm: React.FC<EditProfilFormProps> = ({
     firstName,
     lastName,
@@ -60,7 +58,8 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
     const handlePictureClick = () => {
         fileInputRef.current?.click();
     };
-    console.log("picturePreview:", picturePreview);
+
+    const DEFAULT_PICTURE_URL = "/default-profile.png";
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
 
