@@ -14,7 +14,7 @@ export function useMyWishlists() {
   return useQuery<Wishlist[], Error>({
     queryKey: ["myWishlists"],
     queryFn: async () => {
-      const res = await axios.get("http://localhost:4000/api/wishlist/get-user-wishlists", {
+      const res = await axios.get("http://localhost:4000/api/wishlist/my-wishlists", {
         withCredentials: true,
       });
       return res.data.data.wishlists;
@@ -26,7 +26,7 @@ export function useMyWishlistById(id: string) {
   return useQuery({
     queryKey: ["wishlist", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:4000/api/get-user-wishlist/${id}`);
+      const res = await axios.get(`http://localhost:4000/api/my-wishlist/${id}`);
       return res.data;
     },
     enabled: !!id,

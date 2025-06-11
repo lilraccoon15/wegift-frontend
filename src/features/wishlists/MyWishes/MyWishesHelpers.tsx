@@ -12,7 +12,7 @@ export interface Wish {
       queryKey: ["wishes", wishlistId],
       queryFn: async () => {
         const res = await axios.get(`http://localhost:4000/api/wishlist/wishes?wishlistid=${wishlistId}`);
-        return res.data;
+        return res.data.data.wishes;
       },
       enabled: !!wishlistId,
     });
