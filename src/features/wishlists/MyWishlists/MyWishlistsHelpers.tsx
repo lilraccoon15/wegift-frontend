@@ -26,7 +26,9 @@ export function useMyWishlistById(id: string) {
   return useQuery({
     queryKey: ["wishlist", id],
     queryFn: async () => {
-      const res = await axios.get(`http://localhost:4000/api/my-wishlist/${id}`);
+      const res = await axios.get(`http://localhost:4000/api/wishlist/my-wishlist/${id}`, {
+        withCredentials: true,
+      });
       return res.data;
     },
     enabled: !!id,

@@ -11,7 +11,9 @@ export interface Wish {
     return useQuery<Wish[], Error>({
       queryKey: ["wishes", wishlistId],
       queryFn: async () => {
-        const res = await axios.get(`http://localhost:4000/api/wishlist/wishes?wishlistid=${wishlistId}`);
+        const res = await axios.get(`http://localhost:4000/api/wishlist/wishes?wishlistid=${wishlistId}`, {
+          withCredentials:true,
+        });
         return res.data.data.wishes;
       },
       enabled: !!wishlistId,

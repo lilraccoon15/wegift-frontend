@@ -11,7 +11,7 @@ import MyProfile from "../pages/Profile/MyProfile";
 import EditProfile from "../pages/Profile/EditProfile";
 import MyAccount from "../pages/Account/MyAccount";
 import MyWishlists from "../pages/Wishlists/MyWishlists";
-import MyWishlist from "../pages/Wishlists/MyWIshlist";
+import MyWishlist from "../pages/Wishlists/MyWishlist";
 
 const PrivateOutlet = () => {
   return (
