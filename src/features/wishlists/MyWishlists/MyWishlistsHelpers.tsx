@@ -21,3 +21,14 @@ export function useMyWishlists() {
     },
   });
 }
+
+export function useMyWishlistById(id: string) {
+  return useQuery({
+    queryKey: ["wishlist", id],
+    queryFn: async () => {
+      const res = await axios.get(`http://localhost:4000/api/get-user-wishlist/${id}`);
+      return res.data;
+    },
+    enabled: !!id,
+  });
+}

@@ -11,6 +11,7 @@ import MyProfile from "../pages/Profile/MyProfile";
 import EditProfile from "../pages/Profile/EditProfile";
 import MyAccount from "../pages/Account/MyAccount";
 import MyWishlists from "../pages/Wishlists/MyWishlists";
+import MyWishlist from "../pages/Wishlists/MyWIshlist";
 
 const PrivateOutlet = () => {
   return (
@@ -32,6 +33,7 @@ const AppRouter = () => {
 
         <Route element={<PrivateOutlet />}>
           <Route path="/my-wishlists" element={<MyWishlists />} />
+          <Route path="/my-wishlist/:id" element={<MyWishlist />} />
           <Route path="/profile/me" element={<MyProfile />} />
           <Route path="/edit-profile" element={<EditProfile />} />
           <Route path="/dashboard" element={<Dashboard />} />
