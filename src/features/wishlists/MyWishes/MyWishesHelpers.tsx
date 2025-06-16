@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import API_URL from "../../../config";
 
 export interface Wish {
     id: string;
@@ -11,7 +12,7 @@ export interface Wish {
     return useQuery<Wish[], Error>({
       queryKey: ["wishes", wishlistId],
       queryFn: async () => {
-        const res = await axios.get(`http://localhost:4000/api/wishlist/wishes?wishlistid=${wishlistId}`, {
+        const res = await axios.get(`${API_URL}/api/wishlist/wishes?wishlistid=${wishlistId}`, {
           withCredentials:true,
         });
         return res.data.data.wishes;

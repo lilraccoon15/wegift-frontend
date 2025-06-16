@@ -1,13 +1,14 @@
+import API_URL from "../../../config";
 import type { Wishlist } from "../MyWishlists/MyWishlistsHelpers";
 
-interface Createpayload {
+interface CreatePayload {
     title: string;
     description?: string;
     picture?: File;
     access: string;
 }
 
-export async function createWishlist(data:Createpayload): Promise<Wishlist> {
+export async function createWishlist(data:CreatePayload): Promise<Wishlist> {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("access", data.access);
@@ -22,7 +23,7 @@ export async function createWishlist(data:Createpayload): Promise<Wishlist> {
 
     formData.append("published", "1");
 
-    const response = await fetch("http://localhost:4000/api/wishlist/create-wishlist",
+    const response = await fetch(`${API_URL}/api/wishlist/create-wishlist`,
         {
             method: "POST",
             credentials: "include",

@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams, useNavigate } from "react-router-dom";
+import API_URL from "../../config";
 
 const ActivatePage = () => {
   const [searchParams] = useSearchParams();
@@ -25,7 +26,7 @@ const ActivatePage = () => {
 
       try {
         const res = await fetch(
-          `http://localhost:4000/api/auth/activate?token=${token}`
+          `${API_URL}/api/auth/activate?token=${token}`
         );
         const data = await res.json();
 

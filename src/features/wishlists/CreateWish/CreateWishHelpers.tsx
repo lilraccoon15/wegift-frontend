@@ -1,3 +1,4 @@
+import API_URL from "../../../config";
 import type { Wish } from "../MyWishes/MyWishesHelpers";
 
 interface Createpayload {
@@ -24,7 +25,7 @@ export async function createWish(data:Createpayload): Promise<Wish> {
 
     formData.append("published", "1");
 
-    const response = await fetch("http://localhost:4000/api/wishlist/create-wish",
+    const response = await fetch(`${API_URL}/api/wishlist/create-wish`,
         {
             method: "POST",
             credentials: "include",

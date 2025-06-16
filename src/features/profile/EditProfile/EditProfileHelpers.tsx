@@ -1,3 +1,4 @@
+import API_URL from "../../../config";
 import type { User } from "../MyProfile/MyProfileHelpers";
 
 interface UpdateProfilePayload {
@@ -23,7 +24,7 @@ export async function updateProfile(data: UpdateProfilePayload): Promise<User> {
     }
 
     const response = await fetch(
-        "http://localhost:4000/api/users/update-profile",
+        `${API_URL}/api/users/update-profile`,
         {
             method: "PUT",
             credentials: "include",

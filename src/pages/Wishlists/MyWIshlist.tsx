@@ -32,11 +32,6 @@ const MyWishlist = () => {
         "none" | "choice" | "form" | "urlScrap"
     >("none");
 
-    if (!id) return <p>Paramètre ID manquant</p>;
-
-    if (loadingWishlist || loadingWishes) return <p>Chargement...</p>;
-    if (!wishlist) return <p>Wishlist non trouvée</p>;
-
     useEffect(() => {
         if (picture) {
             const objectUrl = URL.createObjectURL(picture);
@@ -109,6 +104,11 @@ const MyWishlist = () => {
             link,
         });
     };
+    
+    if (!id) return <p>Paramètre ID manquant</p>;
+
+    if (loadingWishlist || loadingWishes) return <p>Chargement...</p>;
+    if (!wishlist) return <p>Wishlist non trouvée</p>;
 
     return (
         <>

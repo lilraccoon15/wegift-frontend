@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
+import API_URL from "../../config";
 
 export interface Account {
     id: string;
@@ -14,7 +15,7 @@ export function useMyAccount() {
     return useQuery<Account, Error>({
         queryKey: ["myAccount"], 
         queryFn: async () => {
-            const res = await axios.get("http://localhost:4000/api/auth/get-account", {
+            const res = await axios.get(`${API_URL}/api/auth/get-account`, {
                 withCredentials: true,
             });
             return res.data.data.account;
