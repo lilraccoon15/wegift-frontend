@@ -1,52 +1,21 @@
-import { useEffect, useState } from "react";
-import { useMyAccount } from "../../features/account/MyAccountHelpers";
 import EditEmailForm from "../../features/account/EditEmail/EditEmailForm";
-import { updateEmail } from "../../features/account/EditEmail/EditEmailHelpers";
+import { useManageEditEmail } from "../../features/account/EditEmail/useManageEditEmail";
 
 const EditEmail = () => {
-    const { data: account, error, isLoading: loading } = useMyAccount();
-
-    const [email, setEmail] = useState("");
-    const [confirmEmail, setConfirmEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitError, setSubmitError] = useState<string | null>(null);
-
-    useEffect(() => {
-        if (account) {
-            setEmail(account.email || "");
-        }
-    }, [account]);
-
-    const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
-
-        setIsSubmitting(true);
-        setSubmitError(null);
-
-        if (email !== confirmEmail) {
-            setSubmitError("Les adresses email ne correspondent pas.");
-            setIsSubmitting(false);
-            return;
-        }
-
-        if (!password) {
-            setSubmitError("Veuillez saisir votre mot de passe.");
-            setIsSubmitting(false);
-            return;
-        }
-
-        setIsSubmitting(true);
-
-        try {
-            await updateEmail({email, password});
-            alert("Email modifié avec succès !");
-        } catch (err: any) {
-            setSubmitError(err.message || "Erreur lors de la modification");
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
+    
+    const {
+        loading,
+        error,
+        email,
+        confirmEmail,
+        password,
+        setEmail,
+        setConfirmEmail,
+        setPassword,
+        handleEditSubmit,
+        submitError,
+        isSubmitting
+    } = useManageEditEmail();
 
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error.message}</p>;
