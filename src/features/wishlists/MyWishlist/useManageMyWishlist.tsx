@@ -84,7 +84,7 @@ export const useManageMyWishlist = (navigate: any) => {
     const editMutation = useMutation({
         mutationFn: editWish,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["myWishes"] });
+            queryClient.invalidateQueries({ queryKey: ["wishes"] });
             resetForm();
             setOpenEdition(false);
             setWishToEdit(null);
@@ -98,7 +98,7 @@ export const useManageMyWishlist = (navigate: any) => {
     const deleteMutation = useMutation({
         mutationFn: deleteWish,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["myWishes"] });
+            queryClient.invalidateQueries({ queryKey: ["wishes"] });
             resetForm();
             setOpenEdition(false);
             setWishToEdit(null);

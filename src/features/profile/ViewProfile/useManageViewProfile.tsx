@@ -1,31 +1,69 @@
 import { useParams } from "react-router-dom";
-import { useAreFriends, useProfile } from "./ViewProfileHelpers";
+import {
+    askFriend,
+    useFriendshipStatus,
+    useProfile,
+    type FriendshipStatus,
+} from "./ViewProfileHelpers";
 import { useMyProfile } from "../MyProfile/MyProfileHelpers";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useState } from "react";
 
 export const useManageViewProfile = () => {
+    const queryClient = useQueryClient();
     const { id } = useParams();
 
     const { data: user, error, isLoading: loading } = useProfile(id!);
     const { data: currentUser } = useMyProfile();
-    const shouldCheckFriend = !!currentUser?.id && !!user?.id;
-    const { data: isFriend } = useAreFriends(
-    currentUser?.id ?? "",
-    user?.id ?? "",
-    shouldCheckFriend
+
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
+
+    const shouldCheck = !!currentUser?.id && !!user?.id;
+
+    const { data: friendshipData } = useFriendshipStatus(
+        currentUser?.id ?? "",
+        user?.id ?? "",
+        shouldCheck
     );
 
-    const handleAddFriend = (e: React.FormEvent<HTMLFormElement>) => {
-        e.preventDefault();
+    const status: FriendshipStatus = friendshipData?.status ?? "none";
 
-        
-    }
+    const mutation = useMutation({
+        mutationFn: ({
+            requesterId,
+            addresseeId,
+        }: {
+            requesterId: string;
+            addresseeId: string;
+        }) => askFriend(requesterId, addresseeId),
+        onSuccess: () => {
+            queryClient.setQueryData(
+                ["friendshipStatus", currentUser?.id, user?.id],
+                { status: "pending_sent" }
+            );
+        },
+        onError: (error: any) => {
+            setSubmitError(error.message || "Erreur inconnue");
+        },
+        onSettled: () => setIsSubmitting(false),
+    });
+
+    const handleAddFriend = () => {
+        if (!currentUser?.id || !user?.id) return;
+        setIsSubmitting(true);
+        setSubmitError(null);
+        mutation.mutate({ requesterId: currentUser.id, addresseeId: user.id });
+    };
 
     return {
         loading,
         error,
         currentUser,
-        isFriend,
         user,
-        handleAddFriend
-    }
-}
+        friendshipStatus: status,
+        handleAddFriend,
+        isSubmitting,
+        submitError,
+    };
+};

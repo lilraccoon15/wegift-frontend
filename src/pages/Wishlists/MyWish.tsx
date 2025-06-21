@@ -11,7 +11,7 @@ const MyWish = () => {
     if (!id) return <p>Paramètre ID manquant</p>;
 
     if (loadingWish) return <p>Chargement...</p>;
-    if (!wish) return <p>Wishlist non trouvée</p>;
+    if (!wish) return <p>Wish non trouvé</p>;
 
     return (
         <>

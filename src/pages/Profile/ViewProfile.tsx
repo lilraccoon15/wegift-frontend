@@ -1,24 +1,48 @@
 import { useManageViewProfile } from "../../features/profile/ViewProfile/useManageViewProfile";
 
 const ViewProfile = () => {
-    
     const {
         loading,
         error,
         currentUser,
-        isFriend,
         user,
-        handleAddFriend
+        friendshipStatus,
+        handleAddFriend,
+        isSubmitting,
     } = useManageViewProfile();
 
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error.message}</p>;
 
+    const renderFriendButton = () => {
+        if (!currentUser || !user) return null;
+
+        switch (friendshipStatus) {
+            case "none":
+                return (
+                    <button disabled={isSubmitting} onClick={handleAddFriend}>
+                        {isSubmitting
+                            ? "Envoi en cours..."
+                            : "Envoyer une demande d'amitié"}
+                    </button>
+                );
+            case "pending_sent":
+                return <p>Demande d’amitié envoyée</p>;
+            case "pending_received":
+                return <p>Cette personne vous a envoyé une demande</p>;
+            case "friends":
+                return <p>Vous êtes amis</p>;
+            case "rejected":
+                return <p>Demande refusée</p>;
+            default:
+                return null;
+        }
+    };
+
     return (
         <>
-            {currentUser && user && !isFriend && <button onClick={handleAddFriend}>Ajouter en ami</button>}
-            {isFriend && <p>Vous êtes déjà amis</p>}
-            {user && <h2>Profile {user.firstName}</h2>}
+            {renderFriendButton()}
+            {user && <h2>Profil de {user.firstName}</h2>}
         </>
     );
 };
