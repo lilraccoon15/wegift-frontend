@@ -1,9 +1,9 @@
 import { useRef } from "react";
-import InputField from "../../../components/forms/InputField";
-import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
+import Message from "../../../components/ui/Message";
+import InputField from "../../../components/forms/InputField";
 
-interface CreateWishFormProps {
+interface EditWishFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
     title: string;
     onTitleChange: (
@@ -19,23 +19,24 @@ interface CreateWishFormProps {
         >
     ) => void;
     picturePreview?: string | null;
-    price: string;
-    onPriceChange: (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-    ) => void;
     link: string;
     onLinkChange: (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
     ) => void;
+    price: string;
+    onPriceChange: (
+        e: React.ChangeEvent<
+            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+        >
+    ) => void;
     error: string | null;
     buttondisabled: boolean;
+    handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const CreateWishForm: React.FC<CreateWishFormProps> = ({
+const EditWishForm: React.FC<EditWishFormProps> = ({
     onSubmit,
     title,
     onTitleChange,
@@ -43,12 +44,13 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
     description,
     onDescriptionChange,
     picturePreview,
-    price,
-    onPriceChange,
     link,
     onLinkChange,
+    price,
+    onPriceChange,
     error,
     buttondisabled,
+    handleDelete,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -98,27 +100,27 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
             />
             <InputField
                 type="text"
-                placeholder="Prix"
-                value={price}
-                onChange={onPriceChange}
-                className=""
-            />
-            <InputField
-                type="text"
-                placeholder="Lien"
+                placeholder="Link"
                 value={link}
                 onChange={onLinkChange}
                 className=""
             />
+            <InputField
+                type="text"
+                placeholder="Price"
+                value={price}
+                onChange={onPriceChange}
+                className=""
+            />
             {error && <Message text={error} type="error" />}
-            <Button
-                type="submit"
-                disabled={buttondisabled}
-            >
-                Créer
+            <Button type="submit" disabled={buttondisabled}>
+                Modifier
+            </Button>
+            <Button type="button" onClick={handleDelete}>
+                Supprimer
             </Button>
         </form>
     );
 };
 
-export default CreateWishForm;
+export default EditWishForm;

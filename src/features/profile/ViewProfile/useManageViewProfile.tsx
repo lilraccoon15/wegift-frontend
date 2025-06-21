@@ -14,11 +14,18 @@ export const useManageViewProfile = () => {
     shouldCheckFriend
     );
 
+    const handleAddFriend = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+
+        
+    }
+
     return {
         loading,
         error,
         currentUser,
         isFriend,
-        user
+        user,
+        handleAddFriend
     }
 }

@@ -7,7 +7,8 @@ const ViewProfile = () => {
         error,
         currentUser,
         isFriend,
-        user
+        user,
+        handleAddFriend
     } = useManageViewProfile();
 
     if (loading) return <p>Chargement...</p>;
@@ -15,7 +16,7 @@ const ViewProfile = () => {
 
     return (
         <>
-            {currentUser && user && !isFriend && <button>Ajouter en ami</button>}
+            {currentUser && user && !isFriend && <button onClick={handleAddFriend}>Ajouter en ami</button>}
             {isFriend && <p>Vous êtes déjà amis</p>}
             {user && <h2>Profile {user.firstName}</h2>}
         </>

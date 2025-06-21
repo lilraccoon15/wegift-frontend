@@ -4,8 +4,9 @@ import { useMyWishlistById } from "../MyWishlists/MyWishlistsHelpers";
 import { useWishesByWishlistId } from "../MyWishes/MyWishesHelpers";
 import { useEffect, useState } from "react";
 import { createWish } from "../CreateWish/CreateWishHelpers";
+import { deleteWish, editWish } from "../EditWish/EditWishHelpers";
 
-export const useManageMyWishlist = () => {
+export const useManageMyWishlist = (navigate: any) => {
     const { id } = useParams<{ id: string }>();
     const queryClient = useQueryClient();
 
@@ -28,6 +29,8 @@ export const useManageMyWishlist = () => {
     const [creationMode, setCreationMode] = useState<
         "none" | "choice" | "form" | "urlScrap"
     >("none");
+    const [openEdition, setOpenEdition] = useState(false);
+    const [wishToEdit, setWishToEdit] = useState<any | null>(null);
 
     useEffect(() => {
         if (picture) {
@@ -40,26 +43,68 @@ export const useManageMyWishlist = () => {
         }
     }, [picture]);
 
+    useEffect(() => {
+        if (wishToEdit) {
+            setTitle(wishToEdit.title || "");
+            setDescription(wishToEdit.description || "");
+            setPicturePreview(wishToEdit.picture || null);
+            setLink(wishToEdit.link || "");
+            setPrice(wishToEdit.price || "");
+        }
+    }, [wishToEdit]);
+
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setPicture(null);
+        setPicturePreview(null);
+        setPrice("");
+        setLink("");
+        setIsSubmitting(false);
+        setSubmitError(null);
+    };
+
     const mutation = useMutation({
         mutationFn: createWish,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["myWishes"] });
+            queryClient.invalidateQueries({ queryKey: ["wishes", id] });
 
-            setTitle("");
-            setDescription("");
-            setPicture(null);
-            setPicturePreview(null);
-            setPrice("");
-            setLink("");
+            resetForm();
             setShowCreate(false);
-
-            // navigate("/my-wishlists");
+            navigate(`/my-wishlist/${id}`);
         },
         onError: (error: any) => {
             setSubmitError(error.message || "Erreur inconnue");
         },
         onSettled: () => {
             setIsSubmitting(false);
+        },
+    });
+
+    const editMutation = useMutation({
+        mutationFn: editWish,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["myWishes"] });
+            resetForm();
+            setOpenEdition(false);
+            setWishToEdit(null);
+        },
+        onError: (error: any) => {
+            setSubmitError(error.message || "Erreur inconnue");
+        },
+        onSettled: () => setIsSubmitting(false),
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteWish,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["myWishes"] });
+            resetForm();
+            setOpenEdition(false);
+            setWishToEdit(null);
+        },
+        onError: (error: any) => {
+            setSubmitError(error.message || "Erreur inconnue");
         },
     });
 
@@ -95,11 +140,49 @@ export const useManageMyWishlist = () => {
 
         mutation.mutate({
             title,
+            wishlistId: id ?? "",
             description: description ?? undefined,
             picture: picture ?? undefined,
-            price,
-            link,
+            price: price ? Number(price) : undefined,
+            link: link ?? undefined,
         });
+    };
+
+    const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!wishToEdit) return;
+        setIsSubmitting(true);
+        setSubmitError(null);
+
+        editMutation.mutate({
+            id: wishToEdit.id,
+            title,
+            description: description ?? undefined,
+            link: link ?? undefined,
+            picture: picture ?? undefined,
+            price: price ? Number(price) : undefined,
+        });
+    };
+
+    const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
+        e.preventDefault();
+        if (!wishToEdit) return;
+        const confirmDelete = window.confirm(
+            "Souhaitez-vous vraiment supprimer ce souhait ?"
+        );
+        if (!confirmDelete) return;
+        deleteMutation.mutate(wishToEdit.id);
+    };
+
+    const openEditForm = (wishlist: any) => {
+        setWishToEdit(wishlist);
+        setOpenEdition(true);
+    };
+
+    const closeEditForm = () => {
+        setOpenEdition(false);
+        setWishToEdit(null);
+        resetForm();
     };
 
     return {
@@ -122,7 +205,12 @@ export const useManageMyWishlist = () => {
         setLink,
         submitError,
         isSubmitting,
-        wishes
-    }
-
-}
+        wishes,
+        openEditForm,
+        openEdition,
+        wishToEdit,
+        handleEditSubmit,
+        handleDelete,
+        closeEditForm
+    };
+};

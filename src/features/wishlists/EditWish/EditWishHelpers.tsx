@@ -1,19 +1,18 @@
 import API_URL from "../../../config";
-import type { Wishlist } from "../MyWishlists/MyWishlistsHelpers";
+import type { Wish } from "../MyWishes/MyWishesHelpers";
 
 interface EditPayload {
     id: string;
     title: string;
     description?: string;
     picture?: File;
-    access: string;
-    published: boolean;
+    price?: number;
+    link?: string;
 }
 
-export async function editWishlist (data:EditPayload): Promise<Wishlist> {
-const formData = new FormData();
+export async function editWish (data:EditPayload): Promise<Wish> {
+    const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("access", data.access);
 
     if (data.description !== undefined) {
         formData.append("description", data.description);
@@ -23,9 +22,15 @@ const formData = new FormData();
         formData.append("picture", data.picture);
     }
 
-    formData.append("published", String(data.published ? 1 : 0));
+    if (data.price !== undefined) {
+        formData.append("price", String(Number(data.price)));
+    }
 
-    const response = await fetch(`${API_URL}/api/wishlist/update-wishlist/${data.id}`,
+    if (data.link !== undefined) {
+        formData.append("link", data.link);
+    }
+
+    const response = await fetch(`${API_URL}/api/wishlist/update-wish/${data.id}`, 
         {
             method: "PUT",
             credentials: "include",
@@ -39,11 +44,11 @@ const formData = new FormData();
     }
 
     const result = await response.json();
-    return result.data.wishlist;
+    return result.data.wish;
 }
 
-export async function deleteWishlist (id: string) {
-    const response = await fetch(`${API_URL}/api/wishlist/delete-wishlist/${id}`, {
+export async function deleteWish (id: string) {
+    const response = await fetch(`${API_URL}/api/wishlist/delete-wish/${id}`, {
         method: "DELETE",
         credentials: "include",
     });

@@ -3,17 +3,25 @@ import type { Wish } from "../MyWishes/MyWishesHelpers";
 
 interface Createpayload {
     title: string;
-    price: string;
-    link: string;
+    wishlistId: string;
+    price?: number;
     description?: string;
     picture?: File;
+    link?: string;
 }
 
 export async function createWish(data:Createpayload): Promise<Wish> {
     const formData = new FormData();
     formData.append("title", data.title);
-    formData.append("price", data.price);
-    formData.append("link", data.link);
+    formData.append("wishlistId", data.wishlistId);
+
+    if (data.price !== undefined) {
+        formData.append("price", String(data.price));   
+    }
+
+    if (data.link !== undefined) {
+        formData.append("link", data.link);    
+    }
 
     if (data.description !== undefined) {
         formData.append("description", data.description);
@@ -22,8 +30,6 @@ export async function createWish(data:Createpayload): Promise<Wish> {
     if (data.picture) {
         formData.append("picture", data.picture);
     }
-
-    formData.append("published", "1");
 
     const response = await fetch(`${API_URL}/api/wishlist/create-wish`,
         {
