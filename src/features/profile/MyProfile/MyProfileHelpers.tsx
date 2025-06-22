@@ -22,3 +22,15 @@ export function useMyProfile() {
     },
   });
 }
+
+export function useMyFriends() {
+  return useQuery<User[], Error>({
+    queryKey: ["myFriends"],
+    queryFn: async () => {
+      const res = await axios.get(`${API_URL}/api/users/get-friends`, {
+        withCredentials: true,
+      });
+      return res.data.data.friendships;
+    },
+  });
+}

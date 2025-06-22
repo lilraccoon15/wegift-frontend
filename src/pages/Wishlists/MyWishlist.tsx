@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import CreateWishForm from "../../features/wishlists/CreateWish/CreateWishForm";
 import { useManageMyWishlist } from "../../features/wishlists/MyWishlist/useManageMyWishlist";
 import EditWishForm from "../../features/wishlists/EditWish/EditWishForm";
+import ScrapWishForm from "../../features/wishlists/CreateWish/ScrapWishForm";
 
 const MyWishlist = () => {
     const navigate = useNavigate();
@@ -32,7 +33,7 @@ const MyWishlist = () => {
         wishToEdit,
         handleEditSubmit,
         handleDelete,
-        closeEditForm
+        closeEditForm,
     } = useManageMyWishlist(navigate);
 
     if (!id) return <p>Paramètre ID manquant</p>;
@@ -90,16 +91,7 @@ const MyWishlist = () => {
 
             {creationMode === "urlScrap" && (
                 <>
-                    <p>scrapping</p>
-                    {/* <UrlScrappingForm
-                    onCancel={() => setCreationMode("none")}
-                    onSuccess={() => {
-                        queryClient.invalidateQueries({
-                            queryKey: ["myWishes"],
-                        });
-                        setCreationMode("none");
-                    }}
-                /> */}
+                    <ScrapWishForm/>
 
                     <button onClick={() => setCreationMode("none")}>
                         Annuler
@@ -126,9 +118,7 @@ const MyWishlist = () => {
                     <EditWishForm
                         onSubmit={handleEditSubmit}
                         title={title}
-                        onTitleChange={(e) =>
-                            setTitle(e.target.value)
-                        }
+                        onTitleChange={(e) => setTitle(e.target.value)}
                         onPictureChange={handlePictureChange}
                         description={description}
                         onDescriptionChange={(e) =>
