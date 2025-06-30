@@ -13,12 +13,12 @@ export interface Account {
 
 export function useMyAccount() {
     return useQuery<Account, Error>({
-        queryKey: ["myAccount"], 
+        queryKey: ["myAccount"],
         queryFn: async () => {
             const res = await axios.get(`${API_URL}/api/auth/get-account`, {
                 withCredentials: true,
             });
             return res.data.data.account;
-        }
-    })
+        },
+    });
 }

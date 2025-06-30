@@ -14,38 +14,40 @@ import MyWishlists from "../pages/Wishlists/MyWishlists";
 import MyWishlist from "../pages/Wishlists/MyWishlist";
 import ViewProfile from "../pages/Profile/ViewProfile";
 import MyWish from "../pages/Wishlists/MyWish";
+import Notifications from "../pages/Notifications/Notifications";
 
 const PrivateOutlet = () => {
-  return (
-    <PrivateRoute>
-      <Outlet />
-    </PrivateRoute>
-  );
+    return (
+        <PrivateRoute>
+            <Outlet />
+        </PrivateRoute>
+    );
 };
 
 const AppRouter = () => {
-  return (
-    <Layout>
-      <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/register" element={<Register />} />
-        <Route path="/reset-password" element={<ResetPassword />} />
-        <Route path="/activate" element={<ActivatePage />} />
-        <Route path="/profile/:id" element={<ViewProfile />} />
+    return (
+        <Layout>
+            <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/login" element={<Login />} />
+                <Route path="/register" element={<Register />} />
+                <Route path="/reset-password" element={<ResetPassword />} />
+                <Route path="/activate" element={<ActivatePage />} />
+                <Route path="/profile/:id" element={<ViewProfile />} />
 
-        <Route element={<PrivateOutlet />}>
-          <Route path="/my-wishlists" element={<MyWishlists />} />
-          <Route path="/my-wishlist/:id" element={<MyWishlist />} />
-          <Route path="/my-wish/:id" element={<MyWish />} />
-          <Route path="/profile/me" element={<MyProfile />} />
-          <Route path="/edit-profile" element={<EditProfile />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          <Route path="/account" element={<MyAccount />} />
-        </Route>
-      </Routes>
-    </Layout>
-  );
+                <Route element={<PrivateOutlet />}>
+                    <Route path="/my-wishlists" element={<MyWishlists />} />
+                    <Route path="/my-wishlist/:id" element={<MyWishlist />} />
+                    <Route path="/my-wish/:id" element={<MyWish />} />
+                    <Route path="/profile/me" element={<MyProfile />} />
+                    <Route path="/edit-profile" element={<EditProfile />} />
+                    <Route path="/dashboard" element={<Dashboard />} />
+                    <Route path="/account" element={<MyAccount />} />
+                    <Route path="/notifications" element={<Notifications />} />
+                </Route>
+            </Routes>
+        </Layout>
+    );
 };
 
 export default AppRouter;

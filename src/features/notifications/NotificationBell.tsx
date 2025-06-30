@@ -1,3 +1,5 @@
+import { Link } from "react-router-dom";
+import Notifications from "../../pages/Notifications/Notifications";
 import { useMyNotifications } from "./NotificationHelpers";
 import { useManageNotifications } from "./useManageNotifications";
 
@@ -13,31 +15,28 @@ const NotificationBell = () => {
 
     const unreadCount = notifications?.filter((n) => !n.read).length ?? 0;
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return null;
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (
         <>
-            <button onClick={() => setShowNotifications(!showNotifications)}>
-                🔔
+            <button
+                className="notification-popup"
+                onClick={() => setShowNotifications(!showNotifications)}
+            >
+                <i className="fa-solid fa-bell"></i>
                 {unreadCount > 0 && <span>{unreadCount}</span>}
             </button>
 
+            <Link to="/notifications" className="notification-link nav-button">
+                <i className="fa-solid fa-bell"></i>
+                {unreadCount > 0 && <span>{unreadCount}</span>}
+                <span>Notifications</span>
+            </Link>
+
             {showNotifications && (
                 <>
-                    {notifications && notifications.length > 0 ? (
-                        <ul>
-                            {notifications.map((notif) => (
-                                <li key={notif.id}>
-                                    {notif.read ? "" : "🔵 "}{" "}
-                                    {/* petit indicateur non lu */}
-                                    {notif.text}
-                                </li>
-                            ))}
-                        </ul>
-                    ) : (
-                        <p>Vous n'avez pas de notification</p>
-                    )}
+                    <Notifications />
                 </>
             )}
         </>

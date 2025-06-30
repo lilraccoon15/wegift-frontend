@@ -2,7 +2,6 @@ import EditPasswordForm from "../../features/account/EditPassword/EditPasswordFo
 import { useManageEditPassword } from "../../features/account/EditPassword/useManageEditPassword";
 
 const EditPassword = () => {
-    
     const {
         loading,
         error,
@@ -14,10 +13,10 @@ const EditPassword = () => {
         setConfirmPassword,
         handleEditSubmit,
         submitError,
-        isSubmitting
+        isSubmitting,
     } = useManageEditPassword();
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return null;
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (
@@ -27,9 +26,13 @@ const EditPassword = () => {
                 currentPassword={currentPassword}
                 newPassword={newPassword}
                 confirmPassword={confirmPassword}
-                onCurrentPasswordChange={(e) => setCurrentPassword(e.target.value)}
+                onCurrentPasswordChange={(e) =>
+                    setCurrentPassword(e.target.value)
+                }
                 onNewPasswordChange={(e) => setNewPassword(e.target.value)}
-                onConfirmPasswordChange={(e) => setConfirmPassword(e.target.value)}
+                onConfirmPasswordChange={(e) =>
+                    setConfirmPassword(e.target.value)
+                }
                 onSubmit={handleEditSubmit}
                 error={submitError}
                 buttondisabled={isSubmitting}

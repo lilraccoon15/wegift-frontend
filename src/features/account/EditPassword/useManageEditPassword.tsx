@@ -17,13 +17,13 @@ export const useManageEditPassword = () => {
         setIsSubmitting(true);
         setSubmitError(null);
 
-        if(newPassword !== confirmPassword) {
+        if (newPassword !== confirmPassword) {
             setSubmitError("Les mots de passe ne correspondent pas.");
             setIsSubmitting(false);
             return;
         }
 
-        if(!currentPassword) {
+        if (!currentPassword) {
             setSubmitError("Veuillez saisir votre mot de passe.");
             setIsSubmitting(false);
             return;
@@ -32,7 +32,7 @@ export const useManageEditPassword = () => {
         setIsSubmitting(true);
 
         try {
-            await updatePassword({currentPassword, newPassword});
+            await updatePassword({ currentPassword, newPassword });
             alert("Mot de passe modifié avec succès");
         } catch (err: any) {
             setSubmitError(err.message || "Erreur lors de la modification");
@@ -52,6 +52,6 @@ export const useManageEditPassword = () => {
         setConfirmPassword,
         handleEditSubmit,
         submitError,
-        isSubmitting
-    }
-}
+        isSubmitting,
+    };
+};

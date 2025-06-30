@@ -5,7 +5,6 @@ import Message from "../../components/ui/Message";
 import { useManageLogin } from "../../features/auth/Login/useManageLogin";
 
 const Login = () => {
-    
     const navigate = useNavigate();
 
     const {
@@ -21,7 +20,7 @@ const Login = () => {
         setTwoFACode,
     } = useManageLogin(navigate);
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return null;
 
     return (
         <div className="p-4 max-w-md mx-auto space-y-4">

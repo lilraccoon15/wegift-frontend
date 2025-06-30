@@ -2,7 +2,6 @@ import { useManageViewProfile } from "../../features/profile/ViewProfile/useMana
 
 const ViewProfile = () => {
     const {
-        loading,
         error,
         currentUser,
         user,
@@ -11,7 +10,6 @@ const ViewProfile = () => {
         isSubmitting,
     } = useManageViewProfile();
 
-    if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error.message}</p>;
 
     const renderFriendButton = () => {

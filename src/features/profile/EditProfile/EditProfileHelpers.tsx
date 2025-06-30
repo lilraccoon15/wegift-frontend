@@ -23,14 +23,11 @@ export async function updateProfile(data: UpdateProfilePayload): Promise<User> {
         formData.append("picture", data.picture);
     }
 
-    const response = await fetch(
-        `${API_URL}/api/users/update-profile`,
-        {
-            method: "PUT",
-            credentials: "include",
-            body: formData,
-        }
-    );
+    const response = await fetch(`${API_URL}/api/users/update-profile`, {
+        method: "PUT",
+        credentials: "include",
+        body: formData,
+    });
 
     if (!response.ok) {
         const error = await response.json();

@@ -211,6 +211,6 @@ export const useManageMyWishlist = (navigate: any) => {
         wishToEdit,
         handleEditSubmit,
         handleDelete,
-        closeEditForm
+        closeEditForm,
     };
 };

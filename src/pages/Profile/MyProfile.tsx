@@ -6,17 +6,12 @@ import {
 import { useState } from "react";
 
 const MyProfile = () => {
-    const { data: user, error, isLoading: loading } = useMyProfile();
+    const { data: user, error } = useMyProfile();
 
-    const {
-        data: friends,
-        isLoading: friendsLoading,
-        error: friendsError,
-    } = useMyFriends();
+    const { data: friends, error: friendsError } = useMyFriends();
 
     const [showFriendsList, setShowFriendsList] = useState(false);
 
-    if (loading || friendsLoading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error.message}</p>;
     if (friendsError) return <p>Erreur amis : {friendsError.message}</p>;
 
@@ -41,9 +36,14 @@ const MyProfile = () => {
                     {showFriendsList && friends.length > 0 && (
                         <ul>
                             {friends.map((friend) => (
-                                <Link key={friend.id} to={`/profile/${friend.id}`}><li key={friend.id}>
-                                    {friend.firstName} {friend.lastName}
-                                </li></Link>
+                                <Link
+                                    key={friend.id}
+                                    to={`/profile/${friend.id}`}
+                                >
+                                    <li key={friend.id}>
+                                        {friend.firstName} {friend.lastName}
+                                    </li>
+                                </Link>
                             ))}
                         </ul>
                     )}

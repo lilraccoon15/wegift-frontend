@@ -1,9 +1,8 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useAuth } from "../../context/AuthContext";
-import { useManageNotifications } from "../../features/notifications/useManageNotifications";
-import NotificationBell from "../../features/notifications/NotificationBell";
+import { useAuth } from "../../../context/AuthContext";
+import NotificationBell from "../../../features/notifications/NotificationBell";
 
-const Nav = () => {
+const NavDesktop = () => {
     const { isAuthenticated, logout, loading } = useAuth();
     const navigate = useNavigate();
 
@@ -13,11 +12,7 @@ const Nav = () => {
     };
 
     if (loading || isAuthenticated === null) {
-        return (
-            <nav className="mt-2 flex gap-4">
-                <p>Chargement...</p>
-            </nav>
-        );
+        return null;
     }
 
     return (
@@ -26,11 +21,15 @@ const Nav = () => {
             {isAuthenticated && (
                 <>
                     <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/my-wishlists">Mes listes</Link>
-                    <Link to="/profile/me">Profil</Link>
-                    <Link to="/account">Compte</Link>
-                    
+                    <Link to="/my-wishlists">
+                        <i className="fa-solid fa-clipboard-list"></i> Mes
+                        listes
+                    </Link>
                     <NotificationBell />
+                    <Link to="/profile/me">
+                        <i className="fa-solid fa-user"></i> Profil
+                    </Link>
+                    <Link to="/account">Compte</Link>
                     <button onClick={handleLogout}>Déconnexion</button>
                 </>
             )}
@@ -44,4 +43,4 @@ const Nav = () => {
     );
 };
 
-export default Nav;
+export default NavDesktop;

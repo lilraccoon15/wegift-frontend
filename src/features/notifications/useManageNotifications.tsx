@@ -1,10 +1,10 @@
 import { useState } from "react";
 
 export const useManageNotifications = () => {
-  const [showNotifications, setShowNotifications] = useState(false);
+    const [showNotifications, setShowNotifications] = useState(false);
 
-  return {
-    showNotifications,
-    setShowNotifications
-  }
+    return {
+        showNotifications,
+        setShowNotifications,
+    };
 };

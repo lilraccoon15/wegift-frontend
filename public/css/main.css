@@ -1,0 +1,282 @@
+@import "@fortawesome/fontawesome-free/css/all.min.css";
+/**************HEADER************/
+header {
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: 4rem;
+  z-index: 10;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+/**************HEADER************/
+footer {
+  display: none;
+}
+
+/**************NAV************/
+.no-auth,
+.no-auth {
+  display: none;
+}
+
+.nav-mobile {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 4rem;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-around;
+  z-index: 10;
+  box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+
+.nav-mobile-top .profile-picture {
+  width: 2.75rem;
+  border-radius: 30px;
+}
+
+.nav-mobile-bottom {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 2rem;
+  padding-right: 2rem;
+}
+
+.nav-button {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.nav-button .fa-solid {
+  font-size: 1.4rem;
+}
+.nav-button span {
+  text-transform: uppercase;
+  font-size: 0.8em;
+  margin-top: 0.4rem;
+}
+
+.nav-desktop,
+.notification-popup {
+  display: none;
+}
+
+@media (min-width: 769px) {
+  .nav-mobile,
+  .notification-link {
+    display: none;
+  }
+  footer,
+  .nav-desktop,
+  .notification-popup {
+    display: block;
+  }
+  .header-top {
+    border-bottom: none;
+  }
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("../assets/fonts/Mulish-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("../assets/fonts/Mulish-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Mulish";
+  src: url("../assets/fonts/Mulish-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Philosopher";
+  src: url("../assets/fonts/Philosopher-Regular.ttf") format("truetype");
+  font-weight: 400;
+  font-style: normal;
+}
+@font-face {
+  font-family: "Philosopher";
+  src: url("../assets/fonts/Philosopher-Italic.ttf") format("truetype");
+  font-weight: 400;
+  font-style: italic;
+}
+@font-face {
+  font-family: "Philosopher";
+  src: url("../assets/fonts/Philosopher-Bold.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+.home {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+.wishlists {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-start;
+  gap: 0.8rem;
+}
+
+.wishlist-card {
+  width: 45%;
+  position: relative;
+}
+.wishlist-card .wishlist-infos {
+  margin-left: 0.5rem;
+  margin-top: 0.2rem;
+}
+.wishlist-card .wishlist-infos h2 {
+  margin: 0;
+}
+.wishlist-card .replace-wishlist-picture,
+.wishlist-card img {
+  width: 100%;
+  height: 6rem;
+  border-radius: 10%;
+  display: block;
+}
+.wishlist-card img {
+  object-fit: cover;
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+.wishlist-card .replace-wishlist-picture {
+  background-color: #E5EBF4;
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+.wishlist-card.new-wishlist {
+  border: 0.2rem solid #E5EBF4;
+  border-radius: 10%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+.wishlist-card.new-wishlist .fa-plus {
+  color: #CFDCF0;
+}
+.wishlist-card button {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  border: none;
+  padding: 0.25rem;
+  border-radius: 50%;
+  padding-inline: 0.25rem;
+  padding-block: 0.25rem;
+}
+
+body {
+  background-color: #FEFDF9;
+  margin: 0;
+  font-family: "Mulish", sans-serif;
+}
+
+.main-content {
+  padding-bottom: 4rem;
+  min-height: calc(100vh - 120px);
+  overflow-y: auto;
+  margin-left: 2rem;
+  margin-right: 2rem;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
+}
+
+a {
+  color: #181706;
+  text-decoration: none;
+}
+
+h1,
+h3,
+h4,
+h5,
+h6 {
+  font-family: "Philosopher", serif;
+}
+
+h1 {
+  font-size: 1.7em;
+}
+
+h2 {
+  font-size: 1em;
+}
+
+ul,
+li {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.btn {
+  display: inline-block;
+  flex-shrink: 0;
+  flex-grow: 0;
+  padding: 0.5rem 1rem;
+  background-color: #D3CB45;
+  color: #181706;
+  border: none;
+  border-radius: 4px;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: #F5F3D5;
+}
+
+.link {
+  font-weight: bold;
+}
+
+form {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 80%;
+}
+
+.form-step {
+  display: none;
+}
+
+.form-step.active {
+  display: block;
+}
+
+/*# sourceMappingURL=main.css.map */

@@ -4,50 +4,49 @@ import { useNavigate } from "react-router-dom";
 import { useManagePreferences } from "../../features/account/Preferences/useManagePreferences";
 
 const Preferences = () => {
-  
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const {
-    loading,
-    error,
-    newsletter,
-    handleCheckboxChange,
-    isSubmitting,
-    submitError,
-    showConfirmation,
-    handleShowConfirmation,
-    handleHideConfirmation,
-    password,
-    handlePasswordChange,
-    submitErrorDelete,
-    isSubmittingDelete,
-    handleDeleteAccount
-  } = useManagePreferences(navigate);
+    const {
+        loading,
+        error,
+        newsletter,
+        handleCheckboxChange,
+        isSubmitting,
+        submitError,
+        showConfirmation,
+        handleShowConfirmation,
+        handleHideConfirmation,
+        password,
+        handlePasswordChange,
+        submitErrorDelete,
+        isSubmittingDelete,
+        handleDeleteAccount,
+    } = useManagePreferences(navigate);
 
-  if (loading) return <p>Chargement...</p>;
-  if (error) return <p>Erreur : {error.message}</p>;
+    if (loading) return null;
+    if (error) return <p>Erreur : {error.message}</p>;
 
-  return (
-    <div>
-      <EditNewsletter
-        newsletter={newsletter}
-        handleCheckboxChange={handleCheckboxChange}
-        isSubmitting={isSubmitting}
-        submitError={submitError}
-      />
+    return (
+        <div>
+            <EditNewsletter
+                newsletter={newsletter}
+                handleCheckboxChange={handleCheckboxChange}
+                isSubmitting={isSubmitting}
+                submitError={submitError}
+            />
 
-      <DeleteAccount
-        showConfirmation={showConfirmation}
-        setShowConfirmation={handleShowConfirmation}
-        setHideConfirmation={handleHideConfirmation}
-        password={password}
-        setPassword={handlePasswordChange}
-        submitError={submitErrorDelete}
-        buttondisabled={isSubmittingDelete}
-        handleDeleteAccount={handleDeleteAccount}
-      />
-    </div>
-  );
+            <DeleteAccount
+                showConfirmation={showConfirmation}
+                setShowConfirmation={handleShowConfirmation}
+                setHideConfirmation={handleHideConfirmation}
+                password={password}
+                setPassword={handlePasswordChange}
+                submitError={submitErrorDelete}
+                buttondisabled={isSubmittingDelete}
+                handleDeleteAccount={handleDeleteAccount}
+            />
+        </div>
+    );
 };
 
 export default Preferences;

@@ -111,10 +111,7 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
                 className=""
             />
             {error && <Message text={error} type="error" />}
-            <Button
-                type="submit"
-                disabled={buttondisabled}
-            >
+            <Button type="submit" disabled={buttondisabled}>
                 Créer
             </Button>
         </form>

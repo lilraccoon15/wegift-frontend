@@ -2,9 +2,7 @@ import EditProfileForm from "../../features/profile/EditProfile/EditProfileForm"
 import { useManageProfile } from "../../features/profile/EditProfile/useManageEditProfile";
 
 const EditProfile = () => {
-
     const {
-        isLoading,
         error,
         firstName,
         lastName,
@@ -20,10 +18,7 @@ const EditProfile = () => {
         handleBirthDateChange,
         handlePictureChange,
     } = useManageProfile();
-    
-    
 
-    if (isLoading) return <p>Chargement...</p>;
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (

@@ -1,14 +1,7 @@
-interface ScrapWishFormProps {
+interface ScrapWishFormProps {}
 
-}
-
-const ScrapWishForm = ({
-    
-}: ScrapWishFormProps) => {
- 
-  return (
-    <>formulaire</>
-  );
+const ScrapWishForm = ({}: ScrapWishFormProps) => {
+    return <>formulaire</>;
 };
 
 export default ScrapWishForm;

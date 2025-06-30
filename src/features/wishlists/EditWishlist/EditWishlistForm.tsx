@@ -46,7 +46,7 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
     handleDelete,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
-    
+
     const handlePictureClick = () => {
         fileInputRef.current?.click();
     };
@@ -54,7 +54,6 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
     const DEFAULT_PICTURE_URL = "/default-wishlist.png";
-    
 
     return (
         <form onSubmit={onSubmit} encType="multipart/form-data">
@@ -111,18 +110,12 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
                 ]}
             />
             {error && <Message text={error} type="error" />}
-            <Button
-                type="submit"
-                disabled={buttondisabled}
-            >
+            <Button type="submit" disabled={buttondisabled}>
                 Modifier
             </Button>
-            <Button 
-                type="button" 
-                onClick={handleDelete}
-                >
+            <Button type="button" onClick={handleDelete}>
                 Supprimer
-                </Button>
+            </Button>
         </form>
     );
 };

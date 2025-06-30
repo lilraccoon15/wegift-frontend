@@ -54,7 +54,7 @@ export function useAreFriends(
 export async function askFriend(
     requesterId: string,
     addresseeId: string
-): Promise<"pending_sent">  {
+): Promise<"pending_sent"> {
     const res = await axios.post(
         `${API_URL}/api/users/ask-friend`,
         { requesterId, addresseeId },

@@ -13,7 +13,7 @@ const MyAccount = () => {
         "default" | "editEmail" | "editPassword" | "enable2fa" | "preferences"
     >("default");
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return null;
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (

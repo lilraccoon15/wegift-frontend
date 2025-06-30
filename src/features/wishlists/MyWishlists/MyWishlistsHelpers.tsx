@@ -9,6 +9,7 @@ export interface Wishlist {
     description: string;
     access: number;
     userId: string;
+    wishesCount?: number;
 }
 
 export function useMyWishlists() {

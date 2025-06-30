@@ -1,18 +1,17 @@
 interface MessageProps {
-  text: string;
-  type?: "error" | "success" | "info";
+    text: string;
+    type?: "error" | "success" | "info";
 }
 
 const Message: React.FC<MessageProps> = ({ text, type = "info" }) => {
-  let colorClass = "text-gray-700";
-  if (type === "error") colorClass = "text-red-500";
-  else if (type === "success") colorClass = "text-green-500";
+    let colorClass = "text-gray-700";
+    if (type === "error") colorClass = "text-red-500";
+    else if (type === "success") colorClass = "text-green-500";
 
-  return <p className={`${colorClass} my-2`}>{text}</p>;
+    return <p className={`${colorClass} my-2`}>{text}</p>;
 };
 
 export default Message;
-
 
 // import styles from "./Message.module.scss";
 

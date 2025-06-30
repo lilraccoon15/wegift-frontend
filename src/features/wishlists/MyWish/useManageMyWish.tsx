@@ -8,7 +8,6 @@ export const useManageMyWish = () => {
 
     const { data: wish, isLoading: loadingWish } = useMyWishById(id ?? "");
 
-
     return {
         id,
         wish,

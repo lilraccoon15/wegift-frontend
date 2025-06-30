@@ -10,8 +10,8 @@ interface EditPayload {
     published: boolean;
 }
 
-export async function editWishlist (data:EditPayload): Promise<Wishlist> {
-const formData = new FormData();
+export async function editWishlist(data: EditPayload): Promise<Wishlist> {
+    const formData = new FormData();
     formData.append("title", data.title);
     formData.append("access", data.access);
 
@@ -25,7 +25,8 @@ const formData = new FormData();
 
     formData.append("published", String(data.published ? 1 : 0));
 
-    const response = await fetch(`${API_URL}/api/wishlist/update-wishlist/${data.id}`,
+    const response = await fetch(
+        `${API_URL}/api/wishlist/update-wishlist/${data.id}`,
         {
             method: "PUT",
             credentials: "include",
@@ -33,7 +34,7 @@ const formData = new FormData();
         }
     );
 
-    if(!response.ok) {
+    if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Erreur lors de la modification");
     }
@@ -42,11 +43,14 @@ const formData = new FormData();
     return result.data.wishlist;
 }
 
-export async function deleteWishlist (id: string) {
-    const response = await fetch(`${API_URL}/api/wishlist/delete-wishlist/${id}`, {
-        method: "DELETE",
-        credentials: "include",
-    });
+export async function deleteWishlist(id: string) {
+    const response = await fetch(
+        `${API_URL}/api/wishlist/delete-wishlist/${id}`,
+        {
+            method: "DELETE",
+            credentials: "include",
+        }
+    );
 
     if (!response.ok) {
         const errorData = await response.json();

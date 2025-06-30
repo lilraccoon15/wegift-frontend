@@ -8,7 +8,7 @@ interface CreatePayload {
     access: string;
 }
 
-export async function createWishlist(data:CreatePayload): Promise<Wishlist> {
+export async function createWishlist(data: CreatePayload): Promise<Wishlist> {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("access", data.access);
@@ -23,15 +23,13 @@ export async function createWishlist(data:CreatePayload): Promise<Wishlist> {
 
     formData.append("published", "1");
 
-    const response = await fetch(`${API_URL}/api/wishlist/create-wishlist`,
-        {
-            method: "POST",
-            credentials: "include",
-            body: formData,
-        }
-    );
+    const response = await fetch(`${API_URL}/api/wishlist/create-wishlist`, {
+        method: "POST",
+        credentials: "include",
+        body: formData,
+    });
 
-    if(!response.ok) {
+    if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Erreur lors de la création");
     }

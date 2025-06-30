@@ -2,7 +2,6 @@ import EditEmailForm from "../../features/account/EditEmail/EditEmailForm";
 import { useManageEditEmail } from "../../features/account/EditEmail/useManageEditEmail";
 
 const EditEmail = () => {
-    
     const {
         loading,
         error,
@@ -14,10 +13,10 @@ const EditEmail = () => {
         setPassword,
         handleEditSubmit,
         submitError,
-        isSubmitting
+        isSubmitting,
     } = useManageEditEmail();
 
-    if (loading) return <p>Chargement...</p>;
+    if (loading) return null;
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (

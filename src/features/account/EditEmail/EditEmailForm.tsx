@@ -37,7 +37,7 @@ const EditEmailForm: React.FC<EditEmailFormProps> = ({
     onSubmit,
     buttonClassName = "",
     buttondisabled,
-    error
+    error,
 }) => {
     return (
         <form onSubmit={onSubmit}>

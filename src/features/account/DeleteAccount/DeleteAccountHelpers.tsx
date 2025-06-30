@@ -5,19 +5,23 @@ interface DeleteAccountPayload {
     password: string;
 }
 
-export async function deleteAccount(data: DeleteAccountPayload): Promise<Account> {
+export async function deleteAccount(
+    data: DeleteAccountPayload
+): Promise<Account> {
     const response = await fetch(`${API_URL}/api/auth/delete-account`, {
         method: "DELETE",
         headers: {
             "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify(data)
+        body: JSON.stringify(data),
     });
 
-    if(!response.ok) {
+    if (!response.ok) {
         const errorData = await response.json();
-        throw new Error(errorData.message || "Erreur lors de la suppression du compte.");
+        throw new Error(
+            errorData.message || "Erreur lors de la suppression du compte."
+        );
     }
 
     const deleteAccount: Account = await response.json();

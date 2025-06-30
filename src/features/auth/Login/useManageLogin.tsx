@@ -79,5 +79,5 @@ export const useManageLogin = (navigate: any) => {
         error,
         twoFACode,
         setTwoFACode,
-    }
-}
+    };
+};

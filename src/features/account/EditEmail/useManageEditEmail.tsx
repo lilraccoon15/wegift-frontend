@@ -38,7 +38,7 @@ export const useManageEditEmail = () => {
         setIsSubmitting(true);
 
         try {
-            await updateEmail({email, password});
+            await updateEmail({ email, password });
             alert("Email modifié avec succès !");
         } catch (err: any) {
             setSubmitError(err.message || "Erreur lors de la modification");
@@ -58,6 +58,6 @@ export const useManageEditEmail = () => {
         setPassword,
         handleEditSubmit,
         submitError,
-        isSubmitting
-    }
-}
+        isSubmitting,
+    };
+};

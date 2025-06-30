@@ -10,7 +10,7 @@ interface EditPayload {
     link?: string;
 }
 
-export async function editWish (data:EditPayload): Promise<Wish> {
+export async function editWish(data: EditPayload): Promise<Wish> {
     const formData = new FormData();
     formData.append("title", data.title);
 
@@ -30,7 +30,8 @@ export async function editWish (data:EditPayload): Promise<Wish> {
         formData.append("link", data.link);
     }
 
-    const response = await fetch(`${API_URL}/api/wishlist/update-wish/${data.id}`, 
+    const response = await fetch(
+        `${API_URL}/api/wishlist/update-wish/${data.id}`,
         {
             method: "PUT",
             credentials: "include",
@@ -38,7 +39,7 @@ export async function editWish (data:EditPayload): Promise<Wish> {
         }
     );
 
-    if(!response.ok) {
+    if (!response.ok) {
         const error = await response.json();
         throw new Error(error.message || "Erreur lors de la modification");
     }
@@ -47,7 +48,7 @@ export async function editWish (data:EditPayload): Promise<Wish> {
     return result.data.wish;
 }
 
-export async function deleteWish (id: string) {
+export async function deleteWish(id: string) {
     const response = await fetch(`${API_URL}/api/wishlist/delete-wish/${id}`, {
         method: "DELETE",
         credentials: "include",

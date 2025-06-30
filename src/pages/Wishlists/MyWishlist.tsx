@@ -9,8 +9,6 @@ const MyWishlist = () => {
 
     const {
         id,
-        loadingWishes,
-        loadingWishlist,
         wishlist,
         creationMode,
         setCreationMode,
@@ -38,7 +36,6 @@ const MyWishlist = () => {
 
     if (!id) return <p>Paramètre ID manquant</p>;
 
-    if (loadingWishlist || loadingWishes) return <p>Chargement...</p>;
     if (!wishlist) return <p>Wishlist non trouvée</p>;
 
     return (
@@ -91,7 +88,7 @@ const MyWishlist = () => {
 
             {creationMode === "urlScrap" && (
                 <>
-                    <ScrapWishForm/>
+                    <ScrapWishForm />
 
                     <button onClick={() => setCreationMode("none")}>
                         Annuler

@@ -95,10 +95,7 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
                 ]}
             />
             {error && <Message text={error} type="error" />}
-            <Button
-                type="submit"
-                disabled={buttondisabled}
-            >
+            <Button type="submit" disabled={buttondisabled}>
                 Modifier
             </Button>
         </form>
