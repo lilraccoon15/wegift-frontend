@@ -2,8 +2,7 @@ import API_URL from "../../../config";
 import type { User } from "../MyProfile/MyProfileHelpers";
 
 interface UpdateProfilePayload {
-    firstName: string;
-    lastName: string;
+    pseudo: string;
     birthDate: string;
     picture?: File;
     description?: string;
@@ -11,8 +10,7 @@ interface UpdateProfilePayload {
 
 export async function updateProfile(data: UpdateProfilePayload): Promise<User> {
     const formData = new FormData();
-    formData.append("firstName", data.firstName);
-    formData.append("lastName", data.lastName);
+    formData.append("pseudo", data.pseudo);
     formData.append("birthDate", data.birthDate);
 
     if (data.description !== undefined) {

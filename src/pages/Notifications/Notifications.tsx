@@ -1,19 +1,38 @@
 import { useMyNotifications } from "../../features/notifications/NotificationHelpers";
+import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
 
 const Notifications = () => {
-    const { data: notifications, error } = useMyNotifications();
+    const {
+        data: user,
+        isLoading: profileLoading,
+        error: profileError,
+    } = useMyProfile();
+    const userId = user?.id;
 
-    if (error) return <p>Erreur : {error.message}</p>;
+    const {
+        data: notifications,
+        error: notifError,
+        isLoading: notifLoading,
+    } = useMyNotifications(userId, { enabled: !!userId });
+
+    if (profileLoading || notifLoading) return null;
+    if (profileError) return <p>Erreur profil : {profileError.message}</p>;
+    if (notifError) return <p>Erreur notifications : {notifError.message}</p>;
+
+    const sortedNotifications = notifications
+        ? notifications.slice().sort((a, b) => {
+              if (a.read === b.read) return 0;
+              return a.read ? 1 : -1;
+          })
+        : [];
 
     return (
         <div>
-            {notifications && notifications.length > 0 ? (
+            {sortedNotifications.length > 0 ? (
                 <ul>
-                    {notifications.map((notif) => (
+                    {sortedNotifications.map((notif) => (
                         <li key={notif.id}>
-                            {notif.read ? "" : "🔵 "}{" "}
-                            {/* petit indicateur non lu */}
-                            {notif.text}
+                            {!notif.read && "🔵 "} {notif.type?.text || ""}
                         </li>
                     ))}
                 </ul>

@@ -3,8 +3,7 @@ import { registerUser } from "./RegisterHelpers";
 
 export const useManageRegister = () => {
     const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
+        pseudo: "",
         birthDate: "",
         email: "",
         password: "",
@@ -70,8 +69,7 @@ export const useManageRegister = () => {
 
     const isFormComplete = () => {
         const {
-            firstName,
-            lastName,
+            pseudo,
             birthDate,
             email,
             password,
@@ -79,8 +77,7 @@ export const useManageRegister = () => {
             acceptedTerms,
         } = formData;
         return (
-            firstName.trim() !== "" &&
-            lastName.trim() !== "" &&
+            pseudo.trim() !== "" &&
             birthDate.trim() !== "" &&
             email.trim() !== "" &&
             password !== "" &&
@@ -132,8 +129,7 @@ export const useManageRegister = () => {
                 });
 
                 setFormData({
-                    firstName: "",
-                    lastName: "",
+                    pseudo: "",
                     birthDate: "",
                     email: "",
                     password: "",

@@ -24,7 +24,7 @@ const NavMobileTop = () => {
                     <Link to="/account">
                         <img
                             src={`${BACKEND_URL}${user.picture}`}
-                            alt={`${user.firstName} profile picture`}
+                            alt={`${user.pseudo} profile picture`}
                             className="profile-picture"
                         />
                     </Link>

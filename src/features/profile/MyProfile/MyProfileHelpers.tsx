@@ -4,8 +4,7 @@ import API_URL from "../../../config";
 
 export interface User {
     id: string;
-    firstName: string;
-    lastName: string;
+    pseudo: string;
     birthDate: string;
     picture: string;
     description: string;

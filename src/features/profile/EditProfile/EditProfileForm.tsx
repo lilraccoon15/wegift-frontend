@@ -4,17 +4,11 @@ import Button from "../../../components/ui/Button";
 import Message from "../../../components/ui/Message";
 
 interface EditProfilFormProps {
-    firstName: string;
-    lastName: string;
+    pseudo: string;
     birthDate: Date;
     picturePreview?: string | null;
     description: string;
-    onFirstNameChange: (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-    ) => void;
-    onLastNameChange: (
+    onPseudoChange: (
         e: React.ChangeEvent<
             HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
         >
@@ -37,13 +31,11 @@ interface EditProfilFormProps {
 }
 
 const EditProfileForm: React.FC<EditProfilFormProps> = ({
-    firstName,
-    lastName,
+    pseudo,
     birthDate,
     picturePreview,
     description,
-    onFirstNameChange,
-    onLastNameChange,
+    onPseudoChange,
     onBirthDateChange,
     onDescriptionChange,
     onPictureChange,
@@ -90,17 +82,9 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
 
             <InputField
                 type="text"
-                placeholder="Prénom"
-                value={firstName}
-                onChange={onFirstNameChange}
-                required
-                className=""
-            />
-            <InputField
-                type="text"
-                placeholder="Nom"
-                value={lastName}
-                onChange={onLastNameChange}
+                placeholder="Pseudo"
+                value={pseudo}
+                onChange={onPseudoChange}
                 required
                 className=""
             />

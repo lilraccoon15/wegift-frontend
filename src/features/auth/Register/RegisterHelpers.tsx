@@ -7,8 +7,7 @@ export interface RegisterResponse {
 }
 
 export async function registerUser(data: {
-    firstName: string;
-    lastName: string;
+    pseudo: string;
     birthDate: string;
     email: string;
     password: string;

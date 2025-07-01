@@ -9,8 +9,7 @@ export const useManageProfile = () => {
     const navigate = useNavigate();
     const { data: user, isLoading, error } = useMyProfile();
 
-    const [firstName, setFirstName] = useState("");
-    const [lastName, setLastName] = useState("");
+    const [pseudo, setPseudo] = useState("");
     const [birthDate, setBirthDate] = useState<Date>(new Date("2000-01-01"));
     const [picture, setPicture] = useState<File | null>(null);
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
@@ -20,8 +19,7 @@ export const useManageProfile = () => {
 
     useEffect(() => {
         if (user) {
-            setFirstName(user.firstName || "");
-            setLastName(user.lastName || "");
+            setPseudo(user.pseudo || "");
             setDescription(user.description || "");
             setBirthDate(
                 user.birthDate
@@ -101,8 +99,7 @@ export const useManageProfile = () => {
         setSubmitError(null);
 
         mutation.mutate({
-            firstName,
-            lastName,
+            pseudo,
             birthDate: birthDate.toISOString().split("T")[0],
             description,
             picture: picture ?? undefined,
@@ -113,15 +110,13 @@ export const useManageProfile = () => {
         user,
         isLoading,
         error,
-        firstName,
-        lastName,
+        pseudo,
         birthDate,
         picturePreview,
         description,
         isSubmitting,
         submitError,
-        setFirstName,
-        setLastName,
+        setPseudo,
         setBirthDate,
         setPicture,
         setDescription,

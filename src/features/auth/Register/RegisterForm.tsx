@@ -4,8 +4,7 @@ import InputField from "../../../components/forms/InputField";
 
 interface RegisterFormProps {
     formData: {
-        firstName: string;
-        lastName: string;
+        pseudo: string;
         birthDate: string;
         email: string;
         password: string;
@@ -66,19 +65,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
 
             <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
                 <InputField
-                    name="firstName"
+                    name="pseudo"
                     type="text"
                     placeholder="Prénom"
-                    value={formData.firstName}
-                    onChange={onChange}
-                    required
-                />
-
-                <InputField
-                    name="lastName"
-                    type="text"
-                    placeholder="Nom"
-                    value={formData.lastName}
+                    value={formData.pseudo}
                     onChange={onChange}
                     required
                 />

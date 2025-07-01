@@ -40,7 +40,7 @@ const ViewProfile = () => {
     return (
         <>
             {renderFriendButton()}
-            {user && <h2>Profil de {user.firstName}</h2>}
+            {user && <h2>Profil de {user.pseudo}</h2>}
         </>
     );
 };

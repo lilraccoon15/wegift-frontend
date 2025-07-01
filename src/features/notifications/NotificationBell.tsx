@@ -2,21 +2,26 @@ import { Link } from "react-router-dom";
 import Notifications from "../../pages/Notifications/Notifications";
 import { useMyNotifications } from "./NotificationHelpers";
 import { useManageNotifications } from "./useManageNotifications";
+import { useMyProfile } from "../profile/MyProfile/MyProfileHelpers";
 
 const NotificationBell = () => {
     const { showNotifications, setShowNotifications } =
         useManageNotifications();
 
+    const { data: user, isLoading: profileLoading } = useMyProfile();
+
     const {
         data: notifications,
         error,
         isLoading: loading,
-    } = useMyNotifications();
+    } = useMyNotifications(user?.id, {
+        enabled: !!user?.id,
+    });
+
+    if (profileLoading || loading) return null;
+    if (error) return <p>Erreur : {error.message}</p>;
 
     const unreadCount = notifications?.filter((n) => !n.read).length ?? 0;
-
-    if (loading) return null;
-    if (error) return <p>Erreur : {error.message}</p>;
 
     return (
         <>

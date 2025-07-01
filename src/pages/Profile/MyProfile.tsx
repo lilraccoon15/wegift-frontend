@@ -17,7 +17,7 @@ const MyProfile = () => {
 
     return (
         <>
-            {user && <h2>Profile {user.firstName}</h2>}
+            {user && <h2>Profile {user.pseudo}</h2>}
             {friends ? (
                 <>
                     <p
@@ -40,9 +40,7 @@ const MyProfile = () => {
                                     key={friend.id}
                                     to={`/profile/${friend.id}`}
                                 >
-                                    <li key={friend.id}>
-                                        {friend.firstName} {friend.lastName}
-                                    </li>
+                                    <li key={friend.id}>{friend.pseudo}</li>
                                 </Link>
                             ))}
                         </ul>

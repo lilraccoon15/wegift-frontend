@@ -162,11 +162,11 @@ footer {
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .wishlist-card .replace-wishlist-picture {
-  background-color: #E5EBF4;
+  background-color: #e5ebf4;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .wishlist-card.new-wishlist {
-  border: 0.2rem solid #E5EBF4;
+  border: 0.2rem solid #e5ebf4;
   border-radius: 10%;
   height: 6rem;
   display: flex;
@@ -176,7 +176,7 @@ footer {
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .wishlist-card.new-wishlist .fa-plus {
-  color: #CFDCF0;
+  color: #cfdcf0;
 }
 .wishlist-card button {
   position: absolute;
@@ -190,7 +190,7 @@ footer {
 }
 
 body {
-  background-color: #FEFDF9;
+  background-color: #fefdf9;
   margin: 0;
   font-family: "Mulish", sans-serif;
 }
@@ -246,7 +246,7 @@ li {
   flex-shrink: 0;
   flex-grow: 0;
   padding: 0.5rem 1rem;
-  background-color: #D3CB45;
+  background-color: #d3cb45;
   color: #181706;
   border: none;
   border-radius: 4px;
@@ -257,7 +257,7 @@ li {
 }
 
 .btn:hover {
-  background-color: #F5F3D5;
+  background-color: #f5f3d5;
 }
 
 .link {

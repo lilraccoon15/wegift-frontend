@@ -4,15 +4,13 @@ import { useManageProfile } from "../../features/profile/EditProfile/useManageEd
 const EditProfile = () => {
     const {
         error,
-        firstName,
-        lastName,
+        pseudo,
         birthDate,
         picturePreview,
         description,
         isSubmitting,
         submitError,
-        setFirstName,
-        setLastName,
+        setPseudo,
         setDescription,
         handleEditSubmit,
         handleBirthDateChange,
@@ -25,13 +23,11 @@ const EditProfile = () => {
         <>
             <h1>éditer le profil</h1>
             <EditProfileForm
-                firstName={firstName}
-                lastName={lastName}
+                pseudo={pseudo}
                 birthDate={birthDate}
                 picturePreview={picturePreview}
                 description={description}
-                onFirstNameChange={(e) => setFirstName(e.target.value)}
-                onLastNameChange={(e) => setLastName(e.target.value)}
+                onPseudoChange={(e) => setPseudo(e.target.value)}
                 onBirthDateChange={handleBirthDateChange}
                 onDescriptionChange={(e) => setDescription(e.target.value)}
                 onPictureChange={handlePictureChange}
