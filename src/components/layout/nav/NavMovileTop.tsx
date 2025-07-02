@@ -5,15 +5,11 @@ import { useMyProfile } from "../../../features/profile/MyProfile/MyProfileHelpe
 const NavMobileTop = () => {
     const { isAuthenticated, loading } = useAuth();
 
-    if (loading || !isAuthenticated) {
-        return null;
-    }
+    if (loading || !isAuthenticated) return null;
 
     const { data: user, isLoading: profileLoading } = useMyProfile();
 
-    if (profileLoading) {
-        return null;
-    }
+    if (profileLoading) return null;
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
 

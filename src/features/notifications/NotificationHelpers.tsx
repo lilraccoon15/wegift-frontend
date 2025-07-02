@@ -12,8 +12,8 @@ export interface Notification {
     notificationTypeId: string;
     data: any;
     read: boolean;
-    createdAt?: string;
-    updatedAt?: string;
+    createdAt: string;
+    updatedAt: string;
     type?: NotificationType;
 }
 
@@ -28,9 +28,24 @@ export function useMyNotifications(userId?: string, options = {}) {
                     withCredentials: true,
                 }
             );
-            return rest.data.data.notifications;
+            return rest.data.data.notifications ?? [];
         },
         enabled: !!userId,
         ...options,
     });
+}
+
+export async function markNotificationsAsRead(userId: string) {
+    const res = await fetch(
+        `${API_URL}/api/notification/mark-as-read?userId=${userId}`,
+        {
+            method: "PUT",
+            credentials: "include",
+        }
+    );
+    if (!res.ok) {
+        const errorData = await res.json();
+        throw new Error(errorData.message || "Erreur lors de la mise à jour");
+    }
+    return true;
 }

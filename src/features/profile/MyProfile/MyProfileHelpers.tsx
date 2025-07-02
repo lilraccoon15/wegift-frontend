@@ -11,13 +11,13 @@ export interface User {
 }
 
 export function useMyProfile() {
-    return useQuery<User, Error>({
+    return useQuery<User | null, Error>({
         queryKey: ["myProfile"],
         queryFn: async () => {
             const res = await axios.get(`${API_URL}/api/users/get-user`, {
                 withCredentials: true,
             });
-            return res.data.data.user;
+            return res.data.data.profile ?? null;
         },
     });
 }
@@ -29,7 +29,7 @@ export function useMyFriends() {
             const res = await axios.get(`${API_URL}/api/users/get-friends`, {
                 withCredentials: true,
             });
-            return res.data.data.friendships;
+            return res.data.data.friendships ?? [];
         },
     });
 }

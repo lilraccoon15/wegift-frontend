@@ -22,7 +22,7 @@ export function useMyWishlists() {
                     withCredentials: true,
                 }
             );
-            return res.data.data.wishlists;
+            return res.data?.data?.wishlists ?? [];
         },
     });
 }

@@ -20,13 +20,13 @@ export type FriendshipStatus =
     | "unknown";
 
 export function useProfile(id: string) {
-    return useQuery<User, Error>({
+    return useQuery<User | null, Error>({
         queryKey: ["userProfile", id],
         queryFn: async () => {
             const res = await axios.get(`${API_URL}/api/users/profile/${id}`, {
                 withCredentials: true,
             });
-            return res.data.data.user;
+            return res.data.data.user ?? null;
         },
         enabled: !!id,
     });
@@ -44,7 +44,7 @@ export function useAreFriends(
                 params: { user1: userId1, user2: userId2 },
                 withCredentials: true,
             });
-            return res.data.areFriends;
+            return res.data.areFriends ?? false;
         },
         enabled,
     });
@@ -59,7 +59,11 @@ export async function askFriend(
         { requesterId, addresseeId },
         { withCredentials: true }
     );
-    return "pending_sent";
+    if (res.data?.success) {
+        return "pending_sent";
+    }
+
+    throw new Error("Erreur lors de la demande d'ami");
 }
 
 export function useFriendshipStatus(
@@ -77,7 +81,7 @@ export function useFriendshipStatus(
                     withCredentials: true,
                 }
             );
-            return res.data.data;
+            return res.data.data ?? { status: "unknown" };
         },
         enabled,
     });

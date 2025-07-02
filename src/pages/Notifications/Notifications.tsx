@@ -1,4 +1,5 @@
-import { useMyNotifications } from "../../features/notifications/NotificationHelpers";
+import NotificationItem from "../../features/notifications/NotificationItem";
+import { useManageNotificationData } from "../../features/notifications/useManageNotificationData";
 import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
 
 const Notifications = () => {
@@ -10,30 +11,21 @@ const Notifications = () => {
     const userId = user?.id;
 
     const {
-        data: notifications,
+        notifications,
         error: notifError,
         isLoading: notifLoading,
-    } = useMyNotifications(userId, { enabled: !!userId });
+    } = useManageNotificationData(userId);
 
     if (profileLoading || notifLoading) return null;
     if (profileError) return <p>Erreur profil : {profileError.message}</p>;
-    if (notifError) return <p>Erreur notifications : {notifError.message}</p>;
-
-    const sortedNotifications = notifications
-        ? notifications.slice().sort((a, b) => {
-              if (a.read === b.read) return 0;
-              return a.read ? 1 : -1;
-          })
-        : [];
+    if (notifError) return <p>Erreur notifications : {notifError}</p>;
 
     return (
         <div>
-            {sortedNotifications.length > 0 ? (
+            {notifications.length > 0 ? (
                 <ul>
-                    {sortedNotifications.map((notif) => (
-                        <li key={notif.id}>
-                            {!notif.read && "🔵 "} {notif.type?.text || ""}
-                        </li>
+                    {notifications.map((notif) => (
+                        <NotificationItem key={notif.id} notif={notif} />
                     ))}
                 </ul>
             ) : (

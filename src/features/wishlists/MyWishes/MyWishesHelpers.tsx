@@ -22,14 +22,14 @@ export function useWishesByWishlistId(wishlistId: string) {
                     withCredentials: true,
                 }
             );
-            return res.data.data.wishes;
+            return res.data.data.wishes ?? [];
         },
         enabled: !!wishlistId,
     });
 }
 
 export function useMyWishById(id: string) {
-    return useQuery<Wish, Error>({
+    return useQuery<Wish | null, Error>({
         queryKey: ["wish", id],
         queryFn: async () => {
             const res = await axios.get(
@@ -38,7 +38,7 @@ export function useMyWishById(id: string) {
                     withCredentials: true,
                 }
             );
-            return res.data.data.wish;
+            return res.data.data.wish ?? null;
         },
         enabled: !!id,
     });

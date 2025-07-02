@@ -17,6 +17,14 @@ const NavMobileBottom = () => {
                         <i className="fa-solid fa-clipboard-list"></i>{" "}
                         <span>Listes</span>
                     </Link>
+                    <Link to="/my-exchanges" className="nav-button">
+                        <i className="fa-solid fa-hand-holding-heart"></i>{" "}
+                        <span>Echanges</span>
+                    </Link>
+                    <Link to="/search" className="nav-button">
+                        <i className="fa-solid fa-magnifying-glass"></i>{" "}
+                        <span>Recherche</span>
+                    </Link>
                     <NotificationBell />
                     <Link to="/profile/me" className="nav-button">
                         <i className="fa-solid fa-user"></i> <span>Profil</span>

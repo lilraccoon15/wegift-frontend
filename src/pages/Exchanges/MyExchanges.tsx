@@ -1,27 +1,23 @@
-import CreateWishlistForm from "../../features/wishlists/CreateWishlist/CreateWishlistForm";
-import { useMyWishlists } from "../../features/wishlists/MyWishlists/MyWishlistsHelpers";
 import { Link, useNavigate } from "react-router-dom";
-import EditWishlistForm from "../../features/wishlists/EditWishlist/EditWishlistForm";
-import { useManageMyWishlists } from "../../features/wishlists/MyWishlists/useManageMyWishlists";
+import { useMyExchanges } from "../../features/exchanges/MyExchanges/MyExchangesHelpers";
+import { useManageMyExchanges } from "../../features/exchanges/MyExchanges/useManageMyExchanges";
+import CreateExchangeForm from "../../features/exchanges/CreateExchange/CreateExchangeForm";
+import EditExchangeForm from "../../features/exchanges/EditExchange/EditExchangeForm";
 
-const MyWishlists = () => {
+const MyExchanges = () => {
     const navigate = useNavigate();
 
     const {
         title,
         description,
         picturePreview,
-        access,
-        published,
         isSubmitting,
         submitError,
         showCreate,
         openEdition,
-        wishlistToEdit,
+        exchangeToEdit,
         setTitle,
         setDescription,
-        setAccess,
-        setPublished,
         setShowCreate,
         handlePictureChange,
         handleCreateSubmit,
@@ -29,17 +25,17 @@ const MyWishlists = () => {
         handleDelete,
         openEditForm,
         closeEditForm,
-    } = useManageMyWishlists(navigate);
+    } = useManageMyExchanges(navigate);
 
-    const { data: wishlists, error } = useMyWishlists();
+    const { data: exchanges, error } = useMyExchanges();
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_EXCHANGES;
 
     if (error) return <p>Erreur : {error.message}</p>;
 
     return (
         <>
-            <h1>Mes listes</h1>
+            <h1>Mes échanges</h1>
 
             <ul className="wishlists">
                 <li
@@ -50,30 +46,31 @@ const MyWishlists = () => {
                         <i className="fa-solid fa-plus"></i>
                     </div>
                     <div className="wishlist-infos">
-                        <h2>Créer une wishlist</h2>
+                        <h2>Créer un échange</h2>
                     </div>
                 </li>
-
-                {wishlists && wishlists?.length > 0 && (
+                {exchanges && exchanges?.length > 0 && (
                     <>
-                        {wishlists.map((w) => (
-                            <li key={w.id} className="wishlist-card">
-                                <Link to={`/my-wishlist/${w.id}`}>
-                                    {w.picture ? (
+                        {exchanges.map((e) => (
+                            <li key={e.id} className="wishlist-card">
+                                <Link to={`/my-wishlist/${e.id}`}>
+                                    {e.picture ? (
                                         <img
-                                            src={`${BACKEND_URL}${w.picture}`}
-                                            alt={`${w.title} picture`}
+                                            src={`${BACKEND_URL}${e.picture}`}
+                                            alt={`${e.title} picture`}
                                         />
                                     ) : (
                                         <div className="replace-wishlist-picture"></div>
                                     )}
                                 </Link>
                                 <div className="wishlist-infos">
-                                    <h2>{w.title}</h2>
-                                    <span>{w.wishesCount} souhaits</span>
+                                    <h2>{e.title}</h2>
+                                    <span>
+                                        {e.participantCount} participants
+                                    </span>
                                 </div>
 
-                                <button onClick={() => openEditForm(w)}>
+                                <button onClick={() => openEditForm(e)}>
                                     <i className="fa-solid fa-pen-to-square"></i>
                                 </button>
                             </li>
@@ -82,9 +79,9 @@ const MyWishlists = () => {
                 )}
             </ul>
 
-            {openEdition && wishlistToEdit && (
+            {openEdition && exchangeToEdit && (
                 <div>
-                    <EditWishlistForm
+                    <EditExchangeForm
                         onSubmit={handleEditSubmit}
                         title={title}
                         onTitleChange={(e) => setTitle(e.target.value)}
@@ -94,10 +91,6 @@ const MyWishlists = () => {
                             setDescription(e.target.value)
                         }
                         picturePreview={picturePreview}
-                        access={access}
-                        onAccessChange={(e) => setAccess(e.target.value)}
-                        published={published}
-                        onPublishedChange={(e) => setPublished(e.target.value)}
                         error={submitError}
                         buttondisabled={isSubmitting}
                         handleDelete={handleDelete}
@@ -107,7 +100,7 @@ const MyWishlists = () => {
             )}
 
             {showCreate && (
-                <CreateWishlistForm
+                <CreateExchangeForm
                     onSubmit={handleCreateSubmit}
                     title={title}
                     onTitleChange={(e) => setTitle(e.target.value)}
@@ -115,8 +108,6 @@ const MyWishlists = () => {
                     description={description}
                     onDescriptionChange={(e) => setDescription(e.target.value)}
                     picturePreview={picturePreview}
-                    access={access}
-                    onAccessChange={(e) => setAccess(e.target.value)}
                     error={submitError}
                     buttondisabled={isSubmitting}
                 />
@@ -125,4 +116,4 @@ const MyWishlists = () => {
     );
 };
 
-export default MyWishlists;
+export default MyExchanges;

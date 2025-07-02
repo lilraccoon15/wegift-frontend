@@ -50,8 +50,8 @@ footer {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  padding-left: 2rem;
-  padding-right: 2rem;
+  padding-left: 1rem;
+  padding-right: 1rem;
 }
 
 .nav-button {
@@ -66,7 +66,7 @@ footer {
 }
 .nav-button span {
   text-transform: uppercase;
-  font-size: 0.8em;
+  font-size: 0.6em;
   margin-top: 0.4rem;
 }
 
@@ -137,6 +137,7 @@ footer {
   flex-wrap: wrap;
   justify-content: flex-start;
   gap: 0.8rem;
+  width: 100%;
 }
 
 .wishlist-card {
@@ -165,19 +166,6 @@ footer {
   background-color: #e5ebf4;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
-.wishlist-card.new-wishlist {
-  border: 0.2rem solid #e5ebf4;
-  border-radius: 10%;
-  height: 6rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
-}
-.wishlist-card.new-wishlist .fa-plus {
-  color: #cfdcf0;
-}
 .wishlist-card button {
   position: absolute;
   top: 0.25rem;
@@ -187,6 +175,20 @@ footer {
   border-radius: 50%;
   padding-inline: 0.25rem;
   padding-block: 0.25rem;
+}
+
+.new-wishlist {
+  border: 0.2rem solid #e5ebf4;
+  border-radius: 10%;
+  height: 6rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+}
+.new-wishlist .fa-plus {
+  color: #cfdcf0;
 }
 
 body {
