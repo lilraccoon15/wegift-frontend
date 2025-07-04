@@ -6,12 +6,15 @@ interface CreatePayload {
     description?: string;
     picture?: File;
     access: string;
+    mode: string;
+    participantIds: string[];
 }
 
 export async function createWishlist(data: CreatePayload): Promise<Wishlist> {
     const formData = new FormData();
     formData.append("title", data.title);
     formData.append("access", data.access);
+    formData.append("mode", data.mode);
 
     if (data.description !== undefined) {
         formData.append("description", data.description);
@@ -22,6 +25,10 @@ export async function createWishlist(data: CreatePayload): Promise<Wishlist> {
     }
 
     formData.append("published", "1");
+
+    data.participantIds.forEach((id) =>
+        formData.append("participantIds[]", id)
+    );
 
     const response = await fetch(`${API_URL}/api/wishlist/create-wishlist`, {
         method: "POST",

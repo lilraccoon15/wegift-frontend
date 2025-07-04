@@ -22,6 +22,7 @@ export function useMyExchanges() {
                     withCredentials: true,
                 }
             );
+
             return res.data.data.exchanges ?? [];
         },
     });

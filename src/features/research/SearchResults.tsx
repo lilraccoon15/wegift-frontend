@@ -1,7 +1,8 @@
 import { Link } from "react-router-dom";
+import type { SearchResult } from "./SearchHelpers";
 
 interface Props {
-    results: any[];
+    results: SearchResult[];
     isLoading: boolean;
     error: Error | null;
 }
@@ -21,9 +22,7 @@ const SearchResults = ({ results, isLoading, error }: Props) => {
                         </Link>
                     )}
                     {item.type === "user" && (
-                        <Link to={`/user/${item.id}`}>
-                            👤 {item.pseudo || item.firstName}
-                        </Link>
+                        <Link to={`/user/${item.id}`}>👤 {item.pseudo}</Link>
                     )}
                     {item.type === "exchange" && (
                         <Link to={`/exchange/${item.id}`}>🔁 {item.title}</Link>

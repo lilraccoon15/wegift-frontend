@@ -5,6 +5,7 @@ import {
     editWishlist,
     deleteWishlist,
 } from "../EditWishlist/EditWishlistHelpers";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 
 export const useManageMyWishlists = (navigate: any) => {
     const queryClient = useQueryClient();
@@ -13,13 +14,18 @@ export const useManageMyWishlists = (navigate: any) => {
     const [description, setDescription] = useState("");
     const [picture, setPicture] = useState<File | null>(null);
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
-    const [access, setAccess] = useState("");
+    const [access, setAccess] = useState("public");
     const [published, setPublished] = useState("1");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
     const [showCreate, setShowCreate] = useState(false);
     const [openEdition, setOpenEdition] = useState(false);
     const [wishlistToEdit, setWishlistToEdit] = useState<any | null>(null);
+    const [mode, setMode] = useState("individual");
+    const [participants, setParticipants] = useState<User[]>([]);
+    const [availableRules, setAvailableRules] = useState<
+        { id: string; title: string; description?: string }[]
+    >([]);
 
     useEffect(() => {
         if (picture) {
@@ -36,8 +42,10 @@ export const useManageMyWishlists = (navigate: any) => {
             setTitle(wishlistToEdit.title || "");
             setDescription(wishlistToEdit.description || "");
             setPicturePreview(wishlistToEdit.picture || null);
-            setAccess(wishlistToEdit.access || "private");
+            setAccess(wishlistToEdit.access || "public");
             setPublished(wishlistToEdit.published ? "1" : "0");
+            setAccess(wishlistToEdit.access || "individual");
+            setParticipants(wishlistToEdit.participants || []);
         }
     }, [wishlistToEdit]);
 
@@ -46,10 +54,12 @@ export const useManageMyWishlists = (navigate: any) => {
         setDescription("");
         setPicture(null);
         setPicturePreview(null);
-        setAccess("");
+        setAccess("public");
         setPublished("1");
+        setMode("individual");
         setIsSubmitting(false);
         setSubmitError(null);
+        setParticipants([]);
     };
 
     const mutation = useMutation({
@@ -58,7 +68,7 @@ export const useManageMyWishlists = (navigate: any) => {
             queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
             resetForm();
             setShowCreate(false);
-            navigate("/my-wishlists");
+            navigate("/dashboard");
         },
         onError: (error: any) => {
             setSubmitError(error.message || "Erreur inconnue");
@@ -128,6 +138,8 @@ export const useManageMyWishlists = (navigate: any) => {
             description: description ?? undefined,
             access,
             picture: picture ?? undefined,
+            mode,
+            participantIds: participants.map((u) => u.id),
         });
     };
 
@@ -144,6 +156,8 @@ export const useManageMyWishlists = (navigate: any) => {
             access,
             picture: picture ?? undefined,
             published: published === "1",
+            mode,
+            participantIds: participants.map((u) => u.id),
         });
     };
 
@@ -190,5 +204,9 @@ export const useManageMyWishlists = (navigate: any) => {
         handleDelete,
         openEditForm,
         closeEditForm,
+        mode,
+        setMode,
+        participants,
+        setParticipants,
     };
 };

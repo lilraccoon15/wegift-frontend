@@ -13,13 +13,9 @@ const NavMobileBottom = () => {
         <nav className="nav-mobile-bottom">
             {isAuthenticated && (
                 <>
-                    <Link to="/my-wishlists" className="nav-button">
+                    <Link to="/dashboard" className="nav-button">
                         <i className="fa-solid fa-clipboard-list"></i>{" "}
-                        <span>Listes</span>
-                    </Link>
-                    <Link to="/my-exchanges" className="nav-button">
-                        <i className="fa-solid fa-hand-holding-heart"></i>{" "}
-                        <span>Echanges</span>
+                        <span>Espaces</span>
                     </Link>
                     <Link to="/search" className="nav-button">
                         <i className="fa-solid fa-magnifying-glass"></i>{" "}

@@ -1,10 +1,14 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createExchange } from "../CreateExchange/CreateExchangeHelpers";
+import {
+    createExchange,
+    fetchRules,
+} from "../CreateExchange/CreateExchangeHelpers";
 import {
     editExchange,
     deleteExchange,
 } from "../EditExchange/EditExchangeHelpers";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 
 export const useManageMyExchanges = (navigate: any) => {
     const queryClient = useQueryClient();
@@ -18,6 +22,14 @@ export const useManageMyExchanges = (navigate: any) => {
     const [showCreate, setShowCreate] = useState(false);
     const [openEdition, setOpenEdition] = useState(false);
     const [exchangeToEdit, setExchangeToEdit] = useState<any | null>(null);
+    const [startDate, setStartDate] = useState("");
+    const [endDate, setEndDate] = useState("");
+    const [participants, setParticipants] = useState<User[]>([]);
+    const [availableRules, setAvailableRules] = useState<
+        { id: string; title: string; description?: string }[]
+    >([]);
+    const [selectedRuleIds, setSelectedRuleIds] = useState<string[]>([]);
+    const [budget, setBudget] = useState("");
 
     useEffect(() => {
         if (picture) {
@@ -30,10 +42,25 @@ export const useManageMyExchanges = (navigate: any) => {
     }, [picture]);
 
     useEffect(() => {
+        fetchRules()
+            .then((rules) => setAvailableRules(rules))
+            .catch((err) => {
+                console.error("Erreur lors du chargement des règles :", err);
+            });
+    }, []);
+
+    useEffect(() => {
         if (exchangeToEdit) {
             setTitle(exchangeToEdit.title || "");
             setDescription(exchangeToEdit.description || "");
             setPicturePreview(exchangeToEdit.picture || null);
+            setStartDate(exchangeToEdit.startDate || "");
+            setEndDate(exchangeToEdit.endDate || "");
+            setParticipants(exchangeToEdit.participants || []);
+            setSelectedRuleIds(
+                exchangeToEdit.rules?.map((r: any) => r.id) || []
+            );
+            setBudget(exchangeToEdit.budget?.toString() || "");
         }
     }, [exchangeToEdit]);
 
@@ -44,15 +71,20 @@ export const useManageMyExchanges = (navigate: any) => {
         setPicturePreview(null);
         setIsSubmitting(false);
         setSubmitError(null);
+        setStartDate("");
+        setEndDate("");
+        setParticipants([]);
+        setSelectedRuleIds([]);
+        setBudget("");
     };
 
     const mutation = useMutation({
         mutationFn: createExchange,
         onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["myExchangess"] });
+            queryClient.invalidateQueries({ queryKey: ["myExchanges"] });
             resetForm();
             setShowCreate(false);
-            navigate("/my-exchange");
+            navigate("/dashboard");
         },
         onError: (error: any) => {
             setSubmitError(error.message || "Erreur inconnue");
@@ -121,6 +153,11 @@ export const useManageMyExchanges = (navigate: any) => {
             title,
             description: description ?? undefined,
             picture: picture ?? undefined,
+            participantIds: participants.map((u) => u.id),
+            startDate,
+            endDate,
+            rules: selectedRuleIds,
+            budget: budget ? parseFloat(budget) : undefined,
         });
     };
 
@@ -135,6 +172,11 @@ export const useManageMyExchanges = (navigate: any) => {
             title,
             description: description ?? undefined,
             picture: picture ?? undefined,
+            participantIds: participants.map((u) => u.id),
+            startDate,
+            endDate,
+            rules: selectedRuleIds,
+            budget: budget ? parseFloat(budget) : undefined,
         });
     };
 
@@ -168,6 +210,10 @@ export const useManageMyExchanges = (navigate: any) => {
         showCreate,
         openEdition,
         exchangeToEdit,
+        startDate,
+        setStartDate,
+        endDate,
+        setEndDate,
         setTitle,
         setDescription,
         setShowCreate,
@@ -177,5 +223,12 @@ export const useManageMyExchanges = (navigate: any) => {
         handleDelete,
         openEditForm,
         closeEditForm,
+        participants,
+        setParticipants,
+        selectedRuleIds,
+        setSelectedRuleIds,
+        availableRules,
+        budget,
+        setBudget,
     };
 };

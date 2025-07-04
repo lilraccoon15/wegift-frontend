@@ -29,6 +29,10 @@ const MyWishlists = () => {
         handleDelete,
         openEditForm,
         closeEditForm,
+        mode,
+        setMode,
+        participants,
+        setParticipants,
     } = useManageMyWishlists(navigate);
 
     const { data: wishlists, error } = useMyWishlists();
@@ -101,6 +105,10 @@ const MyWishlists = () => {
                         error={submitError}
                         buttondisabled={isSubmitting}
                         handleDelete={handleDelete}
+                        mode={mode}
+                        onModeChange={(e) => setMode(e.target.value)}
+                        participants={participants}
+                        setParticipants={setParticipants}
                     />
                     <button onClick={closeEditForm}>Annuler</button>
                 </div>
@@ -119,6 +127,10 @@ const MyWishlists = () => {
                     onAccessChange={(e) => setAccess(e.target.value)}
                     error={submitError}
                     buttondisabled={isSubmitting}
+                    mode={mode}
+                    onModeChange={(e) => setMode(e.target.value)}
+                    participants={participants}
+                    setParticipants={setParticipants}
                 />
             )}
         </>

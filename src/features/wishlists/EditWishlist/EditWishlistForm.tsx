@@ -3,6 +3,8 @@ import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import RadioGroup from "../../../components/forms/RadioGroup";
 import InputField from "../../../components/forms/InputField";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import FriendTagInput from "../../../components/forms/FriendTagInput";
 
 interface EditWishlistFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -27,6 +29,10 @@ interface EditWishlistFormProps {
     error: string | null;
     buttondisabled: boolean;
     handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    mode: string;
+    onModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    participants: User[];
+    setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
@@ -44,6 +50,10 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
     error,
     buttondisabled,
     handleDelete,
+    mode,
+    onModeChange,
+    participants,
+    setParticipants,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -100,6 +110,21 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
                     { label: "Publique", value: "public" },
                 ]}
             />
+            <RadioGroup
+                name="wishlistMode"
+                selectedValue={mode}
+                onChange={onModeChange}
+                options={[
+                    { label: "Liste personnelle", value: "individual" },
+                    { label: "Liste collaborative", value: "collaborative" },
+                ]}
+            />
+            {mode == "collaborative" && (
+                <FriendTagInput
+                    participants={participants}
+                    setParticipants={setParticipants}
+                />
+            )}
             <RadioGroup
                 name="wishlistStatus"
                 selectedValue={published}

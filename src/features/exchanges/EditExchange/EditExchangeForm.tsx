@@ -1,8 +1,9 @@
 import { useRef } from "react";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
-import RadioGroup from "../../../components/forms/RadioGroup";
 import InputField from "../../../components/forms/InputField";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import FriendTagInput from "../../../components/forms/FriendTagInput";
 
 interface EditExchangeFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -23,6 +24,17 @@ interface EditExchangeFormProps {
     error: string | null;
     buttondisabled: boolean;
     handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
+    participants: User[];
+    setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
+    startDate: string;
+    setStartDate: React.Dispatch<React.SetStateAction<string>>;
+    endDate: string;
+    setEndDate: React.Dispatch<React.SetStateAction<string>>;
+    availableRules: { id: string; title: string; description?: string }[];
+    selectedRuleIds: string[];
+    setSelectedRuleIds: React.Dispatch<React.SetStateAction<string[]>>;
+    budget: string;
+    setBudget: React.Dispatch<React.SetStateAction<string>>;
 }
 
 const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
@@ -36,6 +48,17 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
     error,
     buttondisabled,
     handleDelete,
+    participants,
+    setParticipants,
+    startDate,
+    setStartDate,
+    endDate,
+    setEndDate,
+    selectedRuleIds,
+    setSelectedRuleIds,
+    availableRules,
+    budget,
+    setBudget,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -56,6 +79,32 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
                 onChange={onTitleChange}
                 required
                 className=""
+            />
+            <label htmlFor="startDate">Date de début</label>
+            <input
+                type="date"
+                name="startDate"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+                required
+            />
+
+            <label htmlFor="endDate">Date de fin</label>
+            <input
+                type="date"
+                name="endDate"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+                required
+            />
+            <label htmlFor="budget">Budget (en €)</label>
+            <input
+                type="number"
+                step="0.01"
+                name="budget"
+                value={budget}
+                onChange={(e) => setBudget(e.target.value)}
+                placeholder="Ex : 25.00"
             />
             <img
                 src={
@@ -82,6 +131,38 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
                 onChange={onDescriptionChange}
                 className=""
             />
+            <FriendTagInput
+                participants={participants}
+                setParticipants={setParticipants}
+            />
+            <fieldset>
+                <legend>Règles à appliquer</legend>
+
+                {availableRules.length === 0 ? (
+                    <p>Aucune règle disponible pour le moment.</p>
+                ) : (
+                    availableRules.map((rule) => (
+                        <div key={rule.id}>
+                            <label>
+                                <input
+                                    type="checkbox"
+                                    checked={selectedRuleIds.includes(rule.id)}
+                                    onChange={() => {
+                                        setSelectedRuleIds((prev) =>
+                                            prev.includes(rule.id)
+                                                ? prev.filter(
+                                                      (id) => id !== rule.id
+                                                  )
+                                                : [...prev, rule.id]
+                                        );
+                                    }}
+                                />
+                                {rule.title}
+                            </label>
+                        </div>
+                    ))
+                )}
+            </fieldset>
             {error && <Message text={error} type="error" />}
             <Button type="submit" disabled={buttondisabled}>
                 Modifier

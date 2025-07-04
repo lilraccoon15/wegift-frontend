@@ -3,6 +3,8 @@ import InputField from "../../../components/forms/InputField";
 import RadioGroup from "../../../components/forms/RadioGroup";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
+import FriendTagInput from "../../../components/forms/FriendTagInput";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 
 interface CreateWishlistFormProps {
     onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -22,8 +24,12 @@ interface CreateWishlistFormProps {
     picturePreview?: string | null;
     access: string;
     onAccessChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    mode: string;
+    onModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
     error: string | null;
     buttondisabled: boolean;
+    participants: User[];
+    setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
@@ -38,6 +44,10 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
     onAccessChange,
     error,
     buttondisabled,
+    mode,
+    onModeChange,
+    participants,
+    setParticipants,
 }) => {
     const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -94,9 +104,24 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
                     { label: "Publique", value: "public" },
                 ]}
             />
+            <RadioGroup
+                name="wishlistMode"
+                selectedValue={mode}
+                onChange={onModeChange}
+                options={[
+                    { label: "Liste personnelle", value: "individual" },
+                    { label: "Liste collaborative", value: "collaborative" },
+                ]}
+            />
+            {mode == "collaborative" && (
+                <FriendTagInput
+                    participants={participants}
+                    setParticipants={setParticipants}
+                />
+            )}
             {error && <Message text={error} type="error" />}
             <Button type="submit" disabled={buttondisabled}>
-                Modifier
+                Créer
             </Button>
         </form>
     );

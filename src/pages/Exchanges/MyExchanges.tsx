@@ -25,6 +25,17 @@ const MyExchanges = () => {
         handleDelete,
         openEditForm,
         closeEditForm,
+        participants,
+        startDate,
+        endDate,
+        setParticipants,
+        setEndDate,
+        setStartDate,
+        availableRules,
+        selectedRuleIds,
+        setSelectedRuleIds,
+        budget,
+        setBudget,
     } = useManageMyExchanges(navigate);
 
     const { data: exchanges, error } = useMyExchanges();
@@ -94,6 +105,17 @@ const MyExchanges = () => {
                         error={submitError}
                         buttondisabled={isSubmitting}
                         handleDelete={handleDelete}
+                        participants={participants}
+                        setParticipants={setParticipants}
+                        startDate={startDate}
+                        setStartDate={setStartDate}
+                        endDate={endDate}
+                        setEndDate={setEndDate}
+                        availableRules={availableRules}
+                        selectedRuleIds={selectedRuleIds}
+                        setSelectedRuleIds={setSelectedRuleIds}
+                        budget={budget}
+                        setBudget={setBudget}
                     />
                     <button onClick={closeEditForm}>Annuler</button>
                 </div>
@@ -110,6 +132,17 @@ const MyExchanges = () => {
                     picturePreview={picturePreview}
                     error={submitError}
                     buttondisabled={isSubmitting}
+                    participants={participants}
+                    setParticipants={setParticipants}
+                    startDate={startDate}
+                    setStartDate={setStartDate}
+                    endDate={endDate}
+                    setEndDate={setEndDate}
+                    availableRules={availableRules}
+                    selectedRuleIds={selectedRuleIds}
+                    setSelectedRuleIds={setSelectedRuleIds}
+                    budget={budget}
+                    setBudget={setBudget}
                 />
             )}
         </>

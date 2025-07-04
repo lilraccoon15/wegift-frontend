@@ -163,7 +163,7 @@ footer {
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .wishlist-card .replace-wishlist-picture {
-  background-color: #e5ebf4;
+  background-color: #fff6e5;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .wishlist-card button {
@@ -178,7 +178,7 @@ footer {
 }
 
 .new-wishlist {
-  border: 0.2rem solid #e5ebf4;
+  border: 0.2rem solid #fff6e5;
   border-radius: 10%;
   height: 6rem;
   display: flex;
@@ -188,11 +188,11 @@ footer {
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 .new-wishlist .fa-plus {
-  color: #cfdcf0;
+  color: #ffe4b3;
 }
 
 body {
-  background-color: #fefdf9;
+  background-color: #f6f8fc;
   margin: 0;
   font-family: "Mulish", sans-serif;
 }
@@ -210,7 +210,7 @@ body {
 }
 
 a {
-  color: #181706;
+  color: #080b13;
   text-decoration: none;
 }
 
@@ -248,8 +248,8 @@ li {
   flex-shrink: 0;
   flex-grow: 0;
   padding: 0.5rem 1rem;
-  background-color: #d3cb45;
-  color: #181706;
+  background-color: #ff765a;
+  color: #080b13;
   border: none;
   border-radius: 4px;
   text-align: center;
@@ -259,7 +259,7 @@ li {
 }
 
 .btn:hover {
-  background-color: #f5f3d5;
+  background-color: #ffbfb3;
 }
 
 .link {
