@@ -21,12 +21,12 @@ const NavDesktop = () => {
             {isAuthenticated && (
                 <>
                     <Link to="/dashboard">Dashboard</Link>
-                    <Link to="/my-wishlists">
+                    <Link to="/wishlists">
                         <i className="fa-solid fa-clipboard-list"></i> Mes
                         listes
                     </Link>
                     <NotificationBell />
-                    <Link to="/profile/me">
+                    <Link to="/my-profile">
                         <i className="fa-solid fa-user"></i> Profil
                     </Link>
                     <Link to="/account">Compte</Link>

@@ -71,7 +71,7 @@ export const useManageMyWishlist = (navigate: any) => {
 
             resetForm();
             setShowCreate(false);
-            navigate(`/my-wishlist/${id}`);
+            navigate(`/wishlist/${id}`);
         },
         onError: (error: any) => {
             setSubmitError(error.message || "Erreur inconnue");

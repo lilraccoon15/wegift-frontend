@@ -62,7 +62,7 @@ export async function verify2FACode(
         const data = await res.json();
         const token = data.data.token;
 
-        const meRes = await await fetch(`${API_URL}/api/users/me`, {
+        const meRes = await await fetch(`${API_URL}/api/users/my-profile`, {
             credentials: "include",
             headers: {
                 Authorization: `Bearer ${token}`,

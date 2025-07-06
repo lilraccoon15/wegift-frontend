@@ -62,7 +62,7 @@ const MyWishlists = () => {
                     <>
                         {wishlists.map((w) => (
                             <li key={w.id} className="wishlist-card">
-                                <Link to={`/my-wishlist/${w.id}`}>
+                                <Link to={`/wishlist/${w.id}`}>
                                     {w.picture ? (
                                         <img
                                             src={`${BACKEND_URL}${w.picture}`}

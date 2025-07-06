@@ -31,7 +31,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     useEffect(() => {
         const checkAuth = async () => {
             try {
-                const res = await fetch(`${API_URL}/api/users/me`, {
+                const res = await fetch(`${API_URL}/api/users/my-profile`, {
                     method: "GET",
                     credentials: "include",
                 });

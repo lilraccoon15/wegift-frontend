@@ -40,11 +40,14 @@ export function useAreFriends(
     return useQuery<boolean>({
         queryKey: ["areFriends", userId1, userId2],
         queryFn: async () => {
-            const res = await axios.get(`${API_URL}/api/users/are-friends`, {
-                params: { user1: userId1, user2: userId2 },
-                withCredentials: true,
-            });
-            return res.data.areFriends ?? false;
+            const res = await axios.get(
+                `${API_URL}/api/users/friendship-status`,
+                {
+                    params: { user1: userId1, user2: userId2, mode: "simple" },
+                    withCredentials: true,
+                }
+            );
+            return res.data.data.areFriends ?? false;
         },
         enabled,
     });

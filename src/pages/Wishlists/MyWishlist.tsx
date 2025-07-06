@@ -102,7 +102,7 @@ const MyWishlist = () => {
                 <ul>
                     {wishes?.map((wish) => (
                         <li key={wish.id}>
-                            <Link to={`/my-wish/${wish.id}`}>{wish.title}</Link>{" "}
+                            <Link to={`/wish/${wish.id}`}>{wish.title}</Link>{" "}
                             <button onClick={() => openEditForm(wish)}>
                                 Éditer
                             </button>

@@ -22,7 +22,7 @@ const NavMobileBottom = () => {
                         <span>Recherche</span>
                     </Link>
                     <NotificationBell />
-                    <Link to="/profile/me" className="nav-button">
+                    <Link to="/my-profile" className="nav-button">
                         <i className="fa-solid fa-user"></i> <span>Profil</span>
                     </Link>
                 </>

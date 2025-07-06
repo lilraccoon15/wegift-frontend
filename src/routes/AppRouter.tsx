@@ -38,10 +38,10 @@ const AppRouter = () => {
                 <Route path="/profile/:id" element={<ViewProfile />} />
 
                 <Route element={<PrivateOutlet />}>
-                    <Route path="/my-wishlists" element={<MyWishlists />} />
-                    <Route path="/my-wishlist/:id" element={<MyWishlist />} />
-                    <Route path="/my-wish/:id" element={<MyWish />} />
-                    <Route path="/profile/me" element={<MyProfile />} />
+                    <Route path="/wishlists" element={<MyWishlists />} />
+                    <Route path="/wishlist/:id" element={<MyWishlist />} />
+                    <Route path="/wish/:id" element={<MyWish />} />
+                    <Route path="/my-profile" element={<MyProfile />} />
                     <Route path="/edit-profile" element={<EditProfile />} />
                     <Route path="/dashboard" element={<Dashboard />} />
                     <Route path="/account" element={<MyAccount />} />

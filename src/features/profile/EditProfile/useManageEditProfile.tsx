@@ -46,7 +46,7 @@ export const useManageProfile = () => {
         mutationFn: updateProfile,
         onSuccess: () => {
             queryClient.invalidateQueries({ queryKey: ["myProfile"] });
-            navigate("/profile/me");
+            navigate("/my-profile");
         },
         onError: (error: any) => {
             setSubmitError(error.message || "Erreur inconnue");
