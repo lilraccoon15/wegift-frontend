@@ -1,0 +1,133 @@
+@use "./variables" as *;
+
+form {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 80%;
+  gap: 0.8rem;
+
+  label {
+    display: block;
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: $dark-gray;
+  }
+
+  .form-step {
+    display: none;
+  }
+
+  .form-step.active {
+    display: block;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    gap: 0.8rem;
+  }
+
+  input {
+    width: 100%;
+    height: 45px;
+    padding: 12px;
+    border-radius: 12px;
+    border: 1.5px solid $light-gray;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+  }
+
+  .input:hover {
+    border: 2px solid $light-gray;
+    box-shadow: 0px 0px 20px -17px;
+  }
+
+  .input:active {
+    transform: scale(0.95);
+  }
+
+  .input:focus {
+    border: 2px solid $gray;
+  }
+
+  .step-btn {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    &.single {
+      justify-content: flex-end;
+    }
+  }
+
+  .btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  .input-validation {
+    position: relative;
+
+    .input-info {
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: none;
+    }
+  }
+
+  .valid {
+    color: $valid;
+  }
+
+  .not-valid {
+    color: $not-valid;
+  }
+
+  /* From Uiverse.io by Yaya12085 */
+  .switch {
+    position: relative;
+    height: 1.5rem;
+    width: 3rem;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 9999px;
+    background-color: $gray;
+    transition: all 0.3s ease;
+  }
+
+  .switch:checked {
+    background-color: $valid;
+  }
+
+  .switch::before {
+    position: absolute;
+    content: "";
+    left: calc(1.5rem - 1.6rem);
+    top: calc(1.5rem - 1.6rem);
+    display: block;
+    height: 1.6rem;
+    width: 1.6rem;
+    cursor: pointer;
+    border: 1px solid $gray;
+    border-radius: 9999px;
+    background-color: $background;
+    box-shadow: 0 3px 10px $gray;
+    transition: all 0.3s ease;
+  }
+
+  .switch:hover::before {
+    box-shadow: 0 0 0px 8px $dark-gray;
+  }
+
+  .switch:checked:hover::before {
+    box-shadow: 0 0 0px 8px $dark-gray;
+  }
+
+  .switch:checked:before {
+    transform: translateX(100%);
+    border-color: $valid;
+  }
+}

@@ -132,7 +132,24 @@ footer {
   align-items: center;
 }
 
-.wishlists {
+.dashboard-nav {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 80%;
+}
+.dashboard-nav .active {
+  background-color: #ff765a;
+  color: #181706;
+  font-weight: bold;
+  border-color: #ff765a;
+}
+
+.dashboard-content {
+  padding-top: 2em;
+}
+
+.card-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: flex-start;
@@ -140,33 +157,33 @@ footer {
   width: 100%;
 }
 
-.wishlist-card {
+.card {
   width: 45%;
   position: relative;
 }
-.wishlist-card .wishlist-infos {
+.card .card-infos {
   margin-left: 0.5rem;
   margin-top: 0.2rem;
 }
-.wishlist-card .wishlist-infos h2 {
+.card .card-infos h2 {
   margin: 0;
 }
-.wishlist-card .replace-wishlist-picture,
-.wishlist-card img {
+.card .replace-card-picture,
+.card img {
   width: 100%;
   height: 6rem;
   border-radius: 10%;
   display: block;
 }
-.wishlist-card img {
+.card img {
   object-fit: cover;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
-.wishlist-card .replace-wishlist-picture {
-  background-color: #fff6e5;
+.card .replace-card-picture {
+  background-color: rgb(207, 207, 207);
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
-.wishlist-card button {
+.card button {
   position: absolute;
   top: 0.25rem;
   right: 0.25rem;
@@ -177,8 +194,8 @@ footer {
   padding-block: 0.25rem;
 }
 
-.new-wishlist {
-  border: 0.2rem solid #fff6e5;
+.new-card {
+  border: 0.2rem solid rgb(207, 207, 207);
   border-radius: 10%;
   height: 6rem;
   display: flex;
@@ -187,8 +204,147 @@ footer {
   cursor: pointer;
   box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
-.new-wishlist .fa-plus {
-  color: #ffe4b3;
+.new-card .fa-plus {
+  color: rgb(207, 207, 207);
+}
+
+form {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  width: 80%;
+  gap: 0.8rem;
+  /* From Uiverse.io by Yaya12085 */
+}
+form label {
+  display: block;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: rgb(128, 128, 128);
+}
+form .form-step {
+  display: none;
+}
+form .form-step.active {
+  display: block;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+form input {
+  width: 100%;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgb(207, 207, 207);
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+form .input:hover {
+  border: 2px solid rgb(207, 207, 207);
+  box-shadow: 0px 0px 20px -17px;
+}
+form .input:active {
+  transform: scale(0.95);
+}
+form .input:focus {
+  border: 2px solid rgb(155, 155, 155);
+}
+form .step-btn {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+}
+form .step-btn.single {
+  justify-content: flex-end;
+}
+form .btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+form .input-validation {
+  position: relative;
+}
+form .input-validation .input-info {
+  position: absolute;
+  right: 1rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+}
+form .valid {
+  color: green;
+}
+form .not-valid {
+  color: red;
+}
+form .switch {
+  position: relative;
+  height: 1.5rem;
+  width: 3rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 9999px;
+  background-color: rgb(155, 155, 155);
+  transition: all 0.3s ease;
+}
+form .switch:checked {
+  background-color: green;
+}
+form .switch::before {
+  position: absolute;
+  content: "";
+  left: -0.1rem;
+  top: -0.1rem;
+  display: block;
+  height: 1.6rem;
+  width: 1.6rem;
+  cursor: pointer;
+  border: 1px solid rgb(155, 155, 155);
+  border-radius: 9999px;
+  background-color: #f6f8fc;
+  box-shadow: 0 3px 10px rgb(155, 155, 155);
+  transition: all 0.3s ease;
+}
+form .switch:hover::before {
+  box-shadow: 0 0 0px 8px rgb(128, 128, 128);
+}
+form .switch:checked:hover::before {
+  box-shadow: 0 0 0px 8px rgb(128, 128, 128);
+}
+form .switch:checked:before {
+  transform: translateX(100%);
+  border-color: green;
+}
+
+.search {
+  width: 80%;
+}
+.search .search-bar-container {
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: space-around;
+  width: 100%;
+  height: 45px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1.5px solid rgb(207, 207, 207);
+  outline: none;
+  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+  box-shadow: 0px 0px 20px -18px;
+}
+.search .search-bar-container input {
+  border: 0;
+  background-color: transparent;
+  width: 70%;
+}
+.search .search-bar-container select {
+  background-color: transparent;
+  border: 0;
+  width: 30%;
 }
 
 body {
@@ -248,37 +404,24 @@ li {
   flex-shrink: 0;
   flex-grow: 0;
   padding: 0.5rem 1rem;
-  background-color: #ff765a;
+  background-color: rgb(207, 207, 207);
   color: #080b13;
   border: none;
   border-radius: 4px;
   text-align: center;
   text-decoration: none;
   cursor: pointer;
-  transition: background-color 0.3s ease;
-}
-
-.btn:hover {
-  background-color: #ffbfb3;
 }
 
 .link {
   font-weight: bold;
 }
 
-form {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  width: 80%;
-}
-
-.form-step {
-  display: none;
-}
-
-.form-step.active {
-  display: block;
+button {
+  border: 0;
+  background-color: transparent;
+  align-self: center;
+  width: auto;
 }
 
 /*# sourceMappingURL=main.css.map */

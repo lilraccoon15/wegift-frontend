@@ -1,130 +1,142 @@
 import { useRef } from "react";
 import InputField from "../../../components/forms/InputField";
-import RadioGroup from "../../../components/forms/RadioGroup";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 
 interface CreateWishlistFormProps {
-    onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
-    title: string;
-    onTitleChange: (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-    ) => void;
-    onPictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    description: string;
-    onDescriptionChange: (
-        e: React.ChangeEvent<
-            HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
-        >
-    ) => void;
-    picturePreview?: string | null;
-    access: string;
-    onAccessChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    mode: string;
-    onModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    error: string | null;
-    buttondisabled: boolean;
-    participants: User[];
-    setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
+  onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
+  title: string;
+  onTitleChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => void;
+  onPictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  description: string;
+  onDescriptionChange: (
+    e: React.ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >
+  ) => void;
+  picturePreview?: string | null;
+  access: string;
+  onAccessChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  mode: string;
+  onModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error: string | null;
+  buttondisabled: boolean;
+  participants: User[];
+  setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
 }
 
 const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
-    onSubmit,
-    title,
-    onTitleChange,
-    onPictureChange,
-    description,
-    onDescriptionChange,
-    picturePreview,
-    access,
-    onAccessChange,
-    error,
-    buttondisabled,
-    mode,
-    onModeChange,
-    participants,
-    setParticipants,
+  onSubmit,
+  title,
+  onTitleChange,
+  onPictureChange,
+  description,
+  onDescriptionChange,
+  picturePreview,
+  access,
+  onAccessChange,
+  error,
+  buttondisabled,
+  mode,
+  onModeChange,
+  participants,
+  setParticipants,
 }) => {
-    const fileInputRef = useRef<HTMLInputElement | null>(null);
+  const fileInputRef = useRef<HTMLInputElement | null>(null);
 
-    const handlePictureClick = () => {
-        fileInputRef.current?.click();
-    };
+  const handlePictureClick = () => {
+    fileInputRef.current?.click();
+  };
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
-    const DEFAULT_PICTURE_URL = "/default-wishlist.png";
+  const DEFAULT_PICTURE_URL = "/default-wishlist.png";
 
-    return (
-        <form onSubmit={onSubmit} encType="multipart/form-data">
-            <InputField
-                type="text"
-                placeholder="Titre"
-                value={title}
-                onChange={onTitleChange}
-                required
-                className=""
-            />
-            <img
-                src={
-                    picturePreview
-                        ? picturePreview.startsWith("blob:")
-                            ? picturePreview
-                            : `${BACKEND_URL}${picturePreview}`
-                        : DEFAULT_PICTURE_URL
-                }
-                alt="Photo de couverture"
-                className="w-32 h-32 rounded-full object-cover cursor-pointer border-2 border-gray-300"
-                onClick={handlePictureClick}
-            />
-            <input
-                type="file"
-                accept="image/*"
-                ref={fileInputRef}
-                style={{ display: "none" }}
-                onChange={onPictureChange}
-            />
-            <InputField
-                type="text"
-                placeholder="Description"
-                value={description}
-                onChange={onDescriptionChange}
-                className=""
-            />
-            <RadioGroup
-                name="wishlistAccess"
-                selectedValue={access}
-                onChange={onAccessChange}
-                options={[
-                    { label: "Privée", value: "private" },
-                    { label: "Publique", value: "public" },
-                ]}
-            />
-            <RadioGroup
-                name="wishlistMode"
-                selectedValue={mode}
-                onChange={onModeChange}
-                options={[
-                    { label: "Liste personnelle", value: "individual" },
-                    { label: "Liste collaborative", value: "collaborative" },
-                ]}
-            />
-            {mode == "collaborative" && (
-                <FriendTagInput
-                    participants={participants}
-                    setParticipants={setParticipants}
-                />
-            )}
-            {error && <Message text={error} type="error" />}
-            <Button type="submit" disabled={buttondisabled}>
-                Créer
-            </Button>
-        </form>
-    );
+  return (
+    <>
+      <h1>Créer une liste</h1>
+      <form onSubmit={onSubmit} encType="multipart/form-data">
+        <InputField
+          type="text"
+          placeholder="Titre"
+          value={title}
+          onChange={onTitleChange}
+          required
+        />
+        <img
+          src={
+            picturePreview
+              ? picturePreview.startsWith("blob:")
+                ? picturePreview
+                : `${BACKEND_URL}${picturePreview}`
+              : DEFAULT_PICTURE_URL
+          }
+          alt="Photo de couverture"
+          onClick={handlePictureClick}
+        />
+        <input
+          type="file"
+          accept="image/*"
+          ref={fileInputRef}
+          style={{ display: "none" }}
+          onChange={onPictureChange}
+        />
+        <InputField
+          type="text"
+          placeholder="Description"
+          value={description}
+          onChange={onDescriptionChange}
+        />
+        <ToggleSwitch
+          name="wishlistAccess"
+          checked={access === "public"}
+          onChange={(e) =>
+            onAccessChange({
+              ...e,
+              target: {
+                ...e.target,
+                value: e.target.checked ? "public" : "private",
+              },
+            })
+          }
+          labelLeft="Privée"
+          labelRight="Publique"
+        />
+        <ToggleSwitch
+          name="wishlistMode"
+          checked={mode === "collaborative"}
+          onChange={(e) =>
+            onModeChange({
+              ...e,
+              target: {
+                ...e.target,
+                value: e.target.checked ? "collaborative" : "individual",
+              },
+            })
+          }
+          labelLeft="Personnelle"
+          labelRight="Collaborative"
+        />
+        {mode == "collaborative" && (
+          <FriendTagInput
+            participants={participants}
+            setParticipants={setParticipants}
+          />
+        )}
+        {error && <Message text={error} type="error" />}
+        <Button type="submit" disabled={buttondisabled}>
+          Créer ma liste de souhaits
+        </Button>
+      </form>
+    </>
+  );
 };
 
 export default CreateWishlistForm;
