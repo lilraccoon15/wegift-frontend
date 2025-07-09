@@ -19,39 +19,39 @@ import Research from "../pages/Research/Research";
 import MyExchanges from "../pages/Exchanges/MyExchanges";
 
 const PrivateOutlet = () => {
-    return (
-        <PrivateRoute>
-            <Outlet />
-        </PrivateRoute>
-    );
+  return (
+    <PrivateRoute>
+      <Outlet />
+    </PrivateRoute>
+  );
 };
 
 const AppRouter = () => {
-    return (
-        <Layout>
-            <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/login" element={<Login />} />
-                <Route path="/register" element={<Register />} />
-                <Route path="/reset-password" element={<ResetPassword />} />
-                <Route path="/activate" element={<ActivatePage />} />
-                <Route path="/profile/:id" element={<ViewProfile />} />
+  return (
+    <Layout>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/register" element={<Register />} />
+        <Route path="/reset-password" element={<ResetPassword />} />
+        <Route path="/activate" element={<ActivatePage />} />
 
-                <Route element={<PrivateOutlet />}>
-                    <Route path="/wishlists" element={<MyWishlists />} />
-                    <Route path="/wishlist/:id" element={<MyWishlist />} />
-                    <Route path="/wish/:id" element={<MyWish />} />
-                    <Route path="/my-profile" element={<MyProfile />} />
-                    <Route path="/edit-profile" element={<EditProfile />} />
-                    <Route path="/dashboard" element={<Dashboard />} />
-                    <Route path="/account" element={<MyAccount />} />
-                    <Route path="/notifications" element={<Notifications />} />
-                    <Route path="/search" element={<Research />} />
-                    <Route path="/my-exchanges" element={<MyExchanges />} />
-                </Route>
-            </Routes>
-        </Layout>
-    );
+        <Route element={<PrivateOutlet />}>
+          <Route path="/wishlists" element={<MyWishlists />} />
+          <Route path="/wishlist/:id" element={<MyWishlist />} />
+          <Route path="/wish/:id" element={<MyWish />} />
+          <Route path="/my-profile" element={<MyProfile />} />
+          <Route path="/edit-profile" element={<EditProfile />} />
+          <Route path="/dashboard" element={<Dashboard />} />
+          <Route path="/account" element={<MyAccount />} />
+          <Route path="/notifications" element={<Notifications />} />
+          <Route path="/search" element={<Research />} />
+          <Route path="/my-exchanges" element={<MyExchanges />} />
+          <Route path="/profile/:id" element={<ViewProfile />} />
+        </Route>
+      </Routes>
+    </Layout>
+  );
 };
 
 export default AppRouter;

@@ -1,4 +1,3 @@
-// Enable2FAForm.tsx
 import React from "react";
 import Button from "../../../components/ui/Button";
 import Message from "../../../components/ui/Message";
