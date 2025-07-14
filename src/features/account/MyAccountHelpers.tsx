@@ -9,6 +9,7 @@ export interface Account {
     acceptedTerms: boolean;
     newsletter: boolean;
     twoFactorEnabled: boolean;
+    googleId: string | null;
 }
 
 export function useMyAccount() {

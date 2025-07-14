@@ -1,0 +1,28 @@
+.profile-top {
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+
+    .profile-picture {
+        width: 30%;
+        border-radius: 50%;
+    }
+
+    .profile-details {
+        width: 60%;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .profile-numbers {
+        display: flex;
+        gap: 0.8rem;
+    }
+}
+
+.profile-bottom {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}

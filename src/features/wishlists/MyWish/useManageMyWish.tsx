@@ -6,11 +6,12 @@ export const useManageMyWish = () => {
     const { id } = useParams<{ id: string }>();
     const queryClient = useQueryClient();
 
-    const { data: wish, isLoading: loadingWish } = useMyWishById(id ?? "");
+    const { data: wish, isLoading: loading, error } = useMyWishById(id ?? "");
 
     return {
         id,
         wish,
-        loadingWish,
+        loading,
+        error,
     };
 };

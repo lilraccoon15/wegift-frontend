@@ -1,0 +1,25 @@
+@use "./variables" as *;
+
+.account {
+    ul {
+        display: flex;
+        flex-direction: column;
+        gap: 2em;
+
+        li {
+            display: flex;
+            flex-wrap: nowrap;
+            justify-content: space-between;
+
+            span {
+                display: flex;
+                gap: 1em;
+                align-items: center;
+            }
+        }
+
+        .logout {
+            color: $not-valid;
+        }
+    }
+}

@@ -39,3 +39,37 @@ export async function registerUser(data: {
         };
     }
 }
+
+export async function checkEmailAvailability(email: string): Promise<boolean> {
+    try {
+        const res = await fetch(
+            `${API_URL}/api/auth/check-email?email=${email}`,
+            {
+                credentials: "include",
+            }
+        );
+
+        const result = await res.json();
+        return result.data?.available === true;
+    } catch {
+        return false;
+    }
+}
+
+export async function checkPseudoAvailability(
+    pseudo: string
+): Promise<boolean> {
+    try {
+        const res = await fetch(
+            `${API_URL}/api/users/check-pseudo?pseudo=${pseudo}`,
+            {
+                credentials: "include",
+            }
+        );
+
+        const result = await res.json();
+        return result.data?.available === true;
+    } catch {
+        return false;
+    }
+}

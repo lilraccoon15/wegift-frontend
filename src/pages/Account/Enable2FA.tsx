@@ -1,5 +1,8 @@
+import { useNavigate } from "react-router-dom";
 import Enable2FAForm from "../../features/account/Enable2FA/Enable2FAForm";
 import { useManageEnable2FA } from "../../features/account/Enable2FA/useManageEnable2FA";
+import BackButton from "../../components/ui/BackButton";
+import DataState from "../../components/ui/DataState";
 
 const Enable2FA = () => {
     const {
@@ -7,23 +10,31 @@ const Enable2FA = () => {
         code,
         is2FAEnabled,
         error,
+        loading,
         message,
         setCode,
         handleEnable,
         handleDisable,
     } = useManageEnable2FA();
+    const navigate = useNavigate();
 
     return (
-        <Enable2FAForm
-            qrCodeUrl={qrCodeUrl}
-            code={code}
-            is2FAEnabled={is2FAEnabled}
-            error={error}
-            message={message}
-            onCodeChange={setCode}
-            onEnable={handleEnable}
-            onDisable={handleDisable}
-        />
+        <DataState loading={loading} error={error}>
+            <div className="title-return">
+                <BackButton />
+                <h1>Paramètres 2FA</h1>
+            </div>
+            <Enable2FAForm
+                qrCodeUrl={qrCodeUrl}
+                code={code}
+                is2FAEnabled={is2FAEnabled}
+                error={error}
+                message={message}
+                onCodeChange={setCode}
+                onEnable={handleEnable}
+                onDisable={handleDisable}
+            />
+        </DataState>
     );
 };
 

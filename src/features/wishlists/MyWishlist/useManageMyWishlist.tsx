@@ -1,21 +1,31 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useParams } from "react-router-dom";
 import { useMyWishlistById } from "../MyWishlists/MyWishlistsHelpers";
-import { useWishesByWishlistId } from "../MyWishes/MyWishesHelpers";
+import { useMyWishesByWishlistId } from "../MyWishes/MyWishesHelpers";
 import { useEffect, useState } from "react";
 import { createWish } from "../CreateWish/CreateWishHelpers";
 import { deleteWish, editWish } from "../EditWish/EditWishHelpers";
+import { useCombinedState } from "../../../hooks/useCombineState";
 
 export const useManageMyWishlist = (navigate: any) => {
     const { id } = useParams<{ id: string }>();
     const queryClient = useQueryClient();
 
-    const { data: wishlist, isLoading: loadingWishlist } = useMyWishlistById(
-        id ?? ""
-    );
-    const { data: wishes, isLoading: loadingWishes } = useWishesByWishlistId(
-        id ?? ""
-    );
+    const {
+        data: wishlist,
+        isLoading: loadingWishlist,
+        error: errorWishlist,
+    } = useMyWishlistById(id ?? "");
+    const {
+        data: wishes,
+        isLoading: loadingWishes,
+        error: errorWishes,
+    } = useMyWishesByWishlistId(id ?? "");
+
+    const { loading, error } = useCombinedState([
+        { loading: loadingWishlist, error: errorWishlist },
+        { loading: loadingWishes, error: errorWishes },
+    ]);
 
     const [showCreate, setShowCreate] = useState(false);
     const [title, setTitle] = useState("");
@@ -212,5 +222,7 @@ export const useManageMyWishlist = (navigate: any) => {
         handleEditSubmit,
         handleDelete,
         closeEditForm,
+        loading,
+        error,
     };
 };

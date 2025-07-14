@@ -1,16 +1,15 @@
 import { useManageMyWish } from "../../features/wishlists/MyWish/useManageMyWish";
+import DataState from "../../components/ui/DataState";
 
 const MyWish = () => {
-    const { id, wish } = useManageMyWish();
+    const { id, wish, loading, error } = useManageMyWish();
 
     if (!id) return <p>Paramètre ID manquant</p>;
 
-    if (!wish) return <p>Wish non trouvé</p>;
-
     return (
-        <>
-            <h1>{wish.title}</h1>
-        </>
+        <DataState loading={loading} error={error}>
+            {!wish ? <p>Wish non trouvé</p> : <h1>{wish.title}</h1>}
+        </DataState>
     );
 };
 

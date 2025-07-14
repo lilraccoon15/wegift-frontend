@@ -44,7 +44,7 @@ export const useManageMyWishlists = (navigate: any) => {
             setPicturePreview(wishlistToEdit.picture || null);
             setAccess(wishlistToEdit.access || "public");
             setPublished(wishlistToEdit.published ? "1" : "0");
-            setAccess(wishlistToEdit.access || "individual");
+            setMode(wishlistToEdit.access || "individual");
             setParticipants(wishlistToEdit.participants || []);
         }
     }, [wishlistToEdit]);

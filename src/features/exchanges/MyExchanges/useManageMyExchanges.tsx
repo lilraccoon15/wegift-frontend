@@ -9,8 +9,9 @@ import {
     deleteExchange,
 } from "../EditExchange/EditExchangeHelpers";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import type { NavigateFunction } from "react-router-dom";
 
-export const useManageMyExchanges = (navigate: any) => {
+export const useManageMyExchanges = (navigate: NavigateFunction) => {
     const queryClient = useQueryClient();
 
     const [title, setTitle] = useState("");
@@ -30,6 +31,7 @@ export const useManageMyExchanges = (navigate: any) => {
     >([]);
     const [selectedRuleIds, setSelectedRuleIds] = useState<string[]>([]);
     const [budget, setBudget] = useState("");
+    const [loadingRules, setLoadingRules] = useState(false);
 
     useEffect(() => {
         if (picture) {
@@ -42,11 +44,14 @@ export const useManageMyExchanges = (navigate: any) => {
     }, [picture]);
 
     useEffect(() => {
+        setLoadingRules(true);
         fetchRules()
             .then((rules) => setAvailableRules(rules))
             .catch((err) => {
                 console.error("Erreur lors du chargement des règles :", err);
-            });
+                setSubmitError("Erreur lors du chargement des règles");
+            })
+            .finally(() => setLoadingRules(false));
     }, []);
 
     useEffect(() => {

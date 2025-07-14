@@ -11,11 +11,13 @@ export const useManageEnable2FA = () => {
     const [_secret, setSecret] = useState<string | null>(null);
     const [code, setCode] = useState("");
     const [message, setMessage] = useState<string | null>(null);
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<Error | null>(null);
     const [is2FAEnabled, setIs2FAEnabled] = useState<boolean>(false);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         async function init() {
+            setLoading(true);
             try {
                 const statusData = await fetch2FAStatus();
                 if (statusData.success) {
@@ -33,14 +35,20 @@ export const useManageEnable2FA = () => {
                             setMessage(null);
                             setError(null);
                         } else {
-                            setError("Erreur lors de la génération 2FA");
+                            setError(
+                                new Error("Erreur lors de la génération 2FA")
+                            );
                         }
                     }
                 } else {
-                    setError("Impossible de récupérer le statut 2FA");
+                    setError(
+                        new Error("Impossible de récupérer le statut 2FA")
+                    );
                 }
             } catch {
-                setError("Impossible de récupérer le statut 2FA");
+                setError(new Error("Impossible de récupérer le statut 2FA"));
+            } finally {
+                setLoading(false);
             }
         }
 
@@ -52,7 +60,7 @@ export const useManageEnable2FA = () => {
         setMessage(null);
 
         if (!code) {
-            setError("Veuillez saisir le code 2FA");
+            setError(new Error("Veuillez saisir le code 2FA"));
             return;
         }
 
@@ -67,7 +75,7 @@ export const useManageEnable2FA = () => {
                 setError(result.message || "Code invalide");
             }
         } catch {
-            setError("Erreur lors de l'activation 2FA");
+            setError(new Error("Erreur lors de l'activation 2FA"));
         }
     };
 
@@ -91,7 +99,7 @@ export const useManageEnable2FA = () => {
                 );
             }
         } catch {
-            setError("Erreur lors de la désactivation 2FA");
+            setError(new Error("Erreur lors de la désactivation 2FA"));
         }
     };
 
@@ -100,6 +108,7 @@ export const useManageEnable2FA = () => {
         code,
         is2FAEnabled,
         error,
+        loading,
         message,
         setCode,
         handleEnable,

@@ -12,7 +12,7 @@ export interface Wish {
     link?: string;
 }
 
-export function useWishesByWishlistId(wishlistId: string) {
+export function useMyWishesByWishlistId(wishlistId: string) {
     return useQuery<Wish[], Error>({
         queryKey: ["wishes", wishlistId],
         queryFn: async () => {

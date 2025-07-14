@@ -1,6 +1,8 @@
 import NotificationItem from "../../features/notifications/NotificationItem";
 import { useManageNotificationData } from "../../features/notifications/useManageNotificationData";
 import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
+import DataState from "../../components/ui/DataState";
+import { useCombinedState } from "../../hooks/useCombineState";
 
 const Notifications = () => {
     const {
@@ -8,20 +10,20 @@ const Notifications = () => {
         isLoading: profileLoading,
         error: profileError,
     } = useMyProfile();
-    const userId = user?.id;
 
     const {
         notifications,
-        error: notifError,
         isLoading: notifLoading,
-    } = useManageNotificationData(userId);
+        error: notifError,
+    } = useManageNotificationData(user?.id);
 
-    if (profileLoading || notifLoading) return null;
-    if (profileError) return <p>Erreur profil : {profileError.message}</p>;
-    if (notifError) return <p>Erreur notifications : {notifError}</p>;
+    const { loading, error } = useCombinedState([
+        { loading: profileLoading, error: profileError },
+        { loading: notifLoading, error: notifError },
+    ]);
 
     return (
-        <div>
+        <DataState loading={loading} error={error}>
             {notifications.length > 0 ? (
                 <ul>
                     {notifications.map((notif) => (
@@ -31,7 +33,7 @@ const Notifications = () => {
             ) : (
                 <p>Vous n'avez pas de notification</p>
             )}
-        </div>
+        </DataState>
     );
 };
 

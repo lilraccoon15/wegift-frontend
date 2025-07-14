@@ -2,6 +2,8 @@ import EditNewsletter from "../../features/account/Preferences/PreferenceNewslet
 import DeleteAccount from "../../features/account/DeleteAccount/DeleteAccount";
 import { useNavigate } from "react-router-dom";
 import { useManagePreferences } from "../../features/account/Preferences/useManagePreferences";
+import BackButton from "../../components/ui/BackButton";
+import DataState from "../../components/ui/DataState";
 
 const Preferences = () => {
     const navigate = useNavigate();
@@ -23,11 +25,12 @@ const Preferences = () => {
         handleDeleteAccount,
     } = useManagePreferences(navigate);
 
-    if (loading) return null;
-    if (error) return <p>Erreur : {error.message}</p>;
-
     return (
-        <div>
+        <DataState loading={loading} error={error}>
+            <div className="title-return">
+                <BackButton />
+                <h1>Préférences</h1>
+            </div>
             <EditNewsletter
                 newsletter={newsletter}
                 handleCheckboxChange={handleCheckboxChange}
@@ -45,7 +48,7 @@ const Preferences = () => {
                 buttondisabled={isSubmittingDelete}
                 handleDeleteAccount={handleDeleteAccount}
             />
-        </div>
+        </DataState>
     );
 };
 

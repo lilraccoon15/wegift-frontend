@@ -1,11 +1,14 @@
 import { useEffect, useState } from "react";
 import { useMyAccount } from "../MyAccountHelpers";
 import { updateEmail } from "./EditEmailHelpers";
+import { checkEmailAvailability } from "../../auth/Register/RegisterHelpers";
 
 export const useManageEditEmail = () => {
     const { data: account, error, isLoading: loading } = useMyAccount();
 
     const [email, setEmail] = useState("");
+    const [emailValid, setEmailValid] = useState(false);
+    const [emailsMatch, setEmailsMatch] = useState(true);
     const [confirmEmail, setConfirmEmail] = useState("");
     const [password, setPassword] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
@@ -16,6 +19,29 @@ export const useManageEditEmail = () => {
             setEmail(account.email || "");
         }
     }, [account]);
+
+    useEffect(() => {
+        const delay = setTimeout(async () => {
+            if (!validateEmail(email)) {
+                setEmailValid(false);
+                return;
+            }
+
+            const isAvailable = await checkEmailAvailability(email);
+            setEmailValid(isAvailable);
+        }, 400);
+
+        return () => clearTimeout(delay);
+    }, [email]);
+
+    useEffect(() => {
+        setEmailsMatch(email === confirmEmail);
+    }, [email, confirmEmail]);
+
+    const validateEmail = (email: string) => {
+        const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+        return regex.test(email);
+    };
 
     const handleEditSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
@@ -59,5 +85,7 @@ export const useManageEditEmail = () => {
         handleEditSubmit,
         submitError,
         isSubmitting,
+        emailValid,
+        emailsMatch,
     };
 };

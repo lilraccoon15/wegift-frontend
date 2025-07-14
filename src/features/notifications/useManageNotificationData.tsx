@@ -10,7 +10,7 @@ export const useManageNotificationData = (userId?: string) => {
         enabled: !!userId,
     });
 
-    const [error, setError] = useState<string | null>(null);
+    const [error, setError] = useState<Error | null>(null);
     const queryClient = useQueryClient();
 
     const sortedNotifications = notifications
@@ -34,7 +34,7 @@ export const useManageNotificationData = (userId?: string) => {
             setError(null);
         },
         onError: (error: any) => {
-            setError(error.message || "Erreur inconnue");
+            setError(new Error(error.message || "Erreur inconnue"));
         },
     });
 
