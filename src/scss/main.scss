@@ -79,6 +79,7 @@ li {
     background: $primary-light;
     border-radius: 20px;
     cursor: pointer;
+    width: 100%;
     //transition: background-color 0.3s ease;
 }
 
@@ -102,7 +103,8 @@ button {
     flex-wrap: nowrap;
     align-items: center;
     gap: 1em;
-    margin-bottom: 10%;
+    margin-bottom: 5%;
+    border-bottom: solid 1px $primary-light;
 }
 
 .datastate-overlay {

@@ -10,6 +10,9 @@ const Wishlists = () => {
     return (
         <DataState loading={loading} error={error}>
             <ul className="card-list">
+                {wishlists && wishlists?.length == 0 && (
+                    <p>Cet utilisateur n'a pas encore de wishlist</p>
+                )}
                 {wishlists && wishlists?.length > 0 && (
                     <>
                         {wishlists.map((w) => (

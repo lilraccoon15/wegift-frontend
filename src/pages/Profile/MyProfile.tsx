@@ -7,6 +7,7 @@ import { useMyWishlists } from "../../features/wishlists/MyWishlists/MyWishlists
 import Dashboard from "../Dashboard";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
+import BackButton from "../../components/ui/BackButton";
 
 const MyProfile = () => {
     const {
@@ -28,7 +29,7 @@ const MyProfile = () => {
     } = useMyWishlists();
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
-    const DEFAULT_PICTURE_URL = "/default-profile.png";
+    const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
     const { loading, error } = useCombinedState([
         { loading: loadingUser, error: errorUser },
@@ -40,6 +41,10 @@ const MyProfile = () => {
         <DataState loading={loading} error={error}>
             {user && (
                 <>
+                    <div className="title-return">
+                        <BackButton />
+                        <h1>Mon profil</h1>
+                    </div>
                     <div className="profile-top">
                         <img
                             src={
@@ -47,13 +52,13 @@ const MyProfile = () => {
                                     ? user.picture
                                     : user.picture
                                     ? `${BACKEND_URL}${user.picture}`
-                                    : DEFAULT_PICTURE_URL
+                                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
                             }
                             alt="Photo de profil"
                             className="profile-picture"
                         />
                         <div className="profile-details">
-                            <div>{user.pseudo}</div>
+                            <h2>{user.pseudo}</h2>
                             <div className="profile-numbers">
                                 <div>
                                     {friends && (
@@ -75,15 +80,18 @@ const MyProfile = () => {
                         </div>
                     </div>
                     <div className="profile-bottom">
-                        <div>
-                            <div>{user.birthDate}</div>
-                            <div>{user.description}</div>
+                        <div className="profile-infos">
+                            <div className="birthday">
+                                <i className="fa-solid fa-cake-candles"></i>{" "}
+                                {user.birthDate}
+                            </div>
+                            <div className="description">
+                                {user.description}
+                            </div>
                         </div>
-                        <div>
-                            <Link to="/edit-profile" className="btn">
-                                Modifier mon profil
-                            </Link>
-                        </div>
+                        <Link to="/edit-profile" className="btn">
+                            Modifier mon profil
+                        </Link>
                     </div>
                     <Dashboard />
                 </>

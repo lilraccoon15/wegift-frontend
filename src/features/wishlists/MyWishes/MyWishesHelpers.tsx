@@ -17,7 +17,7 @@ export function useMyWishesByWishlistId(wishlistId: string) {
         queryKey: ["wishes", wishlistId],
         queryFn: async () => {
             const res = await axios.get(
-                `${API_URL}/api/wishlist/my-wishes?wishlistid=${wishlistId}`,
+                `${API_URL}/api/wishlist/my-wishes?wishlistId=${wishlistId}`,
                 {
                     withCredentials: true,
                 }

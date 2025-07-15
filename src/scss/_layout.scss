@@ -43,6 +43,7 @@ footer {
     justify-content: space-around;
     z-index: 10;
     box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2);
+    background-color: $background;
 }
 
 .nav-mobile-top {
@@ -58,6 +59,24 @@ footer {
     width: 100%;
     padding-left: 1rem;
     padding-right: 1rem;
+
+    .notification-icon-wrapper {
+        position: relative;
+        display: inline-block;
+
+        .notification-badge {
+            position: absolute;
+            top: -0.4rem;
+            right: -0.8rem;
+            background-color: red;
+            color: white;
+            font-size: 0.7rem;
+            border-radius: 50%;
+            padding: 0.15rem 0.4rem;
+            line-height: 1;
+            font-weight: bold;
+        }
+    }
 }
 
 .nav-button {

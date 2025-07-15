@@ -5,6 +5,7 @@ import { useWishlists } from "../../features/wishlists/UserWishlists/UserWishlis
 import Wishlists from "../Wishlists/Wishlists";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
+import BackButton from "../../components/ui/BackButton";
 
 const ViewProfile = () => {
     const {
@@ -30,7 +31,7 @@ const ViewProfile = () => {
     } = useWishlists(user?.id);
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
-    const DEFAULT_PICTURE_URL = "/default-profile.png";
+    const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
     const { loading, error: combinedError } = useCombinedState([
         { loading: loadingUser, error },
@@ -44,20 +45,40 @@ const ViewProfile = () => {
         switch (friendshipStatus) {
             case "none":
                 return (
-                    <button disabled={isSubmitting} onClick={handleAddFriend}>
+                    <button
+                        className="btn"
+                        disabled={isSubmitting}
+                        onClick={handleAddFriend}
+                    >
                         {isSubmitting
                             ? "Envoi en cours..."
                             : "Envoyer une demande d'amitié"}
                     </button>
                 );
             case "pending_sent":
-                return <p>Demande d’amitié envoyée</p>;
+                return (
+                    <div className="btn btn-friendship-status">
+                        Demande d’amitié envoyée
+                    </div>
+                );
             case "pending_received":
-                return <p>Cette personne vous a envoyé une demande</p>;
+                return (
+                    <div className="btn btn-friendship-status">
+                        Cette personne vous a envoyé une demande
+                    </div>
+                );
             case "friends":
-                return <p>Vous êtes amis</p>;
+                return (
+                    <div className="btn btn-friendship-status">
+                        Vous êtes amis
+                    </div>
+                );
             case "rejected":
-                return <p>Demande refusée</p>;
+                return (
+                    <div className="btn btn-friendship-status">
+                        Demande refusée
+                    </div>
+                );
             default:
                 return null;
         }
@@ -67,8 +88,10 @@ const ViewProfile = () => {
         <DataState loading={loading} error={combinedError}>
             {user && (
                 <>
-                    {renderFriendButton()}
-
+                    <div className="title-return">
+                        <BackButton />
+                        <h1>Profil</h1>
+                    </div>
                     <div className="profile-top">
                         <img
                             src={
@@ -76,13 +99,13 @@ const ViewProfile = () => {
                                     ? user.picture
                                     : user.picture
                                     ? `${BACKEND_URL}${user.picture}`
-                                    : DEFAULT_PICTURE_URL
+                                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
                             }
                             alt="Photo de profil"
                             className="profile-picture"
                         />
                         <div className="profile-details">
-                            <div>{user.pseudo}</div>
+                            <h2>{user.pseudo}</h2>
                             <div className="profile-numbers">
                                 <div>
                                     {friends && (
@@ -105,10 +128,16 @@ const ViewProfile = () => {
                     </div>
 
                     <div className="profile-bottom">
-                        <div>
-                            <div>{user.birthDate}</div>
-                            <div>{user.description}</div>
+                        <div className="profile-infos">
+                            <div className="birthday">
+                                <i className="fa-solid fa-cake-candles"></i>{" "}
+                                {user.birthDate}
+                            </div>
+                            <div className="description">
+                                {user.description}
+                            </div>
                         </div>
+                        {renderFriendButton()}
                     </div>
 
                     <Wishlists />

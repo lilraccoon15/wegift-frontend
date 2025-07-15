@@ -2,9 +2,9 @@ import axios from "axios";
 import API_URL from "../../config";
 
 export type SearchResult =
-    | { type: "wishlist"; id: string; title: string }
-    | { type: "user"; id: string; pseudo: string }
-    | { type: "exchange"; id: string; title: string };
+    | { type: "wishlist"; id: string; title: string; picture: string }
+    | { type: "user"; id: string; pseudo: string; picture: string }
+    | { type: "exchange"; id: string; title: string; picture: string };
 
 export const searchByType = async (
     query: string,

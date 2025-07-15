@@ -34,8 +34,14 @@ const NotificationBell = () => {
             </button>
 
             <Link to="/notifications" className="notification-link nav-button">
-                <i className="fa-solid fa-bell"></i>
-                {unreadCount > 0 && <span>{unreadCount}</span>}
+                <div className="notification-icon-wrapper">
+                    <i className="fa-solid fa-bell"></i>
+                    {unreadCount > 0 && (
+                        <span className="notification-badge">
+                            {unreadCount}
+                        </span>
+                    )}
+                </div>
                 <span>Notifications</span>
             </Link>
 

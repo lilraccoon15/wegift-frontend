@@ -49,13 +49,13 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
         fileInputRef.current?.click();
     };
 
-    const DEFAULT_PICTURE_URL = "/default-profile.png";
+    const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
 
     return (
         <form onSubmit={onSubmit} encType="multipart/form-data">
-            <div>
+            <div className="edit-profile-picture">
                 <img
                     src={
                         picturePreview
@@ -64,9 +64,10 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
                                 : picturePreview.startsWith("http")
                                 ? picturePreview
                                 : `${BACKEND_URL}${picturePreview}`
-                            : DEFAULT_PICTURE_URL
+                            : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
                     }
                     alt="Photo de profil"
+                    className="profile-picture"
                     onClick={handlePictureClick}
                 />
                 <input
@@ -76,9 +77,10 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
                     style={{ display: "none" }}
                     onChange={onPictureChange}
                 />
-                <small>Cliquez sur la photo pour la changer</small>
+                <small>Cliquez sur la photo pour la modifier</small>
             </div>
 
+            <label>Pseudo :</label>
             <InputField
                 type="text"
                 placeholder="Pseudo"
@@ -86,6 +88,7 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
                 onChange={onPseudoChange}
                 required
             />
+            <label>Date de naissance :</label>
             <InputField
                 type="date"
                 name="birthDate"
@@ -93,11 +96,13 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
                 onChange={onBirthDateChange}
                 required
             />
+            <label>Description :</label>
             <InputField
-                type="text"
+                isTextArea
                 placeholder="Description"
                 value={description}
                 onChange={onDescriptionChange}
+                className="textarea-style"
             />
             {error && <Message text={error} type="error" />}
             <Button type="submit" disabled={buttondisabled}>

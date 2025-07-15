@@ -1,8 +1,6 @@
 @use "./variables" as *;
 
 .search {
-    width: 80%;
-
     .search-bar-container {
         display: flex;
         flex-wrap: nowrap;
@@ -27,5 +25,18 @@
             border: 0;
             width: 30%;
         }
+    }
+}
+
+.search-results {
+    .profile-picture {
+        width: 15%;
+        border-radius: 50%;
+    }
+
+    .wishlist-picture,
+    .exchange-picture {
+        width: 15%;
+        border-radius: 20%;
     }
 }

@@ -58,7 +58,7 @@ const MyExchanges = () => {
                     <>
                         {exchanges.map((e) => (
                             <li key={e.id} className="card">
-                                <Link to={`/wishlist/${e.id}`}>
+                                <Link to={`/exchange/${e.id}`}>
                                     {e.picture ? (
                                         <img
                                             src={`${BACKEND_URL}${e.picture}`}

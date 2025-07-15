@@ -1,6 +1,7 @@
 import { useMyAccount } from "../../features/account/MyAccountHelpers";
 import Button from "../../components/ui/Button";
 import DataState from "../../components/ui/DataState";
+import BackButton from "../../components/ui/BackButton";
 
 const ManageGoogleLink = () => {
     const { data: account, isLoading, error } = useMyAccount();
@@ -40,7 +41,10 @@ const ManageGoogleLink = () => {
         <DataState loading={isLoading} error={error}>
             {account && (
                 <div className="google-link-page">
-                    <h2>Connexion avec Google</h2>
+                    <div className="title-return">
+                        <BackButton />
+                        <h1>Connexion avec Google</h1>
+                    </div>
                     {account.googleId ? (
                         <>
                             <p>

@@ -9,6 +9,8 @@ export interface Wishlist {
     description: string;
     access: number;
     userId: string;
+    mode: string;
+    published: boolean;
     wishesCount?: number;
 }
 

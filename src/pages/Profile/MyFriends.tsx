@@ -1,23 +1,47 @@
 import { Link } from "react-router-dom";
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
 import DataState from "../../components/ui/DataState";
+import BackButton from "../../components/ui/BackButton";
 
 const MyFriends = () => {
     const { data: friends, error, isLoading } = useMyFriends();
+    console.log(friends);
+
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+    const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
     return (
         <DataState loading={isLoading} error={error}>
             {!friends || friends.length === 0 ? (
-                <p>Vous n'avez pas encore d'amis 🥲</p>
+                <p>Vous n'avez pas encore d'amis</p>
             ) : (
                 <div>
-                    <h2>Mes amis</h2>
-                    <ul>
+                    <div className="title-return">
+                        <BackButton />
+                        <h1>Mes amis</h1>
+                    </div>
+                    <ul className="friend-list">
                         {friends.map((friend) => (
                             <li key={friend.id}>
                                 <Link to={`/profile/${friend.id}`}>
-                                    {friend.pseudo}
+                                    <div>
+                                        <img
+                                            src={
+                                                friend.picture?.startsWith(
+                                                    "http"
+                                                )
+                                                    ? friend.picture
+                                                    : friend.picture
+                                                    ? `${BACKEND_URL}${friend.picture}`
+                                                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                                            }
+                                            alt="Photo de profil"
+                                            className="profile-picture"
+                                        />
+                                        <span>{friend.pseudo}</span>
+                                    </div>
                                 </Link>
+                                <i className="fa-solid fa-xmark"></i>
                             </li>
                         ))}
                     </ul>

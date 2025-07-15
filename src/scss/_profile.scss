@@ -1,18 +1,27 @@
+@use "./variables" as *;
+
+.profile-picture {
+    width: 30%;
+    border-radius: 50%;
+}
+
 .profile-top {
     display: flex;
     flex-wrap: nowrap;
     justify-content: space-between;
-
-    .profile-picture {
-        width: 30%;
-        border-radius: 50%;
-    }
+    margin-bottom: 1rem;
 
     .profile-details {
         width: 60%;
         display: flex;
         flex-direction: column;
         justify-content: center;
+        gap: 0.5rem;
+
+        h2 {
+            font-size: 1.3em;
+            margin: 0;
+        }
     }
 
     .profile-numbers {
@@ -21,8 +30,57 @@
     }
 }
 
+.edit-profile-picture {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+
+    small {
+        font-weight: 800;
+        font-size: 0.85em;
+    }
+}
+
 .profile-bottom {
     display: flex;
     flex-direction: column;
     width: 100%;
+
+    .profile-infos {
+        margin-bottom: 1.5rem;
+        .birthday {
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+            .fa-solid {
+                margin-right: 0.5rem;
+            }
+        }
+    }
+
+    .btn-friendship-status {
+        margin-bottom: 1.5rem;
+    }
+}
+
+.friend-list {
+    li {
+        display: flex;
+        flex-wrap: nowrap;
+        width: 100%;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1rem;
+
+        div {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+
+            .profile-picture {
+                width: 15%;
+                border-radius: 50%;
+            }
+        }
+    }
 }

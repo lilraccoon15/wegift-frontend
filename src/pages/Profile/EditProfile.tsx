@@ -1,6 +1,7 @@
 import EditProfileForm from "../../features/profile/EditProfile/EditProfileForm";
 import { useManageProfile } from "../../features/profile/EditProfile/useManageEditProfile";
 import DataState from "../../components/ui/DataState";
+import BackButton from "../../components/ui/BackButton";
 
 const EditProfile = () => {
     const {
@@ -21,7 +22,10 @@ const EditProfile = () => {
 
     return (
         <DataState loading={isLoading} error={error}>
-            <h1>Éditer le profil</h1>
+            <div className="title-return">
+                <BackButton />
+                <h1>Éditer le profil</h1>
+            </div>
             <EditProfileForm
                 pseudo={pseudo}
                 birthDate={birthDate}

@@ -56,7 +56,7 @@ const MyWishlists = () => {
                     <>
                         {wishlists.map((w) => (
                             <li key={w.id} className="card">
-                                <Link to={`/wishlist/${w.id}`}>
+                                <Link to={`/my-wishlist/${w.id}`}>
                                     {w.picture ? (
                                         <img
                                             src={`${BACKEND_URL}${w.picture}`}
@@ -77,6 +77,16 @@ const MyWishlists = () => {
                                 <button onClick={() => openEditForm(w)}>
                                     <i className="fa-solid fa-pen-to-square"></i>
                                 </button>
+                                {w.mode == "collaborative" ? (
+                                    <i className="fa-solid fa-user-group"></i>
+                                ) : (
+                                    ""
+                                )}
+                                {w.published == false ? (
+                                    <i className="fa-solid fa-lock"></i>
+                                ) : (
+                                    ""
+                                )}
                             </li>
                         ))}
                     </>
