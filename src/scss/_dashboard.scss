@@ -1,121 +1,127 @@
 @use "./variables" as *;
 
 .dashboard-nav {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin-top: 10%;
-  gap: 0.25rem;
-  border-radius: 0.5rem;
-  background-color: $primary-light;
-  box-sizing: border-box;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-  padding: 0.25rem;
-  width: 100%;
-  font-size: 0.9em;
-
-  .tab {
-    width: 50%;
+    position: relative;
     display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 10%;
+    gap: 0.25rem;
     border-radius: 0.5rem;
-    border: none;
-    padding: 0.5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all 0.15s ease-in-out;
-  }
+    background-color: $primary-light;
+    box-sizing: border-box;
+    box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
+    padding: 0.25rem;
+    width: 100%;
+    font-size: 0.9em;
 
-  .active {
-    background-color: $background;
-    font-weight: 600;
-  }
+    .tab {
+        width: 50%;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        border: none;
+        padding: 0.5rem 0;
+        color: rgba(51, 65, 85, 1);
+        transition: all 0.15s ease-in-out;
+    }
+
+    .active {
+        background-color: $background;
+        font-weight: 600;
+    }
 }
 
 .dashboard-content {
-  padding-top: 2em;
+    padding-top: 2em;
 }
 
 .card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: flex-start;
-  gap: 0.8rem;
-  width: 100%;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: flex-start;
+    gap: 0.8rem;
+    width: 100%;
+    margin-bottom: 1rem;
 }
 
 .card {
-  width: 48%;
-  position: relative;
+    width: 48%;
+    position: relative;
 
-  .card-infos {
-    margin-left: 0.5rem;
-    margin-top: 0.2rem;
+    .card-infos {
+        margin-left: 0.5rem;
+        margin-top: 0.2rem;
 
-    h2 {
-      margin: 0;
+        h2 {
+            margin: 0;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            max-width: 100%;
+        }
     }
-  }
 
-  .replace-card-picture,
-  img {
-    width: 100%;
-    height: 7rem;
-    border-radius: 0.5rem;
-    display: block;
-  }
+    .replace-card-picture,
+    .card-picture {
+        width: 100%;
+        height: 7rem;
+        border-radius: 0.5rem;
+        display: block;
+    }
 
-  img {
-    object-fit: cover;
-    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
+    .card-picture {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+        box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
 
-  .replace-card-picture {
-    background-color: $primary-light;
-    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
-  }
+    .replace-card-picture {
+        background-color: $primary-light;
+        box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+    }
 
-  button {
-    top: 0.25rem;
-    right: 0.25rem;
-  }
+    button {
+        top: 0.25rem;
+        right: 0.25rem;
+    }
 
-  button,
-  .fa-user-group,
-  .fa-lock {
-    position: absolute;
-    border: none;
-    padding: 0.4rem;
-    border-radius: 50%;
-    // padding-inline: 0.25rem;
-    // padding-block: 0.25rem;
-    background-color: $background;
-  }
+    button,
+    .fa-user-group,
+    .fa-lock {
+        position: absolute;
+        border: none;
+        padding: 0.4rem;
+        border-radius: 50%;
+        // padding-inline: 0.25rem;
+        // padding-block: 0.25rem;
+        background-color: $background;
+    }
 
-  .fa-lock {
-    top: 0.25rem;
-    left: 0.25rem;
-  }
-  .fa-user-group {
-    bottom: 3.25rem;
-    left: 0.25rem;
-  }
+    .fa-lock {
+        top: 0.25rem;
+        left: 0.25rem;
+    }
+    .fa-user-group {
+        bottom: 3.25rem;
+        left: 0.25rem;
+    }
 }
 
 .new-card {
-  border: 0.2rem solid $primary-light;
-  border-radius: 0.5rem;
-  height: 7rem;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  cursor: pointer;
-  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+    border: 0.2rem solid $primary-light;
+    border-radius: 0.5rem;
+    height: 7rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
 
-  .fa-plus {
-    color: $primary-light;
-  }
+    .fa-plus {
+        color: $primary-light;
+    }
 }

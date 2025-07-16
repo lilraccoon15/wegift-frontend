@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 import { useMyWishlistById } from "../MyWishlists/MyWishlistsHelpers";
 import { useMyWishesByWishlistId } from "../MyWishes/MyWishesHelpers";
 import { useEffect, useState } from "react";
-import { createWish } from "../CreateWish/CreateWishHelpers";
+import { createWish, scrapWish } from "../CreateWish/CreateWishHelpers";
 import { deleteWish, editWish } from "../EditWish/EditWishHelpers";
 import { useCombinedState } from "../../../hooks/useCombineState";
 
@@ -29,6 +29,7 @@ export const useManageMyWishlist = (navigate: any) => {
 
     const [showCreate, setShowCreate] = useState(false);
     const [title, setTitle] = useState("");
+    const [url, setUrl] = useState("");
     const [description, setDescription] = useState("");
     const [picture, setPicture] = useState<File | null>(null);
     const [picturePreview, setPicturePreview] = useState<string | null>(null);
@@ -36,6 +37,10 @@ export const useManageMyWishlist = (navigate: any) => {
     const [link, setLink] = useState("");
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submitError, setSubmitError] = useState<string | null>(null);
+    const [isSubmittingScrapping, setIsSubmittingScrapping] = useState(false);
+    const [submitErrorScrapping, setSubmitErrorScrapping] = useState<
+        string | null
+    >(null);
     const [creationMode, setCreationMode] = useState<
         "none" | "choice" | "form" | "urlScrap"
     >("none");
@@ -88,6 +93,22 @@ export const useManageMyWishlist = (navigate: any) => {
         },
         onSettled: () => {
             setIsSubmitting(false);
+        },
+    });
+
+    const scrapMutation = useMutation({
+        mutationFn: scrapWish,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["wishes", id] });
+
+            setUrl("");
+            setCreationMode("none");
+        },
+        onError: (error: any) => {
+            setSubmitErrorScrapping(error.message || "Erreur inconnue");
+        },
+        onSettled: () => {
+            setIsSubmittingScrapping(false);
         },
     });
 
@@ -158,6 +179,19 @@ export const useManageMyWishlist = (navigate: any) => {
         });
     };
 
+    const handleScrappingSubmit = async (
+        e: React.FormEvent<HTMLFormElement>
+    ) => {
+        e.preventDefault();
+        setIsSubmittingScrapping(true);
+        setSubmitErrorScrapping(null);
+
+        scrapMutation.mutate({
+            url,
+            wishlistId: id ?? "",
+        });
+    };
+
     const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         if (!wishToEdit) return;
@@ -224,5 +258,10 @@ export const useManageMyWishlist = (navigate: any) => {
         closeEditForm,
         loading,
         error,
+        handleScrappingSubmit,
+        url,
+        setUrl,
+        submitErrorScrapping,
+        isSubmittingScrapping,
     };
 };

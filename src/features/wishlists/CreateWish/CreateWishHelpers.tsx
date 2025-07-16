@@ -45,3 +45,27 @@ export async function createWish(data: Createpayload): Promise<Wish> {
     const result = await response.json();
     return result.data.wish;
 }
+
+export const scrapWish = async ({
+    url,
+    wishlistId,
+}: {
+    url: string;
+    wishlistId: string;
+}) => {
+    const res = await fetch(`${API_URL}/api/wishlist/scrap-wish`, {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ url, wishlistId }),
+        credentials: "include",
+    });
+
+    if (!res.ok) {
+        const data = await res.json();
+        throw new Error(data.message || "Erreur lors de l'import du souhait");
+    }
+
+    return res.json();
+};
