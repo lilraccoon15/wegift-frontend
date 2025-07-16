@@ -1,18 +1,22 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useMyAccount } from "../MyAccountHelpers";
 import { deleteAccount } from "../DeleteAccount/DeleteAccountHelpers";
-import { updateNewsletter } from "./PreferencesHelpers";
+import { updateIsPublic, updateNewsletter } from "./PreferencesHelpers";
+import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 
 export const useManagePreferences = (navigate: any) => {
   const { data: account, error, isLoading: loading } = useMyAccount();
+  const { data: user } = useMyProfile();
+  console.log(user);
 
-  const [newsletter, setNewsletter] = useState<boolean>(
-    account?.newsletter ?? false
-  );
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [newsletter, setNewsletter] = useState<boolean>(false);
+  const [isPublic, setIsPublic] = useState<boolean>(false);
   const [isSubmittingDelete, setIsSubmittingDelete] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
+  const [submitErrorPublic, setSubmitErrorPublic] = useState<string | null>(
+    null
+  );
   const [submitErrorDelete, setSubmitErrorDelete] = useState<string | null>(
     null
   );
@@ -20,12 +24,39 @@ export const useManagePreferences = (navigate: any) => {
   const [password, setPassword] = useState("");
   const { logout } = useAuth();
 
+  useEffect(() => {
+    if (account) {
+      setNewsletter(account.newsletter ?? false);
+    }
+  }, [account]);
+
+  useEffect(() => {
+    if (user) {
+      setIsPublic(user.isPublic ?? true);
+    }
+  }, [user]);
+
+  const handleCheckboxPublicChange = async (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const newValue = e.target.checked;
+    setIsPublic(newValue);
+    setSubmitErrorPublic(null);
+
+    try {
+      await updateIsPublic({ isPublic: newValue });
+      alert("Préférence de visibilité du profil modifiée avec succès !");
+    } catch (err: any) {
+      setSubmitErrorPublic(err.message || "Erreur lors de la modification");
+      setIsPublic(!newValue);
+    }
+  };
+
   const handleCheckboxChange = async (
     e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const newValue = e.target.checked;
     setNewsletter(newValue);
-    setIsSubmitting(true);
     setSubmitError(null);
 
     try {
@@ -34,8 +65,6 @@ export const useManagePreferences = (navigate: any) => {
     } catch (err: any) {
       setSubmitError(err.message || "Erreur lors de la modification");
       setNewsletter(!newValue);
-    } finally {
-      setIsSubmitting(false);
     }
   };
 
@@ -69,7 +98,6 @@ export const useManagePreferences = (navigate: any) => {
     error,
     newsletter,
     handleCheckboxChange,
-    isSubmitting,
     submitError,
     showConfirmation,
     handleShowConfirmation,
@@ -79,5 +107,8 @@ export const useManagePreferences = (navigate: any) => {
     submitErrorDelete,
     isSubmittingDelete,
     handleDeleteAccount,
+    isPublic,
+    submitErrorPublic,
+    handleCheckboxPublicChange,
   };
 };

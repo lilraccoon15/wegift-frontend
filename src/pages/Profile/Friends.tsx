@@ -6,65 +6,65 @@ import { useManageViewProfile } from "../../features/profile/ViewProfile/useMana
 import { useCombinedState } from "../../hooks/useCombineState";
 
 const Friends = () => {
-    const { id } = useParams();
-    const {
-        data: friends,
-        error: errorFriends,
-        isLoading,
-    } = useFriends(id as string);
-    const {
-        error: errorUser,
-        user,
-        loading: loadingUser,
-    } = useManageViewProfile();
+  const { id } = useParams();
+  const {
+    data: friends,
+    error: errorFriends,
+    isLoading,
+  } = useFriends(id as string);
+  const {
+    error: errorUser,
+    user,
+    loading: loadingUser,
+  } = useManageViewProfile();
 
-    const { loading, error } = useCombinedState([
-        { loading: loadingUser, error: errorUser },
-        { loading: isLoading, error: errorFriends },
-    ]);
+  const { loading, error } = useCombinedState([
+    { loading: loadingUser, error: errorUser },
+    { loading: isLoading, error: errorFriends },
+  ]);
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
-    const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
+  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
-    return (
-        <DataState loading={loading} error={error}>
-            {!friends || friends.length === 0 ? (
-                <p>{user?.pseudo} n'a pas encore d'amis</p>
-            ) : (
-                <div>
-                    <div className="title-return">
-                        <BackButton />
-                        <h1>Amis de {user?.pseudo}</h1>
-                    </div>
-                    <ul className="friend-list">
-                        {friends.map((friend) => (
-                            <li key={friend.id}>
-                                <Link to={`/profile/${friend.id}`}>
-                                    <div>
-                                        <img
-                                            src={
-                                                friend.picture?.startsWith(
-                                                    "http"
-                                                )
-                                                    ? friend.picture
-                                                    : friend.picture
-                                                    ? `${BACKEND_URL}${friend.picture}`
-                                                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
-                                            }
-                                            alt="Photo de profil"
-                                            className="profile-picture"
-                                        />
-                                        <span>{friend.pseudo}</span>
-                                    </div>
-                                </Link>
-                                <p>TODO : préciser si c'est un ami commun</p>
-                            </li>
-                        ))}
-                    </ul>
-                </div>
-            )}
-        </DataState>
-    );
+  return (
+    <DataState loading={loading} error={error}>
+      {!friends || friends.length === 0 ? (
+        <p>{user?.pseudo} n'a pas encore d'amis</p>
+      ) : (
+        <div>
+          <div className="title-return">
+            <BackButton />
+            <h1>Amis de {user?.pseudo}</h1>
+          </div>
+          <ul className="friend-list">
+            {friends.map((friend) => (
+              <li key={friend.id}>
+                <Link to={`/profile/${friend.id}`}>
+                  <div>
+                    <div
+                      className="profile-picture"
+                      style={{
+                        backgroundImage: `url('${
+                          friend.picture?.startsWith("http")
+                            ? friend.picture
+                            : friend.picture
+                            ? `${BACKEND_URL}${friend.picture}`
+                            : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                        }')`,
+                      }}
+                      aria-label={`Photo de ${friend.pseudo}`}
+                    />
+                    <span>{friend.pseudo}</span>
+                  </div>
+                </Link>
+                <p>TODO : préciser si c'est un ami commun</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
+    </DataState>
+  );
 };
 
 export default Friends;

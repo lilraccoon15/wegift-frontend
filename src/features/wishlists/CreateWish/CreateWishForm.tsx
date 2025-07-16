@@ -3,7 +3,7 @@ import InputField from "../../../components/forms/InputField";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 
-interface CreateWishFormProps {
+export interface CreateWishFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   title: string;
   onTitleChange: (

@@ -1,3 +1,5 @@
+import ToggleSwitch from "../../../components/forms/ToggleSwitch";
+
 interface EditNewsletterProps {
   newsletter: boolean;
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
@@ -8,20 +10,17 @@ interface EditNewsletterProps {
 const EditNewsletter: React.FC<EditNewsletterProps> = ({
   newsletter,
   handleCheckboxChange,
-  isSubmitting,
   submitError,
 }) => {
   return (
     <div>
-      <label>
-        <input
-          type="checkbox"
-          checked={newsletter}
-          onChange={handleCheckboxChange}
-          disabled={isSubmitting}
-        />
-        Recevoir la newsletter
-      </label>
+      <label>Recevoir la newsletter ?</label>
+      <ToggleSwitch
+        name="newsletter"
+        checked={newsletter}
+        onChange={handleCheckboxChange}
+      />
+
       {submitError && <p>{submitError}</p>}
     </div>
   );

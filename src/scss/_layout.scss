@@ -3,117 +3,123 @@
 /**************HEADER************/
 
 header {
-    display: flex;
-    flex-direction: column;
-    box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
 }
 
 .header-top {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 1rem;
-    height: $mobile-nav-height;
-    z-index: 10;
-    padding-left: 2rem;
-    padding-right: 2rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  height: $mobile-nav-height;
+  z-index: 10;
+  padding-left: 2rem;
+  padding-right: 2rem;
 }
 
 /**************HEADER************/
 
 footer {
-    display: none;
+  display: none;
 }
 
 /**************NAV************/
 
 .no-auth,
 .no-auth {
-    display: none;
+  display: none;
 }
 
 .nav-mobile {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    right: 0;
-    height: $mobile-nav-height;
-    padding: 0 1rem;
-    display: flex;
-    justify-content: space-around;
-    z-index: 10;
-    box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2);
-    background-color: $background;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: $mobile-nav-height;
+  padding: 0 1rem;
+  display: flex;
+  justify-content: space-around;
+  z-index: 10;
+  box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2);
+  background-color: $background;
 }
 
 .nav-mobile-top {
-    .profile-picture {
-        width: 2.75rem;
-        border-radius: 30px;
-    }
 }
 
 .nav-mobile-bottom {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    padding-left: 1rem;
-    padding-right: 1rem;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  align-items: center;
 
-    .notification-icon-wrapper {
-        position: relative;
-        display: inline-block;
+  .notification-icon-wrapper {
+    position: relative;
+    display: inline-block;
 
-        .notification-badge {
-            position: absolute;
-            top: -0.4rem;
-            right: -0.8rem;
-            background-color: red;
-            color: white;
-            font-size: 0.7rem;
-            border-radius: 50%;
-            padding: 0.15rem 0.4rem;
-            line-height: 1;
-            font-weight: bold;
-        }
+    .notification-badge {
+      position: absolute;
+      top: -0.4rem;
+      right: -0.8rem;
+      background-color: red;
+      color: white;
+      font-size: 0.7rem;
+      border-radius: 50%;
+      padding: 5px;
+      line-height: 1;
+      font-weight: bold;
     }
+  }
 }
 
 .nav-button {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 
-    .fa-solid {
-        font-size: 1.4rem;
-    }
+  .profile-picture {
+    width: 1.9rem;
+    height: 1.9rem;
+    border-radius: 30px;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
 
-    span {
-        text-transform: uppercase;
-        font-size: 0.6em;
-        margin-top: 0.4rem;
-    }
+  .fa-solid {
+    font-size: 1.4rem;
+  }
+
+  span {
+    text-transform: uppercase;
+    font-size: 0.6em;
+    margin-top: 0.4rem;
+  }
 }
 
 .nav-desktop,
 .notification-popup {
-    display: none;
+  display: none;
 }
 
 @media (min-width: 769px) {
-    .nav-mobile,
-    .notification-link {
-        display: none;
-    }
+  .nav-mobile,
+  .notification-link {
+    display: none;
+  }
 
-    footer,
-    .nav-desktop,
-    .notification-popup {
-        display: block;
-    }
-    .header-top {
-        border-bottom: none;
-    }
+  footer,
+  .nav-desktop,
+  .notification-popup {
+    display: block;
+  }
+  .header-top {
+    border-bottom: none;
+  }
 }

@@ -94,21 +94,21 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
           value={description}
           onChange={onDescriptionChange}
         />
+        <label>Rendre privée ?</label>
         <ToggleSwitch
           name="wishlistAccess"
-          checked={access === "public"}
+          checked={access === "private"}
           onChange={(e) =>
             onAccessChange({
               ...e,
               target: {
                 ...e.target,
-                value: e.target.checked ? "public" : "private",
+                value: e.target.checked ? "private" : "public",
               },
             })
           }
-          labelLeft="Privée"
-          labelRight="Publique"
         />
+        <label>Inviter des amis à collaborer ?</label>
         <ToggleSwitch
           name="wishlistMode"
           checked={mode === "collaborative"}
@@ -121,8 +121,6 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
               },
             })
           }
-          labelLeft="Personnelle"
-          labelRight="Collaborative"
         />
         {mode == "collaborative" && (
           <FriendTagInput

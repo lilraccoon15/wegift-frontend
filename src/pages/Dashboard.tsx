@@ -1,36 +1,14 @@
-import { useState } from "react";
-import MyExchanges from "./Exchanges/MyExchanges";
-import MyWishlists from "./Wishlists/MyWishlists";
+import Spaces from "../features/profile/Spaces";
 
 const Dashboard = () => {
-    const [tab, setTab] = useState(1);
-
-    return (
-        <>
-            <div className="dashboard-nav">
-                <div
-                    onClick={() => setTab(1)}
-                    className={`btn ${tab === 1 ? "active" : ""}`}
-                >
-                    {" "}
-                    Mes listes
-                </div>
-                <div
-                    onClick={() => setTab(2)}
-                    className={`btn ${tab === 2 ? "active" : ""}`}
-                >
-                    {" "}
-                    Mes échanges
-                </div>
-            </div>
-
-            <div className="dashboard-content">
-                {tab == 1 && <MyWishlists />}
-
-                {tab == 2 && <MyExchanges />}
-            </div>
-        </>
-    );
+  return (
+    <>
+      <div className="title-return">
+        <h1>Mes espaces</h1>
+      </div>
+      <Spaces />
+    </>
+  );
 };
 
 export default Dashboard;
