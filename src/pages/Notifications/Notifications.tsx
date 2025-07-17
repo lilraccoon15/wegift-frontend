@@ -5,36 +5,36 @@ import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
 
 const Notifications = () => {
-    const {
-        data: user,
-        isLoading: profileLoading,
-        error: profileError,
-    } = useMyProfile();
+  const {
+    data: user,
+    isLoading: profileLoading,
+    error: profileError,
+  } = useMyProfile();
 
-    const {
-        notifications,
-        isLoading: notifLoading,
-        error: notifError,
-    } = useManageNotificationData(user?.id);
+  const {
+    notifications,
+    isLoading: notifLoading,
+    error: notifError,
+  } = useManageNotificationData(user?.id);
 
-    const { loading, error } = useCombinedState([
-        { loading: profileLoading, error: profileError },
-        { loading: notifLoading, error: notifError },
-    ]);
+  const { loading, error } = useCombinedState([
+    { loading: profileLoading, error: profileError },
+    { loading: notifLoading, error: notifError },
+  ]);
 
-    return (
-        <DataState loading={loading} error={error}>
-            {notifications.length > 0 ? (
-                <ul>
-                    {notifications.map((notif) => (
-                        <NotificationItem key={notif.id} notif={notif} />
-                    ))}
-                </ul>
-            ) : (
-                <p>Vous n'avez pas de notification</p>
-            )}
-        </DataState>
-    );
+  return (
+    <DataState loading={loading} error={error}>
+      {notifications.length > 0 ? (
+        <ul>
+          {notifications.map((notif) => (
+            <NotificationItem key={notif.id} notif={notif} />
+          ))}
+        </ul>
+      ) : (
+        <p>Vous n'avez pas de notification</p>
+      )}
+    </DataState>
+  );
 };
 
 export default Notifications;

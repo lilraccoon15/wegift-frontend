@@ -13,6 +13,8 @@ const NavMobileBottom = () => {
   }
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
+
   if (profileLoading) return null;
 
   return (
@@ -34,7 +36,9 @@ const NavMobileBottom = () => {
                 backgroundImage: `url('${
                   user.picture?.startsWith("http")
                     ? user.picture
-                    : `${BACKEND_URL}${user.picture}`
+                    : user.picture
+                    ? `${BACKEND_URL}${user.picture}`
+                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
                 }')`,
               }}
               aria-label={`Photo de profil de ${user.pseudo}`}

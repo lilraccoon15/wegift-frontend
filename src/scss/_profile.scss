@@ -104,3 +104,9 @@
     }
   }
 }
+
+.friendship-buttons {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 0.8rem;
+}

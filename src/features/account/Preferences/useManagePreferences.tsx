@@ -8,7 +8,6 @@ import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 export const useManagePreferences = (navigate: any) => {
   const { data: account, error, isLoading: loading } = useMyAccount();
   const { data: user } = useMyProfile();
-  console.log(user);
 
   const [newsletter, setNewsletter] = useState<boolean>(false);
   const [isPublic, setIsPublic] = useState<boolean>(false);

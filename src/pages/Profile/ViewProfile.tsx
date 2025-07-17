@@ -6,6 +6,7 @@ import Wishlists from "../Wishlists/Wishlists";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
 import BackButton from "../../components/ui/BackButton";
+import FriendshipActionButtons from "../../components/ui/FriendshipActionButtons";
 
 const ViewProfile = () => {
   const {
@@ -38,43 +39,6 @@ const ViewProfile = () => {
     { loading: loadingFriends, error: friendsError },
     { loading: loadingWishlists, error: errorWishlists },
   ]);
-
-  const renderFriendButton = () => {
-    if (!currentUser || !user) return null;
-
-    switch (friendshipStatus) {
-      case "none":
-        return (
-          <button
-            className="btn"
-            disabled={isSubmitting}
-            onClick={handleAddFriend}
-          >
-            {isSubmitting
-              ? "Envoi en cours..."
-              : "Envoyer une demande d'amitié"}
-          </button>
-        );
-      case "pending_sent":
-        return (
-          <div className="btn btn-friendship-status">
-            Demande d’amitié envoyée
-          </div>
-        );
-      case "pending_received":
-        return (
-          <div className="btn btn-friendship-status">
-            Cette personne vous a envoyé une demande
-          </div>
-        );
-      case "friends":
-        return <div className="btn btn-friendship-status">Vous êtes amis</div>;
-      case "rejected":
-        return <div className="btn btn-friendship-status">Demande refusée</div>;
-      default:
-        return null;
-    }
-  };
 
   return (
     <DataState loading={loading} error={combinedError}>
@@ -127,7 +91,13 @@ const ViewProfile = () => {
               </div>
               <div className="description">{user.description}</div>
             </div>
-            {renderFriendButton()}
+            <FriendshipActionButtons
+              status={friendshipStatus}
+              isSubmitting={isSubmitting}
+              onAdd={handleAddFriend}
+              onAccept={() => console.log("accepter")}
+              onDecline={() => console.log("refuser")}
+            />
           </div>
 
           <Wishlists />

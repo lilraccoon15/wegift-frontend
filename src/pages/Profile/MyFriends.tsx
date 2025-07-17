@@ -5,7 +5,6 @@ import BackButton from "../../components/ui/BackButton";
 
 const MyFriends = () => {
   const { data: friends, error, isLoading } = useMyFriends();
-  console.log(friends);
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
