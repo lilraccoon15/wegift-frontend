@@ -4,6 +4,7 @@ import { useManageMyExchanges } from "../../features/exchanges/MyExchanges/useMa
 import CreateExchangeForm from "../../features/exchanges/CreateExchange/CreateExchangeForm";
 import EditExchangeForm from "../../features/exchanges/EditExchange/EditExchangeForm";
 import DataState from "../../components/ui/DataState";
+import Modal from "../../components/ui/Modal";
 
 const MyExchanges = () => {
     const navigate = useNavigate();
@@ -91,9 +92,45 @@ const MyExchanges = () => {
             </ul>
 
             {openEdition && exchangeToEdit && (
-                <div>
-                    <EditExchangeForm
-                        onSubmit={handleEditSubmit}
+                <Modal onClose={closeEditForm} title="Editer mon échange">
+                    <div>
+                        <EditExchangeForm
+                            onSubmit={handleEditSubmit}
+                            title={title}
+                            onTitleChange={(e) => setTitle(e.target.value)}
+                            onPictureChange={handlePictureChange}
+                            description={description}
+                            onDescriptionChange={(e) =>
+                                setDescription(e.target.value)
+                            }
+                            picturePreview={picturePreview}
+                            error={submitError}
+                            buttondisabled={isSubmitting}
+                            handleDelete={handleDelete}
+                            participants={participants}
+                            setParticipants={setParticipants}
+                            startDate={startDate}
+                            setStartDate={setStartDate}
+                            endDate={endDate}
+                            setEndDate={setEndDate}
+                            availableRules={availableRules}
+                            selectedRuleIds={selectedRuleIds}
+                            setSelectedRuleIds={setSelectedRuleIds}
+                            budget={budget}
+                            setBudget={setBudget}
+                        />
+                        <button onClick={closeEditForm}>Annuler</button>
+                    </div>
+                </Modal>
+            )}
+
+            {showCreate && (
+                <Modal
+                    onClose={() => setShowCreate(false)}
+                    title="Créer un échange"
+                >
+                    <CreateExchangeForm
+                        onSubmit={handleCreateSubmit}
                         title={title}
                         onTitleChange={(e) => setTitle(e.target.value)}
                         onPictureChange={handlePictureChange}
@@ -104,7 +141,6 @@ const MyExchanges = () => {
                         picturePreview={picturePreview}
                         error={submitError}
                         buttondisabled={isSubmitting}
-                        handleDelete={handleDelete}
                         participants={participants}
                         setParticipants={setParticipants}
                         startDate={startDate}
@@ -117,33 +153,7 @@ const MyExchanges = () => {
                         budget={budget}
                         setBudget={setBudget}
                     />
-                    <button onClick={closeEditForm}>Annuler</button>
-                </div>
-            )}
-
-            {showCreate && (
-                <CreateExchangeForm
-                    onSubmit={handleCreateSubmit}
-                    title={title}
-                    onTitleChange={(e) => setTitle(e.target.value)}
-                    onPictureChange={handlePictureChange}
-                    description={description}
-                    onDescriptionChange={(e) => setDescription(e.target.value)}
-                    picturePreview={picturePreview}
-                    error={submitError}
-                    buttondisabled={isSubmitting}
-                    participants={participants}
-                    setParticipants={setParticipants}
-                    startDate={startDate}
-                    setStartDate={setStartDate}
-                    endDate={endDate}
-                    setEndDate={setEndDate}
-                    availableRules={availableRules}
-                    selectedRuleIds={selectedRuleIds}
-                    setSelectedRuleIds={setSelectedRuleIds}
-                    budget={budget}
-                    setBudget={setBudget}
-                />
+                </Modal>
             )}
         </DataState>
     );

@@ -3,135 +3,150 @@ import type { SearchResult } from "./SearchHelpers";
 import DataState from "../../components/ui/DataState";
 
 interface Props {
-  results: SearchResult[];
-  isLoading: boolean;
-  error: Error | null;
+    results: SearchResult[];
+    isLoading: boolean;
+    error: Error | null;
 }
 
 const DEFAULT_PICTURE_URL_USER = "/uploads/profilePictures/default-profile.jpg";
 const BACKEND_URL_USER = import.meta.env.VITE_BACKEND_URL_USER;
 
 const DEFAULT_PICTURE_URL_WISHLIST =
-  "/uploads/wishlistPictures/default-wishlist.jpg";
+    "/uploads/wishlistPictures/default-wishlist.jpg";
 const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
 const DEFAULT_PICTURE_URL_EXCHANGE =
-  "/uploads/exchangePictures/default-wishlist.jpg";
+    "/uploads/exchangePictures/default-wishlist.jpg";
 const BACKEND_URL_EXCHANGE = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
 
 const SearchResults = ({ results, isLoading, error }: Props) => {
-  const wishlists = results.filter((item) => item.type === "wishlist");
-  const users = results.filter((item) => item.type === "user");
-  const exchanges = results.filter((item) => item.type === "exchange");
+    const wishlists = results.filter((item) => item.type === "wishlist");
+    const users = results.filter((item) => item.type === "user");
+    const exchanges = results.filter((item) => item.type === "exchange");
 
-  return (
-    <DataState loading={isLoading} error={error}>
-      {results.length === 0 ? (
-        <p>Aucun résultat</p>
-      ) : (
-        <div className="search-results-grouped">
-          {/* Utilisateurs en premier */}
-          {users.length > 0 && (
-            <>
-              <h2>Utilisateurs</h2>
-              <ul className="search-results">
-                {users.map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      to={`/profile/${item.id}`}
-                      className="link-search-result"
-                    >
-                      <div
-                        className="profile-picture"
-                        style={{
-                          backgroundImage: `url('${
-                            item.picture?.startsWith("blob:")
-                              ? item.picture
-                              : item.picture?.startsWith("http")
-                              ? item.picture
-                              : `${BACKEND_URL_USER}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_USER
-                                }`
-                          }')`,
-                        }}
-                      />
-                      {item.pseudo}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+    return (
+        <DataState loading={isLoading} error={error}>
+            {results.length === 0 ? (
+                <p>Aucun résultat</p>
+            ) : (
+                <div className="search-results-grouped">
+                    {/* Utilisateurs en premier */}
+                    {users.length > 0 && (
+                        <>
+                            <h2>Utilisateurs</h2>
+                            <ul className="search-results">
+                                {users.map((item) => (
+                                    <li key={item.id}>
+                                        <Link
+                                            to={`/profile/${item.id}`}
+                                            className="link-search-result"
+                                        >
+                                            <div
+                                                className="profile-picture"
+                                                style={{
+                                                    backgroundImage: `url('${
+                                                        item.picture?.startsWith(
+                                                            "blob:"
+                                                        )
+                                                            ? item.picture
+                                                            : item.picture?.startsWith(
+                                                                  "http"
+                                                              )
+                                                            ? item.picture
+                                                            : `${BACKEND_URL_USER}${
+                                                                  item.picture ??
+                                                                  DEFAULT_PICTURE_URL_USER
+                                                              }`
+                                                    }')`,
+                                                }}
+                                            />
+                                            {item.pseudo}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
 
-          {/* Listes ensuite */}
-          {wishlists.length > 0 && (
-            <>
-              <h2>Listes</h2>
-              <ul className="search-results">
-                {wishlists.map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      to={`/wishlists/${item.id}`}
-                      className="link-search-result"
-                    >
-                      <div
-                        className="card-picture"
-                        style={{
-                          backgroundImage: `url('${
-                            item.picture?.startsWith("blob:")
-                              ? item.picture
-                              : item.picture?.startsWith("http")
-                              ? item.picture
-                              : `${BACKEND_URL_WISHLIST}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_WISHLIST
-                                }`
-                          }')`,
-                        }}
-                      />
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
+                    {/* Listes ensuite */}
+                    {wishlists.length > 0 && (
+                        <>
+                            <h2>Listes</h2>
+                            <ul className="search-results">
+                                {wishlists.map((item) => (
+                                    <li key={item.id}>
+                                        <Link
+                                            to={`/wishlist/${item.id}`}
+                                            className="link-search-result"
+                                        >
+                                            <div
+                                                className="card-picture"
+                                                style={{
+                                                    backgroundImage: `url('${
+                                                        item.picture?.startsWith(
+                                                            "blob:"
+                                                        )
+                                                            ? item.picture
+                                                            : item.picture?.startsWith(
+                                                                  "http"
+                                                              )
+                                                            ? item.picture
+                                                            : `${BACKEND_URL_WISHLIST}${
+                                                                  item.picture ??
+                                                                  DEFAULT_PICTURE_URL_WISHLIST
+                                                              }`
+                                                    }')`,
+                                                }}
+                                            />
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
 
-          {/* Échanges en dernier */}
-          {exchanges.length > 0 && (
-            <>
-              <h2>Échanges</h2>
-              <ul className="search-results">
-                {exchanges.map((item) => (
-                  <li key={item.id}>
-                    <Link
-                      to={`/exchange/${item.id}`}
-                      className="link-search-result"
-                    >
-                      <div
-                        className="card-picture"
-                        style={{
-                          backgroundImage: `url('${
-                            item.picture?.startsWith("blob:")
-                              ? item.picture
-                              : item.picture?.startsWith("http")
-                              ? item.picture
-                              : `${BACKEND_URL_EXCHANGE}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_EXCHANGE
-                                }`
-                          }')`,
-                        }}
-                      />
-                      {item.title}
-                    </Link>
-                  </li>
-                ))}
-              </ul>
-            </>
-          )}
-        </div>
-      )}
-    </DataState>
-  );
+                    {/* Échanges en dernier */}
+                    {exchanges.length > 0 && (
+                        <>
+                            <h2>Échanges</h2>
+                            <ul className="search-results">
+                                {exchanges.map((item) => (
+                                    <li key={item.id}>
+                                        <Link
+                                            to={`/exchange/${item.id}`}
+                                            className="link-search-result"
+                                        >
+                                            <div
+                                                className="card-picture"
+                                                style={{
+                                                    backgroundImage: `url('${
+                                                        item.picture?.startsWith(
+                                                            "blob:"
+                                                        )
+                                                            ? item.picture
+                                                            : item.picture?.startsWith(
+                                                                  "http"
+                                                              )
+                                                            ? item.picture
+                                                            : `${BACKEND_URL_EXCHANGE}${
+                                                                  item.picture ??
+                                                                  DEFAULT_PICTURE_URL_EXCHANGE
+                                                              }`
+                                                    }')`,
+                                                }}
+                                            />
+                                            {item.title}
+                                        </Link>
+                                    </li>
+                                ))}
+                            </ul>
+                        </>
+                    )}
+                </div>
+            )}
+        </DataState>
+    );
 };
 
 export default SearchResults;

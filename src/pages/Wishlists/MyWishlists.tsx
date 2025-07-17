@@ -102,7 +102,7 @@ const MyWishlists = () => {
             </ul>
 
             {openEdition && wishlistToEdit && (
-                <Modal onClose={closeEditForm}>
+                <Modal onClose={closeEditForm} title="Editer ma liste">
                     <div>
                         <EditWishlistForm
                             onSubmit={handleEditSubmit}
@@ -134,7 +134,10 @@ const MyWishlists = () => {
             )}
 
             {showCreate && (
-                <Modal onClose={() => setShowCreate(false)}>
+                <Modal
+                    onClose={() => setShowCreate(false)}
+                    title="Créer une liste"
+                >
                     <CreateWishlistForm
                         onSubmit={handleCreateSubmit}
                         title={title}
