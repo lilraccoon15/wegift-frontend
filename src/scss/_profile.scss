@@ -79,6 +79,26 @@
   }
 }
 
+.pending-list {
+  li {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    gap: 1rem;
+    align-items: center;
+    margin-bottom: 1.5rem;
+
+    .pending-details {
+      width: 100%;
+
+      .pending-text {
+        margin-bottom: 0.5rem;
+        line-height: 2em;
+      }
+    }
+  }
+}
+
 .friend-list {
   li {
     display: flex;

@@ -6,7 +6,7 @@ import Wishlists from "../Wishlists/Wishlists";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
 import BackButton from "../../components/ui/BackButton";
-import FriendshipActionButtons from "../../components/ui/FriendshipActionButtons";
+import ActionButtons from "../../components/ui/ActionButtons";
 
 const ViewProfile = () => {
   const {
@@ -91,12 +91,13 @@ const ViewProfile = () => {
               </div>
               <div className="description">{user.description}</div>
             </div>
-            <FriendshipActionButtons
+            <ActionButtons
               status={friendshipStatus}
               isSubmitting={isSubmitting}
               onAdd={handleAddFriend}
               onAccept={() => console.log("accepter")}
               onDecline={() => console.log("refuser")}
+              variant="friendship"
             />
           </div>
 

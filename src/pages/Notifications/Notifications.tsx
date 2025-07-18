@@ -3,6 +3,7 @@ import { useManageNotificationData } from "../../features/notifications/useManag
 import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
+import BackButton from "../../components/ui/BackButton";
 
 const Notifications = () => {
   const {
@@ -24,6 +25,10 @@ const Notifications = () => {
 
   return (
     <DataState loading={loading} error={error}>
+      <div className="title-return">
+        <BackButton />
+        <h1>Notifications</h1>
+      </div>
       {notifications.length > 0 ? (
         <ul>
           {notifications.map((notif) => (

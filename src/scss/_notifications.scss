@@ -1,0 +1,21 @@
+.notification-item {
+  display: flex;
+  flex-wrap: nowrap;
+  width: 100%;
+  gap: 1rem;
+  align-items: center;
+  font-size: 0.9em;
+  margin-bottom: 1.5rem;
+
+  .profile-picture {
+    width: 2.8rem;
+    height: 2.8rem;
+  }
+
+  .notif-details {
+    width: 100%;
+    .notif-text {
+      margin-bottom: 0.5rem;
+    }
+  }
+}

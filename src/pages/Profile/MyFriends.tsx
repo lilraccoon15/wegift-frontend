@@ -1,51 +1,71 @@
-import { Link } from "react-router-dom";
-import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
+import {
+  useMyFriends,
+  useMyPendingFriends,
+} from "../../features/profile/MyProfile/MyProfileHelpers";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
+import TabSwitcher from "../../components/ui/TabSwitcher";
+import FriendsTab from "./FriendsTab";
+import PendingTab from "./PendingTab";
+import { useCombinedState } from "../../hooks/useCombineState";
 
 const MyFriends = () => {
-  const { data: friends, error, isLoading } = useMyFriends();
+  const {
+    data: friends,
+    error: errorFriends,
+    isLoading: isLoadingFriends,
+  } = useMyFriends();
+  const {
+    data: pending,
+    error: pendingError,
+    isLoading: isLoandingPending,
+  } = useMyPendingFriends();
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
+  const { loading, error } = useCombinedState([
+    { loading: isLoadingFriends, error: errorFriends },
+    { loading: isLoandingPending, error: pendingError },
+  ]);
+
   return (
-    <DataState loading={isLoading} error={error}>
+    <DataState loading={loading} error={error}>
       {!friends || friends.length === 0 ? (
         <p>Vous n'avez pas encore d'amis</p>
       ) : (
-        <div>
+        <>
           <div className="title-return">
             <BackButton />
             <h1>Mes amis</h1>
           </div>
-          <ul className="friend-list">
-            {friends.map((friend) => (
-              <li key={friend.id}>
-                <Link to={`/profile/${friend.id}`}>
-                  <div>
-                    <div
-                      className="profile-picture"
-                      style={{
-                        backgroundImage: `url('${
-                          friend.picture?.startsWith("http")
-                            ? friend.picture
-                            : friend.picture
-                            ? `${BACKEND_URL}${friend.picture}`
-                            : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
-                        }')`,
-                      }}
-                      aria-label={`Photo de ${friend.pseudo}`}
-                    />
-
-                    <span>{friend.pseudo}</span>
-                  </div>
-                </Link>
-                <i className="fa-solid fa-xmark"></i>
-              </li>
-            ))}
-          </ul>
-        </div>
+          <TabSwitcher
+            tabs={[
+              {
+                key: "friends",
+                label: "Amis",
+                content: (
+                  <FriendsTab
+                    friends={friends}
+                    backendUrl={BACKEND_URL}
+                    defaultPictureUrl={DEFAULT_PICTURE_URL}
+                  />
+                ),
+              },
+              {
+                key: "pending",
+                label: "En attente",
+                content: (
+                  <PendingTab
+                    pending={pending ?? []}
+                    backendUrl={BACKEND_URL}
+                    defaultPictureUrl={DEFAULT_PICTURE_URL}
+                  />
+                ),
+              },
+            ]}
+          />
+        </>
       )}
     </DataState>
   );

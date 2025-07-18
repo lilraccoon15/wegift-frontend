@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import axios from "axios";
 import API_URL from "../../../config";
 
@@ -9,6 +9,15 @@ export interface User {
   picture: string;
   description: string;
   isPublic: boolean;
+}
+
+export interface PendingFriend {
+  profile: {
+    id: string;
+    pseudo: string;
+    picture?: string | null;
+  };
+  direction: "sent" | "received";
 }
 
 export function useMyProfile() {
@@ -31,6 +40,33 @@ export function useMyFriends() {
         withCredentials: true,
       });
       return res.data.data.friendships ?? [];
+    },
+  });
+}
+
+export function useMyPendingFriends() {
+  return useQuery<PendingFriend[], Error>({
+    queryKey: ["myPendingFriends"],
+    queryFn: async () => {
+      const res = await axios.get(`${API_URL}/api/users/my-pending-friends`, {
+        withCredentials: true,
+      });
+      return res.data.data.pendings ?? [];
+    },
+  });
+}
+
+export function useCancelFriendRequest() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (userId: string) => {
+      await axios.delete(`${API_URL}/api/friendship/${userId}`, {
+        withCredentials: true,
+      });
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["myPendingFriends"] });
     },
   });
 }

@@ -26,6 +26,9 @@ export const useManageMyWishlists = (navigate: any) => {
   const [availableRules, setAvailableRules] = useState<
     { id: string; title: string; description?: string }[]
   >([]);
+  const [optionsWishlistId, setOptionsWishlistId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     if (picture) {
@@ -171,6 +174,12 @@ export const useManageMyWishlists = (navigate: any) => {
     setOpenEdition(true);
   };
 
+  const toggleOptions = (id: string) => {
+    setOptionsWishlistId((prev) => (prev === id ? null : id));
+  };
+
+  const closeOptions = () => setOptionsWishlistId(null);
+
   const closeEditForm = () => {
     setOpenEdition(false);
     setWishlistToEdit(null);
@@ -203,5 +212,8 @@ export const useManageMyWishlists = (navigate: any) => {
     setMode,
     participants,
     setParticipants,
+    toggleOptions,
+    closeOptions,
+    optionsWishlistId,
   };
 };
