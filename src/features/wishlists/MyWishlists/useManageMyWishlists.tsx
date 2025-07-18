@@ -6,10 +6,14 @@ import {
   deleteWishlist,
 } from "../EditWishlist/EditWishlistHelpers";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import type { Wishlist } from "./MyWishlistsHelpers";
+import type { NavigateFunction } from "react-router-dom";
+import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 
-export const useManageMyWishlists = (navigate: any) => {
+export const useManageMyWishlists = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
 
+  const { data: currentUser } = useMyProfile();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
@@ -20,13 +24,15 @@ export const useManageMyWishlists = (navigate: any) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [openEdition, setOpenEdition] = useState(false);
-  const [wishlistToEdit, setWishlistToEdit] = useState<any | null>(null);
+  const [wishlistToEdit, setWishlistToEdit] = useState<Wishlist | null>(null);
   const [mode, setMode] = useState("individual");
   const [participants, setParticipants] = useState<User[]>([]);
-  const [availableRules, setAvailableRules] = useState<
-    { id: string; title: string; description?: string }[]
-  >([]);
   const [optionsWishlistId, setOptionsWishlistId] = useState<string | null>(
+    null
+  );
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [wishlistToDelete, setWishlistToDelete] = useState<Wishlist | null>(
     null
   );
 
@@ -45,9 +51,9 @@ export const useManageMyWishlists = (navigate: any) => {
       setTitle(wishlistToEdit.title || "");
       setDescription(wishlistToEdit.description || "");
       setPicturePreview(wishlistToEdit.picture || null);
-      setAccess(wishlistToEdit.access || "public");
+      setAccess(wishlistToEdit.access ? "private" : "public");
       setPublished(wishlistToEdit.published ? "1" : "0");
-      setMode(wishlistToEdit.access || "individual");
+      setMode(wishlistToEdit.access ? "collective" : "individual");
       setParticipants(wishlistToEdit.participants || []);
     }
   }, [wishlistToEdit]);
@@ -73,7 +79,7 @@ export const useManageMyWishlists = (navigate: any) => {
       setShowCreate(false);
       navigate("/dashboard");
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
     onSettled: () => setIsSubmitting(false),
@@ -87,7 +93,7 @@ export const useManageMyWishlists = (navigate: any) => {
       setOpenEdition(false);
       setWishlistToEdit(null);
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
     onSettled: () => setIsSubmitting(false),
@@ -101,7 +107,7 @@ export const useManageMyWishlists = (navigate: any) => {
       setOpenEdition(false);
       setWishlistToEdit(null);
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
   });
@@ -159,6 +165,15 @@ export const useManageMyWishlists = (navigate: any) => {
     });
   };
 
+  const handleDeleteButton = (wishlist: Wishlist) => {
+    const confirmDelete = window.confirm(
+      "Souhaitez-vous vraiment supprimer cette wishlist ?"
+    );
+    if (!confirmDelete) return;
+
+    deleteMutation.mutate(wishlist.id);
+  };
+
   const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
     if (!wishlistToEdit) return;
@@ -169,7 +184,12 @@ export const useManageMyWishlists = (navigate: any) => {
     deleteMutation.mutate(wishlistToEdit.id);
   };
 
-  const openEditForm = (wishlist: any) => {
+  const confirmDelete = (wishlist: Wishlist) => {
+    setWishlistToDelete(wishlist);
+    setShowConfirm(true);
+  };
+
+  const openEditForm = (wishlist: Wishlist) => {
     setWishlistToEdit(wishlist);
     setOpenEdition(true);
   };
@@ -206,6 +226,7 @@ export const useManageMyWishlists = (navigate: any) => {
     handleCreateSubmit,
     handleEditSubmit,
     handleDelete,
+    handleDeleteButton,
     openEditForm,
     closeEditForm,
     mode,
@@ -215,5 +236,12 @@ export const useManageMyWishlists = (navigate: any) => {
     toggleOptions,
     closeOptions,
     optionsWishlistId,
+    confirmDelete,
+    wishlistToDelete,
+    setWishlistToDelete,
+    showConfirm,
+    setShowConfirm,
+    setOptionsWishlistId,
+    currentUser,
   };
 };

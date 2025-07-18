@@ -1,10 +1,15 @@
 import CreateWishlistForm from "../../features/wishlists/CreateWishlist/CreateWishlistForm";
-import { useMyWishlists } from "../../features/wishlists/MyWishlists/MyWishlistsHelpers";
-import { Link, useNavigate } from "react-router-dom";
+import {
+  useMyWishlists,
+  type Wishlist,
+} from "../../features/wishlists/MyWishlists/MyWishlistsHelpers";
+import { useNavigate } from "react-router-dom";
 import EditWishlistForm from "../../features/wishlists/EditWishlist/EditWishlistForm";
 import { useManageMyWishlists } from "../../features/wishlists/MyWishlists/useManageMyWishlists";
 import DataState from "../../components/ui/DataState";
 import Modal from "../../components/ui/Modal";
+import ConfirmModal from "../../components/ui/ConfirmModal";
+import CardList from "../../components/ui/CardList";
 
 const MyWishlists = () => {
   const navigate = useNavigate();
@@ -28,7 +33,6 @@ const MyWishlists = () => {
     handlePictureChange,
     handleCreateSubmit,
     handleEditSubmit,
-    handleDelete,
     openEditForm,
     closeEditForm,
     mode,
@@ -37,6 +41,15 @@ const MyWishlists = () => {
     setParticipants,
     toggleOptions,
     optionsWishlistId,
+    handleDelete,
+    confirmDelete,
+    showConfirm,
+    wishlistToDelete,
+    setShowConfirm,
+    setWishlistToDelete,
+    handleDeleteButton,
+    setOptionsWishlistId,
+    currentUser,
   } = useManageMyWishlists(navigate);
 
   const { data: wishlists, error, isLoading } = useMyWishlists();
@@ -45,81 +58,47 @@ const MyWishlists = () => {
 
   return (
     <DataState loading={isLoading} error={error}>
-      <ul className="card-list">
-        <li onClick={() => setShowCreate(true)} className="card">
-          <div className="new-card">
-            <i className="fa-solid fa-plus"></i>
-          </div>
-          <div className="card-infos">
-            <h2>Créer une wishlist</h2>
-          </div>
-        </li>
-
-        {wishlists && wishlists?.length > 0 && (
+      <CardList<Wishlist>
+        items={wishlists ?? []}
+        backendUrl={BACKEND_URL}
+        onAddClick={() => setShowCreate(true)}
+        getLink={(item) => `/my-wishlist/${item.id}`}
+        showEditMenu={(item) => item.userId === currentUser?.id}
+        onEditClick={openEditForm}
+        onDeleteClick={confirmDelete}
+        optionsItemId={optionsWishlistId}
+        toggleOptions={toggleOptions}
+        getCountLabel={(item) =>
+          `${item.wishesCount ?? 0} souhait${item.wishesCount !== 1 ? "s" : ""}`
+        }
+        extraIcons={(item) => (
           <>
-            {wishlists.map((w) => (
-              <li key={w.id} className="card">
-                <Link to={`/my-wishlist/${w.id}`}>
-                  <div
-                    className="card-picture"
-                    style={{
-                      backgroundImage: `url('${
-                        w.picture?.startsWith("http")
-                          ? w.picture
-                          : w.picture
-                          ? `${BACKEND_URL}${w.picture}`
-                          : "/default-wishlist-picture.jpg"
-                      }')`,
-                    }}
-                  ></div>
-                </Link>
-
-                <div className="card-infos">
-                  <div className="card-infos-top">
-                    <Link to={`/my-wishlist/${w.id}`}>
-                      <h2>{w.title}</h2>{" "}
-                    </Link>
-                    <div className="relative">
-                      <i
-                        className="fa-solid fa-ellipsis"
-                        onClick={() => {
-                          toggleOptions(w.id);
-                        }}
-                      ></i>
-
-                      {optionsWishlistId === w.id && (
-                        <div className="options-menu">
-                          <button onClick={() => openEditForm(w)}>
-                            <i className="fa-solid fa-pen-to-square"></i> Éditer
-                          </button>
-                          <button onClick={() => handleDelete(w)}>
-                            <i className="fa-solid fa-trash"></i> Supprimer
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  </div>
-                  <span>
-                    {w.wishesCount} souhait
-                    {(w.wishesCount ?? 0) > 1 ? "s" : ""}
-                  </span>
-                </div>
-
-                {w.mode == "collaborative" ? (
-                  <i className="fa-solid fa-user-group"></i>
-                ) : (
-                  ""
-                )}
-                {w.published == false ? (
-                  <i className="fa-solid fa-lock"></i>
-                ) : (
-                  ""
-                )}
-              </li>
-            ))}
+            {item.mode === "collaborative" && (
+              <i className="fa-solid fa-user-group"></i>
+            )}
+            {item.published === false && <i className="fa-solid fa-lock"></i>}
           </>
         )}
-      </ul>
+      />
+
+      {showConfirm && wishlistToDelete && (
+        <ConfirmModal
+          title="Supprimer cette wishlist ?"
+          message={`Souhaitez-vous vraiment supprimer la liste "${wishlistToDelete.title}" ?`}
+          onClose={() => {
+            setShowConfirm(false);
+            setWishlistToDelete(null);
+            setOptionsWishlistId(null);
+          }}
+          onConfirm={() => {
+            handleDeleteButton(wishlistToDelete);
+            setShowConfirm(false);
+            setWishlistToDelete(null);
+          }}
+          confirmLabel="Supprimer"
+          cancelLabel="Annuler"
+        />
+      )}
 
       {openEdition && wishlistToEdit && (
         <Modal onClose={closeEditForm} title="Editer ma liste">

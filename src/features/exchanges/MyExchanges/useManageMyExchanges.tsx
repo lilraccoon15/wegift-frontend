@@ -7,13 +7,18 @@ import {
 import {
   editExchange,
   deleteExchange,
+  type Rule,
 } from "../EditExchange/EditExchangeHelpers";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import type { NavigateFunction } from "react-router-dom";
+import { useMyExchanges, type Exchange } from "./MyExchangesHelpers";
+import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 
 export const useManageMyExchanges = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
+  const { data: exchanges, error, isLoading } = useMyExchanges();
 
+  const { data: currentUser } = useMyProfile();
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
   const [picture, setPicture] = useState<File | null>(null);
@@ -22,7 +27,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   const [submitError, setSubmitError] = useState<string | null>(null);
   const [showCreate, setShowCreate] = useState(false);
   const [openEdition, setOpenEdition] = useState(false);
-  const [exchangeToEdit, setExchangeToEdit] = useState<any | null>(null);
+  const [exchangeToEdit, setExchangeToEdit] = useState<Exchange | null>(null);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [participants, setParticipants] = useState<User[]>([]);
@@ -32,6 +37,14 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   const [selectedRuleIds, setSelectedRuleIds] = useState<string[]>([]);
   const [budget, setBudget] = useState("");
   const [loadingRules, setLoadingRules] = useState(false);
+
+  const [showConfirm, setShowConfirm] = useState(false);
+  const [exchangeToDelete, setExchangeToDelete] = useState<Exchange | null>(
+    null
+  );
+  const [optionsExchangeId, setOptionsExchangeId] = useState<string | null>(
+    null
+  );
 
   useEffect(() => {
     if (picture) {
@@ -59,10 +72,10 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
       setTitle(exchangeToEdit.title || "");
       setDescription(exchangeToEdit.description || "");
       setPicturePreview(exchangeToEdit.picture || null);
-      setStartDate(exchangeToEdit.startDate || "");
+      setStartDate(exchangeToEdit.startDate ? exchangeToEdit.startDate : "");
       setEndDate(exchangeToEdit.endDate || "");
       setParticipants(exchangeToEdit.participants || []);
-      setSelectedRuleIds(exchangeToEdit.rules?.map((r: any) => r.id) || []);
+      setSelectedRuleIds(exchangeToEdit.rules?.map((r: Rule) => r.id) || []);
       setBudget(exchangeToEdit.budget?.toString() || "");
     }
   }, [exchangeToEdit]);
@@ -89,7 +102,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
       setShowCreate(false);
       navigate("/dashboard");
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
     onSettled: () => setIsSubmitting(false),
@@ -103,7 +116,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
       setOpenEdition(false);
       setExchangeToEdit(null);
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
     onSettled: () => setIsSubmitting(false),
@@ -117,7 +130,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
       setOpenEdition(false);
       setExchangeToEdit(null);
     },
-    onError: (error: any) => {
+    onError: (error: Error) => {
       setSubmitError(error.message || "Erreur inconnue");
     },
   });
@@ -188,7 +201,21 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     deleteMutation.mutate(exchangeToEdit.id);
   };
 
-  const openEditForm = (exchange: any) => {
+  const confirmDelete = (exchange: Exchange) => {
+    setExchangeToDelete(exchange);
+    setShowConfirm(true);
+  };
+
+  const handleDeleteButton = (exchange: Exchange) => {
+    const confirmDelete = window.confirm(
+      "Souhaitez-vous vraiment supprimer cet échange ?"
+    );
+    if (!confirmDelete) return;
+
+    deleteMutation.mutate(exchange.id);
+  };
+
+  const openEditForm = (exchange: Exchange) => {
     setExchangeToEdit(exchange);
     setOpenEdition(true);
   };
@@ -198,6 +225,12 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     setExchangeToEdit(null);
     resetForm();
   };
+
+  const toggleOptions = (id: string) => {
+    setOptionsExchangeId((prev) => (prev === id ? null : id));
+  };
+
+  const closeOptions = () => setOptionsExchangeId(null);
 
   return {
     title,
@@ -228,5 +261,20 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     availableRules,
     budget,
     setBudget,
+    exchanges,
+    isLoading,
+    error,
+    currentUser,
+    confirmDelete,
+    optionsExchangeId,
+    toggleOptions,
+    showConfirm,
+    exchangeToDelete,
+    setShowConfirm,
+    setExchangeToDelete,
+    setOptionsExchangeId,
+    handleDeleteButton,
+    closeOptions,
+    loadingRules,
   };
 };
