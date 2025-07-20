@@ -1,247 +1,269 @@
 import { useState, useEffect } from "react";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { type NavigateFunction } from "react-router-dom";
 import { createWishlist } from "../CreateWishlist/CreateWishlistHelpers";
 import {
-  editWishlist,
-  deleteWishlist,
+    editWishlist,
+    deleteWishlist,
 } from "../EditWishlist/EditWishlistHelpers";
-import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
-import type { Wishlist } from "./MyWishlistsHelpers";
-import type { NavigateFunction } from "react-router-dom";
+import { useMyWishlists, type Wishlist } from "./MyWishlistsHelpers";
 import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
+import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 
 export const useManageMyWishlists = (navigate: NavigateFunction) => {
-  const queryClient = useQueryClient();
+    const queryClient = useQueryClient();
+    const { data: currentUser } = useMyProfile();
+    const { data: wishlists, error, isLoading } = useMyWishlists();
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
-  const { data: currentUser } = useMyProfile();
-  const [title, setTitle] = useState("");
-  const [description, setDescription] = useState("");
-  const [picture, setPicture] = useState<File | null>(null);
-  const [picturePreview, setPicturePreview] = useState<string | null>(null);
-  const [access, setAccess] = useState("public");
-  const [published, setPublished] = useState("1");
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [submitError, setSubmitError] = useState<string | null>(null);
-  const [showCreate, setShowCreate] = useState(false);
-  const [openEdition, setOpenEdition] = useState(false);
-  const [wishlistToEdit, setWishlistToEdit] = useState<Wishlist | null>(null);
-  const [mode, setMode] = useState("individual");
-  const [participants, setParticipants] = useState<User[]>([]);
-  const [optionsWishlistId, setOptionsWishlistId] = useState<string | null>(
-    null
-  );
+    // =======================
+    // UI & Form States
+    // =======================
+    const [title, setTitle] = useState("");
+    const [description, setDescription] = useState("");
+    const [picture, setPicture] = useState<File | null>(null);
+    const [picturePreview, setPicturePreview] = useState<string | null>(null);
+    const [access, setAccess] = useState("public");
+    const [published, setPublished] = useState("1");
+    const [mode, setMode] = useState("individual");
+    const [participants, setParticipants] = useState<User[]>([]);
 
-  const [showConfirm, setShowConfirm] = useState(false);
-  const [wishlistToDelete, setWishlistToDelete] = useState<Wishlist | null>(
-    null
-  );
+    const [isSubmitting, setIsSubmitting] = useState(false);
+    const [submitError, setSubmitError] = useState<string | null>(null);
 
-  useEffect(() => {
-    if (picture) {
-      const objectUrl = URL.createObjectURL(picture);
-      setPicturePreview(objectUrl);
-      return () => URL.revokeObjectURL(objectUrl);
-    } else {
-      setPicturePreview(null);
-    }
-  }, [picture]);
+    const [showCreate, setShowCreate] = useState(false);
+    const [openEdition, setOpenEdition] = useState(false);
+    const [wishlistToEdit, setWishlistToEdit] = useState<Wishlist | null>(null);
 
-  useEffect(() => {
-    if (wishlistToEdit) {
-      setTitle(wishlistToEdit.title || "");
-      setDescription(wishlistToEdit.description || "");
-      setPicturePreview(wishlistToEdit.picture || null);
-      setAccess(wishlistToEdit.access ? "private" : "public");
-      setPublished(wishlistToEdit.published ? "1" : "0");
-      setMode(wishlistToEdit.access ? "collective" : "individual");
-      setParticipants(wishlistToEdit.participants || []);
-    }
-  }, [wishlistToEdit]);
-
-  const resetForm = () => {
-    setTitle("");
-    setDescription("");
-    setPicture(null);
-    setPicturePreview(null);
-    setAccess("public");
-    setPublished("1");
-    setMode("individual");
-    setIsSubmitting(false);
-    setSubmitError(null);
-    setParticipants([]);
-  };
-
-  const mutation = useMutation({
-    mutationFn: createWishlist,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
-      resetForm();
-      setShowCreate(false);
-      navigate("/dashboard");
-    },
-    onError: (error: Error) => {
-      setSubmitError(error.message || "Erreur inconnue");
-    },
-    onSettled: () => setIsSubmitting(false),
-  });
-
-  const editMutation = useMutation({
-    mutationFn: editWishlist,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
-      resetForm();
-      setOpenEdition(false);
-      setWishlistToEdit(null);
-    },
-    onError: (error: Error) => {
-      setSubmitError(error.message || "Erreur inconnue");
-    },
-    onSettled: () => setIsSubmitting(false),
-  });
-
-  const deleteMutation = useMutation({
-    mutationFn: deleteWishlist,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
-      resetForm();
-      setOpenEdition(false);
-      setWishlistToEdit(null);
-    },
-    onError: (error: Error) => {
-      setSubmitError(error.message || "Erreur inconnue");
-    },
-  });
-
-  const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];
-      const maxSizeInBytes = 5 * 1024 * 1024;
-
-      if (!validTypes.includes(file.type)) {
-        alert("Format d’image non supporté.");
-        return;
-      }
-
-      if (file.size > maxSizeInBytes) {
-        alert("Fichier trop volumineux. Maximum 5 Mo.");
-        return;
-      }
-
-      setPicture(file);
-    }
-  };
-
-  const handleCreateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    mutation.mutate({
-      title,
-      description: description ?? undefined,
-      access,
-      picture: picture ?? undefined,
-      mode,
-      participantIds: participants.map((u) => u.id),
-    });
-  };
-
-  const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault();
-    if (!wishlistToEdit) return;
-    setIsSubmitting(true);
-    setSubmitError(null);
-
-    editMutation.mutate({
-      id: wishlistToEdit.id,
-      title,
-      description: description ?? undefined,
-      access,
-      picture: picture ?? undefined,
-      published: published === "1",
-      mode,
-      participantIds: participants.map((u) => u.id),
-    });
-  };
-
-  const handleDeleteButton = (wishlist: Wishlist) => {
-    const confirmDelete = window.confirm(
-      "Souhaitez-vous vraiment supprimer cette wishlist ?"
+    const [showConfirm, setShowConfirm] = useState(false);
+    const [wishlistToDelete, setWishlistToDelete] = useState<Wishlist | null>(
+        null
     );
-    if (!confirmDelete) return;
 
-    deleteMutation.mutate(wishlist.id);
-  };
-
-  const handleDelete = (e: React.MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
-    if (!wishlistToEdit) return;
-    const confirmDelete = window.confirm(
-      "Souhaitez-vous vraiment supprimer cette wishlist ?"
+    const [optionsWishlistId, setOptionsWishlistId] = useState<string | null>(
+        null
     );
-    if (!confirmDelete) return;
-    deleteMutation.mutate(wishlistToEdit.id);
-  };
 
-  const confirmDelete = (wishlist: Wishlist) => {
-    setWishlistToDelete(wishlist);
-    setShowConfirm(true);
-  };
+    // =======================
+    // Effects
+    // =======================
+    useEffect(() => {
+        if (picture) {
+            const objectUrl = URL.createObjectURL(picture);
+            setPicturePreview(objectUrl);
+            return () => URL.revokeObjectURL(objectUrl);
+        }
+        setPicturePreview(null);
+    }, [picture]);
 
-  const openEditForm = (wishlist: Wishlist) => {
-    setWishlistToEdit(wishlist);
-    setOpenEdition(true);
-  };
+    useEffect(() => {
+        if (!wishlistToEdit) return;
 
-  const toggleOptions = (id: string) => {
-    setOptionsWishlistId((prev) => (prev === id ? null : id));
-  };
+        setTitle(wishlistToEdit.title || "");
+        setDescription(wishlistToEdit.description || "");
+        setPicturePreview(wishlistToEdit.picture || null);
+        setAccess(wishlistToEdit.access ? "private" : "public");
+        setPublished(wishlistToEdit.published ? "1" : "0");
+        setMode(wishlistToEdit.access ? "collective" : "individual");
+        setParticipants(wishlistToEdit.participants || []);
+    }, [wishlistToEdit]);
 
-  const closeOptions = () => setOptionsWishlistId(null);
+    // =======================
+    // Mutations
+    // =======================
+    const mutation = useMutation({
+        mutationFn: createWishlist,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
+            resetForm();
+            setShowCreate(false);
+            navigate("/dashboard");
+        },
+        onError: (error: Error) =>
+            setSubmitError(error.message || "Erreur inconnue"),
+        onSettled: () => setIsSubmitting(false),
+    });
 
-  const closeEditForm = () => {
-    setOpenEdition(false);
-    setWishlistToEdit(null);
-    resetForm();
-  };
+    const editMutation = useMutation({
+        mutationFn: editWishlist,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
+            resetForm();
+            setOpenEdition(false);
+            setWishlistToEdit(null);
+        },
+        onError: (error: Error) =>
+            setSubmitError(error.message || "Erreur inconnue"),
+        onSettled: () => setIsSubmitting(false),
+    });
 
-  return {
-    title,
-    description,
-    picturePreview,
-    access,
-    published,
-    isSubmitting,
-    submitError,
-    showCreate,
-    openEdition,
-    wishlistToEdit,
-    setTitle,
-    setDescription,
-    setAccess,
-    setPublished,
-    setShowCreate,
-    handlePictureChange,
-    handleCreateSubmit,
-    handleEditSubmit,
-    handleDelete,
-    handleDeleteButton,
-    openEditForm,
-    closeEditForm,
-    mode,
-    setMode,
-    participants,
-    setParticipants,
-    toggleOptions,
-    closeOptions,
-    optionsWishlistId,
-    confirmDelete,
-    wishlistToDelete,
-    setWishlistToDelete,
-    showConfirm,
-    setShowConfirm,
-    setOptionsWishlistId,
-    currentUser,
-  };
+    const deleteMutation = useMutation({
+        mutationFn: deleteWishlist,
+        onSuccess: () => {
+            queryClient.invalidateQueries({ queryKey: ["myWishlists"] });
+            resetForm();
+            setOpenEdition(false);
+            setWishlistToEdit(null);
+        },
+        onError: (error: Error) =>
+            setSubmitError(error.message || "Erreur inconnue"),
+    });
+
+    // =======================
+    // Handlers
+    // =======================
+    const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (!file) return;
+
+        const validTypes = [
+            "image/jpeg",
+            "image/png",
+            "image/gif",
+            "image/webp",
+        ];
+        const maxSize = 5 * 1024 * 1024;
+
+        if (!validTypes.includes(file.type)) {
+            alert("Format d’image non supporté.");
+            return;
+        }
+
+        if (file.size > maxSize) {
+            alert("Fichier trop volumineux. Maximum 5 Mo.");
+            return;
+        }
+
+        setPicture(file);
+    };
+
+    const handleCreateSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        setIsSubmitting(true);
+        setSubmitError(null);
+
+        mutation.mutate({
+            title,
+            description: description || undefined,
+            access,
+            picture: picture || undefined,
+            mode,
+            participantIds: participants.map((u) => u.id),
+        });
+    };
+
+    const handleEditSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+        e.preventDefault();
+        if (!wishlistToEdit) return;
+
+        setIsSubmitting(true);
+        setSubmitError(null);
+
+        editMutation.mutate({
+            id: wishlistToEdit.id,
+            title,
+            description: description || undefined,
+            access,
+            picture: picture || undefined,
+            published: published === "1",
+            mode,
+            participantIds: participants.map((u) => u.id),
+        });
+    };
+
+    const handleDeleteButton = (wishlist: Wishlist) => {
+        if (
+            window.confirm("Souhaitez-vous vraiment supprimer cette wishlist ?")
+        ) {
+            deleteMutation.mutate(wishlist.id);
+        }
+    };
+
+    // =======================
+    // Helpers
+    // =======================
+    const confirmDelete = (wishlist: Wishlist) => {
+        setWishlistToDelete(wishlist);
+        setShowConfirm(true);
+    };
+
+    const openEditForm = (wishlist: Wishlist) => {
+        setWishlistToEdit(wishlist);
+        setOpenEdition(true);
+    };
+
+    const closeEditForm = () => {
+        setOpenEdition(false);
+        setWishlistToEdit(null);
+        setOptionsWishlistId(null);
+        resetForm();
+    };
+
+    const toggleOptions = (id: string) => {
+        setOptionsWishlistId((prev) => (prev === id ? null : id));
+    };
+
+    const closeOptions = () => setOptionsWishlistId(null);
+
+    const resetForm = () => {
+        setTitle("");
+        setDescription("");
+        setPicture(null);
+        setPicturePreview(null);
+        setAccess("public");
+        setPublished("1");
+        setMode("individual");
+        setParticipants([]);
+        setIsSubmitting(false);
+        setSubmitError(null);
+    };
+
+    // =======================
+    // Return
+    // =======================
+    return {
+        title,
+        description,
+        picturePreview,
+        access,
+        published,
+        mode,
+        participants,
+        isSubmitting,
+        submitError,
+        showCreate,
+        openEdition,
+        wishlistToEdit,
+        wishlistToDelete,
+        showConfirm,
+        optionsWishlistId,
+        wishlists,
+        currentUser,
+        BACKEND_URL,
+        error,
+        isLoading,
+
+        // setters
+        setTitle,
+        setDescription,
+        setAccess,
+        setPublished,
+        setMode,
+        setParticipants,
+        setShowCreate,
+        setWishlistToDelete,
+        setShowConfirm,
+        setOptionsWishlistId,
+
+        // handlers
+        handlePictureChange,
+        handleCreateSubmit,
+        handleEditSubmit,
+        handleDeleteButton,
+        confirmDelete,
+        openEditForm,
+        closeEditForm,
+        toggleOptions,
+        closeOptions,
+    };
 };

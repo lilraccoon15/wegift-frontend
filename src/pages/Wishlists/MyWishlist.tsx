@@ -4,6 +4,9 @@ import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import Modal from "../../components/ui/Modal";
 import CreateWishModalContent from "../../components/ui/CreateWishModalContent";
+import ConfirmModal from "../../components/ui/ConfirmModal";
+import CardList from "../../components/ui/CardList";
+import type { Wish } from "../../features/wishlists/MyWishes/MyWishesHelpers";
 
 const MyWishlist = () => {
     const navigate = useNavigate();
@@ -35,11 +38,19 @@ const MyWishlist = () => {
         setUrl,
         submitErrorScrapping,
         isSubmittingScrapping,
+        BACKEND_URL,
+        setShowCreate,
+        currentUser,
+        confirmDelete,
+        optionsWishId,
+        toggleOptions,
+        showConfirm,
+        wishToDelete,
+        setShowConfirm,
+        setWishToDelete,
+        setOptionsWishId,
+        handleDeleteButton,
     } = useManageMyWishlist(navigate);
-
-    if (!id) return <p>Paramètre ID manquant</p>;
-
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
     return (
         <DataState loading={loading} error={error}>
@@ -50,50 +61,38 @@ const MyWishlist = () => {
                 )}
             </div>
 
-            <ul className="card-list">
-                {creationMode === "none" && (
-                    <li
-                        onClick={() => setCreationMode("choice")}
-                        className="card"
-                    >
-                        <div className="new-card">
-                            <i className="fa-solid fa-plus"></i>
-                        </div>
-                        <div className="card-infos">
-                            <h2>Créer un souhait</h2>
-                        </div>
-                    </li>
-                )}
+            <CardList<Wish>
+                items={wishes ?? []}
+                backendUrl={BACKEND_URL}
+                onAddClick={() => setCreationMode("choice")}
+                getLink={(item) => `/my-wish/${item.id}`}
+                showEditMenu={() =>
+                    wishlist?.data?.wishlist?.userId === currentUser?.id
+                }
+                onEditClick={openEditForm}
+                onDeleteClick={confirmDelete}
+                optionsItemId={optionsWishId}
+                toggleOptions={toggleOptions}
+            />
 
-                {(wishes ?? []).map((wish) => (
-                    <Link
-                        to={`/my-wish/${wish.id}`}
-                        className="card"
-                        key={wish.id}
-                    >
-                        <li>
-                            <div
-                                className="card-picture"
-                                style={{
-                                    backgroundImage: `url('${
-                                        wish.picture?.startsWith("http")
-                                            ? wish.picture
-                                            : wish.picture
-                                            ? `${BACKEND_URL}${wish.picture}`
-                                            : "/default-wish-picture.jpg"
-                                    }')`,
-                                }}
-                            ></div>
-                            <div className="card-infos">
-                                <h2>{wish.title}</h2>
-                            </div>
-                            <button onClick={() => openEditForm(wish)}>
-                                <i className="fa-solid fa-pen-to-square"></i>
-                            </button>
-                        </li>
-                    </Link>
-                ))}
-            </ul>
+            {showConfirm && wishToDelete && (
+                <ConfirmModal
+                    title="Supprimer ce souhait ?"
+                    message={`Souhaitez-vous vraiment supprimer le souhait "${wishToDelete.title}" ?`}
+                    onClose={() => {
+                        setShowConfirm(false);
+                        setWishToDelete(null);
+                        setOptionsWishId(null);
+                    }}
+                    onConfirm={() => {
+                        handleDeleteButton(wishToDelete);
+                        setShowConfirm(false);
+                        setWishToDelete(null);
+                    }}
+                    confirmLabel="Supprimer"
+                    cancelLabel="Annuler"
+                />
+            )}
 
             {creationMode !== "none" && (
                 <Modal

@@ -2,6 +2,9 @@ import { Link } from "react-router-dom";
 import { useManageWishlist } from "../../features/wishlists/UserWishlists/useManageWishlist";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
+import CardList from "../../components/ui/CardList";
+import type { Wish } from "../../features/wishlists/UserWishes/UserWishesHelpers";
+import ActionButtons from "../../components/ui/ActionButtons";
 
 const Wishlist = () => {
     const {
@@ -15,6 +18,7 @@ const Wishlist = () => {
         unsubscribe,
         subscribing,
         unsubscribing,
+        subscriptionStatus,
     } = useManageWishlist();
 
     if (!id) return <p>Paramètre ID manquant</p>;
@@ -31,56 +35,29 @@ const Wishlist = () => {
                 <p>Wishlist non trouvée</p>
             ) : (
                 <>
-                    {isSubscribed !== undefined && (
-                        <div className="btn-align-right">
-                            <button
-                                className={`btn-action ${
-                                    isSubscribed ? "subscribed" : ""
-                                }`}
-                                onClick={() =>
-                                    isSubscribed ? unsubscribe() : subscribe()
-                                }
-                                disabled={subscribing || unsubscribing}
-                            >
-                                {subscribing || unsubscribing
-                                    ? "Chargement..."
-                                    : isSubscribed
-                                    ? "Abonné"
-                                    : "S'abonner"}
-                            </button>
-                        </div>
-                    )}
+                    <div className="btn-align-right">
+                        <ActionButtons
+                            status={subscriptionStatus}
+                            isSubmitting={subscribing || unsubscribing}
+                            onAdd={subscribe}
+                            onDecline={unsubscribe}
+                            variant="custom"
+                            labels={{
+                                add: "S'abonner",
+                                cancel: "Se désabonner",
+                                accepted: "Abonné",
+                                rejected: "Erreur",
+                            }}
+                        />
+                    </div>
                     {wishes?.length === 0 && (
                         <p>Il n'y a pas encore de souhait dans cette liste.</p>
                     )}
-                    {wishes && wishes?.length > 0 && (
-                        <ul className="card-list">
-                            {wishes?.map((wish) => (
-                                <Link
-                                    to={`/wish/${wish.id}`}
-                                    className="card"
-                                    key={wish.id}
-                                >
-                                    <div
-                                        className="card-picture"
-                                        style={{
-                                            backgroundImage: `url('${
-                                                wish.picture?.startsWith("http")
-                                                    ? wish.picture
-                                                    : wish.picture
-                                                    ? `${BACKEND_URL}${wish.picture}`
-                                                    : "/default-wish-picture.jpg"
-                                            }')`,
-                                        }}
-                                    ></div>
-                                    <div className="card-infos">
-                                        <h2>{wish.title}</h2>
-                                    </div>
-                                    <li key={wish.id}></li>
-                                </Link>
-                            ))}
-                        </ul>
-                    )}
+                    <CardList<Wish>
+                        items={wishes ?? []}
+                        backendUrl={BACKEND_URL}
+                        getLink={(item) => `/my-wish/${item.id}`}
+                    />
                 </>
             )}
         </DataState>

@@ -28,7 +28,9 @@ interface RegisterFormProps {
     loading: boolean;
     serverMessage: { type: "error" | "success"; text: string } | null;
     showPassword: boolean;
-    onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
     onRadioGroupShowPassword: () => void;
     onSubmit: (e: React.FormEvent) => void;
     isFormComplete: () => boolean;
@@ -176,6 +178,10 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
                     showNewPassword={showPassword}
                     passwordValidity={passwordValidity}
                     passwordsMatch={passwordsMatch}
+                    labels={{
+                        newPassword: "Mot de passe",
+                        confirmPassword: "Confirmer le mot de passe",
+                    }}
                 />
                 <StepButtons
                     showPrevious

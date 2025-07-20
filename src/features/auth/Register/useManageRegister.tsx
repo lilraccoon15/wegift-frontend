@@ -108,12 +108,17 @@ export const useManageRegister = () => {
         return realAge >= 12;
     };
 
-    const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, checked } = e.target;
+    const handleChange = (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => {
+        const { name, value, type } = e.target;
 
         setFormData((prev) => ({
             ...prev,
-            [name]: type === "checkbox" ? checked : value,
+            [name]:
+                type === "checkbox" && e.target instanceof HTMLInputElement
+                    ? e.target.checked
+                    : value,
         }));
 
         if (name === "password") {

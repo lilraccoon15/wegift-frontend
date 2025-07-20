@@ -15,6 +15,11 @@ export interface Wishlist {
   access: number;
   userId: string;
   wishesCount?: number;
+  collaborators?: Collaborators[];
+}
+
+export interface Collaborators {
+  userId: string;
 }
 
 const invalidateWishlistQueries = (

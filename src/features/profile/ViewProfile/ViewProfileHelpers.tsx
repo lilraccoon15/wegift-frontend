@@ -105,3 +105,53 @@ export function useFriendshipStatus(
         enabled,
     });
 }
+
+export async function cancelFriendRequest(
+    addresseeId: string
+): Promise<"none"> {
+    const res = await axios.delete(
+        `${API_URL}/api/users/delete-friend-request`,
+        {
+            data: { addresseeId },
+            withCredentials: true,
+        }
+    );
+
+    if (res.data?.success) {
+        return "none";
+    }
+
+    throw new Error("Erreur lors de l'annulation de la demande d'ami");
+}
+
+export async function respondToFriendRequest(
+    requesterId: string,
+    action: "accept" | "reject"
+): Promise<"accepted" | "rejected"> {
+    const res = await axios.patch(
+        `${API_URL}/api/users/friends/${requesterId}/respond`,
+        { action },
+        { withCredentials: true }
+    );
+
+    if (res.data?.success) {
+        return action === "accept" ? "accepted" : "rejected";
+    }
+
+    throw new Error("Erreur lors du traitement de la demande d'ami");
+}
+
+export async function removeFriend(friendId: string): Promise<"none"> {
+    const res = await axios.delete(
+        `${API_URL}/api/users/delete-friend/${friendId}`,
+        {
+            withCredentials: true,
+        }
+    );
+
+    if (res.data?.success) {
+        return "none";
+    }
+
+    throw new Error("Erreur lors de la suppression de l’ami");
+}

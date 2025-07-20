@@ -1,8 +1,10 @@
 import { Link, useParams } from "react-router-dom";
-import { useFriends } from "../../features/profile/ViewProfile/ViewProfileHelpers";
+import {
+    useFriends,
+    useProfile,
+} from "../../features/profile/ViewProfile/ViewProfileHelpers";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
-import { useManageViewProfile } from "../../features/profile/ViewProfile/useManageViewProfile";
 import { useCombinedState } from "../../hooks/useCombineState";
 
 const Friends = () => {
@@ -12,11 +14,12 @@ const Friends = () => {
         error: errorFriends,
         isLoading,
     } = useFriends(id as string);
+
     const {
+        data: user,
         error: errorUser,
-        user,
-        loading: loadingUser,
-    } = useManageViewProfile();
+        isLoading: loadingUser,
+    } = useProfile(id as string);
 
     const { loading, error } = useCombinedState([
         { loading: loadingUser, error: errorUser },

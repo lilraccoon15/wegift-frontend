@@ -15,12 +15,23 @@ type PasswordFieldsProps = {
         digit: boolean;
         specialChar: boolean;
     };
-    onCurrentPasswordChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onNewPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-    onConfirmPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+    onCurrentPasswordChange?: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    onNewPasswordChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+    onConfirmPasswordChange: (
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    ) => void;
+
     onToggleShowCurrentPassword?: () => void;
     onToggleShowNewPassword: () => void;
     currentPasswordRequired?: boolean;
+    labels?: {
+        newPassword?: string;
+        confirmPassword?: string;
+    };
 };
 
 const PasswordFields: React.FC<PasswordFieldsProps> = ({
@@ -38,6 +49,7 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
     passwordValidity,
     showValidationRules = true,
     currentPasswordRequired = false,
+    labels,
 }) => {
     return (
         <>
@@ -46,6 +58,7 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
                     <label>Mot de passe actuel :</label>
                     <div className="input-validation">
                         <InputField
+                            name="currentPassword"
                             type={showCurrentPassword ? "text" : "password"}
                             value={currentPassword}
                             onChange={onCurrentPasswordChange ?? (() => {})}
@@ -68,9 +81,10 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
                 </>
             )}
 
-            <label>Nouveau mot de passe :</label>
+            <label>{labels?.newPassword || "Nouveau mot de passe"} :</label>
             <div className="input-validation">
                 <InputField
+                    name="password"
                     type={showNewPassword ? "text" : "password"}
                     value={newPassword}
                     onChange={onNewPasswordChange}
@@ -144,9 +158,12 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
                 </ul>
             )}
 
-            <label>Confirmer le mot de passe :</label>
+            <label>
+                {labels?.confirmPassword || "Confirmer le mot de passe"} :
+            </label>
             <div className="input-validation">
                 <InputField
+                    name="confirmPassword"
                     type="password"
                     value={confirmPassword}
                     onChange={onConfirmPasswordChange}

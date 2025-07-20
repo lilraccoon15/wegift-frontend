@@ -1,137 +1,138 @@
 @use "./variables" as *;
 
 form {
-  display: flex;
-  flex-wrap: nowrap;
-  flex-direction: column;
-  gap: 0.8rem;
-  justify-content: center;
-
-  label {
-    display: block;
-    font-size: 0.95rem;
-    font-weight: 500;
-    color: $primary-dark;
-  }
-
-  .form-step {
-    display: none;
-  }
-
-  .form-step.active {
-    display: block;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     gap: 0.8rem;
-  }
+    justify-content: center;
 
-  input,
-  textarea {
-    width: 100%;
-    padding: 12px;
-    border-radius: 0.5rem;
-    border: 1.5px solid $primary;
-    outline: none;
-    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-    box-shadow: 0px 0px 20px -18px;
-  }
-
-  input {
-    height: 45px;
-  }
-
-  .input:hover {
-    border: 2px solid $primary-light;
-    box-shadow: 0px 0px 20px -17px;
-  }
-
-  .input:active {
-    transform: scale(0.95);
-  }
-
-  .input:focus {
-    border: 2px solid $primary;
-  }
-
-  .step-btn {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-
-    &.single {
-      justify-content: flex-end;
+    label {
+        display: block;
+        font-size: 0.95rem;
+        font-weight: 500;
+        color: $primary-dark;
     }
-  }
 
-  .btn:disabled {
-    opacity: 0.5;
-    cursor: not-allowed;
-  }
-
-  .input-validation {
-    position: relative;
-
-    .input-info {
-      position: absolute;
-      right: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
-      pointer-events: none;
+    .form-step {
+        display: none;
     }
-  }
 
-  .valid {
-    color: $valid;
-  }
+    .form-step.active {
+        display: block;
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: column;
+        gap: 0.8rem;
+    }
 
-  .not-valid {
-    color: $not-valid;
-  }
+    input,
+    textarea {
+        width: 100%;
+        padding: 12px;
+        border-radius: 0.5rem;
+        border: 1.5px solid $primary;
+        outline: none;
+        transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+        box-shadow: 0px 0px 20px -18px;
+    }
+
+    input {
+        height: 45px;
+    }
+
+    .input:hover {
+        border: 2px solid $primary-light;
+        box-shadow: 0px 0px 20px -17px;
+    }
+
+    .input:active {
+        transform: scale(0.95);
+    }
+
+    .input:focus {
+        border: 2px solid $primary;
+    }
+
+    .step-btn {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+
+        &.single {
+            justify-content: flex-end;
+        }
+    }
+
+    .btn:disabled {
+        opacity: 0.5;
+        cursor: not-allowed;
+    }
+
+    .input-validation {
+        position: relative;
+
+        .input-info {
+            z-index: 10;
+            position: absolute;
+            right: 1rem;
+            top: 50%;
+            transform: translateY(-50%);
+            pointer-events: auto;
+        }
+    }
+
+    .valid {
+        color: $valid;
+    }
+
+    .not-valid {
+        color: $not-valid;
+    }
 }
 
 /* From Uiverse.io by Yaya12085 */
 .switch {
-  position: relative;
-  height: 1.5rem;
-  width: 3rem;
-  cursor: pointer;
-  appearance: none;
-  -webkit-appearance: none;
-  border-radius: 9999px;
-  background-color: $primary;
-  transition: all 0.3s ease;
+    position: relative;
+    height: 1.5rem;
+    width: 3rem;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    border-radius: 9999px;
+    background-color: $primary;
+    transition: all 0.3s ease;
 }
 
 .switch:checked {
-  background-color: $valid;
+    background-color: $valid;
 }
 
 .switch::before {
-  position: absolute;
-  content: "";
-  left: calc(1.5rem - 1.6rem);
-  top: calc(1.5rem - 1.6rem);
-  display: block;
-  height: 1.6rem;
-  width: 1.6rem;
-  cursor: pointer;
-  border: 1px solid $primary;
-  border-radius: 9999px;
-  background-color: $background;
-  box-shadow: 0 3px 10px $primary;
-  transition: all 0.3s ease;
+    position: absolute;
+    content: "";
+    left: calc(1.5rem - 1.6rem);
+    top: calc(1.5rem - 1.6rem);
+    display: block;
+    height: 1.6rem;
+    width: 1.6rem;
+    cursor: pointer;
+    border: 1px solid $primary;
+    border-radius: 9999px;
+    background-color: $background;
+    box-shadow: 0 3px 10px $primary;
+    transition: all 0.3s ease;
 }
 
 .switch:hover::before {
-  box-shadow: 0 0 0px 8px $primary-dark;
+    box-shadow: 0 0 0px 8px $primary-dark;
 }
 
 .switch:checked:hover::before {
-  box-shadow: 0 0 0px 8px $primary-dark;
+    box-shadow: 0 0 0px 8px $primary-dark;
 }
 
 .switch:checked:before {
-  transform: translateX(100%);
-  border-color: $valid;
+    transform: translateX(100%);
+    border-color: $valid;
 }
