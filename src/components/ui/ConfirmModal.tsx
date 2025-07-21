@@ -24,14 +24,16 @@ const ConfirmModal = ({
             <i className="fa-solid fa-xmark"></i>
           </button>
         </div>
-        <p>{message}</p>
-        <div className="action-buttons">
-          <button className="btn-action btn-secondary" onClick={onClose}>
-            {cancelLabel}
-          </button>
-          <button onClick={onConfirm} className="btn-action">
-            {confirmLabel}
-          </button>
+        <div className="modal-body">
+          <p>{message}</p>
+          <div className="action-buttons">
+            <button className="btn-action btn-secondary" onClick={onClose}>
+              {cancelLabel}
+            </button>
+            <button onClick={onConfirm} className="btn-action">
+              {confirmLabel}
+            </button>
+          </div>
         </div>
       </div>
     </div>

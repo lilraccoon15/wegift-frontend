@@ -33,7 +33,6 @@ interface EditWishFormProps {
   ) => void;
   error: string | null;
   buttondisabled: boolean;
-  handleDelete: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
 const EditWishForm: React.FC<EditWishFormProps> = ({
@@ -50,7 +49,6 @@ const EditWishForm: React.FC<EditWishFormProps> = ({
   onPriceChange,
   error,
   buttondisabled,
-  handleDelete,
 }) => {
   const fileInputRef = useRef<HTMLInputElement | null>(null);
 
@@ -110,9 +108,6 @@ const EditWishForm: React.FC<EditWishFormProps> = ({
       {error && <Message text={error} type="error" />}
       <Button type="submit" disabled={buttondisabled}>
         Modifier
-      </Button>
-      <Button type="button" onClick={handleDelete}>
-        Supprimer
       </Button>
     </form>
   );
