@@ -64,13 +64,13 @@ const NotificationItem = ({ notif }: Props) => {
         "/uploads/profilePictures/default-profile.jpg";
     const BACKEND_URL_USER = import.meta.env.VITE_BACKEND_URL_USER;
 
-    //   const DEFAULT_PICTURE_URL_WISHLIST =
-    //     "/uploads/wishlistPictures/default-wishlist.jpg";
-    //   const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+      const DEFAULT_PICTURE_URL_WISHLIST =
+        "/uploads/wishlistPictures/default-wishlist.png";
+      const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
-    //   const DEFAULT_PICTURE_URL_EXCHANGE =
-    //     "/uploads/exchangePictures/default-wishlist.jpg";
-    //   const BACKEND_URL_EXCHANGE = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
+      const DEFAULT_PICTURE_URL_EXCHANGE =
+        "/uploads/exchangePictures/default-wishlist.jpg";
+      const BACKEND_URL_EXCHANGE = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
 
     return (
         <li className="notification-item">

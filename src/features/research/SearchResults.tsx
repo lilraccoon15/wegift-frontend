@@ -12,11 +12,11 @@ const DEFAULT_PICTURE_URL_USER = "/uploads/profilePictures/default-profile.jpg";
 const BACKEND_URL_USER = import.meta.env.VITE_BACKEND_URL_USER;
 
 const DEFAULT_PICTURE_URL_WISHLIST =
-    "/uploads/wishlistPictures/default-wishlist.jpg";
+    "/uploads/wishlistPictures/default-wishlist.png";
 const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
 const DEFAULT_PICTURE_URL_EXCHANGE =
-    "/uploads/exchangePictures/default-wishlist.jpg";
+    "/uploads/exchangePictures/default-exchange.png";
 const BACKEND_URL_EXCHANGE = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
 
 const SearchResults = ({ results, isLoading, error }: Props) => {

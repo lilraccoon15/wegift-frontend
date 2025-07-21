@@ -45,6 +45,7 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
                 </span>
             ))}
 
+            <label>Collaborateurs :</label>
             <input
                 ref={inputRef}
                 type="text"

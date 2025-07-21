@@ -23,6 +23,16 @@ const Wishlists = () => {
                             item.wishesCount !== 1 ? "s" : ""
                         }`
                     }
+                    getDefaultPicture={() =>
+                        "/uploads/wishlistPictures/default-wishlist.png"
+                    }
+                    getPictureUrl={(item) =>
+                        item.picture?.startsWith("http")
+                            ? item.picture
+                            : item.picture
+                            ? `${BACKEND_URL}${item.picture}`
+                            : `${BACKEND_URL}/uploads/wishlistPictures/default-wishlist.png`
+                    }
                 />
             )}
         </DataState>

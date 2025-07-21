@@ -56,7 +56,17 @@ const Wishlist = () => {
                     <CardList<Wish>
                         items={wishes ?? []}
                         backendUrl={BACKEND_URL}
-                        getLink={(item) => `/my-wish/${item.id}`}
+                        getLink={(item) => `/wish/${item.id}`}
+                        getDefaultPicture={() =>
+                            "/uploads/wishPictures/default-wish.png"
+                        }
+                        getPictureUrl={(item) =>
+                            item.picture?.startsWith("http")
+                                ? item.picture
+                                : item.picture
+                                ? `${BACKEND_URL}${item.picture}`
+                                : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
+                        }
                     />
                 </>
             )}

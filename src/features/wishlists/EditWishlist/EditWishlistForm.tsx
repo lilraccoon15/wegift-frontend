@@ -62,7 +62,8 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
 
     const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
-    const DEFAULT_PICTURE_URL = "/default-wishlist.png";
+    const DEFAULT_PICTURE_URL =
+        "/uploads/wishlistPictures/default-wishlist.png";
 
     return (
         <form onSubmit={onSubmit} encType="multipart/form-data">

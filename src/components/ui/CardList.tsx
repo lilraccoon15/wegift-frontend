@@ -18,6 +18,8 @@ interface CardListProps<T extends BaseCardItem> {
     toggleOptions?: (id: string) => void;
     extraIcons?: (item: T) => React.ReactNode;
     getCountLabel?: (item: T) => string;
+    getDefaultPicture?: () => string;
+    getPictureUrl?: (item: T) => string;
 }
 
 function CardList<T extends BaseCardItem>({
@@ -32,7 +34,16 @@ function CardList<T extends BaseCardItem>({
     toggleOptions,
     extraIcons,
     getCountLabel,
+    getDefaultPicture,
+    getPictureUrl,
 }: CardListProps<T>) {
+    const getFinalPictureUrl = (item: T) => {
+        if (getPictureUrl) return getPictureUrl(item);
+        if (item.picture?.startsWith("http")) return item.picture;
+        if (item.picture) return `${backendUrl}${item.picture}`;
+        return getDefaultPicture?.() ?? "/default-picture.jpg";
+    };
+
     return (
         <ul className="card-list">
             {onAddClick && (
@@ -53,13 +64,9 @@ function CardList<T extends BaseCardItem>({
                             <div
                                 className="card-picture"
                                 style={{
-                                    backgroundImage: `url('${
-                                        item.picture?.startsWith("http")
-                                            ? item.picture
-                                            : item.picture
-                                            ? `${backendUrl}${item.picture}`
-                                            : "/default-wishlist-picture.jpg"
-                                    }')`,
+                                    backgroundImage: `url('${getFinalPictureUrl(
+                                        item
+                                    )}')`,
                                 }}
                             ></div>
                         </Link>
@@ -67,13 +74,9 @@ function CardList<T extends BaseCardItem>({
                         <div
                             className="card-picture"
                             style={{
-                                backgroundImage: `url('${
-                                    item.picture?.startsWith("http")
-                                        ? item.picture
-                                        : item.picture
-                                        ? `${backendUrl}${item.picture}`
-                                        : "/default-wishlist-picture.jpg"
-                                }')`,
+                                backgroundImage: `url('${getFinalPictureUrl(
+                                    item
+                                )}')`,
                             }}
                         ></div>
                     )}

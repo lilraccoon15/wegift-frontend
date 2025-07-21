@@ -29,6 +29,7 @@ import ManageGoogleLink from "../pages/Account/ManageGoogleLink";
 import CreatePassword from "../pages/Auth/CreatePassword";
 import Dashboard from "../pages/Dashboard";
 import MyExchange from "../pages/Exchanges/MyExchange";
+import Wish from "../pages/Wishlists/Wish";
 
 const PrivateOutlet = () => {
     return (
@@ -66,6 +67,7 @@ const AppRouter = () => {
                     <Route path="/friends/:id" element={<Friends />} />
                     <Route path="/wishlists/:id" element={<Wishlists />} />
                     <Route path="/wishlist/:id" element={<Wishlist />} />
+                    <Route path="/wish/:id" element={<Wish />} />
                     <Route path="/account/edit-email" element={<EditEmail />} />
                     <Route
                         path="/account/edit-password"
