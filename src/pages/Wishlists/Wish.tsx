@@ -1,61 +1,108 @@
-import { useManageMyWish } from "../../features/wishlists/MyWish/useManageMyWish";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
-import Modal from "../../components/ui/Modal";
-import ConfirmModal from "../../components/ui/ConfirmModal";
-import EditWishForm from "../../features/wishlists/EditWish/EditWishForm";
 import { useManageWish } from "../../features/wishlists/UserWish/useManageUserWish";
+// import ToggleSwitch from "../../components/forms/ToggleSwitch";
+import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
 
 const Wish = () => {
-    const { id, wish, loading, error } = useManageWish();
+  const {
+    id,
+    wish,
+    loading,
+    error,
+    showReservationOptions,
+    setShowReservationOptions,
+    // isAnonymous,
+    // setIsAnonymous,
+    handleConfirmReserve,
+    handleCancelReservation,
+  } = useManageWish();
 
-    const DEFAULT_PICTURE_URL_WISH = "/uploads/wishPictures/default-wish.png";
-    const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const { data: currentUser } = useMyProfile();
 
-    if (!id) return <p>Paramètre ID manquant</p>;
+  const DEFAULT_PICTURE_URL_WISH = "/uploads/wishPictures/default-wish.png";
+  const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
 
-    return (
-        <DataState loading={loading} error={error}>
-            {wish && (
-                <>
-                    <div className="title-return">
-                        <BackButton />
-                        {wish.title && <h1>{wish.title}</h1>}
-                    </div>
+  if (!id) return <p>Paramètre ID manquant</p>;
 
-                    <img
-                        className="wish-picture"
-                        src={
-                            wish.picture?.startsWith("blob:")
-                                ? wish.picture
-                                : wish.picture?.startsWith("http")
-                                ? wish.picture
-                                : `${BACKEND_URL_WISHLIST}${
-                                      wish.picture ?? DEFAULT_PICTURE_URL_WISH
-                                  }`
-                        }
-                        alt="Wish"
-                        loading="lazy"
-                    />
+  const isReservedByMe =
+    wish?.status === "reserved" && wish?.reservedById === currentUser?.id;
 
-                    <h2>{wish.title}</h2>
-                    <p>{wish.description}</p>
-                    <p>{wish.price} €</p>
-                    <p>
-                        {wish.link && (
-                            <a
-                                href={wish.link}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                            >
-                                Voir le lien
-                            </a>
-                        )}
-                    </p>
-                </>
-            )}
-        </DataState>
-    );
+  return (
+    <DataState loading={loading} error={error}>
+      {wish && (
+        <>
+          <div className="title-return">
+            <BackButton />
+            <h1>{wish.title}</h1>
+          </div>
+
+          <img
+            className="wish-picture"
+            src={
+              wish.picture?.startsWith("blob:")
+                ? wish.picture
+                : wish.picture?.startsWith("http")
+                ? wish.picture
+                : `${BACKEND_URL_WISHLIST}${
+                    wish.picture ?? DEFAULT_PICTURE_URL_WISH
+                  }`
+            }
+            alt="Wish"
+            loading="lazy"
+          />
+
+          <h2>{wish.title}</h2>
+          <p>{wish.description}</p>
+          {wish.price !== null && <p>{wish.price} €</p>}
+          {wish.link && (
+            <p>
+              <a href={wish.link} target="_blank" rel="noopener noreferrer">
+                Voir le lien
+              </a>
+            </p>
+          )}
+
+          {/* Gestion réservation */}
+          {wish.status === "available" && !showReservationOptions && (
+            <button onClick={() => setShowReservationOptions(true)}>
+              Réserver
+            </button>
+          )}
+
+          {/* {showReservationOptions && wish.status === "available" && (
+            <div className="reservation-options mt-4">
+              <label className="flex items-center gap-2">
+                <ToggleSwitch
+                  name="anonymous"
+                  checked={isAnonymous}
+                  onChange={(e) => setIsAnonymous(e.target.checked)}
+                />
+                Réserver anonymement
+              </label>
+
+              <div className="flex gap-2 mt-2">
+                <button onClick={() => handleConfirmReserve(isAnonymous)}>
+                  Confirmer
+                </button>
+                <button onClick={() => setShowReservationOptions(false)}>
+                  Annuler
+                </button>
+              </div>
+            </div>
+          )} */}
+
+          <button onClick={() => handleConfirmReserve()}>Réserver</button>
+
+          {isReservedByMe && (
+            <button onClick={handleCancelReservation}>
+              Annuler la réservation
+            </button>
+          )}
+        </>
+      )}
+    </DataState>
+  );
 };
 
 export default Wish;

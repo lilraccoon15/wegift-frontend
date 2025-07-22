@@ -3,43 +3,41 @@ import axios from "axios";
 import API_URL from "../../../config";
 
 export interface Wish {
-    id: string;
-    title: string;
-    wishlistId: string;
-    description?: string;
-    picture?: string;
-    price?: string;
-    link?: string;
+  id: string;
+  title: string;
+  wishlistId: string;
+  status: string;
+  description?: string;
+  picture?: string;
+  price?: string;
+  link?: string;
 }
 
 export function useMyWishesByWishlistId(wishlistId: string) {
-    return useQuery<Wish[], Error>({
-        queryKey: ["wishes", wishlistId],
-        queryFn: async () => {
-            const res = await axios.get(
-                `${API_URL}/api/wishlist/my-wishes?wishlistId=${wishlistId}`,
-                {
-                    withCredentials: true,
-                }
-            );
-            return res.data.data.wishes ?? [];
-        },
-        enabled: !!wishlistId,
-    });
+  return useQuery<Wish[], Error>({
+    queryKey: ["wishes", wishlistId],
+    queryFn: async () => {
+      const res = await axios.get(
+        `${API_URL}/api/wishlist/my-wishes?wishlistId=${wishlistId}`,
+        {
+          withCredentials: true,
+        }
+      );
+      return res.data.data.wishes ?? [];
+    },
+    enabled: !!wishlistId,
+  });
 }
 
 export function useMyWishById(id: string) {
-    return useQuery<Wish | null, Error>({
-        queryKey: ["wish", id],
-        queryFn: async () => {
-            const res = await axios.get(
-                `${API_URL}/api/wishlist/my-wish/${id}`,
-                {
-                    withCredentials: true,
-                }
-            );
-            return res.data.data.wish ?? null;
-        },
-        enabled: !!id,
-    });
+  return useQuery<Wish | null, Error>({
+    queryKey: ["wish", id],
+    queryFn: async () => {
+      const res = await axios.get(`${API_URL}/api/wishlist/my-wish/${id}`, {
+        withCredentials: true,
+      });
+      return res.data.data.wish ?? null;
+    },
+    enabled: !!id,
+  });
 }
