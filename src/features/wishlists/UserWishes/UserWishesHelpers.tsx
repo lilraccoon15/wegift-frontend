@@ -2,6 +2,13 @@ import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import API_URL from "../../../config";
 
+export interface WishReservation {
+  id: string;
+  wishId: string;
+  userId: string;
+  isAnonymous: boolean;
+}
+
 export interface Wish {
   id: string;
   title: string;
@@ -12,6 +19,7 @@ export interface Wish {
   price?: number;
   link?: string;
   reservedById?: string;
+  reservation?: WishReservation;
 }
 
 export function useWishesByWishlistId(wishlistId?: string) {

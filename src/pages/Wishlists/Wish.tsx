@@ -10,8 +10,8 @@ const Wish = () => {
     wish,
     loading,
     error,
-    showReservationOptions,
-    setShowReservationOptions,
+    // showReservationOptions,
+    // setShowReservationOptions,
     // isAnonymous,
     // setIsAnonymous,
     handleConfirmReserve,
@@ -25,8 +25,7 @@ const Wish = () => {
 
   if (!id) return <p>Paramètre ID manquant</p>;
 
-  const isReservedByMe =
-    wish?.status === "reserved" && wish?.reservedById === currentUser?.id;
+  const isReservedByMe = wish?.reservation?.userId === currentUser?.id;
 
   return (
     <DataState loading={loading} error={error}>
@@ -64,11 +63,11 @@ const Wish = () => {
           )}
 
           {/* Gestion réservation */}
-          {wish.status === "available" && !showReservationOptions && (
+          {/* {wish.status === "available" && !showReservationOptions && (
             <button onClick={() => setShowReservationOptions(true)}>
               Réserver
             </button>
-          )}
+          )} */}
 
           {/* {showReservationOptions && wish.status === "available" && (
             <div className="reservation-options mt-4">
@@ -92,12 +91,18 @@ const Wish = () => {
             </div>
           )} */}
 
-          <button onClick={() => handleConfirmReserve()}>Réserver</button>
+          {wish.status === "available" && (
+            <button onClick={() => handleConfirmReserve()}>Réserver</button>
+          )}
 
-          {isReservedByMe && (
+          {wish.status === "reserved" && isReservedByMe && (
             <button onClick={handleCancelReservation}>
               Annuler la réservation
             </button>
+          )}
+
+          {wish.status === "reserved" && !isReservedByMe && (
+            <p className="text-gray-500 italic">Déjà réservé</p>
           )}
         </>
       )}
