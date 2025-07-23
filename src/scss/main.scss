@@ -257,7 +257,8 @@ button {
 }
 
 .card-picture,
-.profile-picture {
+.profile-picture,
+.exchange-picture {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
@@ -290,4 +291,10 @@ button {
 .wish-picture {
   width: 80%;
   border-radius: 0.5rem;
+}
+
+.exchange-picture {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
 }

@@ -3,17 +3,34 @@ import axios from "axios";
 import API_URL from "../../../config";
 import type { Rule } from "../CreateExchange/CreateExchangeHelpers";
 
+export interface Participant {
+  id: string;
+  userId: string;
+  acceptedAt: string | null;
+}
+
+export interface Assignment {
+  id: string;
+  userId: string;
+  assignedUserId: string;
+}
+
+export interface AssignmentDisplay {
+  targetName: string;
+}
+
 export interface Exchange {
   id: string;
   title: string;
   picture: string;
   description: string;
   userId: string;
-  status: string;
   startDate?: string;
   endDate?: string;
   participantCount?: number;
-  participants?: [];
+  participants?: Participant[];
+  assigned?: Assignment[];
+  assignment?: AssignmentDisplay;
   rules?: Rule[];
   budget?: string;
 }
@@ -32,7 +49,7 @@ export function useMyExchanges() {
 }
 
 export function useMyExchangeById(id: string) {
-  return useQuery({
+  return useQuery<{ data: { exchange: Exchange } }, Error>({
     queryKey: ["exchange", id],
     queryFn: async () => {
       const res = await axios.get(`${API_URL}/api/exchange/my-exchange/${id}`, {

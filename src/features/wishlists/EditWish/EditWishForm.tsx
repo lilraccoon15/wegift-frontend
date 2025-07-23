@@ -77,6 +77,8 @@ const EditWishForm: React.FC<EditWishFormProps> = ({
         src={
           picturePreview?.startsWith("blob:")
             ? picturePreview
+            : picturePreview?.startsWith("http")
+            ? picturePreview
             : `${BACKEND_URL}${picturePreview ?? DEFAULT_PICTURE_URL}`
         }
         alt="Photo de couverture"

@@ -67,7 +67,7 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
 
-  const DEFAULT_PICTURE_URL = "/default-exchange.png";
+  const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data">
@@ -112,7 +112,7 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
             ? picturePreview.startsWith("blob:")
               ? picturePreview
               : `${BACKEND_URL}${picturePreview}`
-            : DEFAULT_PICTURE_URL
+            : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
         }
         alt="Photo de couverture"
         onClick={handlePictureClick}
