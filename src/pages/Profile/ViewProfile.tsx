@@ -26,6 +26,8 @@ const ViewProfile = () => {
     handleRemoveFriend,
   } = useManageViewProfile();
 
+  // todo : si utilisateur privé, quand j'accepte l'amitié, le state de ses wishlists doit s'actualiser
+
   return (
     <DataState loading={loading} error={error}>
       {user && (

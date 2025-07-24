@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import { useManagePreferences } from "../../features/account/Preferences/useManagePreferences";
 import BackButton from "../../components/ui/BackButton";
 import DataState from "../../components/ui/DataState";
-import EditPublic from "../../features/account/Preferences/PreferencePublic";
 
 const Preferences = () => {
   const navigate = useNavigate();
@@ -14,7 +13,6 @@ const Preferences = () => {
     error,
     newsletter,
     handleCheckboxChange,
-    isSubmitting,
     submitError,
     showConfirmation,
     handleShowConfirmation,
@@ -24,10 +22,6 @@ const Preferences = () => {
     submitErrorDelete,
     isSubmittingDelete,
     handleDeleteAccount,
-    isPublic,
-    handleCheckboxPublicChange,
-    isSubmittingPublic,
-    submitErrorPublic,
   } = useManagePreferences(navigate);
 
   return (
@@ -39,15 +33,7 @@ const Preferences = () => {
       <EditNewsletter
         newsletter={newsletter}
         handleCheckboxChange={handleCheckboxChange}
-        isSubmitting={isSubmitting}
         submitError={submitError}
-      />
-
-      <EditPublic
-        isPublic={isPublic}
-        handleCheckboxPublicChange={handleCheckboxPublicChange}
-        isSubmittingPublic={isSubmittingPublic}
-        submitErrorPublic={submitErrorPublic}
       />
 
       <DeleteAccount

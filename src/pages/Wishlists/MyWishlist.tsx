@@ -83,6 +83,8 @@ const MyWishlist = () => {
     handleStatusChange,
   } = useManageMyWishlist(navigate);
 
+  // todo : voir les abonnés de supprimer des abonnés
+
   return (
     <DataState loading={loading} error={error}>
       <div className="title-return">

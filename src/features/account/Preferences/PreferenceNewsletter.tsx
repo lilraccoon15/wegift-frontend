@@ -3,7 +3,6 @@ import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 interface EditNewsletterProps {
   newsletter: boolean;
   handleCheckboxChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  isSubmitting: boolean;
   submitError: string | null;
 }
 

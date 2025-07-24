@@ -2,20 +2,17 @@ import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { useMyAccount } from "../MyAccountHelpers";
 import { deleteAccount } from "../DeleteAccount/DeleteAccountHelpers";
-import { updateIsPublic, updateNewsletter } from "./PreferencesHelpers";
-import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
+import { updateNewsletter } from "./PreferencesHelpers";
+import type { NavigateFunction } from "react-router-dom";
 
-export const useManagePreferences = (navigate: any) => {
+export const useManagePreferences = (navigate: NavigateFunction) => {
   const { data: account, error, isLoading: loading } = useMyAccount();
-  const { data: user } = useMyProfile();
 
   const [newsletter, setNewsletter] = useState<boolean>(false);
-  const [isPublic, setIsPublic] = useState<boolean>(false);
+  // todo : manque un issubmitting ?
   const [isSubmittingDelete, setIsSubmittingDelete] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
-  const [submitErrorPublic, setSubmitErrorPublic] = useState<string | null>(
-    null
-  );
+
   const [submitErrorDelete, setSubmitErrorDelete] = useState<string | null>(
     null
   );
@@ -28,28 +25,6 @@ export const useManagePreferences = (navigate: any) => {
       setNewsletter(account.newsletter ?? false);
     }
   }, [account]);
-
-  useEffect(() => {
-    if (user) {
-      setIsPublic(user.isPublic ?? true);
-    }
-  }, [user]);
-
-  const handleCheckboxPublicChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const newValue = e.target.checked;
-    setIsPublic(newValue);
-    setSubmitErrorPublic(null);
-
-    try {
-      await updateIsPublic({ isPublic: newValue });
-      alert("Préférence de visibilité du profil modifiée avec succès !");
-    } catch (err: any) {
-      setSubmitErrorPublic(err.message || "Erreur lors de la modification");
-      setIsPublic(!newValue);
-    }
-  };
 
   const handleCheckboxChange = async (
     e: React.ChangeEvent<HTMLInputElement>
@@ -106,8 +81,5 @@ export const useManagePreferences = (navigate: any) => {
     submitErrorDelete,
     isSubmittingDelete,
     handleDeleteAccount,
-    isPublic,
-    submitErrorPublic,
-    handleCheckboxPublicChange,
   };
 };
