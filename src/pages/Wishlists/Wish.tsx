@@ -10,13 +10,13 @@ const Wish = () => {
     wish,
     loading,
     error,
-    // showReservationOptions,
-    // setShowReservationOptions,
-    // isAnonymous,
-    // setIsAnonymous,
     handleConfirmReserve,
     handleCancelReservation,
   } = useManageWish();
+
+  // TODO :
+  // - bouton signaler pour utilisateur
+  // - bouton supprimer pour admin
 
   const { data: currentUser } = useMyProfile();
 
@@ -61,35 +61,6 @@ const Wish = () => {
               </a>
             </p>
           )}
-
-          {/* Gestion réservation */}
-          {/* {wish.status === "available" && !showReservationOptions && (
-            <button onClick={() => setShowReservationOptions(true)}>
-              Réserver
-            </button>
-          )} */}
-
-          {/* {showReservationOptions && wish.status === "available" && (
-            <div className="reservation-options mt-4">
-              <label className="flex items-center gap-2">
-                <ToggleSwitch
-                  name="anonymous"
-                  checked={isAnonymous}
-                  onChange={(e) => setIsAnonymous(e.target.checked)}
-                />
-                Réserver anonymement
-              </label>
-
-              <div className="flex gap-2 mt-2">
-                <button onClick={() => handleConfirmReserve(isAnonymous)}>
-                  Confirmer
-                </button>
-                <button onClick={() => setShowReservationOptions(false)}>
-                  Annuler
-                </button>
-              </div>
-            </div>
-          )} */}
 
           {wish.status === "available" && (
             <button onClick={() => handleConfirmReserve()}>Réserver</button>

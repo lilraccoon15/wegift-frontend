@@ -19,6 +19,10 @@ const Wishlist = () => {
     subscriptionStatus,
   } = useManageWishlist();
 
+  // TODO :
+  // - bouton signaler pour utilisateur
+  // - bouton supprimer pour admin
+
   if (!id) return <p>Paramètre ID manquant</p>;
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;

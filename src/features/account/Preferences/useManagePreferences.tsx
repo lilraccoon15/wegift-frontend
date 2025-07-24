@@ -9,7 +9,6 @@ export const useManagePreferences = (navigate: NavigateFunction) => {
   const { data: account, error, isLoading: loading } = useMyAccount();
 
   const [newsletter, setNewsletter] = useState<boolean>(false);
-  // todo : manque un issubmitting ?
   const [isSubmittingDelete, setIsSubmittingDelete] = useState(false);
   const [submitError, setSubmitError] = useState<string | null>(null);
 

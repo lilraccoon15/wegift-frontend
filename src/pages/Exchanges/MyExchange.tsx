@@ -23,7 +23,10 @@ const MyExchange = () => {
     handleCancelDraw,
   } = useManageMyExchange();
 
-  console.log(exchange);
+  // TODO :
+  // - bouton signaler pour utilisateur
+  // - bouton supprimer pour admin
+  // - différencier les participants qui ont accepté de ceux qui sont en attente
 
   const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
   const assignment = exchange?.assigned?.find(
