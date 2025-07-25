@@ -1,11 +1,11 @@
 import { useAuth } from "../../../context/AuthContext";
 
-const NavMobileTop = () => {
+const NavLeft = () => {
   const { isAuthenticated, loading } = useAuth();
 
   if (loading || !isAuthenticated) return null;
 
-  return <></>;
+  return <h1>WeGift</h1>;
 };
 
-export default NavMobileTop;
+export default NavLeft;

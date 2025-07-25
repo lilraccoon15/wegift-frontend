@@ -9,6 +9,7 @@
 @use "./profile" as *;
 @use "./account" as *;
 @use "./notifications" as *;
+@use "./spaces" as *;
 @import "@fortawesome/fontawesome-free/css/all.min.css";
 
 *,
@@ -81,12 +82,16 @@ li {
   padding: 8px 15px;
   gap: 8px;
   border: none;
-  background: $primary;
-  color: $background;
+  background: $primary-300;
   border-radius: 0.5rem;
   cursor: pointer;
   width: 100%;
-  //transition: background-color 0.3s ease;
+  transition: background-color 0.3s ease;
+}
+
+.btn:hover {
+  background-color: $primary;
+  transition: background-color 0.3s ease;
 }
 
 .btn-align-right {
@@ -96,7 +101,7 @@ li {
 
   .btn-action {
     padding: 8px 15px;
-    background: linear-gradient(172deg, $primary-light, $primary);
+    background: linear-gradient(172deg, $primary-200, $primary);
     border-radius: 0.2rem;
     cursor: pointer;
     width: 50%;
@@ -112,7 +117,7 @@ li {
 
   .btn-action {
     padding: 8px 15px;
-    background: linear-gradient(172deg, $primary-light, $primary);
+    background: linear-gradient(172deg, $primary-200, $primary);
     border-radius: 0.2rem;
     cursor: pointer;
     width: 50%;
@@ -122,7 +127,7 @@ li {
 
   .btn-status {
     padding: 8px 15px;
-    background: linear-gradient(172deg, $background, $primary-light);
+    background: linear-gradient(172deg, $background, $primary);
     border-radius: 0.2rem;
     cursor: pointer;
     width: 50%;
@@ -132,12 +137,12 @@ li {
   }
 
   .btn-secondary {
-    background: linear-gradient(172deg, $primary-light, $primary-dark);
+    background: linear-gradient(172deg, $accent-200, $accent);
   }
 }
 
 //.btn:hover {
-//    background-color: $primary-light;
+//    background-color: $primary;
 //}
 
 .link {
@@ -157,7 +162,7 @@ button {
   align-items: center;
   gap: 1em;
   margin-bottom: 5%;
-  border-bottom: solid 1px $primary-light;
+  border-bottom: solid 1px $primary-200;
 
   h1 {
     white-space: nowrap;
@@ -256,45 +261,47 @@ button {
   }
 }
 
-.card-picture,
-.profile-picture,
-.exchange-picture {
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
-}
 .profile-picture {
   border-radius: 50%;
   width: 3rem;
   height: 3rem;
 }
 
-.card-picture {
-  border-radius: 0.5rem;
-  width: 3rem;
-  height: 2.5rem;
+.btn-account-desktop {
+  display: none;
 }
 
-.wishlist-picture,
-.exchange-picture {
-  width: 15%;
-  border-radius: 20%;
-}
+@media screen and (min-width: 1024px) {
+  .main-content {
+    margin-left: 20rem;
+    margin-right: 20rem;
+  }
 
-.link-search-result {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
-}
+  .modal-content {
+    width: 50%;
+  }
 
-.wish-picture {
-  width: 80%;
-  border-radius: 0.5rem;
-}
+  .title-return {
+    .fa-arrow-left {
+      display: none;
+    }
+  }
 
-.exchange-picture {
-  border-radius: 50%;
-  width: 10rem;
-  height: 10rem;
+  .notifications-content {
+    position: absolute;
+    background-color: $background-light;
+    border: 1px solid #ddd;
+    border-radius: 0.2rem;
+    box-shadow: 0 4px 8px #ddd;
+    padding: 1rem;
+    z-index: 10;
+    width: 23%;
+    top: 4rem;
+    right: 15rem;
+    height: 30rem;
+    overflow: scroll;
+  }
+  .notification-title {
+    display: none;
+  }
 }

@@ -1,0 +1,165 @@
+@use "./variables" as *;
+
+.card {
+  width: 48%;
+  position: relative;
+
+  .card-infos {
+    margin-left: 0.5rem;
+    margin-right: 0.5rem;
+    margin-top: 0.2rem;
+
+    .card-infos-top {
+      display: flex;
+      justify-content: space-between;
+
+      a {
+        width: 80%;
+      }
+
+      .relative {
+        position: relative;
+      }
+
+      .options-menu {
+        position: absolute;
+        top: 1.5rem;
+        right: 0;
+        background: $background;
+        border: 1px solid $border;
+        border-radius: 0.2rem;
+        box-shadow: 0 4px 8px $border;
+        padding: 0.2rem;
+        z-index: 10;
+
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+
+        button {
+          background: none;
+          border: none;
+          padding: 0.3rem 0.6rem;
+          text-align: left;
+          cursor: pointer;
+          font-size: 0.95rem;
+          width: 100%;
+          white-space: nowrap;
+
+          &:hover {
+            background-color: #f0f0f0;
+          }
+        }
+      }
+    }
+
+    h2 {
+      margin: 0;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+    }
+  }
+
+  .replace-card-picture,
+  .card-picture {
+    width: 100%;
+    height: 7rem;
+    border-radius: 0.5rem;
+    display: block;
+  }
+
+  .card-picture {
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  .replace-card-picture {
+    box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+  }
+
+  button {
+    top: 0.25rem;
+    right: 0.25rem;
+  }
+
+  .fa-user-group,
+  .fa-lock {
+    position: absolute;
+    border: none;
+    padding: 0.4rem;
+    border-radius: 50%;
+    // padding-inline: 0.25rem;
+    // padding-block: 0.25rem;
+    background-color: $background;
+  }
+
+  .fa-lock {
+    top: 0.25rem;
+    left: 0.25rem;
+  }
+  .fa-user-group {
+    bottom: 3.25rem;
+    left: 0.25rem;
+  }
+}
+
+.new-card {
+  border: 0.2rem solid $primary-200;
+  border-radius: 0.5rem;
+  height: 7rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  box-shadow: 2px 2px 4px -1px rgba(0, 0, 0, 0.2);
+
+  .fa-plus {
+    color: $primary;
+  }
+}
+
+.card-picture,
+.exchange-picture {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
+.card-picture {
+  border-radius: 0.5rem;
+  width: 3rem;
+  height: 2.5rem;
+}
+
+.wishlist-picture,
+.exchange-picture {
+  width: 15%;
+  border-radius: 20%;
+}
+
+.wish-picture {
+  width: 80%;
+  border-radius: 0.5rem;
+}
+
+.exchange-picture {
+  border-radius: 50%;
+  width: 10rem;
+  height: 10rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .card {
+    width: 23%;
+    .card-picture {
+      height: 9rem;
+    }
+  }
+  .new-card {
+    height: 10rem;
+  }
+}

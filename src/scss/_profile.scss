@@ -1,5 +1,11 @@
 @use "./variables" as *;
 
+.profile-picture {
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+
 .profile-top {
   display: flex;
   flex-wrap: nowrap;
@@ -129,4 +135,34 @@
   display: flex;
   flex-wrap: nowrap;
   gap: 0.8rem;
+}
+
+@media screen and (min-width: 1024px) {
+  .profile-top,
+  .profile-bottom {
+    width: 50%;
+    margin: auto;
+  }
+
+  .profile-top {
+    .fa-gear {
+      display: none;
+    }
+  }
+
+  .profile-bottom {
+    .profile-buttons {
+      display: flex;
+      gap: 0.8rem;
+
+      .btn {
+        width: 50%;
+        margin: auto;
+      }
+
+      .btn-account-desktop {
+        display: flex;
+      }
+    }
+  }
 }

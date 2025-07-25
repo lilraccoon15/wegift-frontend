@@ -90,9 +90,14 @@ const MyProfile = () => {
               </div>
               <div className="description">{user.description}</div>
             </div>
-            <Link to="/edit-profile" className="btn">
-              Modifier mon profil
-            </Link>
+            <div className="profile-buttons">
+              <Link to="/edit-profile" className="btn">
+                Modifier mon profil
+              </Link>
+              <Link to="/account" className="btn btn-account-desktop">
+                Modifier mon compte
+              </Link>
+            </div>
           </div>
           <Spaces />
         </>

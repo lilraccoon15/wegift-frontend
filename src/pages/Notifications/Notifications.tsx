@@ -25,7 +25,7 @@ const Notifications = () => {
 
   return (
     <DataState loading={loading} error={error}>
-      <div className="title-return">
+      <div className="title-return notification-title">
         <BackButton />
         <h1>Notifications</h1>
       </div>

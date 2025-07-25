@@ -6,20 +6,18 @@ header {
   display: flex;
   flex-direction: column;
   box-shadow: 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+  padding-left: 2rem;
 }
 
-.header-top {
+.header-left {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 1rem;
   height: $mobile-nav-height;
   z-index: 10;
-  padding-left: 2rem;
-  padding-right: 2rem;
 }
 
-/**************HEADER************/
+/**************FOOTER************/
 
 footer {
   display: none;
@@ -27,12 +25,7 @@ footer {
 
 /**************NAV************/
 
-.no-auth,
-.no-auth {
-  display: none;
-}
-
-.nav-mobile {
+.header-right {
   position: fixed;
   bottom: 0;
   left: 0;
@@ -44,18 +37,39 @@ footer {
   z-index: 10;
   box-shadow: 0 -2px 4px -1px rgba(0, 0, 0, 0.2);
   background-color: $background;
+
+  span {
+    display: none;
+  }
 }
 
-.nav-mobile-top {
+.no-auth {
+  display: none;
 }
 
-.nav-mobile-bottom {
+.nav-header-right {
   display: flex;
   justify-content: space-between;
   width: 100%;
   padding-left: 1rem;
   padding-right: 1rem;
   align-items: center;
+  color: $text-light;
+  a {
+    color: $text-light;
+  }
+
+  .nav-active {
+    color: $primary;
+
+    .profile-picture {
+      border: 2px solid $primary;
+    }
+  }
+
+  .nav-button {
+    cursor: pointer;
+  }
 
   .notification-icon-wrapper {
     position: relative;
@@ -103,23 +117,40 @@ footer {
   }
 }
 
-.nav-desktop,
-.notification-popup {
+.notification-popup,
+.search-bar-desktop {
   display: none;
 }
 
-@media (min-width: 769px) {
+@media screen and (min-width: 1024px) {
   .nav-mobile,
-  .notification-link {
+  .notification-link,
+  .search-link {
     display: none;
   }
 
   footer,
-  .nav-desktop,
-  .notification-popup {
-    display: block;
+  .notification-popup,
+  .search-bar-desktop {
+    display: flex;
   }
   .header-top {
     border-bottom: none;
+  }
+
+  footer,
+  header {
+    padding-left: 20rem;
+    padding-right: 20rem;
+  }
+  header {
+    flex-direction: row;
+    justify-content: space-between;
+  }
+
+  .header-right {
+    position: initial;
+    box-shadow: none;
+    width: 80%;
   }
 }

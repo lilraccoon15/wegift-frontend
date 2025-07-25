@@ -1,24 +1,22 @@
 import { useAuth } from "../../context/AuthContext";
-import ResponsiveNav from "./nav/ResponsiveNav";
+import NavLeft from "./nav/NavLeft";
+import NavRight from "./nav/NavRight";
 
 const Header = () => {
-    const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
-    if (loading || isAuthenticated === null) {
-        return null;
-    }
+  if (loading || isAuthenticated === null) return null;
 
-    return (
-        <header className={isAuthenticated ? "auth" : "no-auth"}>
-            <div className="header-top">
-                <h1>WeGift</h1>
-                <div className="nav-mobile-top-wrapper">
-                    <ResponsiveNav.MobileTop />
-                </div>
-            </div>
-            <ResponsiveNav />
-        </header>
-    );
+  return (
+    <header>
+      <div className="header-left">
+        <NavLeft />
+      </div>
+      <div className="header-right">
+        <NavRight />
+      </div>
+    </header>
+  );
 };
 
 export default Header;

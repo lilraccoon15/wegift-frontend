@@ -3,18 +3,31 @@ interface Props {
   setQuery: (value: string) => void;
   type: "all" | "user" | "wishlist" | "exchange";
   setType: (value: "all" | "user" | "wishlist" | "exchange") => void;
+  onInputActivity?: () => void;
 }
 
-const SearchBar = ({ query, setQuery, type, setType }: Props) => {
+const SearchBar = ({
+  query,
+  setQuery,
+  type,
+  setType,
+  onInputActivity,
+}: Props) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setQuery(e.target.value);
+    if (onInputActivity) onInputActivity(); // déclenche le focus visuel
+  };
+
   return (
     <>
       <label>Rechercher :</label>
-      <div className="search-bar-container">
+      <div className="search-bar-container" tabIndex={0}>
+        <i className="fa-solid fa-magnifying-glass glass-desktop"></i>{" "}
         <input
           type="text"
           placeholder="Rechercher..."
           value={query}
-          onChange={(e) => setQuery(e.target.value)}
+          onChange={handleChange}
           className="search-input"
         />
         <select

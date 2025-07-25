@@ -1,25 +1,28 @@
 @use "./variables" as *;
 
 .account {
-    ul {
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    li {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      span {
         display: flex;
-        flex-direction: column;
-        gap: 2em;
-
-        li {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-
-            span {
-                display: flex;
-                gap: 1em;
-                align-items: center;
-            }
-        }
-
-        .logout {
-            color: $not-valid;
-        }
+        gap: 1em;
+        align-items: center;
+      }
     }
+
+    .logout {
+      color: $not-valid;
+    }
+  }
+}
+
+@media screen and (min-width: 1024px) {
 }
