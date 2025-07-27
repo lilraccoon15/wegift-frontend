@@ -17,17 +17,21 @@ const Research = () => {
                 <BackButton />
                 <h1>Rechercher</h1>
             </div>
-            <SearchBar
-                query={query}
-                setQuery={setQuery}
-                type={type}
-                setType={setType}
-            />
-            <SearchResults
-                results={results}
-                isLoading={isLoading}
-                error={error}
-            />
+
+            <div className="frame">
+                <SearchBar
+                    query={query}
+                    setQuery={setQuery}
+                    type={type}
+                    setType={setType}
+                />
+                <SearchResults
+                    results={results}
+                    isLoading={isLoading}
+                    error={error}
+                    query={query}
+                />
+            </div>
         </div>
     );
 };

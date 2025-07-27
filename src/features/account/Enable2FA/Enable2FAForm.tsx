@@ -25,15 +25,15 @@ const Enable2FAForm: React.FC<Props> = ({
     onDisable,
 }) => {
     return (
-        <div>
-            <h1>Gestion de la double authentification (2FA)</h1>
-
+        <>
             {error && <Message type="error" text={error.message} />}
             {message && <Message type="success" text={message} />}
 
             {is2FAEnabled ? (
                 <>
-                    <p>La 2FA est activée sur votre compte.</p>
+                    <p>
+                        La double authentification est activée sur votre compte.
+                    </p>
                     <Button onClick={onDisable}>Désactiver la 2FA</Button>
                 </>
             ) : (
@@ -54,14 +54,16 @@ const Enable2FAForm: React.FC<Props> = ({
                                 onChange={(e) => onCodeChange(e.target.value)}
                             />
 
-                            <Button onClick={onEnable}>Activer 2FA</Button>
+                            <Button onClick={onEnable}>
+                                Activer la double authentification
+                            </Button>
                         </>
                     ) : (
                         <p>Chargement du QR code...</p>
                     )}
                 </>
             )}
-        </div>
+        </>
     );
 };
 

@@ -34,45 +34,75 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
         setParticipants(participants.filter((u) => u.id !== id));
     };
 
+    const DEFAULT_PICTURE_URL_USER =
+        "/uploads/profilePictures/default-profile.jpg";
+    const BACKEND_URL_USER = import.meta.env.VITE_BACKEND_URL_USER;
+
     return (
-        <div onClick={() => inputRef.current?.focus()}>
-            {participants.map((user) => (
-                <span key={user.id}>
-                    {user.pseudo}
-                    <button type="button" onClick={() => removeUser(user.id)}>
-                        ×
-                    </button>
-                </span>
-            ))}
-
-            <label>Collaborateurs :</label>
-            <input
-                ref={inputRef}
-                type="text"
-                value={query}
-                onChange={(e) => setQuery(e.target.value)}
-                placeholder="Ajouter des amis..."
-                disabled={isLoading}
-            />
-
-            {!isLoading && friends.length === 0 && (
-                <p>Vous n'avez pas encore d'amis 🫤</p>
-            )}
-
-            {filteredSuggestions.length > 0 && (
-                <ul>
-                    {filteredSuggestions.map((user) => (
-                        <li key={user.id} onClick={() => addUser(user)}>
-                            {user.pseudo}
-                        </li>
-                    ))}
-                </ul>
-            )}
-
-            {query.length > 1 &&
-                filteredSuggestions.length === 0 &&
-                friends.length > 0 && <p>Aucun ami trouvé pour « {query} »</p>}
-        </div>
+        <>
+            <label htmlFor="collaborators">Collaborateurs :</label>
+            <div
+                className="tag-input"
+                onClick={() => inputRef.current?.focus()}
+            >
+                {participants.map((user) => (
+                    <span className="tag" key={user.id}>
+                        {user.pseudo}
+                        <button
+                            type="button"
+                            className="remove-btn"
+                            onClick={() => removeUser(user.id)}
+                        >
+                            ×
+                        </button>
+                    </span>
+                ))}
+                <input
+                    id="collaborators"
+                    name="collaborators"
+                    ref={inputRef}
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Ajouter des amis..."
+                    disabled={isLoading}
+                    className="tag-input-field"
+                />
+            </div>
+            <div className="friend-tag-list">
+                {query.length > 0 && filteredSuggestions.length > 0 && (
+                    <ul>
+                        {filteredSuggestions.map((user) => (
+                            <li key={user.id} onClick={() => addUser(user)}>
+                                <div
+                                    className="profile-picture"
+                                    style={{
+                                        backgroundImage: `url('${
+                                            user.picture?.startsWith("blob:")
+                                                ? user.picture
+                                                : user.picture?.startsWith(
+                                                      "http"
+                                                  )
+                                                ? user.picture
+                                                : `${BACKEND_URL_USER}${
+                                                      user.picture ??
+                                                      DEFAULT_PICTURE_URL_USER
+                                                  }`
+                                        }')`,
+                                    }}
+                                />
+                                {user.pseudo}
+                            </li>
+                        ))}
+                    </ul>
+                )}
+                {query.length > 1 &&
+                    filteredSuggestions.length === 0 &&
+                    friends.length > 0 && (
+                        <p>Aucun ami trouvé pour « {query} »</p>
+                    )}
+            </div>
+        </>
     );
 };
 

@@ -70,9 +70,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             )}
 
             <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
-                <label>Pseudo :</label>
+                <label htmlFor="pseudo">
+                    Pseudo{" "}
+                    <span className="required-marker" aria-hidden="true">
+                        *
+                    </span>{" "}
+                    : <span className="sr-only">(obligatoire)</span>
+                </label>
                 <div className="input-validation">
                     <InputField
+                        id="pseudo"
                         name="pseudo"
                         type="text"
                         placeholder="Pseudo"
@@ -102,9 +109,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
 
             <div className={`form-step ${currentStep === 2 ? "active" : ""}`}>
-                <label>Date de naissance :</label>
+                <label htmlFor="birthdate">
+                    Date de naissance{" "}
+                    <span className="required-marker" aria-hidden="true">
+                        *
+                    </span>{" "}
+                    : <span className="sr-only">(obligatoire)</span>
+                </label>
                 <div className="input-validation">
                     <InputField
+                        id="birthdate"
                         name="birthDate"
                         type="date"
                         value={formData.birthDate}
@@ -135,9 +149,16 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
 
             <div className={`form-step ${currentStep === 3 ? "active" : ""}`}>
-                <label>Adresse email :</label>
+                <label htmlFor="email">
+                    Adresse email{" "}
+                    <span className="required-marker" aria-hidden="true">
+                        *
+                    </span>{" "}
+                    : <span className="sr-only">(obligatoire)</span>
+                </label>
                 <div className="input-validation">
                     <InputField
+                        id="email"
                         name="email"
                         type="email"
                         placeholder="Email"
@@ -193,28 +214,31 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
 
             <div className={`form-step ${currentStep === 5 ? "active" : ""}`}>
-                <label className="block">
-                    <input
-                        type="checkbox"
-                        name="acceptedTerms"
-                        checked={formData.acceptedTerms}
-                        onChange={onChange}
-                        required
-                        className="switch"
-                    />{" "}
-                    J'accepte les CGU *
+                <label htmlFor="acceptedTerms">
+                    J'accepte les CGU{" "}
+                    <span className="required-marker" aria-hidden="true">
+                        *
+                    </span>{" "}
+                    : <span className="sr-only">(obligatoire)</span>
                 </label>
-
-                <label className="block">
-                    <input
-                        type="checkbox"
-                        name="newsletter"
-                        checked={formData.newsletter}
-                        onChange={onChange}
-                        className="switch"
-                    />{" "}
-                    S'inscrire à la newsletter
-                </label>
+                <input
+                    id="acceptedTerms"
+                    type="checkbox"
+                    name="acceptedTerms"
+                    checked={formData.acceptedTerms}
+                    onChange={onChange}
+                    required
+                    className="switch"
+                />{" "}
+                <label htmlFor="newsletter">S'inscrire à la newsletter ?</label>
+                <input
+                    id="newsletter"
+                    type="checkbox"
+                    name="newsletter"
+                    checked={formData.newsletter}
+                    onChange={onChange}
+                    className="switch"
+                />
                 <StepButtons
                     showPrevious
                     onPrevious={() => setCurrentStep(4)}

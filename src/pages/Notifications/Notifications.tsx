@@ -6,40 +6,40 @@ import { useCombinedState } from "../../hooks/useCombineState";
 import BackButton from "../../components/ui/BackButton";
 
 const Notifications = () => {
-  const {
-    data: user,
-    isLoading: profileLoading,
-    error: profileError,
-  } = useMyProfile();
+    const {
+        data: user,
+        isLoading: profileLoading,
+        error: profileError,
+    } = useMyProfile();
 
-  const {
-    notifications,
-    isLoading: notifLoading,
-    error: notifError,
-  } = useManageNotificationData(user?.id);
+    const {
+        notifications,
+        isLoading: notifLoading,
+        error: notifError,
+    } = useManageNotificationData(user?.id);
 
-  const { loading, error } = useCombinedState([
-    { loading: profileLoading, error: profileError },
-    { loading: notifLoading, error: notifError },
-  ]);
+    const { loading, error } = useCombinedState([
+        { loading: profileLoading, error: profileError },
+        { loading: notifLoading, error: notifError },
+    ]);
 
-  return (
-    <DataState loading={loading} error={error}>
-      <div className="title-return notification-title">
-        <BackButton />
-        <h1>Notifications</h1>
-      </div>
-      {notifications.length > 0 ? (
-        <ul>
-          {notifications.map((notif) => (
-            <NotificationItem key={notif.id} notif={notif} />
-          ))}
-        </ul>
-      ) : (
-        <p>Vous n'avez pas de notification</p>
-      )}
-    </DataState>
-  );
+    return (
+        <DataState loading={loading} error={error}>
+            <div className="title-return notification-title">
+                <BackButton />
+                <h1>Notifications</h1>
+            </div>
+            {notifications.length > 0 ? (
+                <ul>
+                    {notifications.map((notif) => (
+                        <NotificationItem key={notif.id} notif={notif} />
+                    ))}
+                </ul>
+            ) : (
+                <p>Vous n'avez pas de notification</p>
+            )}
+        </DataState>
+    );
 };
 
 export default Notifications;

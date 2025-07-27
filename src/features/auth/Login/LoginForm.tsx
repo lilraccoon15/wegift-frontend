@@ -30,17 +30,33 @@ const LoginForm: React.FC<LoginFormProps> = ({
 
     return (
         <form onSubmit={onSubmit}>
-            <label>Email :</label>
+            <label htmlFor="email">
+                Email{" "}
+                <span className="required-marker" aria-hidden="true">
+                    *
+                </span>{" "}
+                : <span className="sr-only">(obligatoire)</span>
+            </label>
             <InputField
+                id="email"
+                name="email"
                 type="email"
                 placeholder="Email"
                 value={email}
                 onChange={onEmailChange}
                 required
             />
-            <label>Mot de passe :</label>
+            <label htmlFor="password">
+                Mot de passe{" "}
+                <span className="required-marker" aria-hidden="true">
+                    *
+                </span>{" "}
+                : <span className="sr-only">(obligatoire)</span>
+            </label>
             <div className="input-validation">
                 <InputField
+                    id="password"
+                    name="password"
                     type={showPassword ? "text" : "password"}
                     placeholder="Mot de passe"
                     value={password}
@@ -60,7 +76,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
                 </button>
             </div>
             {error && <Message text={error} type="error" />}
-            <Button type="submit" disabled={disabled}>
+            <Button
+                type="submit"
+                disabled={disabled || !email.trim() || !password.trim()}
+            >
                 Se connecter
             </Button>
         </form>

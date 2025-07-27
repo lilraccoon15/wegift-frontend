@@ -47,34 +47,38 @@ const EditPassword = () => {
                 <BackButton />
                 <h1>Modifier le mot de passe</h1>
             </div>
-            {_account?.googleId ? (
-                <p className="info-msg">
-                    Votre compte utilise la connexion Google. Vous n'avez pas
-                    besoin de mot de passe.
-                </p>
-            ) : (
-                <EditPasswordForm
-                    currentPassword={currentPassword}
-                    newPassword={newPassword}
-                    confirmPassword={confirmPassword}
-                    onCurrentPasswordChange={(e) =>
-                        setCurrentPassword(e.target.value)
-                    }
-                    onNewPasswordChange={(e) => setNewPassword(e.target.value)}
-                    onConfirmPasswordChange={(e) =>
-                        setConfirmPassword(e.target.value)
-                    }
-                    onSubmit={handleEditSubmit}
-                    error={submitError}
-                    buttondisabled={isSubmitting}
-                    passwordValid={passwordValid}
-                    passwordsMatch={passwordsMatch}
-                    showCurrentPassword={showCurrentPassword}
-                    onRadioGroupShowPassword={RadioGroupShowCurrentPassword}
-                    showNewPassword={showNewPassword}
-                    onRadioGroupShowNewPassword={RadioGroupShowNewPassword}
-                />
-            )}
+            <div className="frame">
+                {_account?.googleId ? (
+                    <p className="info-msg">
+                        Votre compte utilise la connexion Google. Vous n'avez
+                        pas besoin de mot de passe.
+                    </p>
+                ) : (
+                    <EditPasswordForm
+                        currentPassword={currentPassword}
+                        newPassword={newPassword}
+                        confirmPassword={confirmPassword}
+                        onCurrentPasswordChange={(e) =>
+                            setCurrentPassword(e.target.value)
+                        }
+                        onNewPasswordChange={(e) =>
+                            setNewPassword(e.target.value)
+                        }
+                        onConfirmPasswordChange={(e) =>
+                            setConfirmPassword(e.target.value)
+                        }
+                        onSubmit={handleEditSubmit}
+                        error={submitError}
+                        buttondisabled={isSubmitting}
+                        passwordValid={passwordValid}
+                        passwordsMatch={passwordsMatch}
+                        showCurrentPassword={showCurrentPassword}
+                        onRadioGroupShowPassword={RadioGroupShowCurrentPassword}
+                        showNewPassword={showNewPassword}
+                        onRadioGroupShowNewPassword={RadioGroupShowNewPassword}
+                    />
+                )}
+            </div>
         </DataState>
     );
 };

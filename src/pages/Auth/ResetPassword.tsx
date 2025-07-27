@@ -8,7 +8,7 @@ const ResetPassword = () => {
     const token = searchParams.get("token");
 
     return (
-        <div>
+        <>
             <div className="title-return">
                 <BackButton />
                 <h1>
@@ -17,13 +17,14 @@ const ResetPassword = () => {
                         : "Demander un lien de réinitialisation"}
                 </h1>
             </div>
-
-            {token ? (
-                <ChangePasswordForm token={token} />
-            ) : (
-                <RequestResetForm />
-            )}
-        </div>
+            <div className="frame">
+                {token ? (
+                    <ChangePasswordForm token={token} />
+                ) : (
+                    <RequestResetForm />
+                )}
+            </div>
+        </>
     );
 };
 

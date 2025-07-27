@@ -2,109 +2,129 @@
 .searchbar-desktop,
 .search-result-desktop,
 .glass-desktop {
-  display: none;
+    display: none;
 }
 
 .search-bar-container {
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-around;
-  width: 100%;
-  height: 45px;
-  padding: 12px;
-  border-radius: 0.5rem;
-  border: 1.5px solid $primary-200;
-  outline: none;
-  transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0px 0px 20px -18px;
-  background-color: $background-light;
-  gap: 0.8rem;
-
-  &:focus-within {
-    border-color: $primary;
-  }
-  input {
-    border: 0;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-around;
+    width: 100%;
+    height: 45px;
+    padding: 12px;
+    border-radius: 0.5rem;
+    border: 1.5px solid $primary-200;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: $box-shadow-default;
     background-color: $background-light;
-    width: 70%;
-  }
+    gap: 0.8rem;
+    position: relative;
+    align-items: center;
 
-  select {
-    background-color: transparent;
-    border: 0;
-    width: 30%;
-  }
+    .fa-chevron-down {
+        position: absolute;
+        right: 2.5rem;
+        font-size: 0.8em;
+    }
+
+    &:focus-within {
+        border-color: $primary;
+    }
+    input {
+        border: 0;
+        background-color: $background-light;
+        width: 70%;
+
+        &:focus {
+            outline: none;
+        }
+    }
+
+    select {
+        background-color: transparent;
+        border: 0;
+        width: 30%;
+        appearance: none;
+        position: relative;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 .search-results {
-  .card-picture,
-  .profile-picture {
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-  }
-  .profile-picture {
-    border-radius: 50%;
-    width: 3rem;
-    height: 3rem;
-  }
+    .card-picture,
+    .profile-picture {
+        background-size: cover;
+        background-position: center;
+        background-repeat: no-repeat;
+    }
+    .profile-picture {
+        border-radius: 50%;
+        width: 3rem;
+        height: 3rem;
+    }
 
-  .card-picture {
-    border-radius: 0.5rem;
-    width: 3rem;
-    height: 2.5rem;
-  }
+    .card-picture {
+        border-radius: 0.5rem;
+        width: 3rem;
+        height: 2.5rem;
+    }
 
-  .wishlist-picture,
-  .exchange-picture {
-    width: 15%;
-    border-radius: 20%;
-  }
+    .wishlist-picture,
+    .exchange-picture {
+        width: 15%;
+        border-radius: 20%;
+    }
 
-  .link-search-result {
+    .link-search-result {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        margin-bottom: 1rem;
+    }
+}
+
+.link-search-result {
     display: flex;
     align-items: center;
     gap: 1rem;
     margin-bottom: 1rem;
-  }
-}
-
-.link-search-result {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
 }
 
 @media screen and (min-width: 1024px) {
-  .header-right {
-    label {
-      display: none;
-    }
+    .header-right {
+        label {
+            display: none;
+        }
 
-    .searchbar-desktop,
-    .glass-desktop {
-      display: block;
-    }
+        .searchbar-desktop {
+            position: relative;
+        }
 
-    .search-result-desktop {
-      position: absolute;
-      background: #fbf7fe;
-      border: 1px solid #ddd;
-      border-radius: 0.2rem;
-      box-shadow: 0 4px 8px #ddd;
-      padding: 1rem;
-      z-index: 10;
-      width: 25%;
-      top: 4rem;
-      right: 38rem;
-      max-height: 30rem;
-      overflow: scroll;
-      background-color: $background-light;
-    }
+        .searchbar-desktop,
+        .glass-desktop {
+            display: block;
+        }
 
-    .search-active {
-      display: block;
+        .search-result-desktop {
+            position: absolute;
+            background: #fbf7fe;
+            border: 1px solid #ddd;
+            border-radius: 0.2rem;
+            box-shadow: $box-shadow-default;
+            padding: 1rem;
+            z-index: 10;
+            width: 100%;
+            max-height: 30rem;
+            overflow: scroll;
+            background-color: $background-light;
+        }
+
+        .search-active {
+            display: block;
+        }
     }
-  }
 }

@@ -94,8 +94,13 @@ export const useManageRegister = () => {
         const birth = new Date(birthDate);
         const today = new Date();
 
-        if (isNaN(birth.getTime())) return false;
-        if (birth > today) return false;
+        if (isNaN(birth.getTime())) return false; // date invalide
+        if (birth > today) return false; // date dans le futur
+
+        const hundredYearsAgo = new Date();
+        hundredYearsAgo.setFullYear(today.getFullYear() - 100);
+
+        if (birth < hundredYearsAgo) return false; // date trop ancienne
 
         const age = today.getFullYear() - birth.getFullYear();
         const hasHadBirthdayThisYear =

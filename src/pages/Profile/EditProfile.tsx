@@ -26,19 +26,21 @@ const EditProfile = () => {
                 <BackButton />
                 <h1>Éditer le profil</h1>
             </div>
-            <EditProfileForm
-                pseudo={pseudo}
-                birthDate={birthDate}
-                picturePreview={picturePreview}
-                description={description}
-                onPseudoChange={(e) => setPseudo(e.target.value)}
-                onBirthDateChange={handleBirthDateChange}
-                onDescriptionChange={(e) => setDescription(e.target.value)}
-                onPictureChange={handlePictureChange}
-                onSubmit={handleEditSubmit}
-                error={submitError}
-                buttondisabled={isSubmitting}
-            />
+            <div className="frame">
+                <EditProfileForm
+                    pseudo={pseudo}
+                    birthDate={birthDate}
+                    picturePreview={picturePreview}
+                    description={description}
+                    onPseudoChange={(e) => setPseudo(e.target.value)}
+                    onBirthDateChange={handleBirthDateChange}
+                    onDescriptionChange={(e) => setDescription(e.target.value)}
+                    onPictureChange={handlePictureChange}
+                    onSubmit={handleEditSubmit}
+                    error={submitError}
+                    buttondisabled={isSubmitting}
+                />
+            </div>
         </DataState>
     );
 };

@@ -1,6 +1,7 @@
 import type { FC } from "react";
 
 interface InputFieldProps {
+    id?: string;
     type?: string;
     name?: string;
     value: string;
@@ -18,6 +19,7 @@ interface InputFieldProps {
 }
 
 const InputField: FC<InputFieldProps> = ({
+    id,
     type = "text",
     name,
     value,
@@ -34,6 +36,7 @@ const InputField: FC<InputFieldProps> = ({
     if (isTextArea) {
         return (
             <textarea
+                id={id}
                 name={name}
                 value={value}
                 onChange={onChange}
@@ -49,6 +52,7 @@ const InputField: FC<InputFieldProps> = ({
     }
     return (
         <input
+            id={id}
             type={type}
             name={name}
             value={value}

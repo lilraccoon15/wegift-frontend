@@ -3,23 +3,34 @@ $text-light: #4b4b4b;
 $background: #fbf7fe;
 $background-light: #ffffff;
 
-$border: #ddd;
+$border: #e1e1e1;
 
-$primary: #30ccd5;
-$primary-300: #88e5ea;
-$primary-200: #b4eff2;
-$primary-100: #e1fafc;
+$gray: #9e9e9e;
+$gray-300: #bfbfbf;
+$gray-200: #d9d9d9;
+$gray-100: #f2f2f2;
 
-$secondary: #e78cd7;
-$secondary-300: #f1a8e3;
-$secondary-200: #f6c4ec;
-$secondary-100: #fbe2f6;
+$primary: #72aaf7;
+$primary-300: #a6c9fa;
+$primary-200: #c5dcfc;
+$primary-100: #e3effd;
 
-$accent: #e67f8a;
-$accent-300: #f19ba4;
-$accent-200: #f6b9c0;
-$accent-100: #fce1e4;
+$secondary: #fa9746;
+$secondary-300: #fcc188;
+$secondary-200: #fdd9b3;
+$secondary-100: #feedd8;
 
-$valid: green;
-$not-valid: red;
+$accent: #a8d2a0;
+$accent-300: #c9e4c3;
+$accent-200: #ddeed8;
+$accent-100: #eff8ed;
+
+$valid: #84af7b;
+$not-valid: rgb(210, 91, 65);
 $mobile-nav-height: 4rem;
+
+$box-shadow-default: 0 2px 8px 0px $border;
+$box-shadow-default-reverse: 0 -2px 8px 0px $border;
+$box-shadow-default-modal: 0 -2px 8px 0px $text-light;
+
+$transition: all 0.3s ease;

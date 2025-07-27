@@ -1,33 +1,26 @@
+import type { FC } from "react";
+
 interface MessageProps {
-  text: string;
-  type?: "error" | "success" | "info";
+    text: string;
+    type?: "error" | "success" | "info";
 }
 
-const Message: React.FC<MessageProps> = ({ text, type = "info" }) => {
-  let colorClass = "text-gray-700";
-  if (type === "error") colorClass = "not-valid";
-  else if (type === "success") colorClass = "valid";
+const Message: FC<MessageProps> = ({ text, type = "info" }) => {
+    let colorClass = "";
+    if (type === "error") colorClass = "not-valid";
+    else if (type === "success") colorClass = "valid";
 
-  return <p className={`${colorClass}`}>{text}</p>;
+    return (
+        <p className={`message ${colorClass}`}>
+            {type === "error" && (
+                <i
+                    className="fa-solid fa-triangle-exclamation"
+                    style={{ marginRight: "0.5rem" }}
+                ></i>
+            )}
+            {text}
+        </p>
+    );
 };
 
 export default Message;
-
-// import styles from "./Message.module.scss";
-
-// interface MessageProps {
-//   text: string;
-//   type?: "error" | "success" | "info";
-// }
-
-// const Message: React.FC<MessageProps> = ({ text, type = "info" }) => {
-//   let className = styles.message;
-
-//   if (type === "error") className += ` ${styles.error}`;
-//   else if (type === "success") className += ` ${styles.success}`;
-//   else if (type === "info") className += ` ${styles.info}`;
-
-//   return <p className={className}>{text}</p>;
-// };
-
-// export default Message;

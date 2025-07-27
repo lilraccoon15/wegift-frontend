@@ -112,6 +112,7 @@ function CardList<T extends BaseCardItem>({
                                             )}
                                             {onDeleteClick && (
                                                 <button
+                                                    className="delete"
                                                     onClick={() =>
                                                         onDeleteClick(item)
                                                     }

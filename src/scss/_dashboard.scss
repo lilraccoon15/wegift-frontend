@@ -1,56 +1,62 @@
 @use "./variables" as *;
 
 .dashboard-nav {
-  position: relative;
-  display: flex;
-  flex-wrap: nowrap;
-  justify-content: space-between;
-  margin-top: 10%;
-  gap: 0.25rem;
-  border-radius: 0.5rem;
-  background-color: $primary-200;
-  box-sizing: border-box;
-  box-shadow: 0 0 0px 1px rgba(0, 0, 0, 0.06);
-  padding: 0.25rem;
-  width: 100%;
-  font-size: 0.9em;
-
-  .tab {
-    width: 50%;
+    position: relative;
     display: flex;
-    cursor: pointer;
-    align-items: center;
-    justify-content: center;
+    flex-wrap: nowrap;
+    justify-content: space-between;
+    margin-top: 10%;
+    gap: 0.25rem;
     border-radius: 0.5rem;
-    border: none;
-    padding: 0.5rem 0;
-    color: rgba(51, 65, 85, 1);
-    transition: all 0.3s ease-in-out;
-  }
+    background-color: $primary-200;
+    box-sizing: border-box;
+    padding: 0.25rem;
+    width: 100%;
+    font-size: 0.9em;
 
-  .tab:hover {
-    background-color: $primary;
-    transition: background-color 0.3s ease;
-  }
+    .tab {
+        width: 50%;
+        display: flex;
+        cursor: pointer;
+        align-items: center;
+        justify-content: center;
+        border-radius: 0.5rem;
+        border: none;
+        padding: 0.5rem 0;
+        // color: rgba(51, 65, 85, 1);
+        transition: all 0.3s ease-in-out;
+    }
 
-  .active,
-  .active:hover {
-    background-color: $background;
-    font-weight: 600;
-  }
+    .tab:hover {
+        background-color: $primary-300;
+        // color: $background;
+        transition: all 0.3s ease-in-out;
+        // font-weight: bold;
+    }
+
+    .active,
+    .active:hover {
+        background-color: $background;
+        font-weight: 600;
+        color: $text;
+    }
 }
 
 .dashboard-content {
-  padding-top: 2em;
+    padding-top: 2em;
 }
 
 .card-list {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  gap: 0.8rem;
-  width: 100%;
-  margin-bottom: 1rem;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 0.8rem;
+    width: 100%;
+    margin-bottom: 1rem;
+
+    a {
+        color: $text;
+    }
 }
 
 @media screen and (min-width: 1024px) {

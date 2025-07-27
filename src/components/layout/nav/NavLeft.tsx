@@ -1,11 +1,24 @@
+import { Link } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
 const NavLeft = () => {
-  const { isAuthenticated, loading } = useAuth();
+    // const { isAuthenticated, loading } = useAuth();
 
-  if (loading || !isAuthenticated) return null;
+    // if (loading || !isAuthenticated) return null;
 
-  return <h1>WeGift</h1>;
+    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_AUTH;
+
+    const PICTURE = "/img/logo.png";
+
+    return (
+        <Link to="/">
+            <img
+                className="logo"
+                src={`${BACKEND_URL}${PICTURE}`}
+                alt="logo wegift"
+            />
+        </Link>
+    );
 };
 
 export default NavLeft;

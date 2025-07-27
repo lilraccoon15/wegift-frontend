@@ -42,26 +42,28 @@ const EditEmail = () => {
                 <BackButton />
                 <h1>Modifier l'adresse email</h1>
             </div>
-            {_account?.googleId ? (
-                <p className="info-msg">
-                    Cette adresse email est gérée via Google et ne peut pas être
-                    modifiée.
-                </p>
-            ) : (
-                <EditEmailForm
-                    email={email}
-                    confirmEmail={confirmEmail}
-                    password={password}
-                    onEmailChange={(e) => setEmail(e.target.value)}
-                    onConfirmEmail={(e) => setConfirmEmail(e.target.value)}
-                    onPasswordChange={(e) => setPassword(e.target.value)}
-                    onSubmit={handleEditSubmit}
-                    error={submitError}
-                    buttondisabled={isSubmitting}
-                    emailValid={emailValid}
-                    emailsMatch={emailsMatch}
-                />
-            )}
+            <div className="frame">
+                {_account?.googleId ? (
+                    <p className="info-msg">
+                        Cette adresse email est gérée via Google et ne peut pas
+                        être modifiée.
+                    </p>
+                ) : (
+                    <EditEmailForm
+                        email={email}
+                        confirmEmail={confirmEmail}
+                        password={password}
+                        onEmailChange={(e) => setEmail(e.target.value)}
+                        onConfirmEmail={(e) => setConfirmEmail(e.target.value)}
+                        onPasswordChange={(e) => setPassword(e.target.value)}
+                        onSubmit={handleEditSubmit}
+                        error={submitError}
+                        buttondisabled={isSubmitting}
+                        emailValid={emailValid}
+                        emailsMatch={emailsMatch}
+                    />
+                )}
+            </div>
         </DataState>
     );
 };

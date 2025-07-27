@@ -6,48 +6,50 @@ import BackButton from "../../components/ui/BackButton";
 import DataState from "../../components/ui/DataState";
 
 const Preferences = () => {
-  const navigate = useNavigate();
+    const navigate = useNavigate();
 
-  const {
-    loading,
-    error,
-    newsletter,
-    handleCheckboxChange,
-    submitError,
-    showConfirmation,
-    handleShowConfirmation,
-    handleHideConfirmation,
-    password,
-    handlePasswordChange,
-    submitErrorDelete,
-    isSubmittingDelete,
-    handleDeleteAccount,
-  } = useManagePreferences(navigate);
+    const {
+        loading,
+        error,
+        newsletter,
+        handleCheckboxChange,
+        submitError,
+        showConfirmation,
+        handleShowConfirmation,
+        handleHideConfirmation,
+        password,
+        handlePasswordChange,
+        submitErrorDelete,
+        isSubmittingDelete,
+        handleDeleteAccount,
+    } = useManagePreferences(navigate);
 
-  return (
-    <DataState loading={loading} error={error}>
-      <div className="title-return">
-        <BackButton />
-        <h1>Préférences</h1>
-      </div>
-      <EditNewsletter
-        newsletter={newsletter}
-        handleCheckboxChange={handleCheckboxChange}
-        submitError={submitError}
-      />
+    return (
+        <DataState loading={loading} error={error}>
+            <div className="title-return">
+                <BackButton />
+                <h1>Préférences</h1>
+            </div>
+            <div className="frame preferences">
+                <EditNewsletter
+                    newsletter={newsletter}
+                    handleCheckboxChange={handleCheckboxChange}
+                    submitError={submitError}
+                />
 
-      <DeleteAccount
-        showConfirmation={showConfirmation}
-        setShowConfirmation={handleShowConfirmation}
-        setHideConfirmation={handleHideConfirmation}
-        password={password}
-        setPassword={handlePasswordChange}
-        submitError={submitErrorDelete}
-        buttondisabled={isSubmittingDelete}
-        handleDeleteAccount={handleDeleteAccount}
-      />
-    </DataState>
-  );
+                <DeleteAccount
+                    showConfirmation={showConfirmation}
+                    setShowConfirmation={handleShowConfirmation}
+                    setHideConfirmation={handleHideConfirmation}
+                    password={password}
+                    setPassword={handlePasswordChange}
+                    submitError={submitErrorDelete}
+                    buttondisabled={isSubmittingDelete}
+                    handleDeleteAccount={handleDeleteAccount}
+                />
+            </div>
+        </DataState>
+    );
 };
 
 export default Preferences;

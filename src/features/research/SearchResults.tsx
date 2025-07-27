@@ -6,6 +6,7 @@ interface Props {
     results: SearchResult[];
     isLoading: boolean;
     error: Error | null;
+    query: string;
 }
 
 const DEFAULT_PICTURE_URL_USER = "/uploads/profilePictures/default-profile.jpg";
@@ -19,14 +20,14 @@ const DEFAULT_PICTURE_URL_EXCHANGE =
     "/uploads/exchangePictures/default-exchange.png";
 const BACKEND_URL_EXCHANGE = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
 
-const SearchResults = ({ results, isLoading, error }: Props) => {
+const SearchResults = ({ results, isLoading, error, query }: Props) => {
     const wishlists = results.filter((item) => item.type === "wishlist");
     const users = results.filter((item) => item.type === "user");
     const exchanges = results.filter((item) => item.type === "exchange");
 
     return (
         <DataState loading={isLoading} error={error}>
-            {results.length === 0 ? (
+            {results.length === 0 && query && query.trim() !== "" ? (
                 <p>Aucun résultat</p>
             ) : (
                 <div className="search-results-grouped">

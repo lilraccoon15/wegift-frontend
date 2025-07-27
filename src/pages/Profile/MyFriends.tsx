@@ -35,38 +35,33 @@ const MyFriends = () => {
                 <BackButton />
                 <h1>Mes amis</h1>
             </div>
-            {!friends || friends.length === 0 ? (
-                <p>Vous n'avez pas encore d'amis</p>
-            ) : (
-                <>
-                    <TabSwitcher
-                        tabs={[
-                            {
-                                key: "friends",
-                                label: "Amis",
-                                content: (
-                                    <FriendsTab
-                                        friends={friends}
-                                        backendUrl={BACKEND_URL}
-                                        defaultPictureUrl={DEFAULT_PICTURE_URL}
-                                    />
-                                ),
-                            },
-                            {
-                                key: "pending",
-                                label: "En attente",
-                                content: (
-                                    <PendingTab
-                                        pending={pending ?? []}
-                                        backendUrl={BACKEND_URL}
-                                        defaultPictureUrl={DEFAULT_PICTURE_URL}
-                                    />
-                                ),
-                            },
-                        ]}
-                    />
-                </>
-            )}
+
+            <TabSwitcher
+                tabs={[
+                    {
+                        key: "friends",
+                        label: "Amis",
+                        content: (
+                            <FriendsTab
+                                friends={friends}
+                                backendUrl={BACKEND_URL}
+                                defaultPictureUrl={DEFAULT_PICTURE_URL}
+                            />
+                        ),
+                    },
+                    {
+                        key: "pending",
+                        label: "En attente",
+                        content: (
+                            <PendingTab
+                                pending={pending ?? []}
+                                backendUrl={BACKEND_URL}
+                                defaultPictureUrl={DEFAULT_PICTURE_URL}
+                            />
+                        ),
+                    },
+                ]}
+            />
         </DataState>
     );
 };

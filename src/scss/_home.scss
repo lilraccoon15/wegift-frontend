@@ -1,8 +1,18 @@
+@use "./variables" as *;
+
 .home {
-  display: flex;
-  flex-direction: column;
-  flex-wrap: nowrap;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: nowrap;
+    align-items: center;
+}
+
+.main-content:has(.home-visitor) {
+    margin: 0%;
+}
+
+.home-picture {
+    width: 100%;
 }
 
 @media screen and (min-width: 1024px) {

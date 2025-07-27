@@ -55,9 +55,16 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
         <>
             {currentPassword !== undefined && (
                 <>
-                    <label>Mot de passe actuel :</label>
+                    <label htmlFor="currentPassword">
+                        Mot de passe actuel{" "}
+                        <span className="required-marker" aria-hidden="true">
+                            *
+                        </span>{" "}
+                        : <span className="sr-only">(obligatoire)</span>
+                    </label>
                     <div className="input-validation">
                         <InputField
+                            id="currentPassword"
                             name="currentPassword"
                             type={showCurrentPassword ? "text" : "password"}
                             value={currentPassword}
@@ -81,9 +88,16 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
                 </>
             )}
 
-            <label>{labels?.newPassword || "Nouveau mot de passe"} :</label>
+            <label htmlFor="password">
+                {labels?.newPassword || "Nouveau mot de passe"}{" "}
+                <span className="required-marker" aria-hidden="true">
+                    *
+                </span>{" "}
+                : <span className="sr-only">(obligatoire)</span>
+            </label>
             <div className="input-validation">
                 <InputField
+                    id="password"
                     name="password"
                     type={showNewPassword ? "text" : "password"}
                     value={newPassword}
@@ -158,11 +172,16 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
                 </ul>
             )}
 
-            <label>
-                {labels?.confirmPassword || "Confirmer le mot de passe"} :
+            <label htmlFor="confirmPassword">
+                {labels?.confirmPassword || "Confirmer le mot de passe"}{" "}
+                <span className="required-marker" aria-hidden="true">
+                    *
+                </span>{" "}
+                : <span className="sr-only">(obligatoire)</span>
             </label>
             <div className="input-validation">
                 <InputField
+                    id="confirmPassword"
                     name="confirmPassword"
                     type="password"
                     value={confirmPassword}

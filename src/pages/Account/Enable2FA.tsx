@@ -22,18 +22,20 @@ const Enable2FA = () => {
         <DataState loading={loading} error={error}>
             <div className="title-return">
                 <BackButton />
-                <h1>Paramètres 2FA</h1>
+                <h1>Double authentification</h1>
             </div>
-            <Enable2FAForm
-                qrCodeUrl={qrCodeUrl}
-                code={code}
-                is2FAEnabled={is2FAEnabled}
-                error={error}
-                message={message}
-                onCodeChange={setCode}
-                onEnable={handleEnable}
-                onDisable={handleDisable}
-            />
+            <div className="frame">
+                <Enable2FAForm
+                    qrCodeUrl={qrCodeUrl}
+                    code={code}
+                    is2FAEnabled={is2FAEnabled}
+                    error={error}
+                    message={message}
+                    onCodeChange={setCode}
+                    onEnable={handleEnable}
+                    onDisable={handleDisable}
+                />
+            </div>
         </DataState>
     );
 };
