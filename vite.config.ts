@@ -1,6 +1,11 @@
 import { defineConfig, loadEnv } from "vite";
 import react from "@vitejs/plugin-react";
 
+console.log(
+    "🌍 VITE_BACKEND_URL_AUTH (raw) =",
+    process.env.VITE_BACKEND_URL_AUTH
+);
+
 export default defineConfig(({ mode }) => {
     const env = loadEnv(mode, process.cwd(), "");
 
@@ -10,9 +15,7 @@ export default defineConfig(({ mode }) => {
             port: 3000,
         },
         define: {
-            // Pour process.env (optionnel si tu veux le garder)
             "process.env": env,
-            // 🔥 Pour forcer Vite à injecter les variables côté client :
             "import.meta.env.VITE_BACKEND_URL_AUTH": JSON.stringify(
                 env.VITE_BACKEND_URL_AUTH
             ),
