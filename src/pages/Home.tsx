@@ -10,6 +10,7 @@ const Home = () => {
   }
 
   const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_AUTH;
+  console.log("ENV →", import.meta.env);
   console.log("AUTH ENV →", import.meta.env.VITE_BACKEND_URL_AUTH);
 
   const PICTURE = "/img/home.jpg";
