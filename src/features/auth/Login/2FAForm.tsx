@@ -5,9 +5,7 @@ import Message from "../../../components/ui/Message";
 interface TwoFAFormProps {
   code: string;
   error: string | null;
-  onCodeChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onCodeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   disabled?: boolean;
 }

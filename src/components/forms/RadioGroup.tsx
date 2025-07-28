@@ -5,7 +5,7 @@ interface RadioGroupProps {
   options: { label: string; value: string }[];
   selectedValue: string;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   className?: string;
 }

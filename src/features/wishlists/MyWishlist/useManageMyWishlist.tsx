@@ -342,9 +342,7 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     setConfirmType(null);
   };
 
-  const handleWishPictureChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleWishPictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
     if (
@@ -363,7 +361,7 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
   };
 
   const handleWishlistPictureChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement>
   ) => {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -459,9 +457,7 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     setOptionsWishId((prev) => (prev === id ? null : id));
   };
 
-  const handleStatusChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value as "available" | "reserved");
   };
 

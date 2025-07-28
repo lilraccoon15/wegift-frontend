@@ -14,9 +14,7 @@ export interface ScrapWishFormProps {
   errorScrapping: string | null;
   buttondisabledScrapping: boolean;
   status: string;
-  onStatusChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
 }
 
 const ScrapWishForm = ({

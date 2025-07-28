@@ -14,9 +14,7 @@ interface EditWishlistFormProps {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => void;
-  onPictureChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onPictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   description: string;
   onDescriptionChange: (
     e: React.ChangeEvent<
@@ -25,19 +23,13 @@ interface EditWishlistFormProps {
   ) => void;
   picturePreview?: string | null;
   access: string;
-  onAccessChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onAccessChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   published: string;
-  onPublishedChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onPublishedChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   error: string | null;
   buttondisabled: boolean;
   mode: string;
-  onModeChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onModeChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   participants: User[];
   setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
 }

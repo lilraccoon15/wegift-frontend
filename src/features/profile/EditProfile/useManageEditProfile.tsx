@@ -66,9 +66,7 @@ export const useManageProfile = () => {
     }
   };
 
-  const handlePictureChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (file) {
       const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp"];

@@ -1,7 +1,7 @@
 interface ToggleSwitchProps {
   checked: boolean;
   onChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   labelLeft?: string;
   labelRight?: string;

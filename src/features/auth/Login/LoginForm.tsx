@@ -7,12 +7,8 @@ interface LoginFormProps {
   email: string;
   password: string;
   error: string | null;
-  onEmailChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
-  onPasswordChange: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  onEmailChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   disabled?: boolean;
 }

@@ -13,9 +13,7 @@ const SearchBar = ({
   setType,
   onInputActivity,
 }: Props) => {
-  const handleChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setQuery(e.target.value);
     if (onInputActivity) onInputActivity(); // déclenche le focus visuel
   };

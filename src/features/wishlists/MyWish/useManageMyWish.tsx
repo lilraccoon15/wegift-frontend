@@ -77,9 +77,7 @@ export const useManageMyWish = () => {
     });
   };
 
-  const handlePictureChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
@@ -100,9 +98,7 @@ export const useManageMyWish = () => {
     setPicture(file);
   };
 
-  const handleStatusChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value as "available" | "reserved");
   };
 

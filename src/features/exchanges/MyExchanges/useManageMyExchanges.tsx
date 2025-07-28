@@ -123,9 +123,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   // =======================
   // Handlers
   // =======================
-  const handlePictureChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
+  const handlePictureChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 

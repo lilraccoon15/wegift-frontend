@@ -5,9 +5,7 @@ interface DeleteAccountProps {
   setShowConfirmation: () => void;
   setHideConfirmation: () => void;
   password: string;
-  setPassword: (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => void;
+  setPassword: (e: React.ChangeEvent<HTMLInputElement>) => void;
   submitError: string | null;
   buttondisabled: boolean;
   handleDeleteAccount: (e: React.FormEvent<HTMLFormElement>) => void;

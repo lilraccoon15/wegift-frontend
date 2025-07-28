@@ -1,70 +1,70 @@
 import type { FC } from "react";
 
 interface InputFieldProps {
-    id?: string;
-    type?: string;
-    name?: string;
-    value: string;
-    onChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
-    ) => void;
-    placeholder?: string;
-    className?: string;
-    required?: boolean;
-    disabled?: boolean;
-    minLength?: number;
-    maxLength?: number;
-    isTextArea?: boolean;
-    rows?: number;
+  id?: string;
+  type?: string;
+  name?: string;
+  value: string;
+  onChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  placeholder?: string;
+  className?: string;
+  required?: boolean;
+  disabled?: boolean;
+  minLength?: number;
+  maxLength?: number;
+  isTextArea?: boolean;
+  rows?: number;
 }
 
 const InputField: FC<InputFieldProps> = ({
-    id,
-    type = "text",
-    name,
-    value,
-    onChange,
-    placeholder,
-    className = "",
-    required = false,
-    disabled = false,
-    minLength,
-    maxLength,
-    isTextArea = false,
-    rows = 4,
+  id,
+  type = "text",
+  name,
+  value,
+  onChange,
+  placeholder,
+  className = "",
+  required = false,
+  disabled = false,
+  minLength,
+  maxLength,
+  isTextArea = false,
+  rows = 4,
 }) => {
-    if (isTextArea) {
-        return (
-            <textarea
-                id={id}
-                name={name}
-                value={value}
-                onChange={onChange}
-                placeholder={placeholder}
-                required={required}
-                disabled={disabled}
-                minLength={minLength}
-                maxLength={maxLength}
-                rows={rows}
-                className={className}
-            />
-        );
-    }
+  if (isTextArea) {
     return (
-        <input
-            id={id}
-            type={type}
-            name={name}
-            value={value}
-            onChange={onChange}
-            placeholder={placeholder}
-            required={required}
-            disabled={disabled}
-            minLength={minLength}
-            maxLength={maxLength}
-            className={className}
-        />
+      <textarea
+        id={id}
+        name={name}
+        value={value}
+        onChange={onChange}
+        placeholder={placeholder}
+        required={required}
+        disabled={disabled}
+        minLength={minLength}
+        maxLength={maxLength}
+        rows={rows}
+        className={className}
+      />
     );
+  }
+  return (
+    <input
+      id={id}
+      type={type}
+      name={name}
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      required={required}
+      disabled={disabled}
+      minLength={minLength}
+      maxLength={maxLength}
+      className={className}
+    />
+  );
 };
 
 export default InputField;
