@@ -6,6 +6,7 @@
     "scripts": {
         "dev": "vite",
         "dev:docker": "vite --mode docker",
+        "prebuild": "node scripts/generateClientEnv.mjs",
         "build": "rimraf dist && tsc -b && vite build",
         "build:docker": "vite build --mode docker",
         "build:production": "vite build --mode production",
@@ -17,6 +18,7 @@
     "dependencies": {
         "@fortawesome/fontawesome-free": "^6.7.2",
         "axios": "^1.9.0",
+        "dotenv": "^17.2.1",
         "normalize-scss": "^8.0.0",
         "react": "^19.1.0",
         "react-dom": "^19.1.0",

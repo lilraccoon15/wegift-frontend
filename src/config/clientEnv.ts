@@ -1,9 +1,8 @@
-export const VITE_BACKEND_URL_AUTH =
-    import.meta.env.VITE_BACKEND_URL_AUTH ?? "";
-export const VITE_API_URL = import.meta.env.VITE_API_URL ?? "";
-export const VITE_BACKEND_URL_WISHLIST =
-    import.meta.env.VITE_BACKEND_URL_WISHLIST ?? "";
-export const VITE_BACKEND_URL_USER =
-    import.meta.env.VITE_BACKEND_URL_USER ?? "";
-export const VITE_BACKEND_URL_EXCHANGE =
-    import.meta.env.VITE_BACKEND_URL_EXCHANGE ?? "";
+// AUTO-GENERATED AT BUILD TIME
+export const CLIENT_ENV = {
+  "VITE_BACKEND_URL_AUTH": "http://localhost:3001",
+  "VITE_API_URL": "http://localhost:4000",
+  "VITE_BACKEND_URL_WISHLIST": "http://localhost:3004",
+  "VITE_BACKEND_URL_USER": "http://localhost:3003",
+  "VITE_BACKEND_URL_EXCHANGE": "http://localhost:3002"
+};

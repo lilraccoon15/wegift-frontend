@@ -25,3 +25,4 @@ dist-ssr
 .env
 .env.dockerdist/
 .env.docker
+src/config/clientEnv.ts
