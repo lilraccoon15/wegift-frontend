@@ -29,7 +29,7 @@ interface RegisterFormProps {
     serverMessage: { type: "error" | "success"; text: string } | null;
     showPassword: boolean;
     onChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
     ) => void;
     onRadioGroupShowPassword: () => void;
     onSubmit: (e: React.FormEvent) => void;

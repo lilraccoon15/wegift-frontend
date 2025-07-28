@@ -114,7 +114,7 @@ export const useManageRegister = () => {
     };
 
     const handleChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
     ) => {
         const { name, value, type } = e.target;
 

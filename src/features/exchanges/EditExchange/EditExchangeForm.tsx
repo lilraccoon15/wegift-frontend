@@ -14,7 +14,9 @@ interface EditExchangeFormProps {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => void;
-  onPictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPictureChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   description: string;
   onDescriptionChange: (
     e: React.ChangeEvent<

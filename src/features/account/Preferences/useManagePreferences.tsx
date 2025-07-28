@@ -26,7 +26,7 @@ export const useManagePreferences = (navigate: NavigateFunction) => {
   }, [account]);
 
   const handleCheckboxChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     const newValue = e.target.checked;
     setNewsletter(newValue);
@@ -44,7 +44,9 @@ export const useManagePreferences = (navigate: NavigateFunction) => {
   const handleShowConfirmation = () => setShowConfirmation(true);
   const handleHideConfirmation = () => setShowConfirmation(false);
 
-  const handlePasswordChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const handlePasswordChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
     setPassword(e.target.value);
   };
 

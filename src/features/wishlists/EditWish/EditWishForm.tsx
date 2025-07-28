@@ -12,7 +12,9 @@ interface EditWishFormProps {
       HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
     >
   ) => void;
-  onPictureChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onPictureChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   description: string;
   onDescriptionChange: (
     e: React.ChangeEvent<
@@ -35,7 +37,9 @@ interface EditWishFormProps {
   error: string | null;
   buttondisabled: boolean;
   status: string;
-  onStatusChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onStatusChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
 }
 
 const EditWishForm: React.FC<EditWishFormProps> = ({

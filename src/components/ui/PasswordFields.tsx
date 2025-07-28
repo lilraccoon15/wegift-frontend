@@ -16,13 +16,13 @@ type PasswordFieldsProps = {
         specialChar: boolean;
     };
     onCurrentPasswordChange?: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
     ) => void;
     onNewPasswordChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
     ) => void;
     onConfirmPasswordChange: (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement> | HTMLTextAreaElement>
     ) => void;
 
     onToggleShowCurrentPassword?: () => void;
