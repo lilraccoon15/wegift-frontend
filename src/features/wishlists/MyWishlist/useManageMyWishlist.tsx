@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { useParams, type NavigateFunction } from "react-router-dom";
 import {
   useMyWishlistById,
@@ -17,7 +17,11 @@ import {
 } from "../EditWishlist/EditWishlistHelpers";
 import { useCombinedState } from "../../../hooks/useCombineState";
 import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
-import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import {
+  fetchProfile,
+  type User,
+} from "../../profile/ViewProfile/ViewProfileHelpers";
+import { useRemoveSubscriber } from "../UserWishlists/UserWishlistsHelpers";
 
 export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const { id } = useParams<{ id: string }>();
@@ -53,9 +57,9 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const [openWishEdition, setOpenWishEdition] = useState(false);
   const [openWishlistEdition, setOpenWishlistEdition] = useState(false);
   const [showConfirm, setShowConfirm] = useState(false);
-  const [confirmType, setConfirmType] = useState<"wish" | "wishlist" | null>(
-    null
-  );
+  const [confirmType, setConfirmType] = useState<
+    "wish" | "wishlist" | "subscriber" | null
+  >(null);
   const [optionsWishId, setOptionsWishId] = useState<string | null>(null);
 
   // =======================
@@ -101,10 +105,15 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const [wishlistSubmitError, setWishlistSubmitError] = useState<string | null>(
     null
   );
+  const [wishlistSubscribers, setWishlistSubscribers] = useState<User[]>([]);
+  const [subscriberToDelete, setSubscriberToDelete] = useState<User | null>(
+    null
+  );
 
   // =======================
   // Effects
   // =======================
+
   useEffect(() => {
     if (wishPicture) {
       const objectUrl = URL.createObjectURL(wishPicture);
@@ -134,8 +143,59 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     setWishlistMode(
       wishlistToEdit.mode === "collaborative" ? "collaborative" : "individual"
     );
-    setWishlistParticipants(wishlistToEdit.participants || []);
   }, [wishlistToEdit]);
+
+  const collaborators = (wishlistToEdit?.collaborators ?? []) as {
+    userId: string;
+  }[];
+
+  const wishlist = wishlistResponse?.data?.wishlist as Wishlist & {
+    subscribers?: { userId: string }[];
+  };
+
+  const collaboratorProfilesQueries = useQueries({
+    queries: collaborators.map((collab) => ({
+      queryKey: ["userProfile", collab.userId],
+      queryFn: () => fetchProfile(collab.userId),
+      enabled: !!collab.userId,
+    })),
+  });
+
+  const subscriberProfilesQueries = useQueries({
+    queries: (wishlist?.subscribers || []).map((subscriber) => ({
+      queryKey: ["userProfile", subscriber.userId],
+      queryFn: () => fetchProfile(subscriber.userId),
+      enabled: !!subscriber.userId,
+    })),
+  });
+
+  useEffect(() => {
+    if (
+      !wishlist ||
+      subscriberProfilesQueries.some((q) => q.isLoading || q.isError)
+    )
+      return;
+
+    const profiles = subscriberProfilesQueries
+      .map((q) => q.data)
+      .filter((p): p is User => !!p);
+
+    setWishlistSubscribers(profiles);
+  }, [wishlist, ...subscriberProfilesQueries.map((q) => q.data)]);
+
+  useEffect(() => {
+    if (
+      !wishlistToEdit ||
+      collaboratorProfilesQueries.some((q) => q.isLoading || q.isError)
+    )
+      return;
+
+    const profiles = collaboratorProfilesQueries
+      .map((q) => q.data)
+      .filter((p): p is User => !!p);
+
+    setWishlistParticipants(profiles);
+  }, [wishlistToEdit, ...collaboratorProfilesQueries.map((q) => q.data)]);
 
   // =======================
   // Mutations
@@ -201,6 +261,11 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     },
     onError: (error: Error) => setWishlistSubmitError(error.message),
   });
+
+  const removeSubscriberMutation = useRemoveSubscriber(
+    id,
+    subscriberToDelete?.id
+  );
 
   // =======================
   // Handlers
@@ -315,6 +380,20 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     setWishlistPicture(file);
   };
 
+  const handleSubscriberDeleteConfirm = () => {
+    if (!removeSubscriberMutation || !subscriberToDelete) return;
+    removeSubscriberMutation.mutate(undefined, {
+      onSuccess: () => {
+        setWishlistSubscribers((prev) =>
+          prev.filter((u) => u.id !== subscriberToDelete.id)
+        );
+        setShowConfirm(false);
+        setSubscriberToDelete(null);
+        setConfirmType(null);
+      },
+    });
+  };
+
   const resetWishForm = () => {
     setWishTitle("");
     setWishDescription("");
@@ -381,6 +460,12 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const handleStatusChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value as "available" | "reserved");
   };
+
+  const confirmSubscriberDelete = (user: User) => {
+    setSubscriberToDelete(user);
+    setConfirmType("subscriber");
+    setShowConfirm(true);
+  };
   // =======================
   // Return
   // =======================
@@ -401,6 +486,8 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     confirmType,
     optionsWishId,
     setOptionsWishId,
+    wishlistSubscribers,
+    setWishlistSubscribers,
 
     // === Wish Form State
     wishTitle,
@@ -473,5 +560,10 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     setWishlistToDelete,
     status,
     setStatus,
+
+    subscriberToDelete,
+    setSubscriberToDelete,
+    confirmSubscriberDelete,
+    handleSubscriberDeleteConfirm,
   };
 };

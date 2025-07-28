@@ -27,7 +27,7 @@ export interface Exchange {
   userId: string;
   startDate?: string;
   endDate?: string;
-  participantCount?: number;
+  participantsCount?: number;
   participants?: Participant[];
   assigned?: Assignment[];
   assignment?: AssignmentDisplay;

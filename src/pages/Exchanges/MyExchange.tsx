@@ -26,7 +26,6 @@ const MyExchange = () => {
   // TODO :
   // - bouton signaler pour utilisateur
   // - bouton supprimer pour admin
-  // - différencier les participants qui ont accepté de ceux qui sont en attente
 
   const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
   const assignment = exchange?.assigned?.find(
@@ -58,12 +57,19 @@ const MyExchange = () => {
             }}
           ></div>
           <h2>{exchange.title}</h2>
-          <p>{exchange.participantCount}</p>
+          <p>{exchange.participantsCount}</p>
           <ul>
             {exchange.participants
               ?.filter((p) => p.userId !== currentUser?.id)
               .map((p) => (
-                <li key={p.id}>{profiles[p.userId]}</li>
+                <li
+                  key={p.id}
+                  className={`participant ${
+                    !p.acceptedAt ? "participant--pending" : ""
+                  }`}
+                >
+                  {profiles[p.userId]}
+                </li>
               ))}
           </ul>
           <p>{exchange.description}</p>

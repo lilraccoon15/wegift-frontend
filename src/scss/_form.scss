@@ -1,56 +1,56 @@
 @use "./variables" as *;
 
 form {
-    display: flex;
-    flex-wrap: nowrap;
-    flex-direction: column;
-    gap: 0.8rem;
-    justify-content: center;
-    width: 95%;
-}
-label {
+  display: flex;
+  flex-wrap: nowrap;
+  flex-direction: column;
+  gap: 0.8rem;
+  justify-content: center;
+  width: 95%;
+
+  label {
     display: block;
     font-size: 0.75rem;
     font-weight: 500;
     color: $text-light;
-}
+  }
 
-fieldset {
+  fieldset {
     border: 1.5px solid $primary-300;
     background-color: $background-light;
     border-radius: 0.5rem;
     padding: 12px;
 
     &:focus {
-        border-color: $primary;
+      border-color: $primary;
     }
-}
+  }
 
-.form-step {
+  .form-step {
     display: none;
-}
+  }
 
-.form-step.active {
+  .form-step.active {
     display: block;
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
     gap: 0.8rem;
-}
+  }
 
-.picture-form {
+  .picture-form {
     border-radius: 0.5rem;
     border: 1.5px solid $primary-300;
     transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-}
+  }
 
-.picture-form:hover {
+  .picture-form:hover {
     filter: brightness(70%);
     transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
     cursor: pointer;
-}
+  }
 
-.tag-input {
+  .tag-input {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
@@ -68,34 +68,34 @@ fieldset {
     z-index: 1;
 
     &:focus {
-        border-color: $primary;
+      border-color: $primary;
     }
 
     input {
-        box-shadow: none;
-        padding: 0;
-        height: auto;
+      box-shadow: none;
+      padding: 0;
+      height: auto;
     }
-}
+  }
 
-.tag {
+  .tag {
     background-color: $background-light;
     border-radius: 999px;
     display: flex;
     align-items: center;
     font-size: 0.875rem;
-}
+  }
 
-.remove-btn {
+  .remove-btn {
     background: none;
     border: none;
     margin-left: 0.3rem;
     cursor: pointer;
     font-weight: bold;
     color: #555;
-}
+  }
 
-.tag-input-field {
+  .tag-input-field {
     flex: 1;
     min-width: 120px;
     border: none;
@@ -103,30 +103,30 @@ fieldset {
     font-size: 0.875rem;
     padding: 0.25rem;
     background-color: $background-light;
-}
+  }
 
-.friend-tag-list {
+  .friend-tag-list {
     ul {
-        background-color: $background-light;
-        padding: 1rem;
-        border-radius: 0 0 0.5rem 0.5rem;
-        box-shadow: $box-shadow-default;
-        margin-top: -1.2rem;
+      background-color: $background-light;
+      padding: 1rem;
+      border-radius: 0 0 0.5rem 0.5rem;
+      box-shadow: $box-shadow-default;
+      margin-top: -1.2rem;
 
-        li {
-            display: flex;
-            gap: 0.8rem;
-            align-items: center;
-            .profile-picture {
-                width: 2rem;
-                height: 2rem;
-            }
+      li {
+        display: flex;
+        gap: 0.8rem;
+        align-items: center;
+        .profile-picture {
+          width: 2rem;
+          height: 2rem;
         }
+      }
     }
-}
+  }
 
-input,
-textarea {
+  input,
+  textarea {
     width: 100%;
     padding: 12px;
     border-radius: 0.5rem;
@@ -137,122 +137,122 @@ textarea {
     background-color: $background-light;
 
     &:focus {
-        border-color: $primary;
+      border-color: $primary;
     }
-}
+  }
 
-input {
+  input {
     height: 45px;
-}
+  }
 
-.input:hover {
+  .input:hover {
     border: 2px solid $primary;
-}
+  }
 
-.input:active {
+  .input:active {
     transform: scale(0.95);
-}
+  }
 
-.input:focus {
+  .input:focus {
     border: 2px solid $primary;
-}
+  }
 
-.step-btn {
+  .step-btn {
     display: flex;
     flex-wrap: wrap;
     justify-content: space-between;
 
     &.single {
-        justify-content: flex-end;
+      justify-content: flex-end;
     }
-}
+  }
 
-.btn:disabled {
+  .btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
-}
+  }
 
-.input-validation {
+  .input-validation {
     position: relative;
 
     .input-info {
-        z-index: 10;
-        position: absolute;
-        right: 1rem;
-        top: 50%;
-        transform: translateY(-50%);
-        pointer-events: auto;
+      z-index: 10;
+      position: absolute;
+      right: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      pointer-events: auto;
     }
 
     input[type="date"] + .input-info {
-        right: 2.5rem;
+      right: 2.5rem;
     }
-}
+  }
 
-.valid {
+  .valid {
     color: $valid;
-}
+  }
 
-.not-valid {
+  .not-valid {
     color: $not-valid;
-}
+  }
 
-.oauth-section {
+  .oauth-section {
     display: flex;
     flex-direction: column;
     align-items: center;
     width: 95%;
     p {
-        font-weight: bold;
-        text-transform: uppercase;
+      font-weight: bold;
+      text-transform: uppercase;
     }
+  }
 }
-
 /* From Uiverse.io by Yaya12085 */
 .switch {
-    position: relative;
-    height: 1.5rem;
-    width: 3rem;
-    cursor: pointer;
-    appearance: none;
-    -webkit-appearance: none;
-    border-radius: 9999px;
-    background-color: $background-light;
-    transition: all 0.3s ease;
-    border-color: $primary;
+  position: relative;
+  height: 1.5rem;
+  width: 3rem;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  border-radius: 9999px;
+  background-color: $background-light;
+  transition: all 0.3s ease;
+  border-color: $primary;
 }
 
 .switch:checked {
-    background-color: $primary;
+  background-color: $primary;
 }
 
 .switch::before {
-    position: absolute;
-    content: "";
-    left: calc(1.5rem - 1.6rem);
-    top: calc(1.5rem - 1.6rem);
-    display: block;
-    height: 1.6rem;
-    width: 1.6rem;
-    cursor: pointer;
-    border: 1px solid $primary;
-    border-radius: 9999px;
-    background-color: $background;
-    box-shadow: 0 3px 10px $primary;
-    transition: all 0.3s ease;
+  position: absolute;
+  content: "";
+  left: calc(1.5rem - 1.6rem);
+  top: calc(1.5rem - 1.6rem);
+  display: block;
+  height: 1.6rem;
+  width: 1.6rem;
+  cursor: pointer;
+  border: 1px solid $primary;
+  border-radius: 9999px;
+  background-color: $background;
+  box-shadow: 0 3px 10px $primary;
+  transition: all 0.3s ease;
 }
 
 .switch:hover::before {
-    box-shadow: 0 0 0px 8px $primary;
+  box-shadow: 0 0 0px 8px $primary;
 }
 
 .switch:checked:hover::before {
-    box-shadow: 0 0 0px 8px $primary;
+  box-shadow: 0 0 0px 8px $primary;
 }
 
 .switch:checked:before {
-    transform: translateX(100%);
-    border-color: $primary;
+  transform: translateX(100%);
+  border-color: $primary;
 }
 
 @media screen and (min-width: 1024px) {

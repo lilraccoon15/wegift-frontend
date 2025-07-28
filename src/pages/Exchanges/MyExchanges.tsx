@@ -68,6 +68,11 @@ const MyExchanges = () => {
         onDeleteClick={confirmDelete}
         optionsItemId={optionsExchangeId}
         toggleOptions={toggleOptions}
+        getCountLabel={(item) =>
+          `${item.participantsCount ?? 0} participant${
+            item.participantsCount !== 1 ? "s" : ""
+          }`
+        }
         getDefaultPicture={() =>
           "/uploads/exchangePictures/default-exchange.png"
         }
@@ -78,8 +83,22 @@ const MyExchanges = () => {
             ? `${BACKEND_URL}${item.picture}`
             : `${BACKEND_URL}/uploads/exchangePictures/default-exchange.png`
         }
+        extraIcons={(item) => {
+          if (!item.endDate) return "";
+          const now = new Date();
+          const endDate = new Date(item.endDate);
+          return endDate < now ? (
+            <i className="fa-solid fa-hourglass-end" title="Échange terminé" />
+          ) : null;
+        }}
+        getItemClassName={(item) => {
+          if (!item.endDate) return "";
+
+          const now = new Date();
+          const endDate = new Date(item.endDate);
+          return endDate < now ? "passed-exchange" : "";
+        }}
       />
-      {/* TODO : ajouter le statut de l'échange & le nombre de participants ? */}
 
       {showConfirm && exchangeToDelete && (
         <ConfirmModal

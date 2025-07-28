@@ -12,7 +12,7 @@ export interface Wishlist {
   mode: string;
   published: boolean;
   wishesCount?: number;
-  participants?: [];
+  collaborators?: [];
 }
 
 export function useMyWishlists() {

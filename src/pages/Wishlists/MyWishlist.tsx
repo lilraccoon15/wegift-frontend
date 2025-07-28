@@ -81,9 +81,12 @@ const MyWishlist = () => {
     handleWishDeleteConfirm,
     status,
     handleStatusChange,
+    wishlistSubscribers,
+    subscriberToDelete,
+    setSubscriberToDelete,
+    confirmSubscriberDelete,
+    handleSubscriberDeleteConfirm,
   } = useManageMyWishlist(navigate);
-
-  // todo : voir les abonnés et permettre de supprimer des abonnés
 
   return (
     <DataState loading={loading} error={error}>
@@ -99,7 +102,22 @@ const MyWishlist = () => {
       <button onClick={() => wishlist && confirmWishDelete(wishlist)}>
         <i className="fa-solid fa-trash-can"></i>
       </button>
-
+      {wishlistSubscribers.length > 0 && (
+        <div>
+          <h2>Abonnés :</h2>
+          <ul>
+            {wishlistSubscribers.map((user) => (
+              <li key={user.id}>
+                {user.picture && <img src={user.picture} alt={user.pseudo} />}
+                {user.pseudo}
+                <button onClick={() => confirmSubscriberDelete(user)}>
+                  <i className="fa-solid fa-xmark"></i>
+                </button>
+              </li>
+            ))}
+          </ul>
+        </div>
+      )}
       <CardList<Wish>
         items={wishes ?? []}
         backendUrl={BACKEND_URL}
@@ -232,6 +250,21 @@ const MyWishlist = () => {
             />
           </div>
         </Modal>
+      )}
+
+      {showConfirm && confirmType === "subscriber" && subscriberToDelete && (
+        <ConfirmModal
+          title="Retirer cet abonné ?"
+          message={`Souhaitez-vous vraiment retirer ${subscriberToDelete.pseudo} de cette wishlist ?`}
+          onClose={() => {
+            setShowConfirm(false);
+            setSubscriberToDelete(null);
+            setConfirmType(null);
+          }}
+          onConfirm={handleSubscriberDeleteConfirm}
+          confirmLabel="Retirer"
+          cancelLabel="Annuler"
+        />
       )}
     </DataState>
   );

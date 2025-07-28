@@ -111,3 +111,26 @@ export function useUnsubscribe(wishlistId?: string) {
     },
   });
 }
+
+export function useRemoveSubscriber(
+  wishlistId?: string,
+  subscriberId?: string
+) {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async () => {
+      await axios.delete(
+        `${API_URL}/api/wishlist/${wishlistId}/subscriber/${subscriberId}`,
+        {
+          withCredentials: true,
+        }
+      );
+    },
+    onSuccess: () => {
+      if (wishlistId) {
+        invalidateWishlistQueries(queryClient, wishlistId);
+      }
+    },
+  });
+}
