@@ -16,8 +16,12 @@ interface CreatePasswordFormProps {
   passwordsMatch: boolean;
   message: string | null;
   error: string | null;
-  onNewPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onConfirmPasswordChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  onNewPasswordChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
+  onConfirmPasswordChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onToggleShowPassword: () => void;
   onSubmit: (e: React.FormEvent) => void;
 }

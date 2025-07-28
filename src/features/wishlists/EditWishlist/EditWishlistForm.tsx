@@ -100,29 +100,31 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
       <ToggleSwitch
         name="wishlistAccess"
         checked={access === "private"}
-        onChange={(e) =>
+        onChange={(e) => {
+          const target = e.target as HTMLInputElement;
           onAccessChange({
             ...e,
             target: {
-              ...e.target,
-              value: e.target.checked ? "private" : "public",
+              ...target,
+              value: target.checked ? "private" : "public",
             },
-          })
-        }
+          } as React.ChangeEvent<HTMLInputElement>);
+        }}
       />
       <label>Inviter des amis à collaborer ?</label>
       <ToggleSwitch
         name="wishlistMode"
         checked={mode === "collaborative"}
-        onChange={(e) =>
+        onChange={(e) => {
+          const target = e.target as HTMLInputElement;
           onModeChange({
             ...e,
             target: {
-              ...e.target,
-              value: e.target.checked ? "collaborative" : "individual",
+              ...target,
+              value: target.checked ? "collaborative" : "individual",
             },
-          })
-        }
+          } as React.ChangeEvent<HTMLInputElement>);
+        }}
       />
       {mode == "collaborative" && (
         <FriendTagInput
@@ -134,15 +136,16 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
       <ToggleSwitch
         name="wishlistStatus"
         checked={published === "0"}
-        onChange={(e) =>
+        onChange={(e) => {
+          const target = e.target as HTMLInputElement;
           onPublishedChange({
             ...e,
             target: {
-              ...e.target,
-              value: e.target.checked ? "0" : "1",
+              ...target,
+              value: target.checked ? "0" : "1",
             },
-          })
-        }
+          } as React.ChangeEvent<HTMLInputElement>);
+        }}
       />
 
       {error && <Message text={error} type="error" />}

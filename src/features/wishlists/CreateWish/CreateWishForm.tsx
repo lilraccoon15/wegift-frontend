@@ -112,15 +112,15 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
         name="status"
         checked={status === "available"}
         onChange={(e) => {
-          const newValue = e.target.checked ? "available" : "reserved";
-          const fakeEvent = {
-            ...e,
-            target: {
-              ...e.target,
-              value: newValue,
-            },
-          };
-          onStatusChange(fakeEvent as React.ChangeEvent<HTMLInputElement>);
+          const target = e.target as HTMLInputElement;
+          const newValue = target.checked ? "available" : "reserved";
+
+          Object.defineProperty(target, "value", {
+            value: newValue,
+            writable: true,
+          });
+
+          onStatusChange(e as React.ChangeEvent<HTMLInputElement>);
         }}
       />
       {error && <Message text={error} type="error" />}

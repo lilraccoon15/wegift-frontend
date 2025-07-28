@@ -26,8 +26,10 @@ export const useManagePreferences = (navigate: NavigateFunction) => {
   }, [account]);
 
   const handleCheckboxChange = async (
-    e: React.ChangeEvent<HTMLInputElement>
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
+    if (!(e.target instanceof HTMLInputElement)) return;
+
     const newValue = e.target.checked;
     setNewsletter(newValue);
     setSubmitError(null);

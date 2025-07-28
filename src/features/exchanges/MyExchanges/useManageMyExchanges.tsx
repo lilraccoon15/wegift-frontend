@@ -77,7 +77,18 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     setPicturePreview(exchangeToEdit.picture || null);
     setStartDate(exchangeToEdit.startDate || "");
     setEndDate(exchangeToEdit.endDate || "");
-    setParticipants(exchangeToEdit.participants || []);
+    setParticipants(
+      exchangeToEdit.participants?.map((p: any) => {
+        const u = p.user ?? p;
+        return {
+          id: u.id,
+          pseudo: u.pseudo,
+          picture: u.picture,
+          birthDate: u.birthDate,
+          description: u.description,
+        };
+      }) ?? []
+    );
     setSelectedRuleIds(exchangeToEdit.rules?.map((r) => r.id) || []);
     setBudget(exchangeToEdit.budget?.toString() || "");
   }, [exchangeToEdit]);

@@ -42,6 +42,7 @@ const SearchArea = () => {
           }`}
         >
           <SearchResults
+            query={query}
             results={results}
             isLoading={isLoading}
             error={error}

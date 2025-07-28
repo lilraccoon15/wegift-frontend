@@ -113,29 +113,31 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
         <ToggleSwitch
           name="wishlistAccess"
           checked={access === "private"}
-          onChange={(e) =>
+          onChange={(e) => {
+            const target = e.target as HTMLInputElement;
             onAccessChange({
               ...e,
               target: {
-                ...e.target,
-                value: e.target.checked ? "private" : "public",
+                ...target,
+                value: target.checked ? "private" : "public",
               },
-            })
-          }
+            } as React.ChangeEvent<HTMLInputElement>);
+          }}
         />
         <label>Inviter des amis à collaborer ?</label>
         <ToggleSwitch
           name="wishlistMode"
           checked={mode === "collaborative"}
           onChange={(e) => {
-            const newValue = e.target.checked ? "collaborative" : "individual";
+            const target = e.target as HTMLInputElement;
+            const newValue = target.checked ? "collaborative" : "individual";
             onModeChange({
               ...e,
               target: {
-                ...e.target,
+                ...target,
                 value: newValue,
               },
-            });
+            } as React.ChangeEvent<HTMLInputElement>);
 
             if (newValue === "individual") {
               setParticipants([]);
