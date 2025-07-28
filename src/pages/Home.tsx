@@ -1,6 +1,7 @@
 import { Link } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Dashboard from "./Dashboard";
+import { CLIENT_ENV } from "../config/clientEnv";
 
 const Home = () => {
     const { isAuthenticated } = useAuth();
@@ -9,7 +10,8 @@ const Home = () => {
         return <Dashboard />;
     }
 
-    const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_AUTH;
+    // const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_AUTH;
+    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
     console.log(
         "🏗️ VITE_BACKEND_URL_AUTH =",
         import.meta.env.VITE_BACKEND_URL_AUTH
