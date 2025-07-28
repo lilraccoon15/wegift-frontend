@@ -211,5 +211,6 @@ export const useManageViewProfile = () => {
     handleAcceptFriendRequest,
     handleDeclineFriendRequest,
     handleRemoveFriend,
+    showRemoveFriendModal,
   };
 };
