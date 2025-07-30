@@ -2,6 +2,7 @@ import { useRef } from "react";
 import InputField from "../../../components/forms/InputField";
 import Button from "../../../components/ui/Button";
 import Message from "../../../components/ui/Message";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 interface EditProfilFormProps {
   pseudo: string;
@@ -51,7 +52,7 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
 
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data">

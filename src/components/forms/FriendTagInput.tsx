@@ -1,6 +1,7 @@
 import { useRef, useState } from "react";
 import type { User } from "../../features/profile/ViewProfile/ViewProfileHelpers";
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 interface FriendTagInputProps {
   participants: User[];
@@ -36,7 +37,7 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
 
   const DEFAULT_PICTURE_URL_USER =
     "/uploads/profilePictures/default-profile.jpg";
-  const BACKEND_URL_USER = import.meta.env.VITE_BACKEND_URL_USER;
+  const BACKEND_URL_USER = CLIENT_ENV.VITE_BACKEND_URL_USER;
 
   return (
     <>

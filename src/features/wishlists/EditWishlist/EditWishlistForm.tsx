@@ -5,6 +5,7 @@ import InputField from "../../../components/forms/InputField";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 interface EditWishlistFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -59,7 +60,7 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   const DEFAULT_PICTURE_URL = "/uploads/wishlistPictures/default-wishlist.png";
 

@@ -4,6 +4,7 @@ import BackButton from "../../components/ui/BackButton";
 import CardList from "../../components/ui/CardList";
 import type { Wish } from "../../features/wishlists/UserWishes/UserWishesHelpers";
 import ActionButtons from "../../components/ui/ActionButtons";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const Wishlist = () => {
   const {
@@ -25,7 +26,7 @@ const Wishlist = () => {
 
   if (!id) return <p>Paramètre ID manquant</p>;
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   return (
     <DataState loading={isLoading} error={error}>

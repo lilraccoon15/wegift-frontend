@@ -8,6 +8,7 @@ import TabSwitcher from "../../components/ui/TabSwitcher";
 import FriendsTab from "./FriendsTab";
 import PendingTab from "./PendingTab";
 import { useCombinedState } from "../../hooks/useCombineState";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const MyFriends = () => {
   const {
@@ -21,7 +22,7 @@ const MyFriends = () => {
     isLoading: isLoandingPending,
   } = useMyPendingFriends();
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   const { loading, error } = useCombinedState([

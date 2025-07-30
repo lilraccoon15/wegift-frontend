@@ -3,6 +3,7 @@ import BackButton from "../../components/ui/BackButton";
 import { useManageWish } from "../../features/wishlists/UserWish/useManageUserWish";
 // import ToggleSwitch from "../../components/forms/ToggleSwitch";
 import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const Wish = () => {
   const {
@@ -21,7 +22,7 @@ const Wish = () => {
   const { data: currentUser } = useMyProfile();
 
   const DEFAULT_PICTURE_URL_WISH = "/uploads/wishPictures/default-wish.png";
-  const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL_WISHLIST = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   if (!id) return <p>Paramètre ID manquant</p>;
 

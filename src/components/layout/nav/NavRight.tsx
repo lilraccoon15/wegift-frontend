@@ -3,6 +3,7 @@ import { useAuth } from "../../../context/AuthContext";
 import { useMyProfile } from "../../../features/profile/MyProfile/MyProfileHelpers";
 import NotificationBell from "../../../features/notifications/NotificationBell";
 import SearchArea from "../../../features/research/SearchArea";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 const NavRight = () => {
   const location = useLocation();
@@ -11,7 +12,7 @@ const NavRight = () => {
 
   if (loading || isAuthenticated === null || profileLoading) return null;
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   return (

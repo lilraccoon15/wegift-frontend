@@ -12,12 +12,13 @@ import {
   fetchProfile,
   type User,
 } from "../../profile/ViewProfile/ViewProfileHelpers";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 export const useManageMyWishlists = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
   const { data: currentUser } = useMyProfile();
   const { data: wishlists, error, isLoading } = useMyWishlists();
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   // =======================
   // UI & Form States

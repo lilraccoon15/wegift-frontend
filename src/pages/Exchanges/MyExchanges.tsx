@@ -7,6 +7,7 @@ import DataState from "../../components/ui/DataState";
 import Modal from "../../components/ui/Modal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import CardList from "../../components/ui/CardList";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const MyExchanges = () => {
   const navigate = useNavigate();
@@ -54,7 +55,7 @@ const MyExchanges = () => {
     handleDeleteButton,
   } = useManageMyExchanges(navigate);
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
 
   return (
     <DataState loading={isLoading} error={error}>

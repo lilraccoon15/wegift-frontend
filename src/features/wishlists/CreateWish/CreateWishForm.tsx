@@ -3,6 +3,7 @@ import InputField from "../../../components/forms/InputField";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 export interface CreateWishFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -61,7 +62,7 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   const DEFAULT_PICTURE_URL = "/uploads/wishPictures/default-wish.png";
 

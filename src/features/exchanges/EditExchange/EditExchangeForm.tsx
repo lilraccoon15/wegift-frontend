@@ -5,6 +5,7 @@ import InputField from "../../../components/forms/InputField";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 interface EditExchangeFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -65,7 +66,7 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_EXCHANGE;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
 
   const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
 

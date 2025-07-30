@@ -1,11 +1,12 @@
 import { Link } from "react-router-dom";
+import { CLIENT_ENV } from "../../../config/clientEnv";
 
 const NavLeft = () => {
   // const { isAuthenticated, loading } = useAuth();
 
   // if (loading || !isAuthenticated) return null;
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_AUTH;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
 
   const PICTURE = "/img/logo.png";
 

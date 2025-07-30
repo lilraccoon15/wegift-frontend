@@ -7,6 +7,7 @@ import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import { useCombinedState } from "../../hooks/useCombineState";
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const Friends = () => {
   const { id } = useParams();
@@ -36,7 +37,7 @@ const Friends = () => {
     { loading: loadingMyFriends, error: errorMyFriends },
   ]);
 
-  const BACKEND_URL = import.meta.env.VITE_BACKEND_URL_USER;
+  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
   const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   return (
