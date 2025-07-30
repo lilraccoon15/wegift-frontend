@@ -4,6 +4,7 @@ import BackButton from "../../components/ui/BackButton";
 import Modal from "../../components/ui/Modal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import EditWishForm from "../../features/wishlists/EditWish/EditWishForm";
+import { CLIENT_ENV } from "../../config/clientEnv";
 
 const MyWish = () => {
   const {
@@ -36,7 +37,7 @@ const MyWish = () => {
   } = useManageMyWish();
 
   const DEFAULT_PICTURE_URL_WISH = "/uploads/wishPictures/default-wish.png";
-  const BACKEND_URL_WISHLIST = import.meta.env.VITE_BACKEND_URL_WISHLIST;
+  const BACKEND_URL_WISHLIST = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   if (!id) return <p>Paramètre ID manquant</p>;
 
