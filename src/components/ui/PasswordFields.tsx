@@ -116,7 +116,7 @@ const PasswordFields: React.FC<PasswordFieldsProps> = ({
       </div>
 
       {showValidationRules && (
-        <ul>
+        <ul className="password-validation">
           <li>
             <i
               className={`fa-solid ${

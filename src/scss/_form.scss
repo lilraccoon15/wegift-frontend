@@ -179,7 +179,7 @@ form {
       z-index: 10;
       position: absolute;
       right: 1rem;
-      top: 50%;
+      top: 1.4rem;
       transform: translateY(-50%);
       pointer-events: auto;
     }
@@ -188,26 +188,26 @@ form {
       right: 2.5rem;
     }
   }
+}
+.valid {
+  color: $valid;
+}
 
-  .valid {
-    color: $valid;
-  }
+.not-valid {
+  color: $not-valid;
+}
 
-  .not-valid {
-    color: $not-valid;
-  }
-
-  .oauth-section {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    width: 95%;
-    p {
-      font-weight: bold;
-      text-transform: uppercase;
-    }
+.oauth-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 95%;
+  p {
+    font-weight: bold;
+    text-transform: uppercase;
   }
 }
+
 /* From Uiverse.io by Yaya12085 */
 .switch {
   position: relative;
@@ -253,6 +253,11 @@ form {
 .switch:checked:before {
   transform: translateX(100%);
   border-color: $primary;
+}
+
+.password-validation {
+  color: $text-light;
+  font-size: small;
 }
 
 @media screen and (min-width: 1024px) {

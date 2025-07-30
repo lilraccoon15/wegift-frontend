@@ -95,6 +95,7 @@ a {
 }
 
 h1,
+h2,
 h3,
 h4,
 h5,
@@ -103,11 +104,11 @@ h6 {
 }
 
 h1 {
-  font-size: 1.25em;
+  font-size: 1.35em;
 }
 
 h2 {
-  font-size: 1em;
+  font-size: 1.05em;
 }
 
 small {
@@ -128,6 +129,7 @@ li {
 
 .message {
   font-weight: bold;
+  margin-top: 1rem;
 }
 
 .logo {
@@ -151,6 +153,7 @@ a.btn {
   width: 100%;
   transition: all 0.3s ease;
   font-weight: bold;
+  margin-top: 1.5rem;
 }
 
 .btn.next,
@@ -176,6 +179,7 @@ a.btn {
     width: 50%;
     box-shadow: $box-shadow-default;
     //transition: background-color 0.3s ease;
+    font-weight: bold;
   }
 }
 
@@ -192,6 +196,7 @@ a.btn {
     width: 50%;
     box-shadow: $box-shadow-default;
     //transition: background-color 0.3s ease;
+    font-weight: bold;
   }
 
   .btn-status {
@@ -216,6 +221,7 @@ a.btn {
 
 .link {
   font-weight: bold;
+  color: $secondary;
 }
 
 button {

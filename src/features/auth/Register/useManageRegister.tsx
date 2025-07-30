@@ -27,6 +27,7 @@ export const useManageRegister = () => {
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [emailValid, setEmailValid] = useState(false);
   const [pseudoValid, setPseudoValid] = useState(false);
+  // todo : différencier valide et disponible
   const [birthDateValid, setBirthDateValid] = useState(false);
   const [serverMessage, setServerMessage] = useState<{
     type: "error" | "success";

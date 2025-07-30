@@ -41,7 +41,6 @@ export function useParticipantsProfiles(userIds: string[]) {
         })
       );
 
-      // Retourne un objet { userId1: "pseudo1", userId2: "pseudo2", ... }
       return results.reduce((acc, curr) => {
         acc[curr.id] = curr.pseudo;
         return acc;

@@ -1,19 +1,51 @@
 @use "./variables" as *;
 
 .home {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  align-items: center;
 }
 
 .main-content:has(.home-visitor) {
-    margin: 0%;
+  margin: 0%;
+}
+
+.home-left {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.8rem;
 }
 
 .home-picture {
-    width: 100%;
+  width: 100%;
 }
 
 @media screen and (min-width: 1024px) {
+  .main-content .frame.home-desktop {
+    display: flex;
+    flex-direction: row-reverse;
+
+    .home-right {
+      width: 60%;
+    }
+
+    .home-left {
+      margin: auto;
+      width: 30%;
+      align-items: center;
+      form {
+        width: 100%;
+      }
+      .title-return {
+        margin-bottom: 0;
+        border-bottom: 0;
+      }
+      .frame {
+        box-shadow: none;
+        margin-top: 0;
+      }
+    }
+  }
 }

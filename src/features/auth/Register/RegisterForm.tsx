@@ -57,8 +57,17 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   setCurrentStep,
   isStepValid,
 }) => {
+  console.log(formData.pseudo.length);
   return (
-    <form onSubmit={onSubmit}>
+    <form
+      onSubmit={onSubmit}
+      onKeyDown={(e) => {
+        if (e.key === "Enter" && currentStep !== 5 && isStepValid()) {
+          e.preventDefault();
+          setCurrentStep((prev) => prev + 1);
+        }
+      }}
+    >
       {serverMessage && (
         <div
           className={` ${
@@ -70,6 +79,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       )}
 
       <div className={`form-step ${currentStep === 1 ? "active" : ""}`}>
+        <h2>Etape {currentStep}/5 : Choisissez votre pseudo</h2>
         <label htmlFor="pseudo">
           Pseudo{" "}
           <span className="required-marker" aria-hidden="true">
@@ -88,14 +98,24 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             required
           />
 
-          <span className={`input-info ${pseudoValid ? "valid" : "not-valid"}`}>
+          <div className={`input-info ${pseudoValid ? "valid" : "not-valid"}`}>
             {formData.pseudo.length > 0 &&
               (pseudoValid ? (
                 <i className="fa-solid fa-circle-check"></i>
               ) : (
                 <i className="fa-solid fa-circle-exclamation"></i>
               ))}
-          </span>
+          </div>
+
+          {formData.pseudo.length > 0 && formData.pseudo.length < 3 && (
+            <div className="message not-valid">
+              Le pseudo doit contenir au moins 3 caractères
+            </div>
+          )}
+
+          {formData.pseudo.length >= 3 && !pseudoValid && (
+            <div className="message not-valid">Ce pseudo est déjà pris</div>
+          )}
         </div>
         <StepButtons
           showNext
@@ -105,6 +125,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       </div>
 
       <div className={`form-step ${currentStep === 2 ? "active" : ""}`}>
+        <h2>Etape {currentStep}/5 : Renseignez votre date de naissance</h2>
         <label htmlFor="birthdate">
           Date de naissance{" "}
           <span className="required-marker" aria-hidden="true">
@@ -122,15 +143,24 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             required
           />
           {formData.birthDate && (
-            <span
-              className={`input-info ${birthDateValid ? "valid" : "not-valid"}`}
-            >
-              {birthDateValid ? (
-                <i className="fa-solid fa-circle-check"></i>
-              ) : (
-                <i className="fa-solid fa-circle-exclamation"></i>
+            <>
+              <div
+                className={`input-info ${
+                  birthDateValid ? "valid" : "not-valid"
+                }`}
+              >
+                {birthDateValid ? (
+                  <i className="fa-solid fa-circle-check"></i>
+                ) : (
+                  <i className="fa-solid fa-circle-exclamation"></i>
+                )}
+              </div>
+              {!birthDateValid && (
+                <div className="message not-valid">
+                  La date ne naissance n'est pas valide
+                </div>
               )}
-            </span>
+            </>
           )}
         </div>
         <StepButtons
@@ -143,6 +173,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       </div>
 
       <div className={`form-step ${currentStep === 3 ? "active" : ""}`}>
+        <h2>Etape {currentStep}/5 : Renseignez votre adresse email</h2>
         <label htmlFor="email">
           Adresse email{" "}
           <span className="required-marker" aria-hidden="true">
@@ -160,14 +191,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             onChange={onChange}
             required
           />
-          <span className={`input-info ${emailValid ? "valid" : "not-valid"}`}>
+          <div className={`input-info ${emailValid ? "valid" : "not-valid"}`}>
             {formData.email.length > 0 &&
               (emailValid ? (
                 <i className="fa-solid fa-circle-check"></i>
               ) : (
                 <i className="fa-solid fa-circle-exclamation"></i>
               ))}
-          </span>
+          </div>
+          {formData.email.length > 0 && !emailValid && (
+            <div className="message not-valid">
+              Cette adresse email est déjà prise
+            </div>
+          )}
         </div>
 
         <StepButtons
@@ -180,6 +216,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       </div>
 
       <div className={`form-step ${currentStep === 4 ? "active" : ""}`}>
+        <h2>Etape {currentStep}/5 : Choisissez votre mot de passe</h2>
         <PasswordFields
           newPassword={formData.password}
           confirmPassword={formData.confirmPassword}
@@ -204,6 +241,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       </div>
 
       <div className={`form-step ${currentStep === 5 ? "active" : ""}`}>
+        <h2>Etape {currentStep}/5 : Indiquez vos préférences</h2>
         <label htmlFor="acceptedTerms">
           J'accepte les CGU{" "}
           <span className="required-marker" aria-hidden="true">
