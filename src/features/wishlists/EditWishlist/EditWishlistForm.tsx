@@ -66,13 +66,24 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data">
+      <label htmlFor="title">
+        Titre{" "}
+        <span className="required-marker" aria-hidden="true">
+          *
+        </span>{" "}
+        : <span className="sr-only">(obligatoire)</span>
+      </label>
       <InputField
+        id="title"
+        name="title"
         type="text"
         placeholder="Titre"
         value={title}
         onChange={onTitleChange}
         required
       />
+      <label htmlFor="picture">Image de couverture :</label>
+
       <img
         src={
           picturePreview
@@ -83,16 +94,22 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
         }
         alt="Photo de couverture"
         onClick={handlePictureClick}
+        className="picture-form"
       />
       <input
+        id="picture"
+        name="picture"
         type="file"
         accept="image/*"
         ref={fileInputRef}
         style={{ display: "none" }}
         onChange={onPictureChange}
       />
+      <label htmlFor="description">Description :</label>
       <InputField
-        type="text"
+        id="description"
+        name="description"
+        isTextArea
         placeholder="Description"
         value={description}
         onChange={onDescriptionChange}
@@ -118,13 +135,18 @@ const EditWishlistForm: React.FC<EditWishlistFormProps> = ({
         checked={mode === "collaborative"}
         onChange={(e) => {
           const target = e.target as HTMLInputElement;
+          const newValue = target.checked ? "collaborative" : "individual";
           onModeChange({
             ...e,
             target: {
               ...target,
-              value: target.checked ? "collaborative" : "individual",
+              value: newValue,
             },
           } as React.ChangeEvent<HTMLInputElement>);
+
+          if (newValue === "individual") {
+            setParticipants([]);
+          }
         }}
       />
       {mode == "collaborative" && (

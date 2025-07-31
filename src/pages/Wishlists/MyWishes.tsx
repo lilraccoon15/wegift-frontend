@@ -7,28 +7,38 @@ const MyWishes = () => {
   const { wishes, loading, error, BACKEND_URL, currentUser } =
     useManageMyWishesResa();
 
+  const filteredWishes: Wish[] = (wishes ?? [])
+    .map((rw) => rw.wish)
+    .filter((w): w is Wish => !!w);
+
   return (
     <DataState loading={loading} error={error}>
-      <CardList<Wish>
-        items={(wishes ?? [])
-          .map((rw) => rw.wish)
-          .filter((w): w is Wish => !!w)}
-        backendUrl={BACKEND_URL}
-        getLink={(item) => `/wish/${item.id}`}
-        showEditMenu={(item) => item.userId === currentUser?.id}
-        // onEditClick={openWishEditForm}
-        // onDeleteClick={confirmWishDelete}
-        // optionsItemId={optionsWishId}
-        // toggleOptions={toggleOptions}
-        getDefaultPicture={() => "/uploads/wishPictures/default-wish.png"}
-        getPictureUrl={(item) =>
-          item.picture?.startsWith("http")
-            ? item.picture
-            : item.picture
-            ? `${BACKEND_URL}${item.picture}`
-            : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
-        }
-      />
+      {filteredWishes.length === 0 ? (
+        <p className="empty-message">
+          Vous n’avez encore réservé aucun souhait.
+        </p>
+      ) : (
+        <CardList<Wish>
+          items={(wishes ?? [])
+            .map((rw) => rw.wish)
+            .filter((w): w is Wish => !!w)}
+          backendUrl={BACKEND_URL}
+          getLink={(item) => `/wish/${item.id}`}
+          showEditMenu={(item) => item.userId === currentUser?.id}
+          // onEditClick={openWishEditForm}
+          // onDeleteClick={confirmWishDelete}
+          // optionsItemId={optionsWishId}
+          // toggleOptions={toggleOptions}
+          getDefaultPicture={() => "/uploads/wishPictures/default-wish.png"}
+          getPictureUrl={(item) =>
+            item.picture?.startsWith("http")
+              ? item.picture
+              : item.picture
+              ? `${BACKEND_URL}${item.picture}`
+              : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
+          }
+        />
+      )}
     </DataState>
   );
 };

@@ -103,6 +103,14 @@
     .searchbar-desktop {
       position: relative;
       width: 70%;
+      .search-bar-container {
+        box-shadow: none;
+        background-color: $background;
+        border: 0;
+        input {
+          background-color: $background;
+        }
+      }
     }
 
     .searchbar-desktop,
