@@ -106,6 +106,7 @@ const MyExchange = () => {
                           title="Annuler le tirage ?"
                           message="Êtes-vous sûr ? Cela supprimera toutes les assignations."
                           onConfirm={handleCancelDraw}
+                          cancelLabel="Annuler"
                           onClose={() => setConfirmCancelOpen(false)}
                         />
                       )}

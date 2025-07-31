@@ -26,8 +26,9 @@ export const useManageRegister = () => {
 
   const [passwordsMatch, setPasswordsMatch] = useState(true);
   const [emailValid, setEmailValid] = useState(false);
+  const [emailAvailable, setEmailAvailable] = useState(false);
   const [pseudoValid, setPseudoValid] = useState(false);
-  // todo : différencier valide et disponible
+  const [pseudoAvailable, setPseudoAvailable] = useState(false);
   const [birthDateValid, setBirthDateValid] = useState(false);
   const [serverMessage, setServerMessage] = useState<{
     type: "error" | "success";
@@ -36,15 +37,18 @@ export const useManageRegister = () => {
   const [loading, setLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
   const [currentStep, setCurrentStep] = useState(1);
+  const [showSuccessModal, setShowSuccessModal] = useState(false);
 
   const isStepValid = () => {
     switch (currentStep) {
       case 1:
-        return formData.pseudo.trim().length > 0 && pseudoValid;
+        return (
+          formData.pseudo.trim().length > 0 && pseudoValid && pseudoAvailable
+        );
       case 2:
         return formData.birthDate.trim().length > 0 && birthDateValid;
       case 3:
-        return formData.email.trim().length > 0 && emailValid;
+        return formData.email.trim().length > 0 && emailValid && emailAvailable;
       case 4:
         return (
           formData.password.length > 0 &&
@@ -61,13 +65,13 @@ export const useManageRegister = () => {
 
   useEffect(() => {
     const delay = setTimeout(async () => {
-      if (!validateEmail(formData.email)) {
-        setEmailValid(false);
-        return;
-      }
+      const isValid = validateEmail(formData.email);
+      setEmailValid(isValid);
+
+      if (!isValid) return;
 
       const isAvailable = await checkEmailAvailability(formData.email);
-      setEmailValid(isAvailable);
+      setEmailAvailable(isAvailable);
     }, 400);
 
     return () => clearTimeout(delay);
@@ -75,13 +79,17 @@ export const useManageRegister = () => {
 
   useEffect(() => {
     const delay = setTimeout(async () => {
-      if (formData.pseudo.trim().length < 3) {
-        setPseudoValid(false);
-        return;
-      }
+      const isValid =
+        formData.pseudo.length >= 3 &&
+        formData.pseudo.length <= 20 &&
+        /^[a-z0-9_-]+$/.test(formData.pseudo);
+
+      setPseudoValid(isValid);
+
+      if (!isValid) return;
 
       const isAvailable = await checkPseudoAvailability(formData.pseudo);
-      setPseudoValid(isAvailable);
+      setPseudoAvailable(isAvailable);
     }, 400);
 
     return () => clearTimeout(delay);
@@ -119,12 +127,14 @@ export const useManageRegister = () => {
   ) => {
     const { name, value, type } = e.target;
 
+    const adjustedValue = name === "pseudo" ? value.toLowerCase() : value;
+
     setFormData((prev) => ({
       ...prev,
       [name]:
         type === "checkbox" && e.target instanceof HTMLInputElement
           ? e.target.checked
-          : value,
+          : adjustedValue,
     }));
 
     if (name === "password") {
@@ -208,10 +218,7 @@ export const useManageRegister = () => {
       const res = await registerUser(userData);
 
       if (res.success) {
-        setServerMessage({
-          type: "success",
-          text: res.message || "Inscription réussie !",
-        });
+        setShowSuccessModal(true);
 
         setFormData({
           pseudo: "",
@@ -257,7 +264,9 @@ export const useManageRegister = () => {
     passwordsMatch,
     emailValid,
     pseudoValid,
+    pseudoAvailable,
     birthDateValid,
+    emailAvailable,
     loading,
     serverMessage,
     showPassword,
@@ -268,5 +277,7 @@ export const useManageRegister = () => {
     currentStep,
     setCurrentStep,
     isStepValid,
+    showSuccessModal,
+    setShowSuccessModal,
   };
 };

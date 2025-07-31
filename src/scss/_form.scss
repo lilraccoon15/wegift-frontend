@@ -260,5 +260,24 @@ form {
   font-size: small;
 }
 
+.react-datepicker {
+  border-radius: 0.5rem;
+  border: 1.5px solid $primary-300;
+  box-shadow: $box-shadow-default;
+
+  button {
+    color: $text;
+  }
+
+  .react-datepicker__header {
+    background-color: $background;
+    border-bottom: 1px solid $primary-100;
+  }
+
+  .react-datepicker__year-dropdown {
+    background-color: $background;
+  }
+}
+
 @media screen and (min-width: 1024px) {
 }

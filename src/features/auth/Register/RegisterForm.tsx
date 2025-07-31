@@ -2,6 +2,11 @@ import React from "react";
 import InputField from "../../../components/forms/InputField";
 import StepButtons from "../../../components/forms/stepButtons";
 import PasswordFields from "../../../components/ui/PasswordFields";
+import DatePicker from "react-datepicker";
+import { fr } from "date-fns/locale";
+import ConfirmModal from "../../../components/ui/ConfirmModal";
+import { useNavigate } from "react-router-dom";
+
 // import Message from "../../components/ui/Message";
 
 interface RegisterFormProps {
@@ -23,8 +28,10 @@ interface RegisterFormProps {
   };
   passwordsMatch: boolean;
   emailValid: boolean;
+  emailAvailable: boolean;
   birthDateValid: boolean;
   pseudoValid: boolean;
+  pseudoAvailable: boolean;
   loading: boolean;
   serverMessage: { type: "error" | "success"; text: string } | null;
   showPassword: boolean;
@@ -37,6 +44,8 @@ interface RegisterFormProps {
   currentStep: number;
   setCurrentStep: React.Dispatch<React.SetStateAction<number>>;
   isStepValid: () => boolean;
+  showSuccessModal: boolean;
+  setShowSuccessModal: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
 const RegisterForm: React.FC<RegisterFormProps> = ({
@@ -44,7 +53,9 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   passwordValidity,
   passwordsMatch,
   emailValid,
+  emailAvailable,
   pseudoValid,
+  pseudoAvailable,
   birthDateValid,
   loading,
   serverMessage,
@@ -56,8 +67,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
   currentStep,
   setCurrentStep,
   isStepValid,
+  showSuccessModal,
 }) => {
-  console.log(formData.pseudo.length);
+  const navigate = useNavigate();
+
+  const redirectAfterRegister = (toLogin: boolean) => {
+    const isMobile = window.innerWidth <= 768;
+    if (toLogin) {
+      navigate(isMobile ? "/login" : "/?mode=login");
+    } else {
+      navigate("/");
+    }
+  };
+
   return (
     <form
       onSubmit={onSubmit}
@@ -98,9 +120,19 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             required
           />
 
-          <div className={`input-info ${pseudoValid ? "valid" : "not-valid"}`}>
-            {formData.pseudo.length > 0 &&
-              (pseudoValid ? (
+          <div
+            className={`input-info ${
+              formData.pseudo.length >= 3
+                ? pseudoValid
+                  ? pseudoAvailable
+                    ? "valid"
+                    : "not-valid"
+                  : "not-valid"
+                : ""
+            }`}
+          >
+            {formData.pseudo.length >= 3 &&
+              (pseudoValid && pseudoAvailable ? (
                 <i className="fa-solid fa-circle-check"></i>
               ) : (
                 <i className="fa-solid fa-circle-exclamation"></i>
@@ -113,9 +145,27 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             </div>
           )}
 
-          {formData.pseudo.length >= 3 && !pseudoValid && (
-            <div className="message not-valid">Ce pseudo est déjà pris</div>
+          {formData.pseudo.length > 20 && (
+            <div className="message not-valid">
+              Le pseudo ne doit pas dépasser 20 caractères
+            </div>
           )}
+
+          {formData.pseudo.length >= 3 &&
+            formData.pseudo.length <= 20 &&
+            !/^[a-z0-9_-]+$/.test(formData.pseudo) && (
+              <div className="message not-valid">
+                Le pseudo ne doit contenir que des minuscules, chiffres, tirets
+                ou underscores
+              </div>
+            )}
+
+          {formData.pseudo.length >= 3 &&
+            /^[a-zA-Z0-9_-]+$/.test(formData.pseudo) &&
+            pseudoValid &&
+            !pseudoAvailable && (
+              <div className="message not-valid">Ce pseudo est déjà pris</div>
+            )}
         </div>
         <StepButtons
           showNext
@@ -134,13 +184,25 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           : <span className="sr-only">(obligatoire)</span>
         </label>
         <div className="input-validation">
-          <InputField
+          <DatePicker
             id="birthdate"
-            name="birthDate"
-            type="date"
-            value={formData.birthDate}
-            onChange={onChange}
-            required
+            selected={formData.birthDate ? new Date(formData.birthDate) : null}
+            onChange={(date: Date | null) => {
+              onChange({
+                target: {
+                  name: "birthDate",
+                  value: date ? date.toISOString().split("T")[0] : "",
+                },
+              } as React.ChangeEvent<HTMLInputElement>);
+            }}
+            dateFormat="dd/MM/yyyy"
+            showYearDropdown
+            scrollableYearDropdown
+            yearDropdownItemNumber={100}
+            placeholderText="JJ/MM/AAAA"
+            maxDate={new Date()}
+            locale={fr}
+            className="input" // si tu veux reprendre le style de InputField
           />
           {formData.birthDate && (
             <>
@@ -191,15 +253,26 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
             onChange={onChange}
             required
           />
-          <div className={`input-info ${emailValid ? "valid" : "not-valid"}`}>
+          <div
+            className={`input-info ${
+              emailValid && emailAvailable ? "valid" : "not-valid"
+            }`}
+          >
             {formData.email.length > 0 &&
-              (emailValid ? (
+              (emailValid && emailAvailable ? (
                 <i className="fa-solid fa-circle-check"></i>
               ) : (
                 <i className="fa-solid fa-circle-exclamation"></i>
               ))}
           </div>
+
           {formData.email.length > 0 && !emailValid && (
+            <div className="message not-valid">
+              L'adresse email n'est pas valide
+            </div>
+          )}
+
+          {formData.email.length > 0 && emailValid && !emailAvailable && (
             <div className="message not-valid">
               Cette adresse email est déjà prise
             </div>
@@ -267,6 +340,15 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
           onChange={onChange}
           className="switch"
         />
+        {showSuccessModal && (
+          <ConfirmModal
+            title="Inscription réussie"
+            message={`Bienvenue !\n\nVous devez activer votre compte en cliquant sur le lien envoyé à ${formData.email} avant de pouvoir vous connecter.`}
+            confirmLabel="Se connecter"
+            onConfirm={() => redirectAfterRegister(true)}
+            onClose={() => redirectAfterRegister(true)}
+          />
+        )}
         <StepButtons
           showPrevious
           onPrevious={() => setCurrentStep(4)}

@@ -10,6 +10,8 @@ const Register = () => {
     passwordsMatch,
     emailValid,
     pseudoValid,
+    pseudoAvailable,
+    emailAvailable,
     birthDateValid,
     loading,
     serverMessage,
@@ -21,6 +23,8 @@ const Register = () => {
     currentStep,
     setCurrentStep,
     isStepValid,
+    showSuccessModal,
+    setShowSuccessModal,
   } = useManageRegister();
 
   const handleGoogleSignup = () => {
@@ -40,6 +44,7 @@ const Register = () => {
           passwordsMatch={passwordsMatch}
           emailValid={emailValid}
           pseudoValid={pseudoValid}
+          pseudoAvailable={pseudoAvailable}
           birthDateValid={birthDateValid}
           loading={loading}
           serverMessage={serverMessage}
@@ -51,6 +56,9 @@ const Register = () => {
           currentStep={currentStep}
           setCurrentStep={setCurrentStep}
           isStepValid={isStepValid}
+          emailAvailable={emailAvailable}
+          showSuccessModal={showSuccessModal}
+          setShowSuccessModal={setShowSuccessModal}
         />
 
         <div className="oauth-section">

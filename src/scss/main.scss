@@ -12,6 +12,7 @@
 @use "./spaces" as *;
 @use "./google" as *;
 @import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "react-datepicker/dist/react-datepicker.css";
 
 *,
 *::before,
@@ -187,6 +188,7 @@ a.btn {
   display: flex;
   width: 100%;
   gap: 0.8rem;
+  justify-content: center;
 
   .btn-action {
     padding: 8px 15px;
@@ -311,6 +313,10 @@ button {
   box-shadow: $box-shadow-default-modal;
   height: 80vh;
   overflow-y: auto;
+
+  &.confirm {
+    height: 40vh;
+  }
 
   .modal-body {
     padding: 1rem 2rem;

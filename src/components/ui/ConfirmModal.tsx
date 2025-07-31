@@ -13,11 +13,14 @@ const ConfirmModal = ({
   title = "Confirmation",
   message = "Êtes-vous sûr de vouloir effectuer cette action ?",
   confirmLabel = "Oui",
-  cancelLabel = "Annuler",
+  cancelLabel,
 }: ConfirmModalProps) => {
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+      <div
+        className="modal-content confirm"
+        onClick={(e) => e.stopPropagation()}
+      >
         <div className="modal-title">
           <h2>{title}</h2>
           <button onClick={onClose}>
@@ -27,9 +30,11 @@ const ConfirmModal = ({
         <div className="modal-body">
           <p>{message}</p>
           <div className="action-buttons">
-            <button className="btn-action btn-secondary" onClick={onClose}>
-              {cancelLabel}
-            </button>
+            {cancelLabel && (
+              <button className="btn-action btn-secondary" onClick={onClose}>
+                {cancelLabel}
+              </button>
+            )}
             <button onClick={onConfirm} className="btn-action">
               {confirmLabel}
             </button>
