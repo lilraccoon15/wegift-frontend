@@ -87,6 +87,8 @@ const NotificationItem = ({ notif }: Props) => {
   let textContent = notif.type?.text ?? "";
   let pictureUrl: string | undefined = undefined;
 
+  // todo : enquêter sur pourquoi j'ai pas l'url de la photo de profil existante
+
   if (notif.type?.type?.startsWith("friendship") && requesterId) {
     destination = `/profile/${requesterId}`;
     const name = requester?.pseudo ?? "Quelqu’un";
