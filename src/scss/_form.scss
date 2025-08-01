@@ -188,6 +188,15 @@ form {
       right: 2.5rem;
     }
   }
+
+  .input-price {
+    position: relative;
+    .fa-euro-sign {
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+    }
+  }
 }
 .valid {
   color: $valid;

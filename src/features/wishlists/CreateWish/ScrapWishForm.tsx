@@ -28,15 +28,23 @@ const ScrapWishForm = ({
 }: ScrapWishFormProps) => {
   return (
     <form onSubmit={onSubmitScrapping} encType="multipart/form-data">
-      <label>Url :</label>
+      <label htmlFor="url">
+        Url{" "}
+        <span className="required-marker" aria-hidden="true">
+          *
+        </span>{" "}
+        : <span className="sr-only">(obligatoire)</span>
+      </label>
       <InputField
+        id="url"
+        name="url"
         type="text"
         placeholder="URL"
         value={url}
         onChange={onUrlChange}
         required
       />
-      <label>Disponible ?</label>
+      <label>Réservable ?</label>
       <ToggleSwitch
         name="status"
         checked={status === "available"}

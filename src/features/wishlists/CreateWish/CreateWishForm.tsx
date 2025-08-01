@@ -114,15 +114,20 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
         onChange={onDescriptionChange}
       />
       <label htmlFor="price">Prix :</label>
-      <InputField
-        id="price"
-        name="price"
-        type="text"
-        placeholder="Prix"
-        value={price}
-        onChange={onPriceChange}
-      />
-      {/* todo : gérer le prix et vérifier la migration */}
+      <div className="input-price">
+        <InputField
+          id="price"
+          name="price"
+          type="number"
+          placeholder="Prix"
+          value={price}
+          onChange={onPriceChange}
+          inputMode="decimal"
+          step={0.01}
+          min={0}
+        />
+        <i className="fa-solid fa-euro-sign"></i>
+      </div>
       <label htmlFor="link">URL :</label>
       <InputField
         id="link"
@@ -132,7 +137,7 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
         value={link}
         onChange={onLinkChange}
       />
-      <label>Disponible ?</label>
+      <label>Réservable ?</label>
       <ToggleSwitch
         name="status"
         checked={status === "available"}
