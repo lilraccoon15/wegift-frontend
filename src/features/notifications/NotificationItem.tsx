@@ -122,6 +122,8 @@ const NotificationItem = ({ notif }: Props) => {
         }`;
   }
 
+  console.log(friendshipData?.status);
+
   return (
     <li className="notification-item">
       <div className="notif-picture">
