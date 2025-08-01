@@ -155,7 +155,7 @@ const NotificationItem = ({ notif }: Props) => {
                 }
                 variant="friendship"
               />
-            ) : friendshipData?.status === "accepted" ? (
+            ) : friendshipData?.status === "friends" ? (
               <div className="btn btn-status">Vous avez accepté la demande</div>
             ) : friendshipData?.status === "rejected" ? (
               <div className="btn btn-status">Vous avez refusé la demande</div>
