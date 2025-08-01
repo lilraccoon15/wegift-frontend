@@ -50,10 +50,6 @@ footer {
   box-shadow: $box-shadow-default;
   height: $mobile-nav-height;
   background-color: $background-light;
-
-  span {
-    display: none;
-  }
 }
 
 .no-auth {
@@ -87,10 +83,6 @@ footer {
   .notification-icon-wrapper {
     position: relative;
     display: inline-block;
-
-    span {
-      display: block;
-    }
 
     .notification-badge {
       position: absolute;

@@ -26,7 +26,7 @@ const NavRight = () => {
               location.pathname.startsWith("/dashboard") ? "nav-active" : ""
             }`}
           >
-            <i className="fa-solid fa-house"></i> <span>Espaces</span>
+            <i className="fa-solid fa-house"></i>
           </Link>
 
           <Link
@@ -36,7 +36,6 @@ const NavRight = () => {
             }`}
           >
             <i className="fa-solid fa-magnifying-glass"></i>{" "}
-            <span>Recherche</span>
           </Link>
           <NotificationBell />
           <Link
@@ -58,7 +57,6 @@ const NavRight = () => {
               }}
               aria-label={`Photo de profil de ${user.pseudo}`}
             />
-            <span>Profil</span>
           </Link>
         </>
       )}

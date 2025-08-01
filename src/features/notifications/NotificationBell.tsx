@@ -65,7 +65,6 @@ const NotificationBell = () => {
             <span className="notification-badge">{unreadCount}</span>
           )}
         </div>
-        <span>Notifications</span>
       </button>
 
       <Link
@@ -80,7 +79,6 @@ const NotificationBell = () => {
             <span className="notification-badge">{unreadCount}</span>
           )}
         </div>
-        <span>Notifications</span>
       </Link>
 
       {showNotifications && (
