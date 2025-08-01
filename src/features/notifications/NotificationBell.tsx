@@ -47,6 +47,9 @@ const NotificationBell = () => {
 
   const unreadCount = notifications?.filter((n) => !n.read).length ?? 0;
 
+  console.log("🔔 unreadCount:", unreadCount);
+  console.log("🔔 notifications:", notifications);
+
   return (
     <>
       <button
