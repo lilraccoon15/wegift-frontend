@@ -10,6 +10,7 @@ import ActionButtons from "../../components/ui/ActionButtons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CLIENT_ENV } from "../../config/clientEnv";
 import { useMyProfile } from "../profile/MyProfile/MyProfileHelpers";
+import { formatPictureUrl } from "../../utils/formatPictureUrl";
 
 interface Props {
   notif: Notification;
@@ -90,39 +91,46 @@ const NotificationItem = ({ notif }: Props) => {
     destination = `/profile/${requesterId}`;
     const name = requester?.pseudo ?? "Quelqu’un";
     textContent = `${name} ${notif.type.text}`;
-    pictureUrl = requester?.picture?.startsWith("blob:")
-      ? requester.picture
-      : requester?.picture?.startsWith("http")
-      ? requester.picture
-      : `${BACKEND_URL_USER}${requester?.picture ?? DEFAULT_PICTURE_URL_USER}`;
+    pictureUrl = formatPictureUrl(
+      requester?.picture,
+      BACKEND_URL_USER,
+      DEFAULT_PICTURE_URL_USER
+    );
   }
 
   if (notif.type?.type?.startsWith("wishlist") && wishlistId) {
     destination = `/wishlist/${wishlistId}`;
     const title = wishlist?.title ?? "une wishlist";
     textContent = `${notif.type.text} ${title}`;
-    pictureUrl = wishlist?.picture?.startsWith("blob:")
-      ? wishlist.picture
-      : wishlist?.picture?.startsWith("http")
-      ? wishlist.picture
-      : `${BACKEND_URL_WISHLIST}${
-          wishlist?.picture ?? DEFAULT_PICTURE_URL_WISHLIST
-        }`;
+    pictureUrl = formatPictureUrl(
+      wishlist?.picture,
+      BACKEND_URL_WISHLIST,
+      DEFAULT_PICTURE_URL_WISHLIST
+    );
   }
+
+  // if (notif.type?.type?.startsWith("wish") && wishId) {
+  //   destination = `/wish/${wishId}`;
+  //   const title = wishlist?.title ?? "un souhait";
+  //   textContent = `${notif.type.text} ${title}`;
+  //   pictureUrl = formatPictureUrl(
+  //     wish?.picture,
+  //     BACKEND_URL_WISH,
+  //     DEFAULT_PICTURE_URL_WISH
+  //   );
+  // }
 
   if (notif.type?.type?.startsWith("exchange") && exchangeId) {
     destination = `/exchange/${exchangeId}`;
     textContent = notif.type.text ?? "Notification d’échange";
-    pictureUrl = data.exchangePicture?.startsWith("blob:")
-      ? data.exchangePicture
-      : data.exchangePicture?.startsWith("http")
-      ? data.exchangePicture
-      : `${BACKEND_URL_EXCHANGE}${
-          data.exchangePicture ?? DEFAULT_PICTURE_URL_EXCHANGE
-        }`;
+    pictureUrl = formatPictureUrl(
+      data.exchangePicture,
+      BACKEND_URL_EXCHANGE,
+      DEFAULT_PICTURE_URL_EXCHANGE
+    );
   }
 
-  console.log(friendshipData?.status);
+  console.log(pictureUrl);
 
   return (
     <li className="notification-item">
