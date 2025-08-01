@@ -85,7 +85,7 @@ const NotificationItem = ({ notif }: Props) => {
 
   let destination = "#";
   let textContent = notif.type?.text ?? "";
-  let pictureUrl = DEFAULT_PICTURE_URL_USER;
+  let pictureUrl: string | undefined = undefined;
 
   if (notif.type?.type?.startsWith("friendship") && requesterId) {
     destination = `/profile/${requesterId}`;
