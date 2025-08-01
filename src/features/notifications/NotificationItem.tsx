@@ -1,14 +1,15 @@
 import {
   respondToFriendRequest,
+  useFriendshipStatus,
   useProfile,
 } from "../profile/ViewProfile/ViewProfileHelpers";
 import type { Notification } from "./NotificationHelpers";
 import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers";
 import { Link } from "react-router-dom";
 import ActionButtons from "../../components/ui/ActionButtons";
-import { useMutation } from "@tanstack/react-query";
-import { useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { CLIENT_ENV } from "../../config/clientEnv";
+import { useMyProfile } from "../profile/MyProfile/MyProfileHelpers";
 
 interface Props {
   notif: Notification;
@@ -23,24 +24,39 @@ const NotificationItem = ({ notif }: Props) => {
   };
 
   const requesterId = data.requesterId;
+  const { data: myProfile } = useMyProfile();
+
   const wishlistId = data.wishlistId;
   const exchangeId = data.exchangeId;
+
+  const { data: friendshipData, isLoading: statusLoading } =
+    useFriendshipStatus(
+      myProfile?.id || "",
+      requesterId || "",
+      !!myProfile && !!requesterId
+    );
 
   const { data: requester } = useProfile(requesterId || "");
   const { data: wishlist } = useWishlistById(wishlistId || "");
 
-  const [responseStatus, setResponseStatus] = useState<
-    "none" | "accepted" | "rejected"
-  >("none");
+  const queryClient = useQueryClient();
 
   const acceptMutation = useMutation({
     mutationFn: () => respondToFriendRequest(requesterId!, "accept"),
-    onSuccess: () => setResponseStatus("accepted"),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["friendshipStatus", myProfile?.id, requesterId],
+      });
+    },
   });
 
   const declineMutation = useMutation({
     mutationFn: () => respondToFriendRequest(requesterId!, "reject"),
-    onSuccess: () => setResponseStatus("rejected"),
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["friendshipStatus", myProfile?.id, requesterId],
+      });
+    },
   });
 
   const handleAccept = () => {
@@ -126,7 +142,8 @@ const NotificationItem = ({ notif }: Props) => {
 
         {notif.type?.type === "friendship" && (
           <>
-            {responseStatus === "none" ? (
+            {statusLoading ? null : friendshipData?.status ===
+              "pending_received" ? (
               <ActionButtons
                 status="pending_received"
                 onAccept={handleAccept}
@@ -136,11 +153,11 @@ const NotificationItem = ({ notif }: Props) => {
                 }
                 variant="friendship"
               />
-            ) : responseStatus === "accepted" ? (
+            ) : friendshipData?.status === "accepted" ? (
               <div className="btn btn-status">Vous avez accepté la demande</div>
-            ) : (
+            ) : friendshipData?.status === "rejected" ? (
               <div className="btn btn-status">Vous avez refusé la demande</div>
-            )}
+            ) : null}
           </>
         )}
       </div>

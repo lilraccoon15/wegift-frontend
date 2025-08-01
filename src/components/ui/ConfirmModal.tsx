@@ -35,13 +35,7 @@ const ConfirmModal = ({
                 {cancelLabel}
               </button>
             )}
-            <button
-              onClick={() => {
-                console.log("onConfirm déclenché"); // DEBUG
-                onConfirm();
-              }}
-              className="btn-action"
-            >
+            <button onClick={onConfirm} className="btn-action">
               {confirmLabel}
             </button>
           </div>
