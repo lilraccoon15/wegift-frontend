@@ -30,11 +30,6 @@ const Home = () => {
         }
     }, [isAuthenticated, loading, loginWithToken]);
 
-    // 🌀 Affiche un écran de chargement pendant la vérif
-    if (loading || isAuthenticated === null) {
-        return <DataState loading />;
-    }
-
     // ✅ Si connecté → Dashboard
     if (isAuthenticated) {
         return <Dashboard />;

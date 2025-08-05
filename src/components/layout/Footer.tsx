@@ -1,7 +1,7 @@
-import { useAuth } from "../../context/AuthContext";
+// import { useAuth } from "../../context/AuthContext";
 
 const Footer = () => {
-    const { isAuthenticated } = useAuth();
+    // const { isAuthenticated } = useAuth();
 
     // if (loading || isAuthenticated === null) {
     //     return null;
