@@ -7,7 +7,7 @@ import { useEffect } from "react";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import ResetPassword from "./Auth/ResetPassword";
-import DataState from "../components/ui/DataState"; // ← pour afficher un loader
+// import DataState from "../components/ui/DataState"; // ← pour afficher un loader
 
 const Home = () => {
     const { isAuthenticated, loginWithToken, loading } = useAuth(); // ← on récupère tout ce qu'il faut
