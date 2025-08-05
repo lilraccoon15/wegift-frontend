@@ -1,4 +1,5 @@
 @import "@fortawesome/fontawesome-free/css/all.min.css";
+@import "react-datepicker/dist/react-datepicker.css";
 /**************HEADER************/
 footer,
 header {
@@ -14,7 +15,7 @@ header {
 header {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   top: 0;
   left: 0;
   width: 100%;
@@ -24,7 +25,7 @@ header {
 footer {
   display: flex;
   flex-direction: column;
-  box-shadow: 0 -2px 8px 0px #e1e1e1;
+  box-shadow: 0 -1px 4px 0px #e1e1e1;
   bottom: 0;
   left: 0;
 }
@@ -39,12 +40,9 @@ footer {
   display: flex;
   justify-content: space-around;
   z-index: 10;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   height: 4rem;
   background-color: #ffffff;
-}
-.header-right span {
-  display: none;
 }
 
 .no-auth {
@@ -81,7 +79,7 @@ footer {
   top: -0.4rem;
   right: -0.8rem;
   background-color: #fa9746;
-  color: #fbf7fe;
+  color: #fefcff;
   font-size: 0.7rem;
   border-radius: 50%;
   padding: 5px;
@@ -143,13 +141,16 @@ footer {
     flex-direction: row;
     justify-content: space-between;
   }
+  footer {
+    position: relative;
+  }
   .header-right {
     position: fixed;
     top: 0;
     right: 10rem;
     left: auto;
     box-shadow: none;
-    width: 50%;
+    width: 60%;
     padding: 0;
   }
   .header-right .nav-header-right {
@@ -220,12 +221,15 @@ footer {
     flex-direction: row-reverse;
   }
   .main-content .frame.home-desktop .home-right {
-    width: 60%;
+    width: 55%;
   }
   .main-content .frame.home-desktop .home-left {
     margin: auto;
-    width: 30%;
+    width: 35%;
     align-items: center;
+  }
+  .main-content .frame.home-desktop .home-left .btn {
+    width: 60%;
   }
   .main-content .frame.home-desktop .home-left form {
     width: 100%;
@@ -247,7 +251,7 @@ footer {
   margin-top: 2rem;
   gap: 0.25rem;
   border-radius: 0.5rem;
-  background-color: #c5dcfc;
+  background-color: #b9e0dd;
   box-sizing: border-box;
   padding: 0.25rem;
   width: 100%;
@@ -265,12 +269,12 @@ footer {
   transition: all 0.3s ease-in-out;
 }
 .dashboard-nav .tab:hover {
-  background-color: #a6c9fa;
+  background-color: #97d0cc;
   transition: all 0.3s ease-in-out;
 }
 .dashboard-nav .active,
 .dashboard-nav .active:hover {
-  background-color: #fbf7fe;
+  background-color: #fefcff;
   font-weight: 600;
   color: #05191a;
 }
@@ -282,10 +286,12 @@ footer {
 .card-list {
   display: flex;
   flex-wrap: wrap;
-  justify-content: space-between;
+  justify-content: flex-start;
   gap: 0.8rem;
   width: 100%;
   margin-bottom: 1rem;
+  margin-right: auto;
+  margin-left: auto;
 }
 .card-list a {
   color: #05191a;
@@ -295,6 +301,9 @@ footer {
   .dashboard-nav {
     width: 70%;
     margin: auto;
+  }
+  .card-list {
+    width: 90%;
   }
 }
 form {
@@ -312,13 +321,13 @@ form label {
   color: #4b4b4b;
 }
 form fieldset {
-  border: 1.5px solid #a6c9fa;
+  border: 1.5px solid #97d0cc;
   background-color: #ffffff;
   border-radius: 0.5rem;
   padding: 12px;
 }
 form fieldset:focus {
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 form .form-step {
   display: none;
@@ -332,7 +341,7 @@ form .form-step.active {
 }
 form .picture-form {
   border-radius: 0.5rem;
-  border: 1.5px solid #a6c9fa;
+  border: 1.5px solid #97d0cc;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
 }
 form .picture-form:hover {
@@ -350,15 +359,15 @@ form .tag-input {
   min-height: 45px;
   padding: 12px;
   border-radius: 0.5rem;
-  border: 1.5px solid #a6c9fa;
+  border: 1.5px solid #97d0cc;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   background-color: #ffffff;
   z-index: 1;
 }
 form .tag-input:focus {
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 form .tag-input input {
   box-shadow: none;
@@ -393,7 +402,7 @@ form .friend-tag-list ul {
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 0 0 0.5rem 0.5rem;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   margin-top: -1.2rem;
 }
 form .friend-tag-list ul li {
@@ -410,27 +419,27 @@ form textarea {
   width: 100%;
   padding: 12px;
   border-radius: 0.5rem;
-  border: 1.5px solid #a6c9fa;
+  border: 1.5px solid #97d0cc;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   background-color: #ffffff;
 }
 form input:focus,
 form textarea:focus {
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 form input {
   height: 45px;
 }
 form .input:hover {
-  border: 2px solid #72aaf7;
+  border: 2px solid #6ebfb9;
 }
 form .input:active {
   transform: scale(0.95);
 }
 form .input:focus {
-  border: 2px solid #72aaf7;
+  border: 2px solid #6ebfb9;
 }
 form .step-btn {
   display: flex;
@@ -457,6 +466,14 @@ form .input-validation .input-info {
 }
 form .input-validation input[type=date] + .input-info {
   right: 2.5rem;
+}
+form .input-price {
+  position: relative;
+}
+form .input-price .fa-euro-sign {
+  position: absolute;
+  right: 1rem;
+  top: 1rem;
 }
 
 .valid {
@@ -489,11 +506,11 @@ form .input-validation input[type=date] + .input-info {
   border-radius: 9999px;
   background-color: #ffffff;
   transition: all 0.3s ease;
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 
 .switch:checked {
-  background-color: #72aaf7;
+  background-color: #6ebfb9;
 }
 
 .switch::before {
@@ -505,29 +522,45 @@ form .input-validation input[type=date] + .input-info {
   height: 1.6rem;
   width: 1.6rem;
   cursor: pointer;
-  border: 1px solid #72aaf7;
+  border: 1px solid #6ebfb9;
   border-radius: 9999px;
-  background-color: #fbf7fe;
-  box-shadow: 0 3px 10px #72aaf7;
+  background-color: #fefcff;
+  box-shadow: 0 3px 10px #6ebfb9;
   transition: all 0.3s ease;
 }
 
 .switch:hover::before {
-  box-shadow: 0 0 0px 8px #72aaf7;
+  box-shadow: 0 0 0px 8px #6ebfb9;
 }
 
 .switch:checked:hover::before {
-  box-shadow: 0 0 0px 8px #72aaf7;
+  box-shadow: 0 0 0px 8px #6ebfb9;
 }
 
 .switch:checked:before {
   transform: translateX(100%);
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 
 .password-validation {
   color: #4b4b4b;
   font-size: small;
+}
+
+.react-datepicker {
+  border-radius: 0.5rem;
+  border: 1.5px solid #97d0cc;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
+}
+.react-datepicker button {
+  color: #05191a;
+}
+.react-datepicker .react-datepicker__header {
+  background-color: #fefcff;
+  border-bottom: 1px solid #d9f0ef;
+}
+.react-datepicker .react-datepicker__year-dropdown {
+  background-color: #fefcff;
 }
 
 .searchbar-desktop,
@@ -544,10 +577,10 @@ form .input-validation input[type=date] + .input-info {
   height: 45px;
   padding: 12px;
   border-radius: 0.5rem;
-  border: 1.5px solid #c5dcfc;
+  border: 1.5px solid #b9e0dd;
   outline: none;
   transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   background-color: #ffffff;
   gap: 0.8rem;
   position: relative;
@@ -559,7 +592,7 @@ form .input-validation input[type=date] + .input-info {
   font-size: 0.8em;
 }
 .search-bar-container:focus-within {
-  border-color: #72aaf7;
+  border-color: #6ebfb9;
 }
 .search-bar-container input {
   border: 0;
@@ -623,6 +656,13 @@ form .input-validation input[type=date] + .input-info {
     position: relative;
     width: 70%;
   }
+  .header-right .searchbar-desktop .search-bar-container {
+    box-shadow: none;
+    background-color: #fefcff;
+  }
+  .header-right .searchbar-desktop .search-bar-container input {
+    background-color: #fefcff;
+  }
   .header-right .searchbar-desktop,
   .header-right .glass-desktop {
     display: block;
@@ -632,7 +672,7 @@ form .input-validation input[type=date] + .input-info {
     background: #fbf7fe;
     border: 1px solid #ddd;
     border-radius: 0.2rem;
-    box-shadow: 0 2px 8px 0px #e1e1e1;
+    box-shadow: 0 1px 4px 0px #e1e1e1;
     padding: 1rem;
     z-index: 10;
     width: 100%;
@@ -665,7 +705,7 @@ form .input-validation input[type=date] + .input-info {
   background-color: #ffffff;
   padding: 0.5rem;
   border-radius: 1rem;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
 }
 .profile-top .profile-details {
   width: 60%;
@@ -832,7 +872,7 @@ form .input-validation input[type=date] + .input-info {
   background-color: #ffffff;
   padding: 1rem;
   border-radius: 0.5rem;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   width: 98%;
 }
 .notification-item a {
@@ -879,7 +919,7 @@ form .input-validation input[type=date] + .input-info {
   background: #ffffff;
   border: 1px solid #e1e1e1;
   border-radius: 0.2rem;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   padding: 0.2rem;
   z-index: 10;
   display: flex;
@@ -917,10 +957,10 @@ form .input-validation input[type=date] + .input-info {
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
 }
 .card .replace-card-picture {
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
 }
 .card button {
   top: 0.25rem;
@@ -932,7 +972,7 @@ form .input-validation input[type=date] + .input-info {
   border: none;
   padding: 0.4rem;
   border-radius: 50%;
-  background-color: #fbf7fe;
+  background-color: #d9f0ef;
 }
 .card .fa-lock {
   top: 0.25rem;
@@ -944,22 +984,22 @@ form .input-validation input[type=date] + .input-info {
 }
 
 .new-card {
-  border: 0.2rem solid #c5dcfc;
+  border: 0.2rem solid #b9e0dd;
   border-radius: 0.5rem;
   height: 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   transition: all 0.3s ease-in-out;
   background-color: #ffffff;
 }
 .new-card .fa-plus {
-  color: #72aaf7;
+  color: #6ebfb9;
 }
 .new-card:hover {
-  border: 0.2rem solid #a6c9fa;
+  border: 0.2rem solid #97d0cc;
   transition: all 0.3s ease-in-out;
 }
 
@@ -995,7 +1035,7 @@ form .input-validation input[type=date] + .input-info {
 
 @media screen and (min-width: 1024px) {
   .card {
-    width: 23%;
+    width: 24%;
   }
   .card .card-picture {
     height: 9rem;
@@ -1117,7 +1157,6 @@ form .input-validation input[type=date] + .input-info {
 }
 
 body {
-  background-color: #fbf7fe;
   margin: 0;
   font-family: "Mulish", sans-serif;
 }
@@ -1145,13 +1184,11 @@ header,
   gap: 1em;
   background-color: #ffffff;
   padding: 1rem;
-  border-radius: 0.5rem;
   margin-top: 2rem;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
-  width: 98%;
+  width: 100%;
 }
 .main-content .frame.transparent {
-  background-color: #fbf7fe;
+  background-color: #fefcff;
   box-shadow: none;
   margin-top: 0;
 }
@@ -1218,7 +1255,7 @@ li {
 }
 
 .logo {
-  width: 25%;
+  width: 18%;
 }
 
 a.btn {
@@ -1232,7 +1269,7 @@ a.btn {
   padding: 8px 15px;
   gap: 8px;
   border: none;
-  background: #a6c9fa;
+  background: #97d0cc;
   border-radius: 0.5rem;
   cursor: pointer;
   width: 100%;
@@ -1247,7 +1284,7 @@ a.btn {
 }
 
 .btn:hover {
-  background-color: #72aaf7;
+  background-color: #6ebfb9;
   transition: all 0.3s ease;
 }
 
@@ -1258,11 +1295,11 @@ a.btn {
 }
 .btn-align-right .btn-action {
   padding: 8px 15px;
-  background: linear-gradient(172deg, #c5dcfc, #72aaf7);
+  background: linear-gradient(172deg, #b9e0dd, #6ebfb9);
   border-radius: 0.2rem;
   cursor: pointer;
   width: 50%;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   font-weight: bold;
 }
 
@@ -1270,23 +1307,24 @@ a.btn {
   display: flex;
   width: 100%;
   gap: 0.8rem;
+  justify-content: center;
 }
 .action-buttons .btn-action {
   padding: 8px 15px;
-  background: linear-gradient(172deg, #c5dcfc, #72aaf7);
+  background: linear-gradient(172deg, #b9e0dd, #6ebfb9);
   border-radius: 0.2rem;
   cursor: pointer;
   width: 50%;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   font-weight: bold;
 }
 .action-buttons .btn-status {
   padding: 8px 15px;
-  background: linear-gradient(172deg, #fbf7fe, #72aaf7);
+  background: linear-gradient(172deg, #fefcff, #6ebfb9);
   border-radius: 0.2rem;
   cursor: pointer;
   width: 50%;
-  box-shadow: 0 2px 8px 0px #e1e1e1;
+  box-shadow: 0 1px 4px 0px #e1e1e1;
   text-align: center;
 }
 .action-buttons .btn-secondary {
@@ -1296,6 +1334,7 @@ a.btn {
 .link {
   font-weight: bold;
   color: #fa9746;
+  cursor: pointer;
 }
 
 button {
@@ -1378,9 +1417,12 @@ button {
   border-radius: 0.5rem;
   position: relative;
   width: 90%;
-  box-shadow: 0 -2px 8px 0px #4b4b4b;
+  box-shadow: 0 -1px 4px 0px #4b4b4b;
   height: 80vh;
   overflow-y: auto;
+}
+.modal-content.confirm {
+  height: 40vh;
 }
 .modal-content .modal-body {
   padding: 1rem 2rem;
@@ -1422,14 +1464,11 @@ button {
 }
 
 @media screen and (min-width: 1024px) {
-  footer,
-  header,
-  .main-content {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
   .modal-content {
     width: 50%;
+  }
+  .title-return {
+    border-bottom: none;
   }
   .title-return .fa-arrow-left {
     display: none;
@@ -1439,12 +1478,12 @@ button {
     background-color: #ffffff;
     border: 1px solid #ddd;
     border-radius: 0.2rem;
-    box-shadow: 0 2px 8px 0px #e1e1e1;
+    box-shadow: 0 1px 4px 0px #e1e1e1;
     padding: 1rem;
     z-index: 10;
-    width: 40%;
+    width: 50%;
     top: 4rem;
-    right: 15rem;
+    right: 0;
     height: 30rem;
     overflow: scroll;
   }

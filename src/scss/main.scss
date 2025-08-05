@@ -17,82 +17,82 @@
 *,
 *::before,
 *::after {
-  box-sizing: border-box;
-  font-family: inherit;
-  font-size: inherit;
+    box-sizing: border-box;
+    font-family: inherit;
+    font-size: inherit;
 }
 
 body {
-  background-color: $background;
-  margin: 0;
-  font-family: "Mulish", sans-serif;
-  // font-size: 0.9em;
+    // background-color: $background;
+    margin: 0;
+    font-family: "Mulish", sans-serif;
+    // font-size: 0.9em;
 }
 
 footer,
 header,
 .main-content {
-  padding-left: 1rem;
-  padding-right: 1rem;
+    padding-left: 1rem;
+    padding-right: 1rem;
 }
 
 .main-content {
-  padding-bottom: $mobile-nav-height;
-  min-height: calc(100vh - 120px);
-  overflow-y: auto;
+    padding-bottom: $mobile-nav-height;
+    min-height: calc(100vh - 120px);
+    overflow-y: auto;
 
-  .search {
-    .frame {
-      align-items: flex-start;
-    }
-  }
-
-  .frame {
-    display: flex;
-    flex-direction: column;
-    flex-wrap: nowrap;
-    align-items: center;
-    gap: 1em;
-    background-color: $background-light;
-    padding: 1rem;
-    border-radius: 0.5rem;
-    margin-top: 2rem;
-    box-shadow: $box-shadow-default;
-    width: 98%;
-
-    &.transparent {
-      background-color: $background;
-      box-shadow: none;
-      margin-top: 0;
-      ul {
-        width: 100%;
-      }
-    }
-
-    &.preferences {
-      align-items: flex-start;
-
-      .btn-delete-account {
-        display: flex;
-        flex-wrap: nowrap;
-        gap: 0.8rem;
-      }
-
-      .btn {
-        background-color: $not-valid;
-
-        &.cancel-delete {
-          background-color: $gray-200;
+    .search {
+        .frame {
+            align-items: flex-start;
         }
-      }
     }
-  }
+
+    .frame {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        align-items: center;
+        gap: 1em;
+        background-color: $background-light;
+        padding: 1rem;
+        // border-radius: 0.5rem;
+        margin-top: 2rem;
+        // box-shadow: $box-shadow-default;
+        width: 100%;
+
+        &.transparent {
+            background-color: $background;
+            box-shadow: none;
+            margin-top: 0;
+            ul {
+                width: 100%;
+            }
+        }
+
+        &.preferences {
+            align-items: flex-start;
+
+            .btn-delete-account {
+                display: flex;
+                flex-wrap: nowrap;
+                gap: 0.8rem;
+            }
+
+            .btn {
+                background-color: $not-valid;
+
+                &.cancel-delete {
+                    background-color: $gray-200;
+                }
+            }
+        }
+    }
 }
 
 a {
-  color: $secondary;
-  text-decoration: none;
-  font-weight: bold;
+    color: $secondary;
+    text-decoration: none;
+    font-weight: bold;
 }
 
 h1,
@@ -101,120 +101,120 @@ h3,
 h4,
 h5,
 h6 {
-  font-family: "Philosopher", serif;
+    font-family: "Philosopher", serif;
 }
 
 h1 {
-  font-size: 1.35em;
+    font-size: 1.35em;
 }
 
 h2 {
-  font-size: 1.05em;
+    font-size: 1.05em;
 }
 
 small {
-  font-size: 0.8em;
+    font-size: 0.8em;
 }
 
 ul,
 li {
-  margin: 0;
-  padding: 0;
-  list-style: none;
+    margin: 0;
+    padding: 0;
+    list-style: none;
 }
 
 .required-marker {
-  color: $not-valid;
-  font-weight: bold;
+    color: $not-valid;
+    font-weight: bold;
 }
 
 .message {
-  font-weight: bold;
-  margin-top: 1rem;
+    font-weight: bold;
+    margin-top: 1rem;
 }
 
 .logo {
-  width: 25%;
+    width: 18%;
 }
 
 a.btn {
-  color: $text;
+    color: $text;
 }
 
 .btn {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 8px 15px;
-  gap: 8px;
-  border: none;
-  background: $primary-300;
-  border-radius: 0.5rem;
-  cursor: pointer;
-  width: 100%;
-  transition: all 0.3s ease;
-  font-weight: bold;
-  margin-top: 1.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 8px 15px;
+    gap: 8px;
+    border: none;
+    background: $primary-300;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    width: 100%;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    margin-top: 1.5rem;
 }
 
 .btn.next,
 .btn.previous {
-  width: 45%;
+    width: 45%;
 }
 
 .btn:hover {
-  background-color: $primary;
-  transition: all 0.3s ease;
+    background-color: $primary;
+    transition: all 0.3s ease;
 }
 
 .btn-align-right {
-  display: flex;
-  justify-content: flex-end;
-  margin-top: 1rem;
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 1rem;
 
-  .btn-action {
-    padding: 8px 15px;
-    background: linear-gradient(172deg, $primary-200, $primary);
-    border-radius: 0.2rem;
-    cursor: pointer;
-    width: 50%;
-    box-shadow: $box-shadow-default;
-    //transition: background-color 0.3s ease;
-    font-weight: bold;
-  }
+    .btn-action {
+        padding: 8px 15px;
+        background: linear-gradient(172deg, $primary-200, $primary);
+        border-radius: 0.2rem;
+        cursor: pointer;
+        width: 50%;
+        box-shadow: $box-shadow-default;
+        //transition: background-color 0.3s ease;
+        font-weight: bold;
+    }
 }
 
 .action-buttons {
-  display: flex;
-  width: 100%;
-  gap: 0.8rem;
-  justify-content: center;
+    display: flex;
+    width: 100%;
+    gap: 0.8rem;
+    justify-content: center;
 
-  .btn-action {
-    padding: 8px 15px;
-    background: linear-gradient(172deg, $primary-200, $primary);
-    border-radius: 0.2rem;
-    cursor: pointer;
-    width: 50%;
-    box-shadow: $box-shadow-default;
-    //transition: background-color 0.3s ease;
-    font-weight: bold;
-  }
+    .btn-action {
+        padding: 8px 15px;
+        background: linear-gradient(172deg, $primary-200, $primary);
+        border-radius: 0.2rem;
+        cursor: pointer;
+        width: 50%;
+        box-shadow: $box-shadow-default;
+        //transition: background-color 0.3s ease;
+        font-weight: bold;
+    }
 
-  .btn-status {
-    padding: 8px 15px;
-    background: linear-gradient(172deg, $background, $primary);
-    border-radius: 0.2rem;
-    cursor: pointer;
-    width: 50%;
-    box-shadow: $box-shadow-default;
-    text-align: center;
-    //transition: background-color 0.3s ease;
-  }
+    .btn-status {
+        padding: 8px 15px;
+        background: linear-gradient(172deg, $background, $primary);
+        border-radius: 0.2rem;
+        cursor: pointer;
+        width: 50%;
+        box-shadow: $box-shadow-default;
+        text-align: center;
+        //transition: background-color 0.3s ease;
+    }
 
-  .btn-secondary {
-    background: linear-gradient(172deg, $gray-200, $gray);
-  }
+    .btn-secondary {
+        background: linear-gradient(172deg, $gray-200, $gray);
+    }
 }
 
 //.btn:hover {
@@ -222,183 +222,185 @@ a.btn {
 //}
 
 .link {
-  font-weight: bold;
-  color: $secondary;
+    font-weight: bold;
+    color: $secondary;
+    cursor: pointer;
 }
 
 button {
-  border: 0;
-  background-color: transparent;
-  align-self: center;
-  width: auto;
+    border: 0;
+    background-color: transparent;
+    align-self: center;
+    width: auto;
 }
 
 .title-return {
-  display: flex;
-  flex-wrap: nowrap;
-  align-items: center;
-  gap: 1em;
-  margin-bottom: 2rem;
-  border-bottom: solid 1px $secondary-200;
+    display: flex;
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 1em;
+    margin-bottom: 2rem;
+    border-bottom: solid 1px $secondary-200;
 
-  h1 {
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 100%;
-  }
+    h1 {
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        max-width: 100%;
+    }
 }
 
 .datastate-overlay {
-  position: fixed;
-  inset: 0;
-  background-color: rgba(255, 255, 255, 0.85);
-  z-index: 1000;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  padding: 2rem;
-  text-align: center;
+    position: fixed;
+    inset: 0;
+    background-color: rgba(255, 255, 255, 0.85);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding: 2rem;
+    text-align: center;
 }
 
 .spinner {
-  border: 6px solid #eee;
-  border-top: 6px solid #333;
-  border-radius: 50%;
-  width: 50px;
-  height: 50px;
-  animation: spin 1s linear infinite;
-  margin-bottom: 1rem;
+    border: 6px solid #eee;
+    border-top: 6px solid #333;
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    animation: spin 1s linear infinite;
+    margin-bottom: 1rem;
 }
 
 @keyframes spin {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }
 
 .error-message {
-  color: #d00000;
-  font-size: 1.1rem;
+    color: #d00000;
+    font-size: 1.1rem;
 
-  h2 {
-    margin-bottom: 0.5rem;
-  }
+    h2 {
+        margin-bottom: 0.5rem;
+    }
 }
 
 .modal-overlay {
-  position: fixed;
-  top: 0;
-  left: 0;
-  width: 100vw;
-  height: 100vh;
-  background: rgba(0, 0, 0, 0.5);
-  backdrop-filter: blur(3px);
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  z-index: 1000;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.5);
+    backdrop-filter: blur(3px);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
 }
 
 .modal-content {
-  background: $background-light;
-  //   padding: 2rem;
-  border-radius: 0.5rem;
-  position: relative;
-  width: 90%;
-  box-shadow: $box-shadow-default-modal;
-  height: 80vh;
-  overflow-y: auto;
+    background: $background-light;
+    //   padding: 2rem;
+    border-radius: 0.5rem;
+    position: relative;
+    width: 90%;
+    box-shadow: $box-shadow-default-modal;
+    height: 80vh;
+    overflow-y: auto;
 
-  &.confirm {
-    height: 40vh;
-  }
+    &.confirm {
+        height: 40vh;
+    }
 
-  .modal-body {
-    padding: 1rem 2rem;
-  }
+    .modal-body {
+        padding: 1rem 2rem;
+    }
 }
 
 .modal-title {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  position: sticky;
-  top: 0;
-  left: 0;
-  width: 100%;
-  background-color: $background-light;
-  z-index: 20;
-  padding: 1rem 2rem;
-  margin: 0;
-
-  div {
     display: flex;
-    gap: 0.4rem;
-  }
+    justify-content: space-between;
+    align-items: center;
+    position: sticky;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background-color: $background-light;
+    z-index: 20;
+    padding: 1rem 2rem;
+    margin: 0;
 
-  button {
-    cursor: pointer;
-  }
+    div {
+        display: flex;
+        gap: 0.4rem;
+    }
+
+    button {
+        cursor: pointer;
+    }
 }
 
 .profile-picture {
-  border-radius: 50%;
-  width: 3rem;
-  height: 3rem;
+    border-radius: 50%;
+    width: 3rem;
+    height: 3rem;
 }
 
 .btn-account-desktop {
-  display: none;
+    display: none;
 }
 
 .delete {
-  color: $not-valid;
+    color: $not-valid;
 }
 
 @media screen and (min-width: 1024px) {
-  footer,
-  header,
-  .main-content {
-    padding-left: 10rem;
-    padding-right: 10rem;
-  }
+    // footer,
+    // header,
+    // .main-content {
+    //     padding-left: 10rem;
+    //     padding-right: 10rem;
+    // }
 
-  .modal-content {
-    width: 50%;
-  }
-
-  .title-return {
-    .fa-arrow-left {
-      display: none;
+    .modal-content {
+        width: 50%;
     }
-  }
 
-  .notifications-content {
-    position: absolute;
-    background-color: $background-light;
-    border: 1px solid #ddd;
-    border-radius: 0.2rem;
-    box-shadow: $box-shadow-default;
-    padding: 1rem;
-    z-index: 10;
-    width: 40%;
-    top: 4rem;
-    right: 15rem;
-    height: 30rem;
-    overflow: scroll;
-
-    .notification-item {
-      box-shadow: none;
-      border-radius: 0%;
-      padding: 0%;
+    .title-return {
+        border-bottom: none;
+        .fa-arrow-left {
+            display: none;
+        }
     }
-  }
-  .notification-title {
-    display: none;
-  }
+
+    .notifications-content {
+        position: absolute;
+        background-color: $background-light;
+        border: 1px solid #ddd;
+        border-radius: 0.2rem;
+        box-shadow: $box-shadow-default;
+        padding: 1rem;
+        z-index: 10;
+        width: 50%;
+        top: 4rem;
+        right: 0;
+        height: 30rem;
+        overflow: scroll;
+
+        .notification-item {
+            box-shadow: none;
+            border-radius: 0%;
+            padding: 0%;
+        }
+    }
+    .notification-title {
+        display: none;
+    }
 }

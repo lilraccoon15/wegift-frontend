@@ -10,10 +10,15 @@ $gray-300: #bfbfbf;
 $gray-200: #d9d9d9;
 $gray-100: #f2f2f2;
 
-$primary: #72aaf7;
-$primary-300: #a6c9fa;
-$primary-200: #c5dcfc;
-$primary-100: #e3effd;
+$primary: #6ebfb9; // Couleur de base
+$primary-300: #97d0cc; // Un peu plus clair
+$primary-200: #b9e0dd; // Encore plus clair
+$primary-100: #d9f0ef; // Très clair
+
+// $primary: #72aaf7;
+// $primary-300: #a6c9fa;
+// $primary-200: #c5dcfc;
+// $primary-100: #e3effd;
 
 $secondary: #fa9746;
 $secondary-300: #fcc188;
@@ -29,8 +34,8 @@ $valid: #84af7b;
 $not-valid: rgb(210, 91, 65);
 $mobile-nav-height: 4rem;
 
-$box-shadow-default: 0 2px 8px 0px $border;
-$box-shadow-default-reverse: 0 -2px 8px 0px $border;
-$box-shadow-default-modal: 0 -2px 8px 0px $text-light;
+$box-shadow-default: 0 1px 4px 0px $border;
+$box-shadow-default-reverse: 0 -1px 4px 0px $border;
+$box-shadow-default-modal: 0 -1px 4px 0px $text-light;
 
 $transition: all 0.3s ease;
