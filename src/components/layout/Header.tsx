@@ -3,22 +3,24 @@ import NavLeft from "./nav/NavLeft";
 import NavRight from "./nav/NavRight";
 
 const Header = () => {
-  const { isAuthenticated } = useAuth();
+    const { isAuthenticated } = useAuth();
 
-  // if (loading || isAuthenticated === null) return null;
-
-  return (
-    <>
-      <header>
-        <div className="header-left">
-          <NavLeft />
-        </div>
-      </header>
-      <div className={`header-right ${isAuthenticated ? "auth" : "no-auth"}`}>
-        <NavRight />
-      </div>
-    </>
-  );
+    return (
+        <>
+            <header>
+                <div className="header-left">
+                    <NavLeft />
+                </div>
+            </header>
+            <div
+                className={`header-right ${
+                    isAuthenticated ? "auth" : "no-auth"
+                }`}
+            >
+                <NavRight />
+            </div>
+        </>
+    );
 };
 
 export default Header;

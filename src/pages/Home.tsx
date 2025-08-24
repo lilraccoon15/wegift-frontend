@@ -7,10 +7,10 @@ import { useEffect } from "react";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import ResetPassword from "./Auth/ResetPassword";
-// import DataState from "../components/ui/DataState"; // ← pour afficher un loader
+// import DataState from "../components/ui/DataState";
 
 const Home = () => {
-    const { isAuthenticated, loginWithToken, loading } = useAuth(); // ← on récupère tout ce qu'il faut
+    const { isAuthenticated, loginWithToken, loading } = useAuth();
     const isDesktop = useIsDesktop();
     const [searchParams, setSearchParams] = useSearchParams();
 
@@ -23,19 +23,21 @@ const Home = () => {
     const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
     const PICTURE = "/img/home.jpg";
 
-    // 🔁 On déclenche loginWithToken si on ne sait pas encore si on est co
     useEffect(() => {
         if (isAuthenticated === null && !loading) {
             loginWithToken();
         }
     }, [isAuthenticated, loading, loginWithToken]);
 
-    // ✅ Si connecté → Dashboard
+    // todo : gérer l'erreur ici lol
+    // if (loading || isAuthenticated === null) {
+    //     return <DataState loading />;
+    // }
+
     if (isAuthenticated) {
         return <Dashboard />;
     }
 
-    // ⬇️ Sinon, on affiche la page d'accueil normale
     return (
         <div className="frame home-desktop">
             <div className="home-right">

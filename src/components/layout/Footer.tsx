@@ -1,14 +1,10 @@
-// import { useAuth } from "../../context/AuthContext";
+import { useAuth } from "../../context/AuthContext";
 
 const Footer = () => {
-    // const { isAuthenticated } = useAuth();
-
-    // if (loading || isAuthenticated === null) {
-    //     return null;
-    // }
+    const { isAuthenticated } = useAuth();
 
     return (
-        <footer>
+        <footer className={isAuthenticated ? "no-auth" : ""}>
             © {new Date().getFullYear()} WeGift. Tous droits réservés.
             <a href="http://www.freepik.com">
                 Illustratins designed by pch.vector / Freepik

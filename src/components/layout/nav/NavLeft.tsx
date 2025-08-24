@@ -2,23 +2,19 @@ import { Link } from "react-router-dom";
 import { CLIENT_ENV } from "../../../config/clientEnv";
 
 const NavLeft = () => {
-  // const { isAuthenticated, loading } = useAuth();
+    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
 
-  // if (loading || !isAuthenticated) return null;
+    const PICTURE = "/img/logo.png";
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
-
-  const PICTURE = "/img/logo.png";
-
-  return (
-    <Link to="/">
-      <img
-        className="logo"
-        src={`${BACKEND_URL}${PICTURE}`}
-        alt="logo wegift"
-      />
-    </Link>
-  );
+    return (
+        <Link to="/">
+            <img
+                className="logo"
+                src={`${BACKEND_URL}${PICTURE}`}
+                alt="logo wegift"
+            />
+        </Link>
+    );
 };
 
 export default NavLeft;
