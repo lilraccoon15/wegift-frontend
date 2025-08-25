@@ -48,20 +48,19 @@ const MyWish = () => {
           <div className="title-return">
             <BackButton />
             {wish.title && <h1>{wish.title}</h1>}
-          </div>
-
-          <div className="actions">
-            <button onClick={() => setOpenEditModal(true)}>
-              <i className="fa-solid fa-pen-to-square"></i>
-            </button>
-            <button
-              onClick={() => {
-                setWishToDelete(wish);
-                setShowConfirm(true);
-              }}
-            >
-              <i className="fa-solid fa-trash-can"></i>
-            </button>
+            <div className="actions">
+              <button onClick={() => setOpenEditModal(true)}>
+                <i className="fa-solid fa-pen-to-square"></i>
+              </button>
+              <button
+                onClick={() => {
+                  setWishToDelete(wish);
+                  setShowConfirm(true);
+                }}
+              >
+                <i className="fa-solid fa-trash-can"></i>
+              </button>
+            </div>
           </div>
 
           <img

@@ -93,7 +93,7 @@ const MyWishlist = () => {
       <div className="title-return">
         <BackButton />
         <h1>{wishlist?.title}</h1>
-        <div className="return-buttons">
+        <div className="actions">
           <button onClick={() => wishlist && openWishlistEditForm(wishlist)}>
             <i className="fa-solid fa-pen-to-square"></i>
           </button>
@@ -151,15 +151,15 @@ const MyWishlist = () => {
             setOptionsWishId(null);
           }}
           onConfirm={handleWishlistDeleteConfirm}
-          confirmLabel="Supprimer"
-          cancelLabel="Annuler"
+          confirmLabel="Oui"
+          cancelLabel="Non"
         />
       )}
 
       {showConfirm && confirmType === "wish" && wishToDelete && (
         <ConfirmModal
           title="Supprimer ce souhait ?"
-          message={`Souhaitez-vous vraiment supprimer le souhait "${wishToDelete.title}" ?`}
+          message={`Souhaitez-vous vraiment supprimer la liste "${wishToDelete.title}" ?`}
           onClose={() => {
             setShowConfirm(false);
             setWishToDelete(null);

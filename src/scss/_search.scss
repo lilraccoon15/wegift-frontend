@@ -21,6 +21,11 @@
   gap: 0.8rem;
   position: relative;
   align-items: center;
+  transition: all 0.3s ease-in-out;
+
+  &:hover {
+    filter: brightness(0.95);
+  }
 
   .fa-chevron-down {
     position: absolute;

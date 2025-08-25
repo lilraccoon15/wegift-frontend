@@ -35,7 +35,7 @@ const ConfirmModal = ({
                 {cancelLabel}
               </button>
             )}
-            <button onClick={onConfirm} className="btn-action">
+            <button onClick={onConfirm} className="btn-action btn-delete">
               {confirmLabel}
             </button>
           </div>

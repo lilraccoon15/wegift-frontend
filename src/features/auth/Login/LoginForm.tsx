@@ -34,7 +34,7 @@ const LoginForm: React.FC<LoginFormProps> = ({
   };
 
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={onSubmit} className="no-modal-form">
       <label htmlFor="email">
         Email{" "}
         <span className="required-marker" aria-hidden="true">

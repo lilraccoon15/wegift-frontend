@@ -1,31 +1,32 @@
 @use "./variables" as *;
 
 .account {
-    a {
-        color: $text;
-    }
-    ul {
+  a {
+    color: $text;
+  }
+  ul {
+    display: flex;
+    flex-direction: column;
+    gap: 2em;
+
+    li {
+      display: flex;
+      flex-wrap: nowrap;
+      justify-content: space-between;
+
+      span {
         display: flex;
-        flex-direction: column;
-        gap: 2em;
-
-        li {
-            display: flex;
-            flex-wrap: nowrap;
-            justify-content: space-between;
-
-            span {
-                display: flex;
-                gap: 1em;
-                align-items: center;
-            }
-        }
-
-        .logout {
-            color: $not-valid;
-            font-weight: bold;
-        }
+        gap: 1em;
+        align-items: center;
+      }
     }
+
+    .logout {
+      color: $not-valid;
+      font-weight: bold;
+      cursor: pointer;
+    }
+  }
 }
 
 @media screen and (min-width: 1024px) {
