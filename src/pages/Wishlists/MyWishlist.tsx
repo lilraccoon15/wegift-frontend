@@ -93,15 +93,17 @@ const MyWishlist = () => {
       <div className="title-return">
         <BackButton />
         <h1>{wishlist?.title}</h1>
+        <div className="return-buttons">
+          <button onClick={() => wishlist && openWishlistEditForm(wishlist)}>
+            <i className="fa-solid fa-pen-to-square"></i>
+          </button>
+
+          <button onClick={() => wishlist && confirmWishDelete(wishlist)}>
+            <i className="fa-solid fa-trash-can"></i>
+          </button>
+        </div>
       </div>
 
-      <button onClick={() => wishlist && openWishlistEditForm(wishlist)}>
-        <i className="fa-solid fa-pen-to-square"></i>
-      </button>
-
-      <button onClick={() => wishlist && confirmWishDelete(wishlist)}>
-        <i className="fa-solid fa-trash-can"></i>
-      </button>
       {wishlistSubscribers.length > 0 && (
         <div>
           <h2>Abonnés :</h2>
