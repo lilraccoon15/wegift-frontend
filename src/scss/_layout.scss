@@ -5,12 +5,15 @@
 footer,
 header {
   background-color: $background-light;
-  height: $mobile-nav-height;
   justify-content: center;
   align-items: center;
-  position: sticky;
   width: 100%;
   z-index: 10;
+}
+
+header {
+  position: sticky;
+  height: $mobile-nav-height;
 }
 
 header {
@@ -35,6 +38,7 @@ footer {
   box-shadow: $box-shadow-default-reverse;
   bottom: 0;
   left: 0;
+  padding: 1rem;
 }
 
 /**************NAV************/
@@ -167,7 +171,6 @@ footer {
 
   footer {
     position: relative;
-    padding: 4rem;
   }
 
   .header-right {
