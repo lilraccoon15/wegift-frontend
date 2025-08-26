@@ -55,7 +55,11 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
   const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
 
   return (
-    <form onSubmit={onSubmit} encType="multipart/form-data">
+    <form
+      onSubmit={onSubmit}
+      encType="multipart/form-data"
+      className="no-modal-form"
+    >
       <div className="edit-profile-picture">
         <div
           className="profile-picture"

@@ -68,7 +68,7 @@ footer {
   a {
     color: $text-light;
   }
-  button.logout a {
+  button.logout {
     color: $not-valid;
     font-weight: bold;
   }
@@ -134,6 +134,9 @@ footer {
 }
 
 @media screen and (min-width: 1024px) {
+  .no-auth {
+    display: flex;
+  }
   .nav-mobile,
   .notification-link,
   .search-link,
@@ -164,6 +167,7 @@ footer {
 
   footer {
     position: relative;
+    padding: 4rem;
   }
 
   .header-right {

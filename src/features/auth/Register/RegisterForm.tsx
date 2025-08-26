@@ -5,7 +5,7 @@ import PasswordFields from "../../../components/ui/PasswordFields";
 import DatePicker from "react-datepicker";
 import { fr } from "date-fns/locale";
 import ConfirmModal from "../../../components/ui/ConfirmModal";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 interface RegisterFormProps {
   formData: {
@@ -315,7 +315,7 @@ const RegisterForm: React.FC<RegisterFormProps> = ({
       <div className={`form-step ${currentStep === 5 ? "active" : ""}`}>
         <h2>Etape {currentStep}/5 : Indiquez vos préférences</h2>
         <label htmlFor="acceptedTerms">
-          J'accepte les CGU{" "}
+          J'accepte les <Link to="/conditions-utilisation">CGU</Link>{" "}
           <span className="required-marker" aria-hidden="true">
             *
           </span>{" "}

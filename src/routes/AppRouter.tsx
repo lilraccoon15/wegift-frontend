@@ -31,6 +31,8 @@ import Dashboard from "../pages/Dashboard";
 import MyExchange from "../pages/Exchanges/MyExchange";
 import Wish from "../pages/Wishlists/Wish";
 import MyWishes from "../pages/Wishlists/MyWishes";
+import Use from "../pages/Legal/Use";
+import Confidentiality from "../pages/Legal/Confidentiality";
 
 const PrivateOutlet = () => {
   return (
@@ -50,6 +52,8 @@ const AppRouter = () => {
         <Route path="/reset-password" element={<ResetPassword />} />
         <Route path="/activate" element={<ActivatePage />} />
         <Route path="/oauth/success" element={<OAuthSuccess />} />
+        <Route path="/conditions-utilisation" element={<Use />} />
+        <Route path="/confidentialite" element={<Confidentiality />} />
 
         <Route element={<PrivateOutlet />}>
           <Route path="/my-wishlists" element={<MyWishlists />} />

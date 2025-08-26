@@ -6,11 +6,13 @@ import { CLIENT_ENV } from "../../config/clientEnv";
 interface FriendTagInputProps {
   participants: User[];
   setParticipants: (users: User[]) => void;
+  label?: string;
 }
 
 const FriendTagInput: React.FC<FriendTagInputProps> = ({
   participants,
   setParticipants,
+  label = "",
 }) => {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -41,7 +43,7 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
 
   return (
     <>
-      <label htmlFor="collaborators">Collaborateurs :</label>
+      <label htmlFor="collaborators">{label} :</label>
       <div className="tag-input" onClick={() => inputRef.current?.focus()}>
         {participants.map((user) => (
           <span className="tag" key={user.id}>

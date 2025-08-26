@@ -256,6 +256,7 @@ button {
 
   .actions {
     margin-left: auto;
+    color: $text;
   }
 }
 
@@ -425,6 +426,11 @@ button {
 }
 
 @media screen and (min-width: 1024px) {
+  .actions {
+    .fa-gear {
+      display: none;
+    }
+  }
   h1 {
     font-size: 1.5em;
   }
@@ -440,7 +446,7 @@ button {
   }
 
   .modal-content {
-    width: 50%;
+    width: 70%;
   }
 
   .title-return {
@@ -505,7 +511,10 @@ button {
 }
 
 // Desktop standard
-@media screen and (min-width: 1280px) and (max-width: 1439px) {
+@media screen and (min-width: 1280px) {
+  .modal-content {
+    width: 50%;
+  }
 }
 
 // Grand écran (desktop large)

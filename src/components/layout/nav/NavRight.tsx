@@ -1,4 +1,4 @@
-import { Link, useLocation } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 import { useMyProfile } from "../../../features/profile/MyProfile/MyProfileHelpers";
 import NotificationBell from "../../../features/notifications/NotificationBell";
@@ -8,12 +8,18 @@ import { useState, useEffect, useRef } from "react";
 
 const NavRight = () => {
   const location = useLocation();
-  const { isAuthenticated, loading } = useAuth();
+  const { isAuthenticated, loading, logout } = useAuth();
   const { data: user, isLoading: profileLoading } = useMyProfile();
+  const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
-  const isMobile = window.innerWidth <= 768;
+  const isMobile = window.innerWidth < 1024;
   const menuRef = useRef<HTMLDivElement>(null);
+
+  const handleLogout = async () => {
+    await logout();
+    navigate("/");
+  };
 
   useEffect(() => {
     const handleClickOutside = (event: MouseEvent) => {
@@ -109,8 +115,8 @@ const NavRight = () => {
                   <button>
                     <a href="/account">Mon compte</a>
                   </button>
-                  <button className="logout">
-                    <a href="/logout">Déconnexion</a>
+                  <button onClick={handleLogout} className="logout">
+                    Déconnexion
                   </button>
                 </div>
               )}

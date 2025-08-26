@@ -66,14 +66,34 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
+  const getFinalPictureUrl = (preview?: string | null): string => {
+    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE ?? "";
+    const DEFAULT_PICTURE_URL =
+      "/uploads/exchangePictures/default-exchange.png";
 
-  const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
+    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
+
+    if (/^(blob:|https?:|data:)/.test(preview)) return preview;
+
+    return (
+      BACKEND_URL.replace(/\/$/, "") +
+      (preview.startsWith("/") ? "" : "/") +
+      preview
+    );
+  };
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data">
-      <label>Titre :</label>
+      <label htmlFor="title">
+        Titre{" "}
+        <span className="required-marker" aria-hidden="true">
+          *
+        </span>{" "}
+        : <span className="sr-only">(obligatoire)</span>
+      </label>
       <InputField
+        id="title"
+        name="title"
         type="text"
         placeholder="Titre"
         value={title}
@@ -106,36 +126,42 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
         onChange={(e) => setBudget(e.target.value)}
         placeholder="Ex : 25.00"
       />
-      <label htmlFor="budget">Photo de couverture :</label>
-      <img
-        src={
-          picturePreview
-            ? picturePreview.startsWith("blob:")
-              ? picturePreview
-              : `${BACKEND_URL}${picturePreview}`
-            : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
-        }
-        alt="Photo de couverture"
-        onClick={handlePictureClick}
-      />
-      <input
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={onPictureChange}
-      />
-      <label>Description : </label>
-      <InputField
-        type="text"
-        placeholder="Description"
-        value={description}
-        onChange={onDescriptionChange}
-      />
-      <label>Participants : </label>
+      <div className="picture-desc">
+        <div className="picture-area">
+          <label htmlFor="picture">Image de couverture :</label>
+          <div
+            style={{
+              backgroundImage: `url('${getFinalPictureUrl(picturePreview)}')`,
+            }}
+            onClick={handlePictureClick}
+            className="picture-form"
+          />
+          <input
+            id="picture"
+            name="picture"
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={onPictureChange}
+          />
+        </div>
+        <div className="desc-area">
+          <label htmlFor="description">Description :</label>
+          <InputField
+            id="description"
+            name="description"
+            isTextArea
+            placeholder="Description"
+            value={description}
+            onChange={onDescriptionChange}
+          />
+        </div>
+      </div>
       <FriendTagInput
         participants={participants}
         setParticipants={setParticipants}
+        label="Participants"
       />
       <fieldset>
         <legend>Règles à appliquer</legend>

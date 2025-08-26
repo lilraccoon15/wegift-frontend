@@ -62,9 +62,20 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
+  const getFinalPictureUrl = (preview?: string | null): string => {
+    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST ?? "";
+    const DEFAULT_PICTURE_URL = "/uploads/wishPictures/default-wish.png";
 
-  const DEFAULT_PICTURE_URL = "/uploads/wishPictures/default-wish.png";
+    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
+
+    if (/^(blob:|https?:|data:)/.test(preview)) return preview;
+
+    return (
+      BACKEND_URL.replace(/\/$/, "") +
+      (preview.startsWith("/") ? "" : "/") +
+      preview
+    );
+  };
 
   return (
     <form onSubmit={onSubmit} encType="multipart/form-data">
@@ -84,35 +95,38 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
         onChange={onTitleChange}
         required
       />
-      <label htmlFor="picture">Image de couverture :</label>
-      <img
-        src={
-          picturePreview?.startsWith("blob:")
-            ? picturePreview
-            : `${BACKEND_URL}${picturePreview ?? DEFAULT_PICTURE_URL}`
-        }
-        alt="Photo de couverture"
-        onClick={handlePictureClick}
-        className="picture-form"
-      />
-      <input
-        id="picture"
-        name="picture"
-        type="file"
-        accept="image/*"
-        ref={fileInputRef}
-        style={{ display: "none" }}
-        onChange={onPictureChange}
-      />
-      <label htmlFor="description">Description :</label>
-      <InputField
-        id="description"
-        name="description"
-        isTextArea
-        placeholder="Description"
-        value={description}
-        onChange={onDescriptionChange}
-      />
+      <div className="picture-desc">
+        <div className="picture-area">
+          <label htmlFor="picture">Image de couverture :</label>
+          <div
+            style={{
+              backgroundImage: `url('${getFinalPictureUrl(picturePreview)}')`,
+            }}
+            onClick={handlePictureClick}
+            className="picture-form"
+          />
+          <input
+            id="picture"
+            name="picture"
+            type="file"
+            accept="image/*"
+            ref={fileInputRef}
+            style={{ display: "none" }}
+            onChange={onPictureChange}
+          />
+        </div>
+        <div className="desc-area">
+          <label htmlFor="description">Description :</label>
+          <InputField
+            id="description"
+            name="description"
+            isTextArea
+            placeholder="Description"
+            value={description}
+            onChange={onDescriptionChange}
+          />
+        </div>
+      </div>
       <label htmlFor="price">Prix :</label>
       <div className="input-price">
         <InputField

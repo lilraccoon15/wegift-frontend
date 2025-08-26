@@ -14,16 +14,6 @@
   flex-direction: column;
   align-items: center;
 
-  .fa-gear {
-    position: absolute;
-    right: 10%;
-    color: $text;
-    background-color: $background-light;
-    padding: 0.5rem;
-    border-radius: 1rem;
-    box-shadow: $box-shadow-default;
-  }
-
   .profile-details {
     width: 60%;
     display: flex;
@@ -62,6 +52,8 @@
   flex-wrap: wrap;
   justify-content: center;
   gap: 0.5rem;
+  flex-direction: column-reverse;
+  align-items: center;
 
   small {
     font-weight: 800;
@@ -145,6 +137,25 @@
   gap: 0.8rem;
 }
 
+@media screen and (min-width: 600px) {
+  .profile-buttons {
+    width: 70%;
+    margin: auto;
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .profile-buttons {
+    width: 60%;
+  }
+}
+
+@media screen and (min-width: 800px) {
+  .profile-buttons {
+    width: 50%;
+  }
+}
+
 @media screen and (min-width: 1024px) {
   .profile-top,
   .profile-bottom {
@@ -153,20 +164,16 @@
     margin-left: auto;
   }
 
-  .profile-top {
-    .fa-gear {
-      display: none;
-    }
-  }
-
   .profile-bottom {
     .profile-buttons {
       display: flex;
       gap: 0.8rem;
+      width: 100%;
 
       .btn {
         width: 50%;
         margin: auto;
+        white-space: nowrap;
       }
 
       .btn-account-desktop {

@@ -45,11 +45,11 @@ const MyProfile = () => {
           <div className="title-return">
             <BackButton />
             <h1>Mon profil</h1>
-          </div>
-          <div className="profile-top">
-            <Link to="/account">
+            <Link to="/account" className="actions">
               <i className="fa-solid fa-gear"></i>
             </Link>
+          </div>
+          <div className="profile-top">
             <div
               className="profile-picture"
               style={{

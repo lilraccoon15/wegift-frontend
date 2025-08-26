@@ -39,9 +39,15 @@ form {
   }
 
   .picture-form {
+    display: block;
     border-radius: 0.5rem;
     border: 1.5px solid $primary-300;
     transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    width: 100%;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    height: 9rem;
   }
 
   .picture-form:hover {
@@ -288,5 +294,82 @@ form {
   }
 }
 
+@media screen and (min-width: 370px) {
+  form {
+    .picture-form {
+      height: 10rem;
+    }
+  }
+}
+
+@media screen and (min-width: 400px) {
+  form {
+    .picture-form {
+      height: 11rem;
+    }
+  }
+}
+
+@media screen and (min-width: 450px) {
+  form {
+    .picture-form {
+      height: 13rem;
+    }
+  }
+}
+
+@media screen and (min-width: 520px) {
+  form {
+    .picture-form {
+      height: 15rem;
+    }
+  }
+}
+
+@media screen and (min-width: 600px) {
+  form {
+    .picture-form {
+      height: 18rem;
+    }
+  }
+}
+
+@media screen and (min-width: 700px) {
+  .picture-desc {
+    display: flex;
+    flex-wrap: nowrap;
+
+    gap: 0.8rem;
+
+    .picture-area,
+    .desc-area {
+      width: 50%;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .picture-form,
+    textarea {
+      height: 12rem;
+    }
+  }
+}
+
+@media screen and (min-width: 850px) {
+  .picture-desc {
+    .picture-form,
+    textarea {
+      height: 15rem;
+    }
+  }
+}
+
 @media screen and (min-width: 1024px) {
+  .picture-desc {
+    .picture-form,
+    textarea {
+      height: 12rem;
+    }
+  }
 }
