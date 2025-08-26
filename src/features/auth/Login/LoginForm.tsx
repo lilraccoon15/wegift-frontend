@@ -2,18 +2,22 @@ import Button from "../../../components/ui/Button";
 import InputField from "../../../components/forms/InputField";
 import Message from "../../../components/ui/Message";
 import { useState } from "react";
+import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 
 interface LoginFormProps {
   email: string;
   password: string;
   error: string | null;
+  remember: boolean;
   onEmailChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
   onPasswordChange: (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => void;
-
+  onRememberChange: (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => void;
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
   disabled?: boolean;
 }
@@ -22,8 +26,10 @@ const LoginForm: React.FC<LoginFormProps> = ({
   email,
   password,
   error,
+  remember,
   onEmailChange,
   onPasswordChange,
+  onRememberChange,
   onSubmit,
   disabled = false,
 }) => {
@@ -78,6 +84,13 @@ const LoginForm: React.FC<LoginFormProps> = ({
           ></i>
         </button>
       </div>
+      <label>Rester connecté ?</label>
+      <ToggleSwitch
+        name="remember"
+        checked={remember}
+        onChange={onRememberChange}
+        labelRight="Rester connecté"
+      />
       {error && <Message text={error} type="error" />}
       <Button
         type="submit"

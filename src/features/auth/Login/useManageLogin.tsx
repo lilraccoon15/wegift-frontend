@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useAuth } from "../../../context/AuthContext";
 import { login, verify2FACode } from "./LoginHelpers";
+import type { NavigateFunction } from "react-router-dom";
 
-export const useManageLogin = (navigate: any) => {
+export const useManageLogin = (navigate: NavigateFunction) => {
   const {
     isAuthenticated,
     setIsAuthenticated,
@@ -16,6 +17,7 @@ export const useManageLogin = (navigate: any) => {
   const [twoFACode, setTwoFACode] = useState("");
   const [requires2FA, setRequires2FA] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [remember, setRemember] = useState(false);
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -23,13 +25,19 @@ export const useManageLogin = (navigate: any) => {
     }
   }, [isAuthenticated, navigate]);
 
+  const onRememberChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRemember((e.target as HTMLInputElement).checked);
+  };
+
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     setError(null);
 
     if (!requires2FA) {
-      const response = await login(email, password);
+      const response = await login(email, password, remember);
 
       if (response.error) {
         setError(response.error);
@@ -79,5 +87,7 @@ export const useManageLogin = (navigate: any) => {
     error,
     twoFACode,
     setTwoFACode,
+    remember,
+    onRememberChange,
   };
 };

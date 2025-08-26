@@ -21,6 +21,8 @@ const Login = () => {
     error,
     twoFACode,
     setTwoFACode,
+    remember,
+    onRememberChange,
   } = useManageLogin(navigate);
 
   if (loading) return null;
@@ -35,10 +37,12 @@ const Login = () => {
         {!requires2FA ? (
           <>
             <LoginForm
+              remember={remember}
               email={email}
               onEmailChange={(e) => setEmail(e.target.value)}
               password={password}
               onPasswordChange={(e) => setPassword(e.target.value)}
+              onRememberChange={onRememberChange}
               onSubmit={handleLoginSubmit}
               error={error}
               disabled={loading}
