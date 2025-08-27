@@ -26,8 +26,6 @@ export const useManageCreatePassword = () => {
     const digit = /\d/.test(newPassword);
     const specialChar = /[^A-Za-z0-9]/.test(newPassword);
 
-    console.log("Regex test spécial:", specialChar);
-
     setPasswordValidity({
       length,
       uppercase,
