@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import type { SearchResult } from "./SearchHelpers";
 import DataState from "../../components/ui/DataState";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 interface Props {
   results: SearchResult[];
@@ -9,17 +9,6 @@ interface Props {
   error: Error | null;
   query: string;
 }
-
-const DEFAULT_PICTURE_URL_USER = "/uploads/profilePictures/default-profile.jpg";
-const BACKEND_URL_USER = CLIENT_ENV.VITE_BACKEND_URL_USER;
-
-const DEFAULT_PICTURE_URL_WISHLIST =
-  "/uploads/wishlistPictures/default-wishlist.png";
-const BACKEND_URL_WISHLIST = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
-
-const DEFAULT_PICTURE_URL_EXCHANGE =
-  "/uploads/exchangePictures/default-exchange.png";
-const BACKEND_URL_EXCHANGE = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
 
 const SearchResults = ({ results, isLoading, error, query }: Props) => {
   const wishlists = results.filter((item) => item.type === "wishlist");
@@ -51,8 +40,8 @@ const SearchResults = ({ results, isLoading, error, query }: Props) => {
                               ? item.picture
                               : item.picture?.startsWith("http")
                               ? item.picture
-                              : `${BACKEND_URL_USER}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_USER
+                              : `${BACKEND_URLS.user}${
+                                  item.picture ?? DEFAULT_PICTURES.user
                                 }`
                           }')`,
                         }}
@@ -84,8 +73,8 @@ const SearchResults = ({ results, isLoading, error, query }: Props) => {
                               ? item.picture
                               : item.picture?.startsWith("http")
                               ? item.picture
-                              : `${BACKEND_URL_WISHLIST}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_WISHLIST
+                              : `${BACKEND_URLS.wishlist}${
+                                  item.picture ?? DEFAULT_PICTURES.wishlist
                                 }`
                           }')`,
                         }}
@@ -117,8 +106,8 @@ const SearchResults = ({ results, isLoading, error, query }: Props) => {
                               ? item.picture
                               : item.picture?.startsWith("http")
                               ? item.picture
-                              : `${BACKEND_URL_EXCHANGE}${
-                                  item.picture ?? DEFAULT_PICTURE_URL_EXCHANGE
+                              : `${BACKEND_URLS.exchange}${
+                                  item.picture ?? DEFAULT_PICTURES.exchange
                                 }`
                           }')`,
                         }}

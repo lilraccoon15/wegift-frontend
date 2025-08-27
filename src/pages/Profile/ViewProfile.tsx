@@ -5,6 +5,7 @@ import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import ActionButtons from "../../components/ui/ActionButtons";
 import Modal from "../../components/ui/Modal";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const ViewProfile = () => {
   const {
@@ -18,8 +19,6 @@ const ViewProfile = () => {
     handleAcceptFriendRequest,
     handleDeclineFriendRequest,
     wishlists,
-    BACKEND_URL,
-    DEFAULT_PICTURE_URL,
     friends,
     setShowActionsMenu,
     showActionsMenu,
@@ -45,8 +44,8 @@ const ViewProfile = () => {
                   user.picture?.startsWith("http")
                     ? user.picture
                     : user.picture
-                    ? `${BACKEND_URL}${user.picture}`
-                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                    ? `${BACKEND_URLS.user}${user.picture}`
+                    : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
                 }')`,
               }}
             />

@@ -4,7 +4,7 @@ import BackButton from "../../components/ui/BackButton";
 import CardList from "../../components/ui/CardList";
 import type { Wish } from "../../features/wishlists/UserWishes/UserWishesHelpers";
 import ActionButtons from "../../components/ui/ActionButtons";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const Wishlist = () => {
   const {
@@ -25,8 +25,6 @@ const Wishlist = () => {
   // - bouton supprimer pour admin
 
   if (!id) return <p>Paramètre ID manquant</p>;
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   return (
     <DataState loading={isLoading} error={error}>
@@ -58,15 +56,15 @@ const Wishlist = () => {
           )}
           <CardList<Wish>
             items={wishes ?? []}
-            backendUrl={BACKEND_URL}
+            backendUrl={BACKEND_URLS.wishlist}
             getLink={(item) => `/wish/${item.id}`}
-            getDefaultPicture={() => "/uploads/wishPictures/default-wish.png"}
+            getDefaultPicture={() => DEFAULT_PICTURES.wish}
             getPictureUrl={(item) =>
               item.picture?.startsWith("http")
                 ? item.picture
                 : item.picture
-                ? `${BACKEND_URL}${item.picture}`
-                : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
+                ? `${BACKEND_URLS.wishlist}${item.picture}`
+                : `${BACKEND_URLS.wishlist}${DEFAULT_PICTURES.wish}`
             }
           />
         </>

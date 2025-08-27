@@ -3,7 +3,7 @@ import Button from "../../../components/ui/Button";
 import Message from "../../../components/ui/Message";
 import InputField from "../../../components/forms/InputField";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 interface EditWishFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -63,18 +63,13 @@ const EditWishForm: React.FC<EditWishFormProps> = ({
   };
 
   const getFinalPictureUrl = (preview?: string | null): string => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST ?? "";
-    const DEFAULT_PICTURE_URL = "/uploads/wishPictures/default-wish.png";
+    const baseUrl = BACKEND_URLS.wishlist;
+    const defaultUrl = DEFAULT_PICTURES.wish;
 
-    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
-
+    if (!preview) return `${baseUrl}${defaultUrl}`;
     if (/^(blob:|https?:|data:)/.test(preview)) return preview;
 
-    return (
-      BACKEND_URL.replace(/\/$/, "") +
-      (preview.startsWith("/") ? "" : "/") +
-      preview
-    );
+    return `${baseUrl}${preview.startsWith("/") ? preview : `/${preview}`}`;
   };
 
   return (

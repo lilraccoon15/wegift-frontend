@@ -2,10 +2,10 @@ import CardList from "../../components/ui/CardList";
 import DataState from "../../components/ui/DataState";
 import type { Wish } from "../../features/wishlists/MyWishesResa/MyWishesResaHelpers";
 import { useManageMyWishesResa } from "../../features/wishlists/MyWishesResa/useManageMyWishesResa";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyWishes = () => {
-  const { wishes, loading, error, BACKEND_URL, currentUser } =
-    useManageMyWishesResa();
+  const { wishes, loading, error, currentUser } = useManageMyWishesResa();
 
   const filteredWishes: Wish[] = (wishes ?? [])
     .map((rw) => rw.wish)
@@ -22,20 +22,20 @@ const MyWishes = () => {
           items={(wishes ?? [])
             .map((rw) => rw.wish)
             .filter((w): w is Wish => !!w)}
-          backendUrl={BACKEND_URL}
+          backendUrl={BACKEND_URLS.wishlist}
           getLink={(item) => `/wish/${item.id}`}
           showEditMenu={(item) => item.userId === currentUser?.id}
           // onEditClick={openWishEditForm}
           // onDeleteClick={confirmWishDelete}
           // optionsItemId={optionsWishId}
           // toggleOptions={toggleOptions}
-          getDefaultPicture={() => "/uploads/wishPictures/default-wish.png"}
+          getDefaultPicture={() => DEFAULT_PICTURES.wish}
           getPictureUrl={(item) =>
             item.picture?.startsWith("http")
               ? item.picture
               : item.picture
-              ? `${BACKEND_URL}${item.picture}`
-              : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
+              ? `${BACKEND_URLS.wishlist}${item.picture}`
+              : `${BACKEND_URLS.wishlist}${DEFAULT_PICTURES.wish}`
           }
         />
       )}

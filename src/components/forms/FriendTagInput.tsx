@@ -1,7 +1,7 @@
 import { useRef, useState } from "react";
 import type { User } from "../../features/profile/ViewProfile/ViewProfileHelpers";
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 interface FriendTagInputProps {
   participants: User[];
@@ -36,10 +36,6 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
   const removeUser = (id: string) => {
     setParticipants(participants.filter((u) => u.id !== id));
   };
-
-  const DEFAULT_PICTURE_URL_USER =
-    "/uploads/profilePictures/default-profile.jpg";
-  const BACKEND_URL_USER = CLIENT_ENV.VITE_BACKEND_URL_USER;
 
   return (
     <>
@@ -82,8 +78,8 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
                         ? user.picture
                         : user.picture?.startsWith("http")
                         ? user.picture
-                        : `${BACKEND_URL_USER}${
-                            user.picture ?? DEFAULT_PICTURE_URL_USER
+                        : `${BACKEND_URLS.user}${
+                            user.picture ?? DEFAULT_PICTURES.user
                           }`
                     }')`,
                   }}

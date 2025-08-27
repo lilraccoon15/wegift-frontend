@@ -3,7 +3,7 @@ import BackButton from "../../components/ui/BackButton";
 import { useManageWish } from "../../features/wishlists/UserWish/useManageUserWish";
 // import ToggleSwitch from "../../components/forms/ToggleSwitch";
 import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const Wish = () => {
   const {
@@ -20,9 +20,6 @@ const Wish = () => {
   // - bouton supprimer pour admin
 
   const { data: currentUser } = useMyProfile();
-
-  const DEFAULT_PICTURE_URL_WISH = "/uploads/wishPictures/default-wish.png";
-  const BACKEND_URL_WISHLIST = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   if (!id) return <p>Paramètre ID manquant</p>;
 
@@ -44,8 +41,8 @@ const Wish = () => {
                 ? wish.picture
                 : wish.picture?.startsWith("http")
                 ? wish.picture
-                : `${BACKEND_URL_WISHLIST}${
-                    wish.picture ?? DEFAULT_PICTURE_URL_WISH
+                : `${BACKEND_URLS.wishlist}${
+                    wish.picture ?? DEFAULT_PICTURES.wish
                   }`
             }
             alt="Wish"

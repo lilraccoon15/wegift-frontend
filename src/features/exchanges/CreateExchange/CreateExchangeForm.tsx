@@ -5,7 +5,7 @@ import Button from "../../../components/ui/Button";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 interface CreateExchangeFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -67,19 +67,15 @@ const CreateExchangeForm: React.FC<CreateExchangeFormProps> = ({
   };
 
   const getFinalPictureUrl = (preview?: string | null): string => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE ?? "";
-    const DEFAULT_PICTURE_URL =
-      "/uploads/exchangePictures/default-exchange.png";
-
-    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
+    if (!preview) {
+      return `${BACKEND_URLS.exchange}${DEFAULT_PICTURES.exchange}`;
+    }
 
     if (/^(blob:|https?:|data:)/.test(preview)) return preview;
 
-    return (
-      BACKEND_URL.replace(/\/$/, "") +
-      (preview.startsWith("/") ? "" : "/") +
-      preview
-    );
+    return `${BACKEND_URLS.exchange}${
+      preview.startsWith("/") ? "" : "/"
+    }${preview}`;
   };
 
   return (

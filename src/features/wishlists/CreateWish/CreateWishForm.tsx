@@ -3,7 +3,7 @@ import InputField from "../../../components/forms/InputField";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 export interface CreateWishFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -63,18 +63,17 @@ const CreateWishForm: React.FC<CreateWishFormProps> = ({
   };
 
   const getFinalPictureUrl = (preview?: string | null): string => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST ?? "";
-    const DEFAULT_PICTURE_URL = "/uploads/wishPictures/default-wish.png";
+    const baseUrl = BACKEND_URLS.wishlist;
+    const defaultUrl = DEFAULT_PICTURES.wish;
 
-    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
+    // Si aucune image n'est sélectionnée → image par défaut
+    if (!preview) return `${baseUrl}${defaultUrl}`;
 
+    // Si c'est un blob, une URL absolue ou un data URI → on retourne tel quel
     if (/^(blob:|https?:|data:)/.test(preview)) return preview;
 
-    return (
-      BACKEND_URL.replace(/\/$/, "") +
-      (preview.startsWith("/") ? "" : "/") +
-      preview
-    );
+    // Sinon on construit l'URL avec le backend
+    return `${baseUrl}${preview.startsWith("/") ? preview : `/${preview}`}`;
   };
 
   return (

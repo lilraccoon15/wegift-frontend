@@ -2,12 +2,10 @@ import { useManageWishlists } from "../../features/wishlists/UserWishlists/useMa
 import DataState from "../../components/ui/DataState";
 import CardList from "../../components/ui/CardList";
 import type { Wishlist } from "../../features/wishlists/UserWishlists/UserWishlistsHelpers";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const Wishlists = () => {
   const { wishlists, error, loading } = useManageWishlists();
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   return (
     <DataState loading={loading} error={error}>
@@ -17,22 +15,20 @@ const Wishlists = () => {
       {wishlists && wishlists?.length > 0 && (
         <CardList<Wishlist>
           items={wishlists ?? []}
-          backendUrl={BACKEND_URL}
+          backendUrl={BACKEND_URLS.wishlist}
           getLink={(item) => `/wishlist/${item.id}`}
           getCountLabel={(item) =>
             `${item.wishesCount ?? 0} souhait${
               item.wishesCount !== 1 ? "s" : ""
             }`
           }
-          getDefaultPicture={() =>
-            "/uploads/wishlistPictures/default-wishlist.png"
-          }
+          getDefaultPicture={() => DEFAULT_PICTURES.wishlist}
           getPictureUrl={(item) =>
             item.picture?.startsWith("http")
               ? item.picture
               : item.picture
-              ? `${BACKEND_URL}${item.picture}`
-              : `${BACKEND_URL}/uploads/wishlistPictures/default-wishlist.png`
+              ? `${BACKEND_URLS.wishlist}${item.picture}`
+              : `${BACKEND_URLS.wishlist}${DEFAULT_PICTURES.wishlist}`
           }
         />
       )}

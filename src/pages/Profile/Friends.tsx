@@ -7,7 +7,7 @@ import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import { useCombinedState } from "../../hooks/useCombineState";
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const Friends = () => {
   const { id } = useParams();
@@ -37,9 +37,6 @@ const Friends = () => {
     { loading: loadingMyFriends, error: errorMyFriends },
   ]);
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
-
   return (
     <DataState loading={loading} error={error}>
       <div className="title-return">
@@ -64,8 +61,8 @@ const Friends = () => {
                             friend.picture?.startsWith("http")
                               ? friend.picture
                               : friend.picture
-                              ? `${BACKEND_URL}${friend.picture}`
-                              : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                              ? `${BACKEND_URLS.user}${friend.picture}`
+                              : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
                           }')`,
                         }}
                         aria-label={`Photo de ${friend.pseudo}`}

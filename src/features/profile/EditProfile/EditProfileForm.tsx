@@ -2,7 +2,7 @@ import { useRef } from "react";
 import InputField from "../../../components/forms/InputField";
 import Button from "../../../components/ui/Button";
 import Message from "../../../components/ui/Message";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 interface EditProfilFormProps {
   pseudo: string;
@@ -50,10 +50,6 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
     fileInputRef.current?.click();
   };
 
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-
   return (
     <form
       onSubmit={onSubmit}
@@ -70,8 +66,8 @@ const EditProfileForm: React.FC<EditProfilFormProps> = ({
                   ? picturePreview
                   : picturePreview.startsWith("http")
                   ? picturePreview
-                  : `${BACKEND_URL}${picturePreview}`
-                : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                  : `${BACKEND_URLS.user}${picturePreview}`
+                : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
             }')`,
           }}
           onClick={handlePictureClick}

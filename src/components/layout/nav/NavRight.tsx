@@ -3,8 +3,8 @@ import { useAuth } from "../../../context/AuthContext";
 import { useMyProfile } from "../../../features/profile/MyProfile/MyProfileHelpers";
 import NotificationBell from "../../../features/notifications/NotificationBell";
 import SearchArea from "../../../features/research/SearchArea";
-import { CLIENT_ENV } from "../../../config/clientEnv";
 import { useState, useEffect, useRef } from "react";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 const NavRight = () => {
   const location = useLocation();
@@ -32,9 +32,6 @@ const NavRight = () => {
   }, []);
 
   if (loading || isAuthenticated === null || profileLoading) return null;
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   return (
     <nav className="nav-header-right">
@@ -75,8 +72,8 @@ const NavRight = () => {
                     user.picture?.startsWith("http")
                       ? user.picture
                       : user.picture
-                      ? `${BACKEND_URL}${user.picture}`
-                      : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                      ? `${BACKEND_URLS.user}${user.picture}`
+                      : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
                   }')`,
                 }}
                 aria-label={`Photo de profil de ${user.pseudo}`}
@@ -100,8 +97,8 @@ const NavRight = () => {
                       user.picture?.startsWith("http")
                         ? user.picture
                         : user.picture
-                        ? `${BACKEND_URL}${user.picture}`
-                        : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                        ? `${BACKEND_URLS.user}${user.picture}`
+                        : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
                     }')`,
                   }}
                   aria-label={`Photo de profil de ${user.pseudo}`}

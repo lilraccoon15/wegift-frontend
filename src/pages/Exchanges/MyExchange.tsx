@@ -3,13 +3,13 @@ import BackButton from "../../components/ui/BackButton";
 import useManageMyExchange from "../../features/exchanges/MyExchange/useManageMyExchange";
 import { useEffect, useRef, useState } from "react";
 import ConfirmModal from "../../components/ui/ConfirmModal";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyExchange = () => {
   const {
     loading,
     error,
     exchange,
-    BACKEND_URL,
     handleDrawExchange,
     isOwner,
     hasBeenDrawn,
@@ -27,7 +27,16 @@ const MyExchange = () => {
   // - bouton signaler pour utilisateur
   // - bouton supprimer pour admin
 
-  const DEFAULT_PICTURE_URL = "/uploads/exchangePictures/default-exchange.png";
+  const getFinalPictureUrl = (picture?: string | null) => {
+    const baseUrl = BACKEND_URLS.exchange;
+    const defaultUrl = DEFAULT_PICTURES.exchange;
+
+    if (!picture) return `${baseUrl}${defaultUrl}`;
+    if (/^(blob:|https?:|data:)/.test(picture)) return picture;
+
+    return `${baseUrl}${picture.startsWith("/") ? picture : `/${picture}`}`;
+  };
+
   const assignment = exchange?.assigned?.find(
     (a) => a.userId === currentUser?.id
   );
@@ -47,13 +56,7 @@ const MyExchange = () => {
           <div
             className="exchange-picture"
             style={{
-              backgroundImage: `url('${
-                exchange.picture?.startsWith("http")
-                  ? exchange.picture
-                  : exchange.picture
-                  ? `${BACKEND_URL}${exchange.picture}`
-                  : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
-              }')`,
+              backgroundImage: `url('${getFinalPictureUrl(exchange.picture)}')`,
             }}
           ></div>
           <h2>{exchange.title}</h2>

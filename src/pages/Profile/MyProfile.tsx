@@ -8,7 +8,7 @@ import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
 import BackButton from "../../components/ui/BackButton";
 import Spaces from "../../features/profile/Spaces";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyProfile = () => {
   const {
@@ -28,9 +28,6 @@ const MyProfile = () => {
     error: errorWishlists,
     isLoading: loadingWishlists,
   } = useMyWishlists();
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   const { loading, error } = useCombinedState([
     { loading: loadingUser, error: errorUser },
@@ -57,8 +54,8 @@ const MyProfile = () => {
                   user.picture?.startsWith("http")
                     ? user.picture
                     : user.picture
-                    ? `${BACKEND_URL}${user.picture}`
-                    : `${BACKEND_URL}${DEFAULT_PICTURE_URL}`
+                    ? `${BACKEND_URLS.user}${user.picture}`
+                    : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
                 }')`,
               }}
             />

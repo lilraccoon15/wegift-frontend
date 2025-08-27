@@ -5,7 +5,7 @@ import InputField from "../../../components/forms/InputField";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { BACKEND_URLS, DEFAULT_PICTURES } from "../../../config/constants";
 
 interface EditExchangeFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -67,19 +67,17 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
   };
 
   const getFinalPictureUrl = (preview?: string | null): string => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE ?? "";
-    const DEFAULT_PICTURE_URL =
-      "/uploads/exchangePictures/default-exchange.png";
+    if (!preview) {
+      return `${BACKEND_URLS.exchange}${DEFAULT_PICTURES.exchange}`;
+    }
 
-    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
+    if (/^(blob:|https?:|data:)/.test(preview)) {
+      return preview;
+    }
 
-    if (/^(blob:|https?:|data:)/.test(preview)) return preview;
-
-    return (
-      BACKEND_URL.replace(/\/$/, "") +
-      (preview.startsWith("/") ? "" : "/") +
-      preview
-    );
+    return `${BACKEND_URLS.exchange}${
+      preview.startsWith("/") ? "" : "/"
+    }${preview}`;
   };
 
   return (

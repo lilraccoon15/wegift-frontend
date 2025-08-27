@@ -9,6 +9,7 @@ import CardList from "../../components/ui/CardList";
 import type { Wish } from "../../features/wishlists/MyWishes/MyWishesHelpers";
 import EditWishForm from "../../features/wishlists/EditWish/EditWishForm";
 import EditWishlistForm from "../../features/wishlists/EditWishlist/EditWishlistForm";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyWishlist = () => {
   const navigate = useNavigate();
@@ -38,7 +39,6 @@ const MyWishlist = () => {
     setUrl,
     submitErrorScrapping,
     isSubmittingScrapping,
-    BACKEND_URL,
     currentUser,
     confirmWishDelete,
     optionsWishId,
@@ -122,7 +122,7 @@ const MyWishlist = () => {
       )}
       <CardList<Wish>
         items={wishes ?? []}
-        backendUrl={BACKEND_URL}
+        backendUrl={BACKEND_URLS.wishlist}
         onAddClick={() => setCreationMode("choice")}
         getLink={(item) => `/my-wish/${item.id}`}
         showEditMenu={() => wishlist?.userId === currentUser?.id}
@@ -130,13 +130,13 @@ const MyWishlist = () => {
         onDeleteClick={confirmWishDelete}
         optionsItemId={optionsWishId}
         toggleOptions={toggleOptions}
-        getDefaultPicture={() => "/uploads/wishPictures/default-wish.png"}
+        getDefaultPicture={() => DEFAULT_PICTURES.wish}
         getPictureUrl={(item) =>
           item.picture?.startsWith("http")
             ? item.picture
             : item.picture
-            ? `${BACKEND_URL}${item.picture}`
-            : `${BACKEND_URL}/uploads/wishPictures/default-wish.png`
+            ? `${BACKEND_URLS.wishlist}${item.picture}`
+            : `${BACKEND_URLS.wishlist}${DEFAULT_PICTURES.wish}`
         }
       />
 

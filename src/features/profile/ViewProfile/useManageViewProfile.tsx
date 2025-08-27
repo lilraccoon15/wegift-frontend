@@ -14,7 +14,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useWishlists } from "../../wishlists/UserWishlists/UserWishlistsHelpers";
 import { useCombinedState } from "../../../hooks/useCombineState";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 export const useManageViewProfile = () => {
   const queryClient = useQueryClient();
@@ -50,8 +50,8 @@ export const useManageViewProfile = () => {
 
   const friendshipStatus: FriendshipStatus = friendshipData?.status ?? "none";
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
+  const BACKEND_URL = BACKEND_URLS.user;
+  const DEFAULT_PICTURE_URL = DEFAULT_PICTURES.user;
 
   const { loading, error } = useCombinedState([
     { loading: loadingUser, error: errorUser },

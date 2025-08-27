@@ -7,7 +7,7 @@ import DataState from "../../components/ui/DataState";
 import Modal from "../../components/ui/Modal";
 import ConfirmModal from "../../components/ui/ConfirmModal";
 import CardList from "../../components/ui/CardList";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyExchanges = () => {
   const navigate = useNavigate();
@@ -55,13 +55,11 @@ const MyExchanges = () => {
     handleDeleteButton,
   } = useManageMyExchanges(navigate);
 
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
-
   return (
     <DataState loading={isLoading} error={error}>
       <CardList<Exchange>
         items={exchanges ?? []}
-        backendUrl={BACKEND_URL}
+        backendUrl={BACKEND_URLS.exchange}
         onAddClick={() => setShowCreate(true)}
         getLink={(item) => `/my-exchange/${item.id}`}
         showEditMenu={(item) => item.userId === currentUser?.id}
@@ -74,15 +72,13 @@ const MyExchanges = () => {
             item.participantsCount !== 1 ? "s" : ""
           }`
         }
-        getDefaultPicture={() =>
-          "/uploads/exchangePictures/default-exchange.png"
-        }
+        getDefaultPicture={() => DEFAULT_PICTURES.exchange}
         getPictureUrl={(item) =>
           item.picture?.startsWith("http")
             ? item.picture
             : item.picture
-            ? `${BACKEND_URL}${item.picture}`
-            : `${BACKEND_URL}/uploads/exchangePictures/default-exchange.png`
+            ? `${BACKEND_URLS.exchange}${item.picture}`
+            : `${BACKEND_URLS.exchange}${DEFAULT_PICTURES.exchange}`
         }
         extraIcons={(item) => {
           if (!item.endDate) return "";

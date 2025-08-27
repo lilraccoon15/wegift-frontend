@@ -5,7 +5,7 @@ import Button from "../../../components/ui/Button";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 interface CreateWishlistFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -57,19 +57,13 @@ const CreateWishlistForm: React.FC<CreateWishlistFormProps> = ({
   };
 
   const getFinalPictureUrl = (preview?: string | null): string => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST ?? "";
-    const DEFAULT_PICTURE_URL =
-      "/uploads/wishlistPictures/default-wishlist.png";
+    const baseUrl = BACKEND_URLS.wishlist;
+    const defaultUrl = DEFAULT_PICTURES.wishlist;
 
-    if (!preview) return BACKEND_URL.replace(/\/$/, "") + DEFAULT_PICTURE_URL;
-
+    if (!preview) return `${baseUrl}${defaultUrl}`;
     if (/^(blob:|https?:|data:)/.test(preview)) return preview;
 
-    return (
-      BACKEND_URL.replace(/\/$/, "") +
-      (preview.startsWith("/") ? "" : "/") +
-      preview
-    );
+    return `${baseUrl}${preview.startsWith("/") ? preview : `/${preview}`}`;
   };
 
   return (

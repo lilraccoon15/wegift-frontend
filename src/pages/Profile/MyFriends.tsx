@@ -8,7 +8,7 @@ import TabSwitcher from "../../components/ui/TabSwitcher";
 import FriendsTab from "./FriendsTab";
 import PendingTab from "./PendingTab";
 import { useCombinedState } from "../../hooks/useCombineState";
-import { CLIENT_ENV } from "../../config/clientEnv";
+import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyFriends = () => {
   const {
@@ -21,9 +21,6 @@ const MyFriends = () => {
     error: pendingError,
     isLoading: isLoandingPending,
   } = useMyPendingFriends();
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_USER;
-  const DEFAULT_PICTURE_URL = "/uploads/profilePictures/default-profile.jpg";
 
   const { loading, error } = useCombinedState([
     { loading: isLoadingFriends, error: errorFriends },
@@ -45,8 +42,8 @@ const MyFriends = () => {
             content: (
               <FriendsTab
                 friends={friends ?? []}
-                backendUrl={BACKEND_URL}
-                defaultPictureUrl={DEFAULT_PICTURE_URL}
+                backendUrl={BACKEND_URLS.user}
+                defaultPictureUrl={DEFAULT_PICTURES.user}
               />
             ),
           },
@@ -56,8 +53,8 @@ const MyFriends = () => {
             content: (
               <PendingTab
                 pending={pending ?? []}
-                backendUrl={BACKEND_URL}
-                defaultPictureUrl={DEFAULT_PICTURE_URL}
+                backendUrl={BACKEND_URLS.user}
+                defaultPictureUrl={DEFAULT_PICTURES.user}
               />
             ),
           },

@@ -11,6 +11,5 @@ export const BACKEND_URLS = {
   user: CLIENT_ENV.VITE_BACKEND_URL_USER,
   wishlist: CLIENT_ENV.VITE_BACKEND_URL_WISHLIST,
   exchange: CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE,
+  auth: CLIENT_ENV.VITE_BACKEND_URL_AUTH,
 };
-
-// todo : utiliser ça partout

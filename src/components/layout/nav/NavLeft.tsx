@@ -1,20 +1,18 @@
 import { Link } from "react-router-dom";
-import { CLIENT_ENV } from "../../../config/clientEnv";
+import { BACKEND_URLS } from "../../../config/constants";
 
 const NavLeft = () => {
-    const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_AUTH;
+  const PICTURE = "/img/logo.png";
 
-    const PICTURE = "/img/logo.png";
-
-    return (
-        <Link to="/">
-            <img
-                className="logo"
-                src={`${BACKEND_URL}${PICTURE}`}
-                alt="logo wegift"
-            />
-        </Link>
-    );
+  return (
+    <Link to="/">
+      <img
+        className="logo"
+        src={`${BACKEND_URLS.auth}${PICTURE}`}
+        alt="logo wegift"
+      />
+    </Link>
+  );
 };
 
 export default NavLeft;

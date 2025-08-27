@@ -9,7 +9,6 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCombinedState } from "../../../hooks/useCombineState";
 import { useState } from "react";
 import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
-import { CLIENT_ENV } from "../../../config/clientEnv";
 
 export const useManageMyExchange = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,8 +25,6 @@ export const useManageMyExchange = () => {
 
   const { data: profiles = {}, isLoading: loadingProfiles } =
     useParticipantsProfiles(userIds);
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_EXCHANGE;
 
   const { data: currentUser } = useMyProfile();
 
@@ -85,7 +82,6 @@ export const useManageMyExchange = () => {
     exchange,
     loading,
     error,
-    BACKEND_URL,
     handleDrawExchange,
     isOwner,
     hasBeenDrawn,

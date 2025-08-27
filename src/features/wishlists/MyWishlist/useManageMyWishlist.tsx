@@ -22,7 +22,6 @@ import {
   type User,
 } from "../../profile/ViewProfile/ViewProfileHelpers";
 import { useRemoveSubscriber } from "../UserWishlists/UserWishlistsHelpers";
-import { CLIENT_ENV } from "../../../config/clientEnv";
 
 export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const { id } = useParams<{ id: string }>();
@@ -46,8 +45,6 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     { loading: loadingWishlist, error: errorWishlist },
     { loading: loadingWishes, error: errorWishes },
   ]);
-
-  const BACKEND_URL = CLIENT_ENV.VITE_BACKEND_URL_WISHLIST;
 
   // =======================
   // UI States
@@ -476,7 +473,6 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     wishlist: wishlistResponse?.data?.wishlist,
     wishes,
     currentUser,
-    BACKEND_URL,
 
     // === UI States
     creationMode,
