@@ -1,18 +1,15 @@
 import { useMyAccount } from "../../features/account/MyAccountHelpers";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
-import { useAuth } from "../../context/AuthContext";
 
 const ManageGoogleLink = () => {
   const { data: account, isLoading, error } = useMyAccount();
-  const { user } = useAuth();
 
   const handleLinkGoogle = () => {
-    console.log("DEBUG user.id:", user?.id);
-    if (!user?.id) return;
+    if (!account?.id) return;
     window.location.href = `${
       import.meta.env.VITE_API_URL
-    }/api/auth/oauth/google?state=link:${user.id}`;
+    }/api/auth/oauth/google?state=link:${account.id}`;
   };
 
   const handleUnlinkGoogle = async () => {
