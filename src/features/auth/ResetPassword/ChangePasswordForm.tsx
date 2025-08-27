@@ -26,7 +26,7 @@ const ChangePasswordForm: React.FC<ChangePasswordFormProps> = ({ token }) => {
     const uppercase = /[A-Z]/.test(newPassword);
     const lowercase = /[a-z]/.test(newPassword);
     const digit = /\d/.test(newPassword);
-    const specialChar = /[!@#$%^&*(),.?":{}|<>]/.test(newPassword);
+    const specialChar = /[^A-Za-z0-9]/.test(newPassword);
 
     setPasswordValidity({
       length,
