@@ -8,6 +8,7 @@ const ManageGoogleLink = () => {
   const { user } = useAuth();
 
   const handleLinkGoogle = () => {
+    console.log("DEBUG user.id:", user?.id);
     if (!user?.id) return;
     window.location.href = `${
       import.meta.env.VITE_API_URL
