@@ -59,7 +59,7 @@ const Login = () => {
 
             <div className="oauth-section">
               <p>Ou</p>
-              <a href="http://localhost:3001/oauth/google">
+              <a href="http://www.wegift.fr/api/auth/oauth/google">
                 <button className="gsi-material-button">
                   <div className="gsi-material-button-state"></div>
                   <div className="gsi-material-button-content-wrapper">
