@@ -4,18 +4,17 @@ import { useAuth } from "../../context/AuthContext";
 
 const OAuthSuccess = () => {
   const navigate = useNavigate();
-  const { loginWithToken } = useAuth();
+  const { isAuthenticated, loading } = useAuth();
 
   useEffect(() => {
-    // Plus besoin de token en query
-    loginWithToken()
-      .then(() => {
+    if (!loading) {
+      if (isAuthenticated) {
         navigate("/");
-      })
-      .catch(() => {
+      } else {
         navigate("/login?error=oauth");
-      });
-  }, []);
+      }
+    }
+  }, [loading, isAuthenticated, navigate]);
 
   return <p>Connexion via Google en cours...</p>;
 };

@@ -9,7 +9,7 @@ import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 const NavRight = () => {
   const location = useLocation();
   const { isAuthenticated, loading, logout } = useAuth();
-  const { data: user, isLoading: profileLoading } = useMyProfile();
+  const user = useMyProfile();
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);
@@ -31,7 +31,7 @@ const NavRight = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  if (loading || isAuthenticated === null || profileLoading) return null;
+  if (loading || isAuthenticated === null) return null;
 
   return (
     <nav className="nav-header-right">

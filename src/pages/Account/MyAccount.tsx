@@ -10,7 +10,7 @@ import BackButton from "../../components/ui/BackButton";
 import DataState from "../../components/ui/DataState";
 
 const MyAccount = () => {
-  const { data: _account, error, isLoading: loading } = useMyAccount();
+  const { error, isLoading: loading } = useMyAccount();
   const { logout } = useAuth();
   const navigate = useNavigate();
 

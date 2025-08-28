@@ -2,7 +2,6 @@ import { Link, useSearchParams } from "react-router-dom";
 import { useAuth } from "../context/AuthContext";
 import Dashboard from "./Dashboard";
 import useIsDesktop from "../hooks/useDesktop";
-import { useEffect } from "react";
 import Register from "./Auth/Register";
 import Login from "./Auth/Login";
 import ResetPassword from "./Auth/ResetPassword";
@@ -11,7 +10,7 @@ import { BACKEND_URLS } from "../config/constants";
 // import DataState from "../components/ui/DataState";
 
 const Home = () => {
-  const { isAuthenticated, loginWithToken, loading } = useAuth();
+  const { isAuthenticated } = useAuth();
   const isDesktop = useIsDesktop();
   const [searchParams, setSearchParams] = useSearchParams();
 
@@ -22,12 +21,6 @@ const Home = () => {
       : null;
 
   const PICTURE = "/img/home.jpg";
-
-  useEffect(() => {
-    if (isAuthenticated === null && !loading) {
-      loginWithToken();
-    }
-  }, [isAuthenticated, loading, loginWithToken]);
 
   // todo : gérer l'erreur ici lol
   // if (loading || isAuthenticated === null) {
