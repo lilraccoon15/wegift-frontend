@@ -25,16 +25,6 @@ interface AuthContextType {
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
-const PUBLIC_ROUTES = [
-  "/login",
-  "/register",
-  "/reset-password",
-  "/activate",
-  "/oauth/success",
-  "/conditions-utilisation",
-  "/confidentialite",
-];
-
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const navigate = useNavigate();
   const location = useLocation();
@@ -47,54 +37,44 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   useEffect(() => {
     const checkAuth = async () => {
       try {
-        // 1. Appel au refresh pour renouveler l'accessToken
+        // 1. Tentative de refresh
         const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
           method: "POST",
           credentials: "include",
         });
 
         if (!refreshRes.ok) {
+          // Pas de session valide
           setIsAuthenticated(false);
-          if (!PUBLIC_ROUTES.includes(location.pathname)) {
-            navigate("/", { replace: true });
-          }
+          setUser(null);
           return;
         }
 
-        // 2. Récupération du profil utilisateur
-        const res = await fetch(`${API_URL}/api/users/my-profile`, {
+        // 2. Récupération du profil uniquement si refresh OK
+        const profileRes = await fetch(`${API_URL}/api/users/my-profile`, {
           method: "GET",
           credentials: "include",
         });
 
-        if (res.ok) {
-          const data = await res.json();
+        if (profileRes.ok) {
+          const data = await profileRes.json();
           setUser(data.user);
           setIsAuthenticated(true);
         } else {
+          setUser(null);
           setIsAuthenticated(false);
-          if (!PUBLIC_ROUTES.includes(location.pathname)) {
-            navigate("/", { replace: true });
-          }
         }
       } catch (error) {
+        // Erreur réseau ou autre
+        setUser(null);
         setIsAuthenticated(false);
-        if (!PUBLIC_ROUTES.includes(location.pathname)) {
-          navigate("/", { replace: true });
-        }
       } finally {
         setLoading(false);
       }
     };
 
-    // Ne lance pas de vérification sur les pages publiques
-    if (PUBLIC_ROUTES.includes(location.pathname)) {
-      setLoading(false);
-      return;
-    }
-
     checkAuth();
-  }, [navigate, location.pathname]);
+  }, [location.pathname]);
 
   const login = async (
     email: string,
@@ -141,6 +121,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       // on ignore l'erreur
     } finally {
       setIsAuthenticated(false);
+      setUser(null);
       setTempToken(null);
     }
   };
