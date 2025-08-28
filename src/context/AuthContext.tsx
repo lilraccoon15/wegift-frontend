@@ -26,7 +26,6 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 const PUBLIC_ROUTES = [
-  "/",
   "/login",
   "/register",
   "/reset-password",
