@@ -123,6 +123,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
 
+  // 🔒 Blocage du rendu tant que le chargement n’est pas terminé
+  if (loading) return null;
+
   return (
     <AuthContext.Provider
       value={{
