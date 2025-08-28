@@ -54,6 +54,17 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
     const checkAuth = async () => {
       try {
+        const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
+          method: "POST",
+          credentials: "include",
+        });
+
+        if (!refreshRes.ok) {
+          setIsAuthenticated(false);
+          navigate("/", { replace: true });
+          return;
+        }
+
         const res = await fetch(`${API_URL}/api/users/my-profile`, {
           method: "GET",
           credentials: "include",
