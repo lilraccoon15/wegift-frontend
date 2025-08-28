@@ -8,9 +8,9 @@ import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers
 import { Link } from "react-router-dom";
 import ActionButtons from "../../components/ui/ActionButtons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { useMyProfile } from "../profile/MyProfile/MyProfileHelpers";
 import { formatPictureUrl } from "../../utils/formatPictureUrl";
 import { BACKEND_URLS, DEFAULT_PICTURES } from "../../config/constants";
+import { useAuth } from "../../context/AuthContext";
 
 interface Props {
   notif: Notification;
@@ -25,7 +25,7 @@ const NotificationItem = ({ notif }: Props) => {
   };
 
   const requesterId = data.requesterId;
-  const { data: myProfile } = useMyProfile();
+  const { user: myProfile } = useAuth();
 
   const wishlistId = data.wishlistId;
   const exchangeId = data.exchangeId;

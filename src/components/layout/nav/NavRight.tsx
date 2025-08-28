@@ -1,6 +1,5 @@
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
-import { useMyProfile } from "../../../features/profile/MyProfile/MyProfileHelpers";
 import NotificationBell from "../../../features/notifications/NotificationBell";
 import SearchArea from "../../../features/research/SearchArea";
 import { useState, useEffect, useRef } from "react";
@@ -8,8 +7,7 @@ import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 
 const NavRight = () => {
   const location = useLocation();
-  const { isAuthenticated, loading, logout } = useAuth();
-  const user = useMyProfile();
+  const { isAuthenticated, loading, logout, user } = useAuth();
   const navigate = useNavigate();
 
   const [showOptions, setShowOptions] = useState(false);

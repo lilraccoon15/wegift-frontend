@@ -1,13 +1,13 @@
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
-import { useMyProfile } from "../MyProfile/MyProfileHelpers";
 import { useEffect, useState } from "react";
 import { updateProfile } from "./EditProfileHelpers";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useManageProfile = () => {
   const queryClient = useQueryClient();
   const navigate = useNavigate();
-  const { data: user, isLoading, error } = useMyProfile();
+  const { user, loading: authLoading } = useAuth();
 
   const [pseudo, setPseudo] = useState("");
   const [birthDate, setBirthDate] = useState<Date>(new Date("2000-01-01"));
@@ -101,8 +101,8 @@ export const useManageProfile = () => {
 
   return {
     user,
-    isLoading,
-    error,
+    isLoading: authLoading,
+    error: null,
     pseudo,
     birthDate,
     picturePreview,

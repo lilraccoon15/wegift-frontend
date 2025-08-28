@@ -1,21 +1,15 @@
 import { Link } from "react-router-dom";
-import {
-  useMyFriends,
-  useMyProfile,
-} from "../../features/profile/MyProfile/MyProfileHelpers";
+import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
 import { useMyWishlists } from "../../features/wishlists/MyWishlists/MyWishlistsHelpers";
 import DataState from "../../components/ui/DataState";
 import { useCombinedState } from "../../hooks/useCombineState";
 import BackButton from "../../components/ui/BackButton";
 import Spaces from "../../features/profile/Spaces";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
+import { useAuth } from "../../context/AuthContext";
 
 const MyProfile = () => {
-  const {
-    data: user,
-    error: errorUser,
-    isLoading: loadingUser,
-  } = useMyProfile();
+  const { user, loading: authLoading } = useAuth();
 
   const {
     data: friends,
@@ -30,7 +24,7 @@ const MyProfile = () => {
   } = useMyWishlists();
 
   const { loading, error } = useCombinedState([
-    { loading: loadingUser, error: errorUser },
+    { loading: authLoading },
     { loading: loadingFriends, error: errorFriends },
     { loading: loadingWishlists, error: errorWishlists },
   ]);

@@ -2,14 +2,14 @@ import { Link, useLocation } from "react-router-dom";
 import Notifications from "../../pages/Notifications/Notifications";
 import { useMyNotifications } from "./NotificationHelpers";
 import { useManageNotifications } from "./useManageNotifications";
-import { useMyProfile } from "../profile/MyProfile/MyProfileHelpers";
 import { useEffect, useRef } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 const NotificationBell = () => {
   const location = useLocation();
   const { showNotifications, setShowNotifications } = useManageNotifications();
 
-  const { data: user, isLoading: profileLoading } = useMyProfile();
+  const { user, loading: authLoading } = useAuth();
 
   const {
     data: notifications,
@@ -42,7 +42,7 @@ const NotificationBell = () => {
     };
   }, [showNotifications, setShowNotifications]);
 
-  if (profileLoading || loading) return null;
+  if (authLoading || loading) return null;
   if (error) return <p>Erreur : {error.message}</p>;
 
   const unreadCount = notifications?.filter((n) => !n.read).length ?? 0;
