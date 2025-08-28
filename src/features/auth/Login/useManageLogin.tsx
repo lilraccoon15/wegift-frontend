@@ -4,13 +4,8 @@ import { login, verify2FACode } from "./LoginHelpers";
 import type { NavigateFunction } from "react-router-dom";
 
 export const useManageLogin = (navigate: NavigateFunction) => {
-  const {
-    isAuthenticated,
-    setIsAuthenticated,
-    tempToken,
-    setTempToken,
-    loading,
-  } = useAuth();
+  const { isAuthenticated, refreshProfile, tempToken, setTempToken, loading } =
+    useAuth();
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -19,24 +14,23 @@ export const useManageLogin = (navigate: NavigateFunction) => {
   const [error, setError] = useState<string | null>(null);
   const [remember, setRemember] = useState(false);
 
+  // Redirige si déjà connecté
   useEffect(() => {
     if (isAuthenticated) {
       navigate("/dashboard", { replace: true });
     }
   }, [isAuthenticated, navigate]);
 
-  const onRememberChange = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    setRemember((e.target as HTMLInputElement).checked);
+  const onRememberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setRemember(e.target.checked);
   };
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
     setError(null);
 
     if (!requires2FA) {
+      // Étape 1: login classique
       const response = await login(email, password, remember);
 
       if (response.error) {
@@ -50,11 +44,12 @@ export const useManageLogin = (navigate: NavigateFunction) => {
         return;
       }
 
-      if (response.success || response.message === "Connexion réussie") {
-        setIsAuthenticated(true);
+      if (response.success) {
+        await refreshProfile(); // charge le profil après connexion
         navigate("/dashboard", { replace: true });
       }
     } else {
+      // Étape 2: validation 2FA
       if (!tempToken) {
         setError("Erreur interne : token temporaire manquant");
         return;
@@ -71,7 +66,8 @@ export const useManageLogin = (navigate: NavigateFunction) => {
       setTwoFACode("");
       setError(null);
       setTempToken(null);
-      setIsAuthenticated(true);
+
+      await refreshProfile(); // recharge le profil après 2FA
       navigate("/dashboard", { replace: true });
     }
   };
