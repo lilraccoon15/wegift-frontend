@@ -38,9 +38,16 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       });
 
       if (profileRes.ok) {
-        const data = await profileRes.json();
-        setUser(data.user);
-        setIsAuthenticated(true);
+        const resJson = await profileRes.json();
+        const profile = resJson.data?.profile; // <-- récupère bien le profil
+
+        if (profile) {
+          setUser(profile);
+          setIsAuthenticated(true);
+        } else {
+          setUser(null);
+          setIsAuthenticated(false);
+        }
       } else {
         setUser(null);
         setIsAuthenticated(false);
