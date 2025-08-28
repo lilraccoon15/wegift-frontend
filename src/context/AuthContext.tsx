@@ -41,19 +41,28 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const location = useLocation();
 
   const [user, setUser] = useState<User | null>(null);
-
   const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
   const [loading, setLoading] = useState(true);
   const [tempToken, setTempToken] = useState<string | null>(null);
 
   useEffect(() => {
-    if (PUBLIC_ROUTES.includes(location.pathname)) {
-      setLoading(false);
-      return;
-    }
-
     const checkAuth = async () => {
       try {
+        // 1. Appel au refresh pour renouveler l'accessToken
+        const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
+          method: "POST",
+          credentials: "include",
+        });
+
+        if (!refreshRes.ok) {
+          setIsAuthenticated(false);
+          if (!PUBLIC_ROUTES.includes(location.pathname)) {
+            navigate("/", { replace: true });
+          }
+          return;
+        }
+
+        // 2. Récupération du profil utilisateur
         const res = await fetch(`${API_URL}/api/users/my-profile`, {
           method: "GET",
           credentials: "include",
@@ -65,15 +74,25 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
-          navigate("/", { replace: true });
+          if (!PUBLIC_ROUTES.includes(location.pathname)) {
+            navigate("/", { replace: true });
+          }
         }
       } catch (error) {
         setIsAuthenticated(false);
-        navigate("/", { replace: true });
+        if (!PUBLIC_ROUTES.includes(location.pathname)) {
+          navigate("/", { replace: true });
+        }
       } finally {
         setLoading(false);
       }
     };
+
+    // Ne lance pas de vérification sur les pages publiques
+    if (PUBLIC_ROUTES.includes(location.pathname)) {
+      setLoading(false);
+      return;
+    }
 
     checkAuth();
   }, [navigate, location.pathname]);
@@ -92,30 +111,23 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
       if (!res.ok) {
         if (res.status === 401) {
-          return {
-            success: false,
-            error: "Email ou mot de passe invalide",
-          };
+          return { success: false, error: "Email ou mot de passe invalide" };
         }
         return { success: false, error: "Erreur lors de la connexion" };
       }
 
       const resJson = await res.json();
-      const { data, message: _message, success: _success } = resJson;
+      const { data } = resJson;
 
       if (data?.requires2FA) {
         setTempToken(data.tempToken);
-        return {
-          success: false,
-          requires2FA: true,
-          tempToken: data.tempToken,
-        };
+        return { success: false, requires2FA: true, tempToken: data.tempToken };
       }
 
       setIsAuthenticated(true);
       setTempToken(null);
       return { success: true };
-    } catch (err) {
+    } catch {
       return { success: false, error: "Erreur réseau" };
     }
   };
@@ -126,7 +138,8 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         method: "POST",
         credentials: "include",
       });
-    } catch (error) {
+    } catch {
+      // on ignore l'erreur
     } finally {
       setIsAuthenticated(false);
       setTempToken(null);
