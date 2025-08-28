@@ -2,7 +2,7 @@ import { createContext, useState, useContext, useEffect } from "react";
 import type { ReactNode } from "react";
 import API_URL from "../config";
 import type { User } from "../features/profile/MyProfile/MyProfileHelpers";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 interface LoginResponse {
   success: boolean;
@@ -26,7 +26,6 @@ interface AuthContextType {
 const AuthContext = createContext<AuthContextType | undefined>(undefined);
 
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
-  const navigate = useNavigate();
   const location = useLocation();
 
   const [user, setUser] = useState<User | null>(null);
