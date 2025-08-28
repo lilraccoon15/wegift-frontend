@@ -47,21 +47,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [tempToken, setTempToken] = useState<string | null>(null);
 
   useEffect(() => {
+    if (PUBLIC_ROUTES.includes(location.pathname)) {
+      setLoading(false);
+      return;
+    }
+
     const checkAuth = async () => {
       try {
-        const refreshRes = await fetch(`${API_URL}/api/auth/refresh`, {
-          method: "POST",
-          credentials: "include",
-        });
-
-        if (!refreshRes.ok) {
-          setIsAuthenticated(false);
-          if (!PUBLIC_ROUTES.includes(location.pathname)) {
-            navigate("/", { replace: true });
-          }
-          return;
-        }
-
         const res = await fetch(`${API_URL}/api/users/my-profile`, {
           method: "GET",
           credentials: "include",
@@ -73,15 +65,11 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
           setIsAuthenticated(true);
         } else {
           setIsAuthenticated(false);
-          if (!PUBLIC_ROUTES.includes(location.pathname)) {
-            navigate("/", { replace: true });
-          }
+          navigate("/", { replace: true });
         }
       } catch (error) {
         setIsAuthenticated(false);
-        if (!PUBLIC_ROUTES.includes(location.pathname)) {
-          navigate("/", { replace: true });
-        }
+        navigate("/", { replace: true });
       } finally {
         setLoading(false);
       }
