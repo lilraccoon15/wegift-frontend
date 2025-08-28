@@ -5,16 +5,26 @@ import { useAuthRedirectOn401 } from "./utils/useAuthRedirectOn401";
 import { useAuth } from "./context/AuthContext";
 
 const AppWrapper = () => {
-  const { loading: authLoading } = useAuth();
+  const { isAuthenticated, loading: authLoading } = useAuth();
   const { error, isLoading: accountLoading } = useMyAccount();
 
   useAuthRedirectOn401(error);
 
-  const isLoading = authLoading || accountLoading;
+  if (authLoading || accountLoading) {
+    return (
+      <DataState loading={true} error={null}>
+        <></>
+      </DataState>
+    );
+  }
+
+  if (isAuthenticated || error === null) {
+    return <AppRouter />;
+  }
 
   return (
-    <DataState loading={isLoading} error={error}>
-      <AppRouter />
+    <DataState loading={false} error={null}>
+      <></>
     </DataState>
   );
 };
