@@ -43,9 +43,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         });
 
         if (!refreshRes.ok) {
-          // Pas de session valide
           setIsAuthenticated(false);
           setUser(null);
+          setLoading(false);
           return;
         }
 

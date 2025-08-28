@@ -10,7 +10,7 @@ const AppWrapper = () => {
 
   useAuthRedirectOn401(error);
 
-  if (authLoading || accountLoading) {
+  if (authLoading || accountLoading || isAuthenticated === null) {
     return (
       <DataState loading={true} error={null}>
         <></>
@@ -18,15 +18,7 @@ const AppWrapper = () => {
     );
   }
 
-  if (isAuthenticated || error === null) {
-    return <AppRouter />;
-  }
-
-  return (
-    <DataState loading={false} error={null}>
-      <></>
-    </DataState>
-  );
+  return <AppRouter />;
 };
 
 export default AppWrapper;
