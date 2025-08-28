@@ -29,11 +29,19 @@ const NavRight = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  if (loading || isAuthenticated === null || !user) return null;
+  if (loading) return null;
+
+  const profilePicture = user?.picture?.startsWith("http")
+    ? user.picture
+    : user?.picture
+    ? `${BACKEND_URLS.user}${user.picture}`
+    : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`;
+
+  const pseudo = user?.pseudo || "Utilisateur";
 
   return (
     <nav className="nav-header-right">
-      {isAuthenticated && user && (
+      {isAuthenticated && (
         <>
           <SearchArea />
           <Link
@@ -65,16 +73,8 @@ const NavRight = () => {
             >
               <div
                 className="profile-picture"
-                style={{
-                  backgroundImage: `url('${
-                    user.picture?.startsWith("http")
-                      ? user.picture
-                      : user.picture
-                      ? `${BACKEND_URLS.user}${user.picture}`
-                      : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
-                  }')`,
-                }}
-                aria-label={`Photo de profil de ${user.pseudo}`}
+                style={{ backgroundImage: `url('${profilePicture}')` }}
+                aria-label={`Photo de profil de ${pseudo}`}
               />
             </Link>
           ) : (
@@ -90,16 +90,8 @@ const NavRight = () => {
               >
                 <div
                   className="profile-picture"
-                  style={{
-                    backgroundImage: `url('${
-                      user.picture?.startsWith("http")
-                        ? user.picture
-                        : user.picture
-                        ? `${BACKEND_URLS.user}${user.picture}`
-                        : `${BACKEND_URLS.user}${DEFAULT_PICTURES.user}`
-                    }')`,
-                  }}
-                  aria-label={`Photo de profil de ${user.pseudo}`}
+                  style={{ backgroundImage: `url('${profilePicture}')` }}
+                  aria-label={`Photo de profil de ${pseudo}`}
                 />
               </div>
               {showOptions && (
