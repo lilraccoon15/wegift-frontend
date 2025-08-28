@@ -21,8 +21,10 @@ export const useManageLogin = (navigate: NavigateFunction) => {
     }
   }, [isAuthenticated, navigate]);
 
-  const onRememberChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setRemember(e.target.checked);
+  const onRememberChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    setRemember((e.target as HTMLInputElement).checked);
   };
 
   const handleLoginSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
