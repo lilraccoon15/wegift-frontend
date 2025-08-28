@@ -29,7 +29,7 @@ const NavRight = () => {
     return () => document.removeEventListener("click", handleClickOutside);
   }, []);
 
-  if (loading || isAuthenticated === null) return null;
+  if (loading || isAuthenticated === null || !user) return null;
 
   return (
     <nav className="nav-header-right">
