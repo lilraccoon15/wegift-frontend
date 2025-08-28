@@ -9,12 +9,12 @@ import {
   useProfile,
   type FriendshipStatus,
 } from "./ViewProfileHelpers";
-import { useMyProfile } from "../MyProfile/MyProfileHelpers";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useState } from "react";
 import { useWishlists } from "../../wishlists/UserWishlists/UserWishlistsHelpers";
 import { useCombinedState } from "../../../hooks/useCombineState";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useManageViewProfile = () => {
   const queryClient = useQueryClient();
@@ -26,7 +26,7 @@ export const useManageViewProfile = () => {
     error: errorUser,
     isLoading: loadingUser,
   } = useProfile(id!);
-  const { data: currentUser } = useMyProfile();
+  const { user: currentUser } = useAuth();
 
   const {
     data: friends,

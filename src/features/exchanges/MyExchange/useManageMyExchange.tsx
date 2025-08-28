@@ -8,7 +8,7 @@ import {
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCombinedState } from "../../../hooks/useCombineState";
 import { useState } from "react";
-import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useManageMyExchange = () => {
   const { id } = useParams<{ id: string }>();
@@ -26,7 +26,7 @@ export const useManageMyExchange = () => {
   const { data: profiles = {}, isLoading: loadingProfiles } =
     useParticipantsProfiles(userIds);
 
-  const { data: currentUser } = useMyProfile();
+  const { user: currentUser } = useAuth();
 
   const queryClient = useQueryClient();
   const [showAssignment, setShowAssignment] = useState(false);

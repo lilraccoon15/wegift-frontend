@@ -7,15 +7,15 @@ import {
   deleteWishlist,
 } from "../EditWishlist/EditWishlistHelpers";
 import { useMyWishlists, type Wishlist } from "./MyWishlistsHelpers";
-import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 import {
   fetchProfile,
   type User,
 } from "../../profile/ViewProfile/ViewProfileHelpers";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useManageMyWishlists = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
-  const { data: currentUser } = useMyProfile();
+  const { user: currentUser } = useAuth();
   const { data: wishlists, error, isLoading } = useMyWishlists();
 
   // =======================

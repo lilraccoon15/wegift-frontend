@@ -3,7 +3,6 @@ import API_URL from "../../../config";
 export interface LoginResponse {
   error?: string;
   requires2FA?: boolean;
-  token?: string;
   tempToken?: string;
   success?: boolean;
   message?: string;
@@ -15,7 +14,7 @@ export async function login(
   remember: boolean
 ): Promise<LoginResponse> {
   try {
-    const res = await await fetch(`${API_URL}/api/auth/login`, {
+    const res = await fetch(`${API_URL}/api/auth/login`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ email, password, remember }),
@@ -33,11 +32,8 @@ export async function login(
       return { requires2FA: true, tempToken: data.tempToken };
     }
 
-    return {
-      success: data.success,
-      message: data.message,
-    };
-  } catch (error) {
+    return { success: true, message: data.message };
+  } catch {
     return { error: "Erreur réseau, veuillez réessayer." };
   }
 }
@@ -47,7 +43,7 @@ export async function verify2FACode(
   tempToken: string
 ): Promise<{ success: boolean; error?: string }> {
   try {
-    const res = await await fetch(`${API_URL}/api/auth/verify-2fa`, {
+    const res = await fetch(`${API_URL}/api/auth/verify-2fa`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -57,17 +53,11 @@ export async function verify2FACode(
       credentials: "include",
     });
 
-    if (!res.ok) return { success: false, error: "Code 2FA invalide" };
-
-    const meRes = await await fetch(`${API_URL}/api/users/my-profile`, {
-      credentials: "include",
-    });
-
-    if (meRes.ok) {
-      return { success: true };
+    if (!res.ok) {
+      return { success: false, error: "Code 2FA invalide" };
     }
 
-    return { success: false, error: "Erreur lors de la validation 2FA" };
+    return { success: true };
   } catch {
     return {
       success: false,

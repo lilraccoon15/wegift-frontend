@@ -16,12 +16,12 @@ import {
   editWishlist,
 } from "../EditWishlist/EditWishlistHelpers";
 import { useCombinedState } from "../../../hooks/useCombineState";
-import { useMyProfile } from "../../profile/MyProfile/MyProfileHelpers";
 import {
   fetchProfile,
   type User,
 } from "../../profile/ViewProfile/ViewProfileHelpers";
 import { useRemoveSubscriber } from "../UserWishlists/UserWishlistsHelpers";
+import { useAuth } from "../../../context/AuthContext";
 
 export const useManageMyWishlist = (navigate: NavigateFunction) => {
   const { id } = useParams<{ id: string }>();
@@ -40,7 +40,7 @@ export const useManageMyWishlist = (navigate: NavigateFunction) => {
     isLoading: loadingWishes,
     error: errorWishes,
   } = useMyWishesByWishlistId(id ?? "");
-  const { data: currentUser } = useMyProfile();
+  const { user: currentUser } = useAuth();
   const { loading, error } = useCombinedState([
     { loading: loadingWishlist, error: errorWishlist },
     { loading: loadingWishes, error: errorWishes },

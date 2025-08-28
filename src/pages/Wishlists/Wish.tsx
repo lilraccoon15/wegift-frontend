@@ -2,8 +2,8 @@ import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import { useManageWish } from "../../features/wishlists/UserWish/useManageUserWish";
 // import ToggleSwitch from "../../components/forms/ToggleSwitch";
-import { useMyProfile } from "../../features/profile/MyProfile/MyProfileHelpers";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
+import { useAuth } from "../../context/AuthContext";
 
 const Wish = () => {
   const {
@@ -19,7 +19,7 @@ const Wish = () => {
   // - bouton signaler pour utilisateur
   // - bouton supprimer pour admin
 
-  const { data: currentUser } = useMyProfile();
+  const { user: currentUser } = useAuth();
 
   if (!id) return <p>Paramètre ID manquant</p>;
 
