@@ -26,10 +26,14 @@ const NotificationItem = ({ notif }: Props) => {
   };
 
   const requesterId = data.requesterId;
-  const { user: myProfile } = useAuth();
-
   const wishlistId = data.wishlistId;
   const exchangeId = data.exchangeId;
+
+  const { user: myProfile } = useAuth();
+
+  const { data: requester, isLoading: requesterLoading } = useProfile(
+    requesterId || ""
+  );
 
   const { data: friendshipData, isLoading: statusLoading } =
     useFriendshipStatus(
@@ -37,10 +41,6 @@ const NotificationItem = ({ notif }: Props) => {
       requesterId || "",
       !!myProfile && !!requesterId
     );
-
-  const { data: requester, isLoading: requesterLoading } = useProfile(
-    requesterId || ""
-  );
 
   const queryClient = useQueryClient();
 
@@ -80,9 +80,6 @@ const NotificationItem = ({ notif }: Props) => {
   let destination = "#";
   let textContent = notif.type?.text ?? "";
   let pictureUrl: string | undefined = undefined;
-  // console.log(notif);
-  // console.log(data);
-  // console.log(wishlistId);
 
   // todo : enquêter sur pourquoi j'ai pas l'url de la photo de profil existante
 
@@ -100,8 +97,9 @@ const NotificationItem = ({ notif }: Props) => {
   if (notif.type?.type?.startsWith("wishlist-sub")) {
     console.log(notif);
     destination = `/wishlist/${wishlistId}`;
-    const title = notif.data.wishlistTitle ?? "une wishlist";
-    textContent = `${notif.type.text} ${title}`;
+    const name = requester?.pseudo ?? "Quelqu’un";
+    const title = data.wishlistTitle ?? "une wishlist";
+    textContent = `${name} ${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
       data.wishlistPicture ?? DEFAULT_PICTURES.wishlist,
       BACKEND_URLS.wishlist,
