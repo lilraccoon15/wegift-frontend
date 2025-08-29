@@ -122,11 +122,11 @@ const NotificationItem = ({ notif }: Props) => {
     };
 
     const handleAcceptExchange = () => {
-        if (exchangeId) acceptExchangeMutation.mutate();
+        if (requesterId) acceptExchangeMutation.mutate();
     };
 
     const handleDeclineExchange = () => {
-        if (exchangeId) declineExchangeMutation.mutate();
+        if (requesterId) declineExchangeMutation.mutate();
     };
 
     // TODO : revérifier l'affichage (nom des listes etc)
