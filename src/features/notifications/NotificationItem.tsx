@@ -4,7 +4,6 @@ import {
   useProfile,
 } from "../profile/ViewProfile/ViewProfileHelpers";
 import type { Notification } from "./NotificationHelpers";
-import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers";
 import { Link } from "react-router-dom";
 import ActionButtons from "../../components/ui/ActionButtons";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
@@ -40,9 +39,6 @@ const NotificationItem = ({ notif }: Props) => {
   const { data: requester, isLoading: requesterLoading } = useProfile(
     requesterId || ""
   );
-  const { data: wishlist, isLoading: wishlistLoading } = useWishlistById(
-    wishlistId || ""
-  );
 
   const queryClient = useQueryClient();
 
@@ -64,7 +60,7 @@ const NotificationItem = ({ notif }: Props) => {
     },
   });
 
-  if (requesterLoading || wishlistLoading || statusLoading) {
+  if (requesterLoading || statusLoading) {
     return null;
   }
 
@@ -85,9 +81,6 @@ const NotificationItem = ({ notif }: Props) => {
   // console.log(notif);
   // console.log(data);
   // console.log(wishlistId);
-  if (notif.type?.type?.startsWith("wishlist-sub")) {
-    console.log(data);
-  }
 
   // todo : enquêter sur pourquoi j'ai pas l'url de la photo de profil existante
 
@@ -102,14 +95,15 @@ const NotificationItem = ({ notif }: Props) => {
     );
   }
 
-  if (notif.type?.type?.startsWith("wishlist-sub") && wishlistId) {
+  console.log(notif);
+
+  if (notif.type?.type?.startsWith("wishlist-sub")) {
     console.log(notif);
-    console.log(wishlist);
     destination = `/wishlist/${wishlistId}`;
-    const title = wishlist?.title ?? "une wishlist";
+    const title = "une wishlist";
     textContent = `${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
-      wishlist?.picture,
+      "wishlist?.picture",
       BACKEND_URLS.wishlist,
       DEFAULT_PICTURES.wishlist
     );

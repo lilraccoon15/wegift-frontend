@@ -140,6 +140,7 @@ const ActionButtons = ({
     case "rejected":
       return <div className="btn btn-status">{rejected}</div>;
 
+    // todo : ajouter êtes vous sûr de vous désabonner
     case "subscribed":
       return (
         <div className="action-buttons">
