@@ -10,6 +10,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { formatPictureUrl } from "../../utils/formatPictureUrl";
 import { BACKEND_URLS, DEFAULT_PICTURES } from "../../config/constants";
 import { useAuth } from "../../context/AuthContext";
+import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers";
 
 interface Props {
   notif: Notification;
@@ -36,6 +37,10 @@ const NotificationItem = ({ notif }: Props) => {
 
   const { data: requester, isLoading: requesterLoading } = useProfile(
     requesterId || ""
+  );
+
+  const { data: wishlist, isLoading: wishlistLoading } = useWishlistById(
+    wishlistId || ""
   );
 
   const { data: friendshipData, isLoading: statusLoading } =
@@ -65,7 +70,7 @@ const NotificationItem = ({ notif }: Props) => {
     },
   });
 
-  if (requesterLoading || statusLoading) {
+  if (requesterLoading || statusLoading || wishlistLoading) {
     return null;
   }
 
@@ -112,7 +117,7 @@ const NotificationItem = ({ notif }: Props) => {
   if (notif.type?.type?.startsWith("wishlist-new-wish")) {
     console.log(notif);
     destination = `/wish/${wishId}`;
-    const title = data.wishlistTitle ?? "une liste";
+    const title = wishlist?.title ?? "une liste";
     textContent = `${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
       data.wishPicture ?? DEFAULT_PICTURES.wishlist,
