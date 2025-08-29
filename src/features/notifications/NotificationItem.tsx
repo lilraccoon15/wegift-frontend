@@ -181,7 +181,30 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    console.log(exchangeData);
+    if (notif.type?.type?.startsWith("exchange-accept") && exchangeId) {
+        destination = `/exchange/${exchangeId}`;
+        const name = requester?.pseudo ?? "Quelqu’un";
+        const title = exchangeData?.title ?? "un échange";
+
+        textContent = `${name} ${notif.type.text} ${title}`;
+        pictureUrl = formatPictureUrl(
+            requester?.picture ?? DEFAULT_PICTURES.user,
+            BACKEND_URLS.user,
+            DEFAULT_PICTURES.user
+        );
+    }
+
+    if (notif.type?.type?.startsWith("exchange-reject") && exchangeId) {
+        destination = `/exchange/${exchangeId}`;
+        const name = requester?.pseudo ?? "Quelqu’un";
+        const title = exchangeData?.title ?? "un échange";
+        textContent = `${name} ${notif.type.text} ${title}`;
+        pictureUrl = formatPictureUrl(
+            requester?.picture ?? DEFAULT_PICTURES.user,
+            BACKEND_URLS.user,
+            DEFAULT_PICTURES.user
+        );
+    }
 
     const myParticipant = exchangeData?.participants?.find(
         (p) => p.userId === myProfile?.id
