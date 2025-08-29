@@ -12,7 +12,10 @@ import { BACKEND_URLS, DEFAULT_PICTURES } from "../../config/constants";
 import { useAuth } from "../../context/AuthContext";
 import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers";
 import { useWishById } from "../wishlists/UserWishes/UserWishesHelpers";
-import { useMyExchangeById } from "../exchanges/MyExchanges/MyExchangesHelpers";
+import {
+    respondToExchangeInvite,
+    useMyExchangeById,
+} from "../exchanges/MyExchanges/MyExchangesHelpers";
 
 interface Props {
     notif: Notification;
@@ -51,6 +54,8 @@ const NotificationItem = ({ notif }: Props) => {
         exchangeId || ""
     );
 
+    const exchangeData = exchange?.data?.exchange;
+
     const { data: friendshipData, isLoading: statusLoading } =
         useFriendshipStatus(
             myProfile?.id || "",
@@ -78,6 +83,26 @@ const NotificationItem = ({ notif }: Props) => {
         },
     });
 
+    const acceptExchangeMutation = useMutation({
+        mutationFn: () => respondToExchangeInvite(requesterId!, "accept"),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["exchange", exchangeId],
+            });
+            queryClient.invalidateQueries({ queryKey: ["myExchanges"] });
+        },
+    });
+
+    const declineExchangeMutation = useMutation({
+        mutationFn: () => respondToExchangeInvite(requesterId!, "reject"),
+        onSuccess: () => {
+            queryClient.invalidateQueries({
+                queryKey: ["exchange", exchangeId],
+            });
+            queryClient.invalidateQueries({ queryKey: ["myExchanges"] });
+        },
+    });
+
     if (
         requesterLoading ||
         statusLoading ||
@@ -96,14 +121,20 @@ const NotificationItem = ({ notif }: Props) => {
         if (requesterId) declineMutation.mutate();
     };
 
+    const handleAcceptExchange = () => {
+        if (exchangeId) acceptExchangeMutation.mutate();
+    };
+
+    const handleDeclineExchange = () => {
+        if (exchangeId) declineExchangeMutation.mutate();
+    };
+
     // TODO : revérifier l'affichage (nom des listes etc)
     // TODO : un souhait a été pris
 
     let destination = "#";
     let textContent = notif.type?.text ?? "";
     let pictureUrl: string | undefined = undefined;
-
-    // todo : enquêter sur pourquoi j'ai pas l'url de la photo de profil existante
 
     if (notif.type?.type?.startsWith("friendship") && requesterId) {
         destination = `/profile/${requesterId}`;
@@ -150,7 +181,17 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    console.log(exchange);
+    console.log(exchangeData);
+
+    const myParticipant = exchangeData?.participants?.find(
+        (p) => p.userId === myProfile?.id
+    );
+
+    const participantStatus = myParticipant
+        ? myParticipant.acceptedAt
+            ? "accepted"
+            : "pending"
+        : null;
 
     return (
         <li className="notification-item">
@@ -191,6 +232,31 @@ const NotificationItem = ({ notif }: Props) => {
                         ) : friendshipData?.status === "rejected" ? (
                             <div className="btn btn-status">
                                 Vous avez refusé la demande
+                            </div>
+                        ) : null}
+                    </>
+                )}
+
+                {notif.type?.type === "exchange-invite" && exchangeData && (
+                    <>
+                        {participantStatus === "pending" ? (
+                            <ActionButtons
+                                status="pending_received"
+                                onAccept={handleAcceptExchange}
+                                onDecline={handleDeclineExchange}
+                                isSubmitting={
+                                    acceptExchangeMutation.isPending ||
+                                    declineExchangeMutation.isPending
+                                }
+                                variant="exchange"
+                            />
+                        ) : participantStatus === "accepted" ? (
+                            <div className="btn btn-status">
+                                Vous avez accepté l'invitation
+                            </div>
+                        ) : participantStatus === "rejected" ? (
+                            <div className="btn btn-status">
+                                Vous avez refusé l'invitation
                             </div>
                         ) : null}
                     </>
