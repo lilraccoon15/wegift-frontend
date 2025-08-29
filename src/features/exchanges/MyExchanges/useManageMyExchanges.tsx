@@ -192,6 +192,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   };
 
   const handleDeleteButton = (exchange: Exchange) => {
+    console.log("Deleting exchange ID:", exchange.id);
     deleteMutation.mutate(exchange.id);
   };
 
