@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueries, useQueryClient } from "@tanstack/react-query";
 import { useMyExchanges, type Exchange } from "./MyExchangesHelpers";
 import {
   createExchange,
@@ -10,7 +10,10 @@ import {
   deleteExchange,
   type Rule,
 } from "../EditExchange/EditExchangeHelpers";
-import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
+import {
+  fetchProfile,
+  type User,
+} from "../../profile/ViewProfile/ViewProfileHelpers";
 import type { NavigateFunction } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
@@ -49,8 +52,6 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     null
   );
 
-  console.log("Editing exchange", exchangeToEdit);
-
   // =======================
   // Effects
   // =======================
@@ -71,6 +72,28 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
       .finally(() => setLoadingRules(false));
   }, []);
 
+  const participantIds = Array.from(
+    new Set((exchangeToEdit?.participants ?? []).map((p) => p.userId))
+  );
+
+  const participantsQueries = useQueries({
+    queries: participantIds.map((id) => ({
+      queryKey: ["userProfile", id],
+      queryFn: () => fetchProfile(id),
+      enabled: !!id,
+    })),
+  });
+
+  const participantsProfiles = participantsQueries
+    .filter((q) => q.data)
+    .map((q) => q.data as User);
+
+  useEffect(() => {
+    if (participantsProfiles.length > 0) {
+      setParticipants(participantsProfiles);
+    }
+  }, [participantsProfiles]);
+
   useEffect(() => {
     if (!exchangeToEdit) return;
 
@@ -82,18 +105,6 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     setPicturePreview(exchangeToEdit.picture || null);
     setStartDate(formatDateForInput(exchangeToEdit.startDate));
     setEndDate(formatDateForInput(exchangeToEdit.endDate));
-    setParticipants(
-      exchangeToEdit.participants?.map((p: any) => {
-        const u = p.user ?? p;
-        return {
-          id: u.id,
-          pseudo: u.pseudo,
-          picture: u.picture,
-          birthDate: u.birthDate,
-          description: u.description,
-        };
-      }) ?? []
-    );
     setSelectedRuleIds(exchangeToEdit.rules?.map((r) => r.id) || []);
     setBudget(exchangeToEdit.budget?.toString() || "");
   }, [exchangeToEdit]);
