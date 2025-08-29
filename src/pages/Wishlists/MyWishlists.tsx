@@ -52,6 +52,8 @@ const MyWishlists = () => {
     isLoading,
   } = useManageMyWishlists(navigate);
 
+  // todo : quand pas propriétaire ajouter le menu pour "se retirer"
+
   return (
     <DataState loading={isLoading} error={error}>
       <CardList<Wishlist>
