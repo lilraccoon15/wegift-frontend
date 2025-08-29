@@ -37,8 +37,12 @@ const NotificationItem = ({ notif }: Props) => {
       !!myProfile && !!requesterId
     );
 
-  const { data: requester } = useProfile(requesterId || "");
-  const { data: wishlist } = useWishlistById(wishlistId || "");
+  const { data: requester, isLoading: requesterLoading } = useProfile(
+    requesterId || ""
+  );
+  const { data: wishlist, isLoading: wishlistLoading } = useWishlistById(
+    wishlistId || ""
+  );
 
   const queryClient = useQueryClient();
 
@@ -59,6 +63,10 @@ const NotificationItem = ({ notif }: Props) => {
       });
     },
   });
+
+  if (requesterLoading || wishlistLoading || statusLoading) {
+    return null;
+  }
 
   const handleAccept = () => {
     if (requesterId) acceptMutation.mutate();

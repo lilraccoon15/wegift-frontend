@@ -1,6 +1,4 @@
 const Use = () => {
-  // TODO : acceptation des cookies
-  // todo : rester connecté
   return (
     <>
       <h1>Politique de Confidentialité (RGPD)</h1>
