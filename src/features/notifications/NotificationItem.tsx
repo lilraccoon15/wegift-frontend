@@ -11,6 +11,8 @@ import { formatPictureUrl } from "../../utils/formatPictureUrl";
 import { BACKEND_URLS, DEFAULT_PICTURES } from "../../config/constants";
 import { useAuth } from "../../context/AuthContext";
 import { useWishlistById } from "../wishlists/UserWishlists/UserWishlistsHelpers";
+import { useWishById } from "../wishlists/UserWishes/UserWishesHelpers";
+import { useMyExchangeById } from "../exchanges/MyExchanges/MyExchangesHelpers";
 
 interface Props {
   notif: Notification;
@@ -43,6 +45,12 @@ const NotificationItem = ({ notif }: Props) => {
     wishlistId || ""
   );
 
+  const { data: wish, isLoading: wishLoading } = useWishById(wishId || "");
+
+  const { data: exchange, isLoading: exchangeLoading } = useMyExchangeById(
+    exchangeId || ""
+  );
+
   const { data: friendshipData, isLoading: statusLoading } =
     useFriendshipStatus(
       myProfile?.id || "",
@@ -70,7 +78,13 @@ const NotificationItem = ({ notif }: Props) => {
     },
   });
 
-  if (requesterLoading || statusLoading || wishlistLoading) {
+  if (
+    requesterLoading ||
+    statusLoading ||
+    wishlistLoading ||
+    wishLoading ||
+    exchangeLoading
+  ) {
     return null;
   }
 
@@ -105,10 +119,10 @@ const NotificationItem = ({ notif }: Props) => {
   if (notif.type?.type?.startsWith("wishlist-sub")) {
     destination = `/wishlist/${wishlistId}`;
     const name = requester?.pseudo ?? "Quelqu’un";
-    const title = data.wishlistTitle ?? "une liste";
+    const title = wishlist?.title ?? "une liste";
     textContent = `${name} ${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
-      data.wishlistPicture ?? DEFAULT_PICTURES.wishlist,
+      wishlist?.picture ?? DEFAULT_PICTURES.wishlist,
       BACKEND_URLS.wishlist,
       DEFAULT_PICTURES.wishlist
     );
@@ -120,7 +134,7 @@ const NotificationItem = ({ notif }: Props) => {
     const title = wishlist?.title ?? "une liste";
     textContent = `${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
-      data.wishPicture ?? DEFAULT_PICTURES.wishlist,
+      wish?.picture ?? DEFAULT_PICTURES.wishlist,
       BACKEND_URLS.wishlist,
       DEFAULT_PICTURES.wish
     );
@@ -141,7 +155,7 @@ const NotificationItem = ({ notif }: Props) => {
     destination = `/exchange/${exchangeId}`;
     textContent = notif.type.text ?? "Notification d’échange";
     pictureUrl = formatPictureUrl(
-      data.exchangePicture,
+      exchange?.picture,
       BACKEND_URLS.exchange,
       DEFAULT_PICTURES.exchange
     );
