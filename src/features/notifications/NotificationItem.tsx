@@ -139,16 +139,18 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    if (notif.type?.type?.startsWith("exchange") && exchangeId) {
+    if (notif.type?.type?.startsWith("exchange-invite") && exchangeId) {
         destination = `/exchange/${exchangeId}`;
         const name = requester?.pseudo ?? "Quelqu’un";
         textContent = `${name} ${notif.type.text}`;
         pictureUrl = formatPictureUrl(
-            exchange?.data.exchange.picture,
-            BACKEND_URLS.exchange,
-            DEFAULT_PICTURES.exchange
+            requester?.picture ?? DEFAULT_PICTURES.user,
+            BACKEND_URLS.user,
+            DEFAULT_PICTURES.user
         );
     }
+
+    console.log(exchange);
 
     return (
         <li className="notification-item">
