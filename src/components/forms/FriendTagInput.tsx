@@ -41,6 +41,8 @@ const FriendTagInput = <T extends UserWithStatus>({
     setParticipants(participants.filter((u) => u.id !== id));
   };
 
+  console.log("Participants reçus :", participants);
+
   return (
     <>
       <label htmlFor="collaborators">{label} :</label>

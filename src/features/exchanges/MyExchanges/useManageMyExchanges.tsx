@@ -22,7 +22,6 @@ export type ParticipantWithStatus = User & { status: "accepted" | "pending" };
 export const useManageMyExchanges = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
   const { data: exchanges, error, isLoading } = useMyExchanges();
-  console.log(exchanges);
   const { user: currentUser } = useAuth();
 
   // =======================
