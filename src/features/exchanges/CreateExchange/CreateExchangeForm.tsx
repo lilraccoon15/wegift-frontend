@@ -6,6 +6,7 @@ import FriendTagInput from "../../../components/forms/FriendTagInput";
 import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
+import type { ParticipantWithStatus } from "../MyExchanges/useManageMyExchanges";
 
 interface CreateExchangeFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -25,8 +26,10 @@ interface CreateExchangeFormProps {
   picturePreview?: string | null;
   error: string | null;
   buttondisabled: boolean;
-  participants: User[];
-  setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
+  participants: ParticipantWithStatus[];
+  setParticipants: React.Dispatch<
+    React.SetStateAction<ParticipantWithStatus[]>
+  >;
   startDate: string;
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
   endDate: string;

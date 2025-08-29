@@ -5,18 +5,14 @@ import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 export type UserWithStatus = User & { status?: "accepted" | "pending" };
 
-interface FriendTagInputProps<
-  T extends User & { status?: "accepted" | "pending" } = User & {
-    status?: "accepted" | "pending";
-  }
-> {
+interface FriendTagInputProps<T extends UserWithStatus = UserWithStatus> {
   participants: T[];
-  setParticipants: (users: T[]) => void;
+  setParticipants: React.Dispatch<React.SetStateAction<T[]>>;
   label?: string;
   showStatus?: boolean;
 }
 
-const FriendTagInput = <T extends User & { status?: "accepted" | "pending" }>({
+const FriendTagInput = <T extends UserWithStatus>({
   participants,
   setParticipants,
   label = "",

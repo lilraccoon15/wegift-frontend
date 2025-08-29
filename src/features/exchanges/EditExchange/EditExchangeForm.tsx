@@ -2,10 +2,10 @@ import { useRef } from "react";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import InputField from "../../../components/forms/InputField";
-import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 import { BACKEND_URLS, DEFAULT_PICTURES } from "../../../config/constants";
+import type { ParticipantWithStatus } from "../MyExchanges/useManageMyExchanges";
 
 interface EditExchangeFormProps {
   onSubmit: (e: React.FormEvent<HTMLFormElement>) => void;
@@ -25,8 +25,10 @@ interface EditExchangeFormProps {
   picturePreview?: string | null;
   error: string | null;
   buttondisabled: boolean;
-  participants: User[];
-  setParticipants: React.Dispatch<React.SetStateAction<User[]>>;
+  participants: ParticipantWithStatus[];
+  setParticipants: React.Dispatch<
+    React.SetStateAction<ParticipantWithStatus[]>
+  >;
   startDate: string;
   setStartDate: React.Dispatch<React.SetStateAction<string>>;
   endDate: string;
