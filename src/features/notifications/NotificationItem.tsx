@@ -122,14 +122,13 @@ const NotificationItem = ({ notif }: Props) => {
     const title = wishlist?.title ?? "une liste";
     textContent = `${name} ${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
-      wishlist?.picture ?? DEFAULT_PICTURES.wishlist,
-      BACKEND_URLS.wishlist,
-      DEFAULT_PICTURES.wishlist
+      requester?.picture ?? DEFAULT_PICTURES.user,
+      BACKEND_URLS.user,
+      DEFAULT_PICTURES.user
     );
   }
 
   if (notif.type?.type?.startsWith("wishlist-new-wish")) {
-    console.log(wish);
     destination = `/wish/${wishId}`;
     const title = wishlist?.title ?? "une liste";
     textContent = `${notif.type.text} ${title}`;
@@ -140,17 +139,6 @@ const NotificationItem = ({ notif }: Props) => {
     );
   }
 
-  // if (notif.type?.type?.startsWith("wish") && wishId) {
-  //   destination = `/wish/${wishId}`;
-  //   const title = wishlist?.title ?? "un souhait";
-  //   textContent = `${notif.type.text} ${title}`;
-  //   pictureUrl = formatPictureUrl(
-  //     wish?.picture,
-  //     BACKEND_URL_WISH,
-  //     DEFAULT_PICTURE_URL_WISH
-  //   );
-  // }
-
   if (notif.type?.type?.startsWith("exchange") && exchangeId) {
     destination = `/exchange/${exchangeId}`;
     textContent = notif.type.text ?? "Notification d’échange";
@@ -160,8 +148,6 @@ const NotificationItem = ({ notif }: Props) => {
       DEFAULT_PICTURES.exchange
     );
   }
-
-  // console.log(pictureUrl);
 
   return (
     <li className="notification-item">

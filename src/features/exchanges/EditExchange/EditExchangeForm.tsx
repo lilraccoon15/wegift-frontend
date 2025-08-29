@@ -98,7 +98,13 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
         onChange={onTitleChange}
         required
       />
-      <label htmlFor="startDate">Date de début :</label>
+      <label htmlFor="startDate">
+        Date de début :{" "}
+        <span className="required-marker" aria-hidden="true">
+          *
+        </span>{" "}
+        : <span className="sr-only">(obligatoire)</span>
+      </label>
       <input
         type="date"
         name="startDate"
@@ -107,7 +113,13 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
         required
       />
 
-      <label htmlFor="endDate">Date de fin :</label>
+      <label htmlFor="endDate">
+        Date de fin :{" "}
+        <span className="required-marker" aria-hidden="true">
+          *
+        </span>{" "}
+        : <span className="sr-only">(obligatoire)</span>
+      </label>
       <input
         type="date"
         name="endDate"
