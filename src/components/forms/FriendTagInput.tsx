@@ -64,7 +64,7 @@ const FriendTagInput = <T extends UserWithStatus>({
                             >
                                 {user.status === "accepted"
                                     ? ""
-                                    : "(en attente)"}
+                                    : " (en attente)"}
                             </span>
                         )}
                         <button
