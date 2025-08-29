@@ -93,20 +93,28 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
         .map((q) => q.data as User);
 
     useEffect(() => {
-        if (participantsProfiles.length > 0) {
-            console.log(participants);
-            setParticipants(
-                (exchangeToEdit?.participants ?? []).map((p: any) => ({
-                    id: p.userId,
-                    pseudo: p.user?.pseudo ?? "",
-                    picture: p.user?.picture ?? "",
-                    birthDate: p.user?.birthDate ?? "",
-                    description: p.user?.description ?? "",
-                    status: p.acceptedAt ? "accepted" : "pending",
-                }))
+        if (participantsProfiles.length > 0 && exchangeToEdit?.participants) {
+            const updatedParticipants = exchangeToEdit.participants.map(
+                (p: any) => {
+                    const profile = participantsProfiles.find(
+                        (u) => u.id === p.userId
+                    );
+                    return {
+                        id: p.userId,
+                        pseudo: profile?.pseudo ?? "",
+                        picture: profile?.picture ?? "",
+                        birthDate: profile?.birthDate ?? "",
+                        description: profile?.description ?? "",
+                        status: p.acceptedAt
+                            ? ("accepted" as const)
+                            : ("pending" as const),
+                    };
+                }
             );
+
+            setParticipants(updatedParticipants);
         }
-    }, [participantsProfiles]);
+    }, [participantsProfiles, exchangeToEdit]);
 
     useEffect(() => {
         if (!exchangeToEdit) return;
