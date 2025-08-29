@@ -72,11 +72,14 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   useEffect(() => {
     if (!exchangeToEdit) return;
 
+    const formatDateForInput = (date: string | null | undefined) =>
+      date ? new Date(date).toISOString().split("T")[0] : "";
+
     setTitle(exchangeToEdit.title || "");
     setDescription(exchangeToEdit.description || "");
     setPicturePreview(exchangeToEdit.picture || null);
-    setStartDate(exchangeToEdit.startDate || "");
-    setEndDate(exchangeToEdit.endDate || "");
+    setStartDate(formatDateForInput(exchangeToEdit.startDate));
+    setEndDate(formatDateForInput(exchangeToEdit.endDate));
     setParticipants(
       exchangeToEdit.participants?.map((p: any) => {
         const u = p.user ?? p;
