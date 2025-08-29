@@ -3,7 +3,6 @@ import InputField from "../../../components/forms/InputField";
 import Message from "../../../components/ui/Message";
 import Button from "../../../components/ui/Button";
 import FriendTagInput from "../../../components/forms/FriendTagInput";
-import type { User } from "../../profile/ViewProfile/ViewProfileHelpers";
 import ToggleSwitch from "../../../components/forms/ToggleSwitch";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../../config/constants";
 import type { ParticipantWithStatus } from "../MyExchanges/useManageMyExchanges";
