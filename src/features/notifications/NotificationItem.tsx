@@ -84,7 +84,7 @@ const NotificationItem = ({ notif }: Props) => {
     });
 
     const acceptExchangeMutation = useMutation({
-        mutationFn: () => respondToExchangeInvite(requesterId!, "accept"),
+        mutationFn: () => respondToExchangeInvite(exchangeId!, "accept"),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["exchange", exchangeId],
@@ -94,7 +94,7 @@ const NotificationItem = ({ notif }: Props) => {
     });
 
     const declineExchangeMutation = useMutation({
-        mutationFn: () => respondToExchangeInvite(requesterId!, "reject"),
+        mutationFn: () => respondToExchangeInvite(exchangeId!, "reject"),
         onSuccess: () => {
             queryClient.invalidateQueries({
                 queryKey: ["exchange", exchangeId],
@@ -122,13 +122,13 @@ const NotificationItem = ({ notif }: Props) => {
     };
 
     const handleAcceptExchange = () => {
-        console.log("Accepting exchange invite from:", requesterId);
-        if (requesterId) acceptExchangeMutation.mutate();
+        console.log("Accepting exchange invite for exchange:", exchangeId);
+        if (exchangeId) acceptExchangeMutation.mutate();
     };
 
     const handleDeclineExchange = () => {
-        console.log("Rejecting exchange invite from:", requesterId);
-        if (requesterId) declineExchangeMutation.mutate();
+        console.log("Rejecting exchange invite for exchange:", exchangeId);
+        if (exchangeId) declineExchangeMutation.mutate();
     };
 
     // TODO : revérifier l'affichage (nom des listes etc)

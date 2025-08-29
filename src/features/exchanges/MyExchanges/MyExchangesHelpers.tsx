@@ -68,14 +68,13 @@ export function useMyExchangeById(id: string) {
 }
 
 export async function respondToExchangeInvite(
-    requesterId: string,
+    exchangeId: string,
     action: "accept" | "reject"
 ) {
     const res = await axios.patch(
-        `${API_URL}/api/exchange/${requesterId}/respond`,
+        `${API_URL}/api/exchange/${exchangeId}/respond`,
         { action },
         { withCredentials: true }
     );
-
     return res.data;
 }
