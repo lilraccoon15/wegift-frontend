@@ -4,15 +4,17 @@ import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers"
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 interface FriendTagInputProps {
-  participants: User[];
+  participants: (User & { status?: "accepted" | "pending" })[];
   setParticipants: (users: User[]) => void;
   label?: string;
+  showStatus?: boolean;
 }
 
 const FriendTagInput: React.FC<FriendTagInputProps> = ({
   participants,
   setParticipants,
   label = "",
+  showStatus,
 }) => {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
@@ -44,6 +46,14 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
         {participants.map((user) => (
           <span className="tag" key={user.id}>
             {user.pseudo}
+            {showStatus && user.status && (
+              <span
+                className={`status ${user.status}`}
+                title={user.status === "accepted" ? "Accepté" : "En attente"}
+              >
+                {user.status === "accepted" ? "✔ Accepté" : "⏳ En attente"}
+              </span>
+            )}
             <button
               type="button"
               className="remove-btn"

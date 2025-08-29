@@ -17,6 +17,8 @@ import {
 import type { NavigateFunction } from "react-router-dom";
 import { useAuth } from "../../../context/AuthContext";
 
+export type ParticipantWithStatus = User & { status: "accepted" | "pending" };
+
 export const useManageMyExchanges = (navigate: NavigateFunction) => {
   const queryClient = useQueryClient();
   const { data: exchanges, error, isLoading } = useMyExchanges();
@@ -39,7 +41,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
 
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [participants, setParticipants] = useState<User[]>([]);
+  const [participants, setParticipants] = useState<ParticipantWithStatus[]>([]);
   const [availableRules, setAvailableRules] = useState<Rule[]>([]);
   const [selectedRuleIds, setSelectedRuleIds] = useState<string[]>([]);
   const [budget, setBudget] = useState("");
@@ -91,7 +93,16 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
 
   useEffect(() => {
     if (participantsProfiles.length > 0) {
-      setParticipants(participantsProfiles);
+      setParticipants(
+        (exchangeToEdit?.participants ?? []).map((p: any) => ({
+          id: p.userId,
+          pseudo: p.user?.pseudo ?? "",
+          picture: p.user?.picture ?? "",
+          birthDate: p.user?.birthDate ?? "",
+          description: p.user?.description ?? "",
+          status: p.acceptedAt ? "accepted" : "pending", // <-- Ajout du statut
+        }))
+      );
     }
   }, [participantsProfiles]);
 
