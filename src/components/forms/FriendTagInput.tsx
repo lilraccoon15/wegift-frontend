@@ -3,19 +3,25 @@ import type { User } from "../../features/profile/ViewProfile/ViewProfileHelpers
 import { useMyFriends } from "../../features/profile/MyProfile/MyProfileHelpers";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
-interface FriendTagInputProps {
-  participants: (User & { status?: "accepted" | "pending" })[];
-  setParticipants: (users: User[]) => void;
+export type UserWithStatus = User & { status?: "accepted" | "pending" };
+
+interface FriendTagInputProps<
+  T extends User & { status?: "accepted" | "pending" } = User & {
+    status?: "accepted" | "pending";
+  }
+> {
+  participants: T[];
+  setParticipants: (users: T[]) => void;
   label?: string;
   showStatus?: boolean;
 }
 
-const FriendTagInput: React.FC<FriendTagInputProps> = ({
+const FriendTagInput = <T extends User & { status?: "accepted" | "pending" }>({
   participants,
   setParticipants,
   label = "",
   showStatus,
-}) => {
+}: FriendTagInputProps<T>) => {
   const [query, setQuery] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
@@ -31,7 +37,7 @@ const FriendTagInput: React.FC<FriendTagInputProps> = ({
 
   const addUser = (user: User) => {
     if (participants.length >= 15) return;
-    setParticipants([...participants, user]);
+    setParticipants([...participants, user as T]);
     setQuery("");
   };
 
