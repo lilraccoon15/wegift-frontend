@@ -122,10 +122,12 @@ const NotificationItem = ({ notif }: Props) => {
     };
 
     const handleAcceptExchange = () => {
+        console.log("Accepting exchange invite from:", requesterId);
         if (requesterId) acceptExchangeMutation.mutate();
     };
 
     const handleDeclineExchange = () => {
+        console.log("Rejecting exchange invite from:", requesterId);
         if (requesterId) declineExchangeMutation.mutate();
     };
 
