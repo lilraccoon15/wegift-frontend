@@ -192,9 +192,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
   };
 
   const handleDeleteButton = (exchange: Exchange) => {
-    if (window.confirm("Souhaitez-vous vraiment supprimer cet échange ?")) {
-      deleteMutation.mutate(exchange.id);
-    }
+    deleteMutation.mutate(exchange.id);
   };
 
   // =======================

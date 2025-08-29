@@ -196,9 +196,7 @@ export const useManageMyWishlists = (navigate: NavigateFunction) => {
   };
 
   const handleDeleteButton = (wishlist: Wishlist) => {
-    if (window.confirm("Souhaitez-vous vraiment supprimer cette wishlist ?")) {
-      deleteMutation.mutate(wishlist.id);
-    }
+    deleteMutation.mutate(wishlist.id);
   };
 
   // =======================
