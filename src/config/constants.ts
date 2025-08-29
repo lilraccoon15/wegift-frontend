@@ -5,7 +5,7 @@ export const DEFAULT_PICTURES = {
   wishlist: "/uploads/wishlistPictures/default-wishlist.png",
   exchange: "/uploads/exchangePictures/default-exchange.png",
   wish: "/uploads/wishPictures/default-wish.png",
-};
+} as const;
 
 export const BACKEND_URLS = {
   user: CLIENT_ENV.VITE_BACKEND_URL_USER,

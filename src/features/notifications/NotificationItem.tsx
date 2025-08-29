@@ -19,6 +19,8 @@ const NotificationItem = ({ notif }: Props) => {
   const data = notif.data as {
     requesterId?: string;
     wishlistId?: string;
+    wishlistTitle?: string;
+    wishlistPicture?: string;
     exchangeId?: string;
     exchangePicture?: string;
   };
@@ -89,21 +91,19 @@ const NotificationItem = ({ notif }: Props) => {
     const name = requester?.pseudo ?? "Quelqu’un";
     textContent = `${name} ${notif.type.text}`;
     pictureUrl = formatPictureUrl(
-      requester?.picture,
+      requester?.picture ?? DEFAULT_PICTURES.user,
       BACKEND_URLS.user,
       DEFAULT_PICTURES.user
     );
   }
 
-  console.log(notif);
-
   if (notif.type?.type?.startsWith("wishlist-sub")) {
     console.log(notif);
     destination = `/wishlist/${wishlistId}`;
-    const title = "une wishlist";
+    const title = notif.data.wishlistTitle ?? "une wishlist";
     textContent = `${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
-      "wishlist?.picture",
+      data.wishlistPicture ?? DEFAULT_PICTURES.wishlist,
       BACKEND_URLS.wishlist,
       DEFAULT_PICTURES.wishlist
     );
