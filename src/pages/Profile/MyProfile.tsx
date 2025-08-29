@@ -7,6 +7,7 @@ import BackButton from "../../components/ui/BackButton";
 import Spaces from "../../features/profile/Spaces";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 import { useAuth } from "../../context/AuthContext";
+import { formatBirthDate } from "../../utils/formatDate";
 
 const MyProfile = () => {
   const { user, loading: authLoading } = useAuth();
@@ -78,7 +79,8 @@ const MyProfile = () => {
           <div className="profile-bottom">
             <div className="profile-infos">
               <div className="birthday">
-                <i className="fa-solid fa-cake-candles"></i> {user.birthDate}
+                <i className="fa-solid fa-cake-candles"></i>{" "}
+                {formatBirthDate(user.birthDate)}
               </div>
               <div className="description">{user.description}</div>
             </div>

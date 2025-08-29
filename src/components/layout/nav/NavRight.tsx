@@ -31,9 +31,6 @@ const NavRight = () => {
 
   if (loading) return null;
 
-  console.log(user);
-  // todo g perdu mes infos snif
-
   const profilePicture = user?.picture?.startsWith("http")
     ? user.picture
     : user?.picture
