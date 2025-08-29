@@ -102,7 +102,7 @@ const NotificationItem = ({ notif }: Props) => {
     );
   }
 
-  if (notif.type?.type?.startsWith("wishlist") && wishlistId) {
+  if (notif.type?.type?.startsWith("wishlist-sub") && wishlistId) {
     console.log(notif);
     console.log(wishlist);
     destination = `/wishlist/${wishlistId}`;
