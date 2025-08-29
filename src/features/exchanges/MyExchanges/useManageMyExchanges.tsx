@@ -49,6 +49,8 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     null
   );
 
+  console.log("Editing exchange", exchangeToEdit);
+
   // =======================
   // Effects
   // =======================
