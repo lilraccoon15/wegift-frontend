@@ -23,10 +23,13 @@ const NotificationItem = ({ notif }: Props) => {
     wishlistPicture?: string;
     exchangeId?: string;
     exchangePicture?: string;
+    wishId?: string;
+    wishPicture?: string;
   };
 
   const requesterId = data.requesterId;
   const wishlistId = data.wishlistId;
+  const wishId = data.wishId;
   const exchangeId = data.exchangeId;
 
   const { user: myProfile } = useAuth();
@@ -95,15 +98,26 @@ const NotificationItem = ({ notif }: Props) => {
   }
 
   if (notif.type?.type?.startsWith("wishlist-sub")) {
-    console.log(notif);
     destination = `/wishlist/${wishlistId}`;
     const name = requester?.pseudo ?? "Quelqu’un";
-    const title = data.wishlistTitle ?? "une wishlist";
+    const title = data.wishlistTitle ?? "une liste";
     textContent = `${name} ${notif.type.text} ${title}`;
     pictureUrl = formatPictureUrl(
       data.wishlistPicture ?? DEFAULT_PICTURES.wishlist,
       BACKEND_URLS.wishlist,
       DEFAULT_PICTURES.wishlist
+    );
+  }
+
+  if (notif.type?.type?.startsWith("wishlist-new-wish")) {
+    console.log(notif);
+    destination = `/wish/${wishId}`;
+    const title = data.wishlistTitle ?? "une liste";
+    textContent = `${notif.type.text} ${title}`;
+    pictureUrl = formatPictureUrl(
+      data.wishPicture ?? DEFAULT_PICTURES.wishlist,
+      BACKEND_URLS.wishlist,
+      DEFAULT_PICTURES.wish
     );
   }
 
