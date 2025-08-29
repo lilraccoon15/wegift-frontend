@@ -141,7 +141,20 @@ const ActionButtons = ({
       return <div className="btn btn-status">{rejected}</div>;
 
     case "subscribed":
-      return <div className="btn-action btn-status">{accepted}</div>;
+      return (
+        <div className="action-buttons">
+          <div className="btn-action btn-status">{accepted}</div>
+          {onDecline && (
+            <button
+              className="btn-action btn-secondary"
+              disabled={isSubmitting}
+              onClick={onDecline}
+            >
+              {cancel}
+            </button>
+          )}
+        </div>
+      );
 
     case "not_subscribed":
       return (
