@@ -172,6 +172,7 @@ const EditExchangeForm: React.FC<EditExchangeFormProps> = ({
         participants={participants}
         setParticipants={setParticipants}
         label="Participants"
+        showStatus
       />
       <fieldset>
         <legend>Règles à appliquer</legend>
