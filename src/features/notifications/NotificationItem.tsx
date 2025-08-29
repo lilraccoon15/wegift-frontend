@@ -155,7 +155,7 @@ const NotificationItem = ({ notif }: Props) => {
     destination = `/exchange/${exchangeId}`;
     textContent = notif.type.text ?? "Notification d’échange";
     pictureUrl = formatPictureUrl(
-      exchange?.picture,
+      exchange?.data.exchange.picture,
       BACKEND_URLS.exchange,
       DEFAULT_PICTURES.exchange
     );

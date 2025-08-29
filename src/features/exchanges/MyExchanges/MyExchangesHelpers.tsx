@@ -49,13 +49,13 @@ export function useMyExchanges() {
 }
 
 export function useMyExchangeById(id: string) {
-  return useQuery<Exchange, Error>({
+  return useQuery<{ data: { exchange: Exchange } }, Error>({
     queryKey: ["exchange", id],
     queryFn: async () => {
       const res = await axios.get(`${API_URL}/api/exchange/my-exchange/${id}`, {
         withCredentials: true,
       });
-      return res.data.data.exchange;
+      return res.data;
     },
     enabled: !!id,
   });
