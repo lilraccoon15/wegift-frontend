@@ -146,7 +146,7 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    if (notif.type?.type?.startsWith("wishlist-sub")) {
+    if (notif.type?.type?.startsWith("wishlist-sub") && wishlistId) {
         destination = `/my-wishlist/${wishlistId}`;
         const name = requester?.pseudo ?? "Quelqu’un";
         const title = wishlist?.title ?? "une liste";
@@ -158,7 +158,7 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    if (notif.type?.type?.startsWith("wishlist-new-wish")) {
+    if (notif.type?.type?.startsWith("wishlist-new-wish") && wishId) {
         destination = `/wish/${wishId}`;
         const title = wishlist?.title ?? "une liste";
         textContent = `${notif.type.text} ${title}`;
