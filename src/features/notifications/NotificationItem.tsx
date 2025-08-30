@@ -21,6 +21,8 @@ interface Props {
     notif: Notification;
 }
 
+// todo : changer le point bleu moche
+
 const NotificationItem = ({ notif }: Props) => {
     const data = notif.data as {
         requesterId?: string;
@@ -122,12 +124,10 @@ const NotificationItem = ({ notif }: Props) => {
     };
 
     const handleAcceptExchange = () => {
-        console.log("Accepting exchange invite for exchange:", exchangeId);
         if (exchangeId) acceptExchangeMutation.mutate();
     };
 
     const handleDeclineExchange = () => {
-        console.log("Rejecting exchange invite for exchange:", exchangeId);
         if (exchangeId) declineExchangeMutation.mutate();
     };
 
