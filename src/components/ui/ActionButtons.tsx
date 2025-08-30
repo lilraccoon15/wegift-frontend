@@ -1,3 +1,6 @@
+import { useState } from "react";
+import ConfirmModal from "./ConfirmModal";
+
 interface ActionButtonsProps {
     status: string;
     isSubmitting?: boolean;
@@ -64,6 +67,8 @@ const ActionButtons = ({
     onToggleMenu,
     showMenu,
 }: ActionButtonsProps) => {
+    const [showConfirmModal, setShowConfirmModal] = useState(false);
+
     const mergedLabels = {
         ...defaultLabelsByVariant[variant],
         ...labels,
@@ -154,18 +159,33 @@ const ActionButtons = ({
         // todo : ajouter êtes vous sûr de vous désabonner
         case "subscribed":
             return (
-                <div className="action-buttons">
-                    <div className="btn-action btn-status">{accepted}</div>
-                    {onDecline && (
-                        <button
-                            className="btn-action btn-secondary"
-                            disabled={isSubmitting}
-                            onClick={onDecline}
-                        >
-                            {cancel}
-                        </button>
+                <>
+                    <div className="action-buttons">
+                        <div className="btn-action btn-status">{accepted}</div>
+                        {onDecline && (
+                            <button
+                                className="btn-action btn-secondary"
+                                disabled={isSubmitting}
+                                onClick={() => setShowConfirmModal(true)}
+                            >
+                                {cancel}
+                            </button>
+                        )}
+                    </div>
+                    {showConfirmModal && (
+                        <ConfirmModal
+                            title="Confirmer le désabonnement"
+                            message="Êtes-vous sûr(e) de vouloir vous désabonner ?"
+                            confirmLabel="Oui, me désabonner"
+                            cancelLabel="Annuler"
+                            onClose={() => setShowConfirmModal(false)}
+                            onConfirm={() => {
+                                setShowConfirmModal(false);
+                                onDecline?.();
+                            }}
+                        />
                     )}
-                </div>
+                </>
             );
 
         case "not_subscribed":
