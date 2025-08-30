@@ -21,8 +21,6 @@ interface Props {
     notif: Notification;
 }
 
-// todo : changer le point bleu moche
-
 const NotificationItem = ({ notif }: Props) => {
     const data = notif.data as {
         requesterId?: string;
@@ -227,8 +225,9 @@ const NotificationItem = ({ notif }: Props) => {
         : null;
 
     return (
+        // todo : gérer l'affichage new notif
         // <li className={`notification-item ${!notif.read ? "new-notif" : ""}`}>
-        <li className={`notification-item new-notif`}>
+        <li className={`notification-item`}>
             <div className="notif-picture">
                 <Link to={destination}>
                     <div

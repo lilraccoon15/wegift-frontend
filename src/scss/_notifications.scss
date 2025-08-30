@@ -1,48 +1,52 @@
 @use "./variables" as *;
 
 .notification-item {
-  display: flex;
-  flex-wrap: nowrap;
-  gap: 1rem;
-  align-items: center;
-  font-size: 0.9em;
-  margin-bottom: 1rem;
-  background-color: $background-light;
-  border-radius: 0.5rem;
-  // box-shadow: $box-shadow-default;
-  width: 98%;
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 1rem;
+    align-items: center;
+    font-size: 0.9em;
+    margin-bottom: 1rem;
+    background-color: $background-light;
+    border-radius: 0.5rem;
+    width: 98%;
 
-  a {
-    color: $text;
-  }
-
-  .profile-picture {
-    width: 2.8rem;
-    height: 2.8rem;
-  }
-
-  .notif-details {
-    width: 100%;
-
-    .btn-status {
-      background-color: $gray-300;
-      cursor: default;
-      margin-top: 0.5rem;
-
-      &:hover {
-        background-color: $primary-200;
-      }
+    a {
+        color: $text;
     }
-  }
+
+    .profile-picture {
+        width: 2.8rem;
+        height: 2.8rem;
+    }
+
+    .notif-details {
+        width: 100%;
+
+        .btn-status {
+            background-color: $gray-300;
+            cursor: default;
+            margin-top: 0.5rem;
+
+            &:hover {
+                background-color: $primary-200;
+            }
+        }
+    }
+}
+
+.new-notif {
+    background-color: #d9f0ef;
+    padding: 0.5rem;
 }
 
 @media screen and (min-width: 1024px) {
-  .notification-item {
-    padding: 1rem;
-    .notif-details {
-      .notif-text {
-        margin-bottom: 0.5rem;
-      }
+    .notification-item {
+        padding: 1rem;
+        .notif-details {
+            .notif-text {
+                margin-bottom: 0.5rem;
+            }
+        }
     }
-  }
 }
