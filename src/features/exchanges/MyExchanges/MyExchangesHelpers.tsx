@@ -72,7 +72,7 @@ export async function respondToExchangeInvite(
     action: "accept" | "reject"
 ) {
     const res = await axios.patch(
-        `${API_URL}/api/exchange/${exchangeId}/respond`,
+        `${API_URL}/api/exchange/exchange/${exchangeId}/respond`,
         { action },
         { withCredentials: true }
     );

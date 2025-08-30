@@ -271,6 +271,7 @@ export const useManageMyExchanges = (navigate: NavigateFunction) => {
     const closeEditForm = () => {
         setOpenEdition(false);
         setExchangeToEdit(null);
+        setOptionsExchangeId(null);
         resetForm();
     };
 
