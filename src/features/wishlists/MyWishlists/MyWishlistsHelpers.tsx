@@ -48,7 +48,7 @@ export function useMyWishlistById(id: string) {
 
 export const leaveWishlist = async (wishlistId: string) => {
     const res = await axios.post(
-        `${API_URL}/api/wishlists/${wishlistId}/leave`,
+        `${API_URL}/api/wishlist/${wishlistId}/leave`,
         {},
         { withCredentials: true }
     );
