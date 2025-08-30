@@ -131,9 +131,6 @@ const NotificationItem = ({ notif }: Props) => {
         if (exchangeId) declineExchangeMutation.mutate();
     };
 
-    // TODO : revérifier l'affichage (nom des listes etc)
-    // TODO : un souhait a été pris
-
     let destination = "#";
     let textContent = notif.type?.text ?? "";
     let pictureUrl: string | undefined = undefined;
@@ -150,7 +147,7 @@ const NotificationItem = ({ notif }: Props) => {
     }
 
     if (notif.type?.type?.startsWith("wishlist-sub")) {
-        destination = `/wishlist/${wishlistId}`;
+        destination = `/my-wishlist/${wishlistId}`;
         const name = requester?.pseudo ?? "Quelqu’un";
         const title = wishlist?.title ?? "une liste";
         textContent = `${name} ${notif.type.text} ${title}`;
@@ -209,7 +206,7 @@ const NotificationItem = ({ notif }: Props) => {
     }
 
     if (notif.type?.type === "wishlist" && wishId) {
-        destination = `/wish/${wishId}`;
+        destination = `/my-wish/${wishId}`;
         const title = wish?.title ?? "un souhait";
         textContent = `${notif.type.text} : ${title}`;
         pictureUrl = formatPictureUrl(
