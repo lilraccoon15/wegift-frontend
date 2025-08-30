@@ -208,8 +208,6 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    console.log(wishId);
-
     if (notif.type?.type === "wishlist" && wishId) {
         destination = `/wish/${wishId}`;
         const title = wish?.title ?? "un souhait";
@@ -233,8 +231,8 @@ const NotificationItem = ({ notif }: Props) => {
 
     return (
         <li className="notification-item">
+            {!notif.read && "🔵 "}
             <div className="notif-picture">
-                {!notif.read && "🔵 "}
                 <Link to={destination}>
                     <div
                         className="profile-picture"
