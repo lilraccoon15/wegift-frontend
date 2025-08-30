@@ -73,7 +73,7 @@ const Wish = () => {
                         </p>
                     )}
 
-                    {currentUser?.id === wishlist?.userId && (
+                    {currentUser?.id !== wishlist?.userId && (
                         <>
                             {wish.status === "available" && (
                                 <button
