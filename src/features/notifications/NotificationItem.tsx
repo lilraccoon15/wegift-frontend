@@ -166,9 +166,9 @@ const NotificationItem = ({ notif }: Props) => {
         const title = wishlist?.title ?? "une liste";
         textContent = `${notif.type.text} ${title}`;
         pictureUrl = formatPictureUrl(
-            wish?.picture ?? DEFAULT_PICTURES.wishlist,
+            wishlist?.picture ?? DEFAULT_PICTURES.wishlist,
             BACKEND_URLS.wishlist,
-            DEFAULT_PICTURES.wish
+            DEFAULT_PICTURES.wishlist
         );
     }
 
@@ -205,6 +205,17 @@ const NotificationItem = ({ notif }: Props) => {
             requester?.picture ?? DEFAULT_PICTURES.user,
             BACKEND_URLS.user,
             DEFAULT_PICTURES.user
+        );
+    }
+
+    if (notif.type?.type === "wishlist") {
+        destination = `/wish/${wishId}`;
+        const title = wish?.title ?? "un souhait";
+        textContent = `${notif.type.text} : ${title}`;
+        pictureUrl = formatPictureUrl(
+            wish?.picture ?? DEFAULT_PICTURES.wish,
+            BACKEND_URLS.wishlist,
+            DEFAULT_PICTURES.wish
         );
     }
 
