@@ -89,8 +89,6 @@ const MyWishlist = () => {
         handleLeaveWishlistCollaboration,
     } = useManageMyWishlist(navigate);
 
-    // todo : quand pas propriétaire, enlever la modification et la suppression + ajouter "se retirer"
-
     return (
         <DataState loading={loading} error={error}>
             <div className="title-return">

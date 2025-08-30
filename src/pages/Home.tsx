@@ -10,96 +10,93 @@ import { BACKEND_URLS } from "../config/constants";
 // import DataState from "../components/ui/DataState";
 
 const Home = () => {
-  const { isAuthenticated } = useAuth();
-  const isDesktop = useIsDesktop();
-  const [searchParams, setSearchParams] = useSearchParams();
+    const { isAuthenticated } = useAuth();
+    const isDesktop = useIsDesktop();
+    const [searchParams, setSearchParams] = useSearchParams();
 
-  const modeParam = searchParams.get("mode");
-  const mode =
-    isDesktop && ["login", "register", "forgot"].includes(modeParam || "")
-      ? modeParam
-      : null;
+    const modeParam = searchParams.get("mode");
+    const mode =
+        isDesktop && ["login", "register", "forgot"].includes(modeParam || "")
+            ? modeParam
+            : null;
 
-  const PICTURE = "/img/home.jpg";
+    const PICTURE = "/img/home.jpg";
 
-  // todo : gérer l'erreur ici lol
-  // if (loading || isAuthenticated === null) {
-  //     return <DataState loading />;
-  // }
+    if (isAuthenticated) {
+        return <Dashboard />;
+    }
 
-  if (isAuthenticated) {
-    return <Dashboard />;
-  }
+    return (
+        <div className="frame home-desktop">
+            <div className="home-right">
+                <img
+                    src={`${BACKEND_URLS.auth}${PICTURE}`}
+                    alt="personnes s'offrant des cadeaux"
+                    className="home-picture"
+                />
+            </div>
 
-  return (
-    <div className="frame home-desktop">
-      <div className="home-right">
-        <img
-          src={`${BACKEND_URLS.auth}${PICTURE}`}
-          alt="personnes s'offrant des cadeaux"
-          className="home-picture"
-        />
-      </div>
+            <div className="home-left">
+                {isDesktop ? (
+                    <>
+                        {mode === "register" ? (
+                            <Register />
+                        ) : mode === "login" ? (
+                            <Login />
+                        ) : mode === "forgot" ? (
+                            <ResetPassword />
+                        ) : (
+                            <>
+                                <h1>WeGift</h1>
+                                <h2>Offrir n’a jamais été aussi simple !</h2>
+                                <span>
+                                    Créez des moments inoubliables avec{" "}
+                                    <strong>WeGift</strong>.
+                                </span>
+                                <button
+                                    className="btn"
+                                    onClick={() => handleSetMode("register")}
+                                >
+                                    Créer un compte
+                                </button>
+                                <p>
+                                    Déjà inscrit ?{" "}
+                                    <button
+                                        className="link"
+                                        onClick={() => handleSetMode("login")}
+                                    >
+                                        Se connecter
+                                    </button>
+                                </p>
+                            </>
+                        )}
+                    </>
+                ) : (
+                    <>
+                        <h1>WeGift</h1>
+                        <h2>Offrir n’a jamais été aussi simple !</h2>
+                        <span>
+                            Créez des moments inoubliables avec{" "}
+                            <strong>WeGift</strong>.
+                        </span>
+                        <Link to="/register" className="btn">
+                            Créer un compte
+                        </Link>
+                        <p>
+                            Déjà inscrit ?{" "}
+                            <Link to="/login" className="link">
+                                Se connecter
+                            </Link>
+                        </p>
+                    </>
+                )}
+            </div>
+        </div>
+    );
 
-      <div className="home-left">
-        {isDesktop ? (
-          <>
-            {mode === "register" ? (
-              <Register />
-            ) : mode === "login" ? (
-              <Login />
-            ) : mode === "forgot" ? (
-              <ResetPassword />
-            ) : (
-              <>
-                <h1>WeGift</h1>
-                <h2>Offrir n’a jamais été aussi simple !</h2>
-                <span>
-                  Créez des moments inoubliables avec <strong>WeGift</strong>.
-                </span>
-                <button
-                  className="btn"
-                  onClick={() => handleSetMode("register")}
-                >
-                  Créer un compte
-                </button>
-                <p>
-                  Déjà inscrit ?{" "}
-                  <button
-                    className="link"
-                    onClick={() => handleSetMode("login")}
-                  >
-                    Se connecter
-                  </button>
-                </p>
-              </>
-            )}
-          </>
-        ) : (
-          <>
-            <h1>WeGift</h1>
-            <h2>Offrir n’a jamais été aussi simple !</h2>
-            <span>
-              Créez des moments inoubliables avec <strong>WeGift</strong>.
-            </span>
-            <Link to="/register" className="btn">
-              Créer un compte
-            </Link>
-            <p>
-              Déjà inscrit ?{" "}
-              <Link to="/login" className="link">
-                Se connecter
-              </Link>
-            </p>
-          </>
-        )}
-      </div>
-    </div>
-  );
-
-  function handleSetMode(newMode: "login" | "register" | "forgot") {
-    setSearchParams({ mode: newMode });
-  }
+    function handleSetMode(newMode: "login" | "register" | "forgot") {
+        setSearchParams({ mode: newMode });
+    }
 };
 
 export default Home;
