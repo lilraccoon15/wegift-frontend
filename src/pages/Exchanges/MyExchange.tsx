@@ -6,183 +6,199 @@ import ConfirmModal from "../../components/ui/ConfirmModal";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
 
 const MyExchange = () => {
-  const {
-    loading,
-    error,
-    exchange,
-    handleDrawExchange,
-    isOwner,
-    hasBeenDrawn,
-    showAssignment,
-    setShowAssignment,
-    profiles,
-    currentUser,
-    confirmCancelOpen,
-    setConfirmCancelOpen,
-    hasStarted,
-    handleCancelDraw,
-  } = useManageMyExchange();
+    const {
+        loading,
+        error,
+        exchange,
+        handleDrawExchange,
+        isOwner,
+        hasBeenDrawn,
+        showAssignment,
+        setShowAssignment,
+        profiles,
+        currentUser,
+        confirmCancelOpen,
+        setConfirmCancelOpen,
+        hasStarted,
+        handleCancelDraw,
+    } = useManageMyExchange();
 
-  // TODO :
-  // - bouton signaler pour utilisateur
-  // - bouton supprimer pour admin
+    // TODO :
+    // - bouton signaler pour utilisateur
+    // - bouton supprimer pour admin
 
-  const getFinalPictureUrl = (picture?: string | null) => {
-    const baseUrl = BACKEND_URLS.exchange;
-    const defaultUrl = DEFAULT_PICTURES.exchange;
+    const getFinalPictureUrl = (picture?: string | null) => {
+        const baseUrl = BACKEND_URLS.exchange;
+        const defaultUrl = DEFAULT_PICTURES.exchange;
 
-    if (!picture) return `${baseUrl}${defaultUrl}`;
-    if (/^(blob:|https?:|data:)/.test(picture)) return picture;
+        if (!picture) return `${baseUrl}${defaultUrl}`;
+        if (/^(blob:|https?:|data:)/.test(picture)) return picture;
 
-    return `${baseUrl}${picture.startsWith("/") ? picture : `/${picture}`}`;
-  };
+        return `${baseUrl}${picture.startsWith("/") ? picture : `/${picture}`}`;
+    };
 
-  const assignment = exchange?.assigned?.find(
-    (a) => a.userId === currentUser?.id
-  );
-  const targetName = assignment
-    ? profiles[assignment.assignedUserId] ?? ""
-    : "";
+    const assignment = exchange?.assigned?.find(
+        (a) => a.userId === currentUser?.id
+    );
+    const targetName = assignment
+        ? profiles[assignment.assignedUserId] ?? ""
+        : "";
 
-  return (
-    <DataState loading={loading} error={error}>
-      {exchange && (
-        <>
-          <div className="title-return">
-            <BackButton />
-            {exchange.title && <h1>{exchange.title}</h1>}
-          </div>
-
-          <div
-            className="exchange-picture"
-            style={{
-              backgroundImage: `url('${getFinalPictureUrl(exchange.picture)}')`,
-            }}
-          ></div>
-          <h2>{exchange.title}</h2>
-          <p>{exchange.participantsCount}</p>
-          <ul>
-            {exchange.participants
-              ?.filter((p) => p.userId !== currentUser?.id)
-              .map((p) => (
-                <li
-                  key={p.id}
-                  className={`participant ${
-                    !p.acceptedAt ? "participant--pending" : ""
-                  }`}
-                >
-                  {profiles[p.userId]}
-                </li>
-              ))}
-          </ul>
-          <p>{exchange.description}</p>
-          <p>{exchange.endDate}</p>
-          <p>{exchange.startDate}</p>
-
-          {!hasBeenDrawn ? (
-            isOwner ? (
-              <button onClick={handleDrawExchange}>Lancer le tirage</button>
-            ) : (
-              <p>Tirage à venir</p>
-            )
-          ) : (
-            <>
-              {!showAssignment ? (
+    return (
+        <DataState loading={loading} error={error}>
+            {exchange && (
                 <>
-                  <button onClick={() => setShowAssignment(true)}>
-                    Voir mon assignation
-                  </button>
-                  {isOwner && !hasStarted && (
-                    <>
-                      <button
-                        onClick={() => setConfirmCancelOpen(true)}
+                    <div className="title-return">
+                        <BackButton />
+                        {exchange.title && <h1>{exchange.title}</h1>}
+                    </div>
+
+                    <div
+                        className="exchange-picture"
                         style={{
-                          marginTop: "1rem",
-                          backgroundColor: "crimson",
-                          color: "white",
+                            backgroundImage: `url('${getFinalPictureUrl(
+                                exchange.picture
+                            )}')`,
                         }}
-                      >
-                        ❌ Annuler le tirage
-                      </button>
-                      {confirmCancelOpen && (
-                        <ConfirmModal
-                          title="Annuler le tirage ?"
-                          message="Êtes-vous sûr ? Cela supprimera toutes les assignations."
-                          onConfirm={handleCancelDraw}
-                          cancelLabel="Annuler"
-                          onClose={() => setConfirmCancelOpen(false)}
-                        />
-                      )}
-                    </>
-                  )}
+                    ></div>
+                    <h2>{exchange.title}</h2>
+                    <p>{exchange.participantsCount}</p>
+                    <ul>
+                        {exchange.participants
+                            ?.filter((p) => p.userId !== currentUser?.id)
+                            .map((p) => (
+                                <li
+                                    key={p.id}
+                                    className={`participant ${
+                                        !p.acceptedAt
+                                            ? "participant--pending"
+                                            : ""
+                                    }`}
+                                >
+                                    {profiles[p.userId]}
+                                </li>
+                            ))}
+                    </ul>
+                    <p>{exchange.description}</p>
+                    <p>{exchange.endDate}</p>
+                    <p>{exchange.startDate}</p>
+
+                    {!hasBeenDrawn ? (
+                        isOwner ? (
+                            <button onClick={handleDrawExchange}>
+                                Lancer le tirage
+                            </button>
+                        ) : (
+                            <p>Tirage à venir</p>
+                        )
+                    ) : (
+                        <>
+                            {!showAssignment ? (
+                                <>
+                                    <button
+                                        onClick={() => setShowAssignment(true)}
+                                    >
+                                        Voir mon assignation
+                                    </button>
+                                    {isOwner && !hasStarted && (
+                                        <>
+                                            <button
+                                                onClick={() =>
+                                                    setConfirmCancelOpen(true)
+                                                }
+                                                style={{
+                                                    marginTop: "1rem",
+                                                    backgroundColor: "crimson",
+                                                    color: "white",
+                                                }}
+                                            >
+                                                ❌ Annuler le tirage
+                                            </button>
+                                            {confirmCancelOpen && (
+                                                <ConfirmModal
+                                                    title="Annuler le tirage ?"
+                                                    message="Êtes-vous sûr(e) ? Cela supprimera toutes les assignations."
+                                                    onConfirm={handleCancelDraw}
+                                                    cancelLabel="Annuler"
+                                                    onClose={() =>
+                                                        setConfirmCancelOpen(
+                                                            false
+                                                        )
+                                                    }
+                                                />
+                                            )}
+                                        </>
+                                    )}
+                                </>
+                            ) : (
+                                <Roulette
+                                    participants={exchange.participants ?? []}
+                                    profiles={profiles}
+                                    target={targetName}
+                                    currentUserId={currentUser?.id ?? ""}
+                                />
+                            )}
+                        </>
+                    )}
                 </>
-              ) : (
-                <Roulette
-                  participants={exchange.participants ?? []}
-                  profiles={profiles}
-                  target={targetName}
-                  currentUserId={currentUser?.id ?? ""}
-                />
-              )}
-            </>
-          )}
-        </>
-      )}
-    </DataState>
-  );
+            )}
+        </DataState>
+    );
 };
 
 export default MyExchange;
 
 const Roulette = ({
-  participants,
-  profiles,
-  target,
-  currentUserId,
+    participants,
+    profiles,
+    target,
+    currentUserId,
 }: {
-  participants: { userId: string }[];
-  profiles: Record<string, string>;
-  target: string;
-  currentUserId: string;
+    participants: { userId: string }[];
+    profiles: Record<string, string>;
+    target: string;
+    currentUserId: string;
 }) => {
-  const [currentName, setCurrentName] = useState("");
-  const [finished, setFinished] = useState(false);
-  const intervalRef = useRef<number | null>(null);
+    const [currentName, setCurrentName] = useState("");
+    const [finished, setFinished] = useState(false);
+    const intervalRef = useRef<number | null>(null);
 
-  const names = participants
-    .filter((p) => p.userId !== currentUserId)
-    .map((p) => profiles[p.userId])
-    .filter((n): n is string => !!n);
+    const names = participants
+        .filter((p) => p.userId !== currentUserId)
+        .map((p) => profiles[p.userId])
+        .filter((n): n is string => !!n);
 
-  useEffect(() => {
-    if (finished || names.length === 0) return;
+    useEffect(() => {
+        if (finished || names.length === 0) return;
 
-    let i = 0;
+        let i = 0;
 
-    intervalRef.current = window.setInterval(() => {
-      setCurrentName(names[i % names.length]);
-      i++;
-    }, 100);
+        intervalRef.current = window.setInterval(() => {
+            setCurrentName(names[i % names.length]);
+            i++;
+        }, 100);
 
-    const stop = window.setTimeout(() => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      setCurrentName(target || "?");
-      setFinished(true);
-    }, 2000);
+        const stop = window.setTimeout(() => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+            setCurrentName(target || "?");
+            setFinished(true);
+        }, 2000);
 
-    return () => {
-      if (intervalRef.current) clearInterval(intervalRef.current);
-      clearTimeout(stop);
-    };
-  }, [names.length, target, finished]);
+        return () => {
+            if (intervalRef.current) clearInterval(intervalRef.current);
+            clearTimeout(stop);
+        };
+    }, [names.length, target, finished]);
 
-  return (
-    <div className="assignment-result">
-      {finished ? (
-        <strong>🎁 {currentName}</strong>
-      ) : (
-        <span style={{ fontStyle: "italic" }}>{currentName || "🎁 ..."}</span>
-      )}
-    </div>
-  );
+    return (
+        <div className="assignment-result">
+            {finished ? (
+                <strong>🎁 {currentName}</strong>
+            ) : (
+                <span style={{ fontStyle: "italic" }}>
+                    {currentName || "🎁 ..."}
+                </span>
+            )}
+        </div>
+    );
 };

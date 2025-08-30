@@ -86,6 +86,7 @@ const MyWishlist = () => {
         setSubscriberToDelete,
         confirmSubscriberDelete,
         handleSubscriberDeleteConfirm,
+        handleLeaveWishlistCollaboration,
     } = useManageMyWishlist(navigate);
 
     // todo : quand pas propriétaire, enlever la modification et la suppression + ajouter "se retirer"
@@ -114,7 +115,32 @@ const MyWishlist = () => {
                         </button>
                     </div>
                 )}
+                {currentUser?.id !== wishlist?.userId && (
+                    <button
+                        className="btn"
+                        onClick={() => {
+                            setConfirmType("leave");
+                            setShowConfirm(true);
+                        }}
+                    >
+                        Arrêter de collaborer
+                    </button>
+                )}
             </div>
+
+            {showConfirm && confirmType === "leave" && (
+                <ConfirmModal
+                    title="Confirmer le retrait de la liste"
+                    message="Êtes-vous sûr(e) de vouloir vous retirer de la liste ?"
+                    confirmLabel="Oui, me retirer"
+                    cancelLabel="Annuler"
+                    onClose={() => setShowConfirm(false)}
+                    onConfirm={() => {
+                        setShowConfirm(false);
+                        handleLeaveWishlistCollaboration();
+                    }}
+                />
+            )}
 
             {wishlistSubscribers.length > 0 && (
                 <div>
