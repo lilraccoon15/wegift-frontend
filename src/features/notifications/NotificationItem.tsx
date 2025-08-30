@@ -227,8 +227,8 @@ const NotificationItem = ({ notif }: Props) => {
         : null;
 
     return (
-        <li className="notification-item">
-            {!notif.read && "🔵 "}
+        // <li className={`notification-item ${!notif.read ? "new-notif" : ""}`}>
+        <li className={`notification-item new-notif`}>
             <div className="notif-picture">
                 <Link to={destination}>
                     <div
