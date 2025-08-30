@@ -208,7 +208,9 @@ const NotificationItem = ({ notif }: Props) => {
         );
     }
 
-    if (notif.type?.type === "wishlist") {
+    console.log(wishId);
+
+    if (notif.type?.type === "wishlist" && wishId) {
         destination = `/wish/${wishId}`;
         const title = wish?.title ?? "un souhait";
         textContent = `${notif.type.text} : ${title}`;
