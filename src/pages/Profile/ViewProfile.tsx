@@ -4,8 +4,8 @@ import Wishlists from "../Wishlists/Wishlists";
 import DataState from "../../components/ui/DataState";
 import BackButton from "../../components/ui/BackButton";
 import ActionButtons from "../../components/ui/ActionButtons";
-import Modal from "../../components/ui/Modal";
 import { DEFAULT_PICTURES, BACKEND_URLS } from "../../config/constants";
+import ConfirmModal from "../../components/ui/ConfirmModal";
 
 const ViewProfile = () => {
     const {
@@ -100,30 +100,14 @@ const ViewProfile = () => {
                     </div>
 
                     {showActionsMenu && (
-                        <Modal onClose={() => setShowActionsMenu(false)}>
-                            <div className="modal-body">
-                                <p>
-                                    Souhaitez-vous vraiment supprimer{" "}
-                                    {user.pseudo} de vos amis ?
-                                </p>
-                                <div className="modal-buttons">
-                                    <button
-                                        className="btn btn-secondary"
-                                        onClick={() =>
-                                            setShowActionsMenu(false)
-                                        }
-                                    >
-                                        Annuler
-                                    </button>
-                                    <button
-                                        className="btn btn-danger"
-                                        onClick={handleRemoveFriend}
-                                    >
-                                        Supprimer
-                                    </button>
-                                </div>
-                            </div>
-                        </Modal>
+                        <ConfirmModal
+                            title="Confirmer la suppression"
+                            message={`Souhaitez-vous vraiment supprimer ${user.pseudo} de vos amis ?`}
+                            onClose={() => setShowActionsMenu(false)}
+                            onConfirm={handleRemoveFriend}
+                            confirmLabel="Supprimer"
+                            cancelLabel="Annuler"
+                        />
                     )}
 
                     <Wishlists />
