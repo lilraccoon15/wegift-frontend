@@ -225,8 +225,6 @@ const NotificationItem = ({ notif }: Props) => {
         : null;
 
     return (
-        // todo : gérer l'affichage new notif
-        // <li className={`notification-item ${!notif.read ? "new-notif" : ""}`}>
         <li className={`notification-item`}>
             <div className="notif-picture">
                 <Link to={destination}>
