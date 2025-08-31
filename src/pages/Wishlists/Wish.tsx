@@ -83,7 +83,7 @@ const Wish = () => {
                                         setShowConfirm(true);
                                     }}
                                 >
-                                    Réserver
+                                    J'offre ce souhait
                                 </button>
                             )}
 
@@ -104,8 +104,8 @@ const Wish = () => {
                     {showConfirm && confirmType === "reserve" && (
                         <ConfirmModal
                             title="Confirmer la réservation"
-                            message={`Souhaitez-vous réserver "${wish.title}" ?`}
-                            confirmLabel="Oui, réserver"
+                            message={`Souhaitez-vous offrir "${wish.title}" ?`}
+                            confirmLabel="Oui, offrir"
                             cancelLabel="Annuler"
                             onClose={() => setShowConfirm(false)}
                             onConfirm={() => {
