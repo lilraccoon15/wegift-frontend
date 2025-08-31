@@ -59,7 +59,7 @@ const NotificationBell = () => {
             >
                 <div className="notification-icon-wrapper">
                     <i className="fa-solid fa-bell"></i>
-                    <i className="fa-solid fa-circle"></i>
+                    <span className="notification-badge">1</span>
                     {unreadCount > 0 && (
                         <span className="notification-badge">
                             {unreadCount}
