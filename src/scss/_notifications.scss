@@ -18,6 +18,11 @@
     .profile-picture {
         width: 2.8rem;
         height: 2.8rem;
+        position: relative;
+
+        .fa-cirle {
+            position: absolute;
+        }
     }
 
     .notif-details {
