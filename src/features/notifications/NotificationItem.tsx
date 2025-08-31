@@ -236,7 +236,7 @@ const NotificationItem = ({ notif }: Props) => {
                             backgroundImage: `url('${pictureUrl}')`,
                         }}
                     >
-                        <i className="fa-solid fa-circle"></i>
+                        {!notif.read && <i className="fa-solid fa-circle"></i>}
                     </div>
                 </Link>
             </div>
