@@ -42,6 +42,20 @@
     }
 }
 
+@media screen and (min-width: 650px) {
+    .notification-item {
+        width: 75%;
+        margin-right: auto;
+        margin-left: auto;
+    }
+}
+
+@media screen and (min-width: 700px) {
+    .notification-item {
+        width: 80%;
+    }
+}
+
 @media screen and (min-width: 1024px) {
     .notification-item {
         padding: 1rem;

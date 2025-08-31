@@ -133,6 +133,8 @@ const NotificationItem = ({ notif }: Props) => {
     let textContent = notif.type?.text ?? "";
     let pictureUrl: string | undefined = undefined;
 
+    // todo : différencier les notif par ID, car là si une même personne me dmd deux fois d'être amis, je vois deux fois la même notif alors que c'est censé être deux notifs différentes je pense. Genre j'ai reçu une premiere notif je l'ai acceptée. entre temps je supprime la personne, puis je reçois une nouvelle notif, bah sur la première ça me repropose d'accepter alors que ça devrait juste dire que j'ai accepté cette demande à l'époque quoi.
+
     if (notif.type?.type?.startsWith("friendship") && requesterId) {
         destination = `/profile/${requesterId}`;
         const name = requester?.pseudo ?? "Quelqu’un";
