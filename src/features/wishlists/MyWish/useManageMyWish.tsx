@@ -26,6 +26,8 @@ export const useManageMyWish = () => {
     },
   });
 
+  // todo : check la mutation pour le changement de l'image
+
   const handleDelete = () => {
     if (!wishToDelete) return;
     deleteMutation.mutate(wishToDelete.id);
